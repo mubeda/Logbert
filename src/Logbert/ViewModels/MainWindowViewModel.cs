@@ -1,9 +1,12 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Couchcoding.Logbert.Docking;
 using Couchcoding.Logbert.Logging;
 using Couchcoding.Logbert.Logging.Sample;
+using Dock.Model.Core;
 
 namespace Couchcoding.Logbert.ViewModels;
 
@@ -20,7 +23,24 @@ public partial class MainWindowViewModel : ViewModelBase
     /// <summary>
     /// Gets or sets the currently active document.
     /// </summary>
-    public LogDocumentViewModel? ActiveDocument { get; set; }
+    [ObservableProperty]
+    private LogDocumentViewModel? _activeDocument;
+
+    /// <summary>
+    /// Gets the dock factory for managing docking layout.
+    /// </summary>
+    public DockFactory DockFactory { get; }
+
+    /// <summary>
+    /// Gets the dock layout manager for persistence.
+    /// </summary>
+    public DockLayoutManager LayoutManager { get; }
+
+    /// <summary>
+    /// Gets the root dock layout.
+    /// </summary>
+    [ObservableProperty]
+    private IDock? _layout;
 
     /// <summary>
     /// Gets the command to create a new log document.
@@ -51,6 +71,29 @@ public partial class MainWindowViewModel : ViewModelBase
         OpenFileCommand = new RelayCommand(OnOpenFile);
         CloseDocumentCommand = new RelayCommand(OnCloseDocument, CanCloseDocument);
         ExitCommand = new RelayCommand(OnExit);
+
+        // Initialize docking
+        DockFactory = new DockFactory(this);
+        LayoutManager = new DockLayoutManager();
+
+        // Try to load saved layout, otherwise create default
+        Layout = LayoutManager.LoadLayout(DockFactory);
+        if (Layout == null)
+        {
+            Layout = DockFactory.CreateLayout();
+        }
+        DockFactory.InitLayout(Layout);
+
+        // Listen for document changes
+        Documents.CollectionChanged += (s, e) =>
+        {
+            ((RelayCommand)CloseDocumentCommand).NotifyCanExecuteChanged();
+        };
+    }
+
+    partial void OnActiveDocumentChanged(LogDocumentViewModel? value)
+    {
+        DockFactory.SetActiveDocument(value);
     }
 
     private void OnNewDocument()
@@ -69,6 +112,7 @@ public partial class MainWindowViewModel : ViewModelBase
         }
 
         Documents.Add(newDoc);
+        DockFactory.AddDocument(newDoc);
         ActiveDocument = newDoc;
     }
 
@@ -86,13 +130,23 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         if (ActiveDocument != null)
         {
-            Documents.Remove(ActiveDocument);
+            var docToClose = ActiveDocument;
+            Documents.Remove(docToClose);
+            DockFactory.RemoveDocument(docToClose);
             ActiveDocument = Documents.Count > 0 ? Documents[^1] : null;
         }
     }
 
     private void OnExit()
     {
-        // TODO: Cleanup and exit
+        // Save layout before exit
+        LayoutManager.SaveLayout(Layout);
+
+        // Close the application
+        if (Avalonia.Application.Current?.ApplicationLifetime
+            is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            desktop.Shutdown();
+        }
     }
 }

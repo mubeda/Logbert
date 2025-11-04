@@ -1,5 +1,7 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vmDocking="using:Couchcoding.Logbert.ViewModels.Docking"
+             xmlns:viewsDocking="using:Couchcoding.Logbert.Views.Docking"
              x:Class="Couchcoding.Logbert.App"
              RequestedThemeVariant="Default">
 
@@ -8,6 +10,21 @@
 
         <StyleInclude Source="avares://Dock.Avalonia/Themes/DockFluentTheme.axaml" />
     </Application.Styles>
+
+    <Application.DataTemplates>
+        <!-- Docking Tool Window Templates -->
+        <DataTemplate DataType="vmDocking:FilterPanelViewModel">
+            <viewsDocking:FilterPanelView />
+        </DataTemplate>
+
+        <DataTemplate DataType="vmDocking:LoggerTreeViewModel">
+            <viewsDocking:LoggerTreeView />
+        </DataTemplate>
+
+        <DataTemplate DataType="vmDocking:BookmarksPanelViewModel">
+            <viewsDocking:BookmarksPanelView />
+        </DataTemplate>
+    </Application.DataTemplates>
 
     <Application.Resources>
         <ResourceDictionary>

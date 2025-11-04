@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:Couchcoding.Logbert.ViewModels"
         xmlns:controls="using:Couchcoding.Logbert.Views.Controls"
+        xmlns:dock="using:Dock.Avalonia.Controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
@@ -91,17 +92,12 @@
             <TextBlock Text="{Binding Documents.Count, StringFormat='Documents: {0}'}"/>
         </StatusBar>
 
-        <!-- Main Content Area -->
+        <!-- Main Content Area with Docking -->
         <Grid>
-            <TabControl ItemsSource="{Binding Documents}"
-                       SelectedItem="{Binding ActiveDocument}">
-                <TabControl.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Title}"/>
-                    </DataTemplate>
-                </TabControl.ItemTemplate>
-                <TabControl.ContentTemplate>
-                    <DataTemplate>
+            <dock:DockControl Layout="{Binding Layout}">
+                <dock:DockControl.DataTemplates>
+                    <!-- Log Document Template -->
+                    <DataTemplate DataType="vm:LogDocumentViewModel">
                         <Grid RowDefinitions="*,Auto,200">
                             <!-- Log Viewer -->
                             <controls:LogViewerControl Grid.Row="0"
@@ -121,8 +117,8 @@
                             </Border>
                         </Grid>
                     </DataTemplate>
-                </TabControl.ContentTemplate>
-            </TabControl>
+                </dock:DockControl.DataTemplates>
+            </dock:DockControl>
 
             <!-- Welcome Screen (shown when no documents open) -->
             <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"

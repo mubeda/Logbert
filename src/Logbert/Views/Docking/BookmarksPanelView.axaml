@@ -1,0 +1,74 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Couchcoding.Logbert.ViewModels.Docking"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="300"
+             x:Class="Couchcoding.Logbert.Views.Docking.BookmarksPanelView"
+             x:DataType="vm:BookmarksPanelViewModel">
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Header -->
+        <Border Grid.Row="0"
+                Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="8,4">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Grid.Column="0"
+                           Text="Bookmarks"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+                <Button Grid.Column="1"
+                        Content="Clear"
+                        Command="{Binding ClearBookmarksCommand}"
+                        Padding="8,2"/>
+            </Grid>
+        </Border>
+
+        <!-- Bookmarks List -->
+        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding Bookmarks}"
+                 SelectedItem="{Binding SelectedBookmark}">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="vm:BookmarkItem">
+                    <StackPanel Spacing="4" Margin="4">
+                        <TextBlock Text="{Binding Message.Timestamp, StringFormat='{}{0:HH:mm:ss.fff}'}"
+                                   FontSize="10"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                        <TextBlock Text="{Binding Message.Message}"
+                                   TextWrapping="Wrap"
+                                   MaxHeight="60"/>
+                        <TextBlock Text="{Binding Comment}"
+                                   FontStyle="Italic"
+                                   FontSize="10"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   IsVisible="{Binding Comment, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- Empty State -->
+        <Border Grid.Row="1"
+                IsVisible="{Binding !Bookmarks.Count}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+            <StackPanel Spacing="8" HorizontalAlignment="Center">
+                <PathIcon Data="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
+                          Width="48" Height="48"
+                          Foreground="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
+                <TextBlock Text="No bookmarks"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="2"
+                Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="8,4">
+            <TextBlock Text="{Binding Bookmarks.Count, StringFormat='{}{0} bookmark(s)'}"/>
+        </Border>
+    </Grid>
+</UserControl>
