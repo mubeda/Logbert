@@ -1,7 +1,9 @@
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using Couchcoding.Logbert.Logging;
+using Couchcoding.Logbert.Logging.Sample;
 
 namespace Couchcoding.Logbert.ViewModels;
 
@@ -56,8 +58,16 @@ public partial class MainWindowViewModel : ViewModelBase
         // TODO: Show new log source dialog
         var newDoc = new LogDocumentViewModel
         {
-            Title = $"New Document {Documents.Count + 1}"
+            Title = $"Sample Log {Documents.Count + 1}"
         };
+
+        // Generate sample log messages for testing
+        var sampleMessages = SampleLogGenerator.GenerateMessages(100);
+        foreach (var message in sampleMessages)
+        {
+            newDoc.Messages.Add(message);
+        }
+
         Documents.Add(newDoc);
         ActiveDocument = newDoc;
     }

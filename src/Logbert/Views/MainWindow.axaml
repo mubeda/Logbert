@@ -1,6 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:Couchcoding.Logbert.ViewModels"
+        xmlns:controls="using:Couchcoding.Logbert.Views.Controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
@@ -101,10 +102,23 @@
                 </TabControl.ItemTemplate>
                 <TabControl.ContentTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <TextBlock Text="{Binding Title, StringFormat='Content for {0}'}"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"/>
+                        <Grid RowDefinitions="*,Auto,200">
+                            <!-- Log Viewer -->
+                            <controls:LogViewerControl Grid.Row="0"
+                                                      DataContext="{Binding LogViewerViewModel}"/>
+
+                            <!-- Splitter -->
+                            <GridSplitter Grid.Row="1"
+                                         Height="4"
+                                         HorizontalAlignment="Stretch"
+                                         Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"/>
+
+                            <!-- Details View -->
+                            <Border Grid.Row="2"
+                                   Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                                   Padding="10">
+                                <controls:LogDetailsView DataContext="{Binding SelectedMessage}"/>
+                            </Border>
                         </Grid>
                     </DataTemplate>
                 </TabControl.ContentTemplate>

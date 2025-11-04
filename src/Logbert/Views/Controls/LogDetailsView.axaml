@@ -1,0 +1,79 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:logging="using:Couchcoding.Logbert.Logging"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300"
+             x:Class="Couchcoding.Logbert.Views.Controls.LogDetailsView"
+             x:DataType="logging:LogMessage">
+
+    <Design.DataContext>
+        <!-- Design-time data context -->
+    </Design.DataContext>
+
+    <Border BorderBrush="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+            BorderThickness="1"
+            Padding="10">
+        <ScrollViewer>
+            <StackPanel Spacing="10">
+                <!-- Header -->
+                <TextBlock Text="Log Message Details"
+                          FontSize="16"
+                          FontWeight="Bold"/>
+
+                <Separator/>
+
+                <!-- Index -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Index:" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Index, Mode=OneWay}"
+                            IsReadOnly="True"/>
+                </StackPanel>
+
+                <!-- Timestamp -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Timestamp:" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Timestamp, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss.fff}', Mode=OneWay}"
+                            IsReadOnly="True"/>
+                </StackPanel>
+
+                <!-- Log Level -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Level:" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Level, Mode=OneWay}"
+                            IsReadOnly="True"/>
+                </StackPanel>
+
+                <!-- Logger -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Logger:" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Logger, Mode=OneWay}"
+                            IsReadOnly="True"/>
+                </StackPanel>
+
+                <!-- Message -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Message:" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Message, Mode=OneWay}"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"
+                            IsReadOnly="True"
+                            MinHeight="100"
+                            MaxHeight="300"/>
+                </StackPanel>
+
+                <!-- Raw Data (if available) -->
+                <StackPanel Spacing="4" IsVisible="{Binding RawData, Converter={x:Static ObjectConverters.IsNotNull}}">
+                    <TextBlock Text="Raw Data:" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding RawData, Mode=OneWay}"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"
+                            IsReadOnly="True"
+                            MinHeight="100"
+                            MaxHeight="300"
+                            FontFamily="Consolas,Courier New,monospace"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

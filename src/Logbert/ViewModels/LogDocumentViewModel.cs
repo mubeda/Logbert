@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Couchcoding.Logbert.Logging;
+using Couchcoding.Logbert.ViewModels.Controls;
 
 namespace Couchcoding.Logbert.ViewModels;
 
@@ -67,4 +68,40 @@ public partial class LogDocumentViewModel : ViewModelBase
     /// </summary>
     [ObservableProperty]
     private bool _showFatal = true;
+
+    /// <summary>
+    /// Gets the log viewer view model.
+    /// </summary>
+    public LogViewerViewModel LogViewerViewModel { get; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LogDocumentViewModel"/> class.
+    /// </summary>
+    public LogDocumentViewModel()
+    {
+        LogViewerViewModel = new LogViewerViewModel();
+
+        // Sync messages to viewer
+        Messages.CollectionChanged += (s, e) =>
+        {
+            LogViewerViewModel.UpdateMessages(Messages);
+        };
+
+        // Sync selected message
+        LogViewerViewModel.PropertyChanged += (s, e) =>
+        {
+            if (e.PropertyName == nameof(LogViewerViewModel.SelectedMessage))
+            {
+                SelectedMessage = LogViewerViewModel.SelectedMessage;
+            }
+        };
+
+        PropertyChanged += (s, e) =>
+        {
+            if (e.PropertyName == nameof(SelectedMessage))
+            {
+                LogViewerViewModel.SelectedMessage = SelectedMessage;
+            }
+        };
+    }
 }
