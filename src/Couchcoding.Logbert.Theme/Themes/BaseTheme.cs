@@ -1,23 +1,23 @@
-﻿#region Copyright © 2018 Couchcoding
+#region Copyright © 2018 Couchcoding
 
 // File:    BaseTheme.cs
 // Package: Logbert
 // Project: Logbert
-// 
+//
 // The MIT License (MIT)
-// 
+//
 // Copyright (c) 2018 Couchcoding
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,10 +28,8 @@
 
 #endregion
 
-using Couchcoding.Logbert.Theme.Metrics;
 using Couchcoding.Logbert.Theme.Palettes;
-using Couchcoding.Logbert.Theme.Resources;
-using WeifenLuo.WinFormsUI.Docking;
+using Avalonia.Styling;
 
 namespace Couchcoding.Logbert.Theme.Themes
 {
@@ -43,43 +41,28 @@ namespace Couchcoding.Logbert.Theme.Themes
     #region Public Consts
 
     /// <summary>
-    /// Defines the name of the <see cref="VisualStudioLightTheme"/>.
+    /// Defines the name of the VisualStudio Light Theme.
     /// </summary>
     public const string VisualStudioThemeLightName = "Visual Studio Light";
 
     /// <summary>
-    /// Defines the name of the <see cref="VisualStudioBlueTheme"/>.
+    /// Defines the name of the VisualStudio Blue Theme.
     /// </summary>
     public const string VisualStudioThemeBlueName = "Visual Studio Blue";
 
     /// <summary>
-    /// Defines the name of the <see cref="VisualStudioDarkTheme"/>.
+    /// Defines the name of the VisualStudio Dark Theme.
     /// </summary>
     public const string VisualStudioThemeDarkName = "Visual Studio Dark";
 
     #endregion
 
-    #region Private Fields
-
-    /// <summary>
-    /// Holds the docking theme of the <see cref="BaseTheme"/> instance.
-    /// </summary>
-    protected ThemeBase mApplicationTheme;
+    #region Protected Fields
 
     /// <summary>
     /// Holds the <see cref="ThemeColorPalette"/> of the <see cref="BaseTheme"/> instance.
     /// </summary>
-    protected ThemeColorPalette mColorPalette;
-
-    /// <summary>
-    /// Holds the <see cref="ThemeMetrics"/> of the <see cref="BaseTheme"/> instance.
-    /// </summary>
-    protected ThemeMetrics mMetrics;
-
-    /// <summary>
-    /// Holds the <see cref="ThemeResources"/> of the <see cref="BaseTheme"/> instance.
-    /// </summary>
-    protected ThemeResources mResources;
+    protected ThemeColorPalette? mColorPalette;
 
     #endregion
 
@@ -88,38 +71,23 @@ namespace Couchcoding.Logbert.Theme.Themes
     /// <summary>
     /// Gets the name of the <see cref="BaseTheme"/> instance.
     /// </summary>
-    public abstract string Name
-    {
-      get;
-    }
+    public abstract string Name { get; }
 
     /// <summary>
-    /// Gets the window style to set for this theme.
+    /// Gets the Avalonia theme variant for this theme.
     /// </summary>
-    public abstract string WindowThemeName
-    {
-      get;
-    }
-
-    /// <summary>
-    /// Gets the docking theme of the <see cref="BaseTheme"/> instance.
-    /// </summary>
-    public ThemeBase DockingTheme => mApplicationTheme;
+    public abstract ThemeVariant ThemeVariant { get; }
 
     /// <summary>
     /// Gets the <see cref="ThemeColorPalette"/> of the <see cref="BaseTheme"/> instance.
     /// </summary>
-    public ThemeColorPalette ColorPalette => mColorPalette;
-
-    /// <summary>
-    /// Gets the <see cref="ThemeMetrics"/> of the <see cref="BaseTheme"/> instance.
-    /// </summary>
-    public ThemeMetrics Metrics => mMetrics;
-
-    /// <summary>
-    /// Gets the <see cref="ThemeResources"/> of the <see cref="BaseTheme"/> instance.
-    /// </summary>
-    public ThemeResources Resources => mResources;
+    public ThemeColorPalette? ColorPalette
+    {
+      get
+      {
+        return mColorPalette;
+      }
+    }
 
     #endregion
   }

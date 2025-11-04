@@ -29,8 +29,6 @@
 #endregion
 
 using System.Collections.Generic;
-using System.Windows.Forms;
-
 using Couchcoding.Logbert.Logging;
 using Couchcoding.Logbert.Helper;
 
@@ -76,9 +74,9 @@ namespace Couchcoding.Logbert.Interfaces
     }
 
     /// <summary>
-    /// Gets the settings <see cref="Control"/> of the <see cref="ILogProvider"/>.
+    /// Gets the settings control of the <see cref="ILogProvider"/>.
     /// </summary>
-    ILogSettingsCtrl Settings
+    ILogSettingsCtrl? Settings
     {
       get;
     }
@@ -141,9 +139,9 @@ namespace Couchcoding.Logbert.Interfaces
     }
 
     /// <summary>
-    /// Get the <see cref="Control"/> to display details about a selected <see cref="LogMessage"/>.
+    /// Get the control to display details about a selected <see cref="LogMessage"/>.
     /// </summary>
-    ILogPresenter DetailsControl
+    ILogPresenter? DetailsControl
     {
       get;
     }

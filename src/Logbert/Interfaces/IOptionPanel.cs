@@ -1,23 +1,23 @@
-﻿#region Copyright © 2015 Couchcoding
+#region Copyright © 2015 Couchcoding
 
 // File:    IOptionPanel.cs
 // Package: Logbert
 // Project: Logbert
-// 
+//
 // The MIT License (MIT)
-// 
+//
 // Copyright (c) 2015 Couchcoding
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,17 +28,20 @@
 
 #endregion
 
+using Avalonia.Media;
+using Avalonia;
+
 namespace Couchcoding.Logbert.Interfaces
 {
   /// <summary>
-  /// An Interface for all <see cref="System.Windows.Forms.Control"/>s to s display in the option dialog.
+  /// An Interface for all option panel controls to display in the option dialog.
   /// </summary>
   public interface IOptionPanel
   {
     #region Interface Properties
 
     /// <summary>
-    /// Gets the name of the <see cref="IOptionPanel"/> <see cref="System.Windows.Forms.Control"/>.
+    /// Gets the name of the <see cref="IOptionPanel"/> control.
     /// </summary>
     string PanelName
     {
@@ -46,9 +49,9 @@ namespace Couchcoding.Logbert.Interfaces
     }
 
     /// <summary>
-    /// Gets the <see cref="System.Drawing.Image"/> to display left of the <see cref="IOptionPanel"/> name.
+    /// Gets the image to display left of the <see cref="IOptionPanel"/> name.
     /// </summary>
-    System.Drawing.Image Image
+    IImage? Image
     {
       get;
     }
@@ -74,16 +77,16 @@ namespace Couchcoding.Logbert.Interfaces
     void BeforePanelShow();
 
     /// <summary>
-    /// Method will be called before the <see cref="IOptionPanel"/> is shown.
+    /// Method will be called to adjust the size and location of the panel.
     /// </summary>
-    /// <param name="parentControl">The parent <see cref="System.Windows.Forms.Control"/> of the <see cref="IOptionPanel"/>.</param>
-    void AdjustSizeAndLocation(System.Windows.Forms.Control parentControl);
+    /// <param name="parentBounds">The bounds of the parent container.</param>
+    void AdjustSizeAndLocation(Rect parentBounds);
 
     /// <summary>
-    /// Informs the child <see cref="IOptionPanel"/> control about the <see cref="System.Drawing.Size"/> change of the parent <see cref="System.Windows.Forms.Control"/>.
+    /// Informs the child <see cref="IOptionPanel"/> control about the size change of the parent control.
     /// </summary>
-    /// <param name="parentSize">The new <see cref="System.Drawing.Size"/> of the parent <see cref="System.Windows.Forms.Control"/>.</param>
-    void AdjustSize(System.Drawing.Size parentSize);
+    /// <param name="parentSize">The new size of the parent control.</param>
+    void AdjustSize(Size parentSize);
 
     /// <summary>
     /// Tells the <see cref="IOptionPanel"/> to save the new settings.

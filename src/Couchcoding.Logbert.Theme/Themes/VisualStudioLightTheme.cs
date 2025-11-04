@@ -1,23 +1,23 @@
-﻿#region Copyright © 2018 Couchcoding
+#region Copyright © 2018 Couchcoding
 
 // File:    VisualStudioLightTheme.cs
 // Package: Logbert
 // Project: Logbert
-// 
+//
 // The MIT License (MIT)
-// 
+//
 // Copyright (c) 2018 Couchcoding
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,19 +28,23 @@
 
 #endregion
 
-using Couchcoding.Logbert.Theme.Metrics;
+using Avalonia.Styling;
 using Couchcoding.Logbert.Theme.Palettes;
-using Couchcoding.Logbert.Theme.Resources;
-using WeifenLuo.WinFormsUI.Docking;
 
 namespace Couchcoding.Logbert.Theme.Themes
 {
   /// <summary>
-  /// Implements a <see cref="BaseTheme"/> that looks like Visual Studio Light.
+  /// Implements the Visual Studio Light theme.
   /// </summary>
   public class VisualStudioLightTheme : BaseTheme
   {
-    #region Public Properties
+    /// <summary>
+    /// Initializes a new instance of the <see cref="VisualStudioLightTheme"/> class.
+    /// </summary>
+    public VisualStudioLightTheme()
+    {
+      mColorPalette = new VisualStudioLightPalette();
+    }
 
     /// <summary>
     /// Gets the name of the <see cref="BaseTheme"/> instance.
@@ -48,25 +52,8 @@ namespace Couchcoding.Logbert.Theme.Themes
     public override string Name => VisualStudioThemeLightName;
 
     /// <summary>
-    /// Gets the window style to set for this theme.
+    /// Gets the Avalonia theme variant for this theme.
     /// </summary>
-    public override string WindowThemeName => "Explorer";
-
-    #endregion
-
-    #region Constructor
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="VisualStudioLightTheme"/>.
-    /// </summary>
-    public VisualStudioLightTheme()
-    {
-      mApplicationTheme = new VS2015LightTheme();
-      mColorPalette     = new VisualStudioLightPalette();
-      mMetrics          = new VisualStudioLightMetrics();
-      mResources        = new VisualStudioLightResources();
-    }
-
-    #endregion
+    public override ThemeVariant ThemeVariant => ThemeVariant.Light;
   }
 }

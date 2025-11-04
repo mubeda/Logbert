@@ -29,14 +29,12 @@
 #endregion
 
 using System;
-using System.Windows.Forms;
-
 using Couchcoding.Logbert.Receiver;
 
 namespace Couchcoding.Logbert.Interfaces
 {
   /// <summary>
-  /// Interface for all <see cref="ILogProvider"/> settings <see cref="Control"/>s.
+  /// Interface for all <see cref="ILogProvider"/> settings controls.
   /// </summary>
   public interface ILogSettingsCtrl : IDisposable
   {
