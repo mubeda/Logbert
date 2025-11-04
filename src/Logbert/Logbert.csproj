@@ -1,13 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <RootNamespace>Couchcoding.Logbert</RootNamespace>
     <AssemblyName>Logbert</AssemblyName>
     <ApplicationIcon>Logbert.ico</ApplicationIcon>
-    <StartupObject>Logbert.Program</StartupObject>
     <LangVersion>latest</LangVersion>
     <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
@@ -33,23 +35,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="MoonSharp.Interpreter">
-      <HintPath>Libraries\MoonSharp.Interpreter.dll</HintPath>
-    </Reference>
-    <Reference Include="ScintillaNET">
-      <HintPath>Libraries\ScintillaNET.dll</HintPath>
-    </Reference>
-    <Reference Include="WeifenLuo.WinFormsUI.Docking">
-      <HintPath>Libraries\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
-    </Reference>
-    <Reference Include="WeifenLuo.WinFormsUI.Docking.ThemeVS2015">
-      <HintPath>Libraries\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll</HintPath>
-    </Reference>
+    <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.2.2" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.2" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.2" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.2" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.2" />
+    <PackageReference Include="Dock.Avalonia" Version="11.1.0" />
+    <PackageReference Include="AvaloniaEdit" Version="11.1.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MoonSharp.Interpreter">
+      <HintPath>Libraries\MoonSharp.Interpreter.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -88,15 +93,6 @@
   <ItemGroup>
     <Content Include="Logbert.ico" />
     <Content Include="Libraries\MoonSharp.Interpreter.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Libraries\ScintillaNET.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Libraries\WeifenLuo.WinFormsUI.Docking.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Libraries\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

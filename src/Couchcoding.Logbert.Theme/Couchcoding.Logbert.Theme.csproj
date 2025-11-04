@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
     <RootNamespace>Couchcoding.Logbert.Theme</RootNamespace>
     <AssemblyName>Couchcoding.Logbert.Theme</AssemblyName>
     <LangVersion>latest</LangVersion>
@@ -31,12 +31,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="WeifenLuo.WinFormsUI.Docking">
-      <HintPath>..\Logbert\Libraries\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
-    </Reference>
-    <Reference Include="WeifenLuo.WinFormsUI.Docking.ThemeVS2015">
-      <HintPath>..\Logbert\Libraries\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Avalonia" Version="11.2.2" />
   </ItemGroup>
 
   <ItemGroup>

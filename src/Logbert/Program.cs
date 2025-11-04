@@ -1,23 +1,23 @@
-#region Copyright © 2015 Couchcoding
+#region Copyright Â© 2015 Couchcoding
 
 // File:    Program.cs
 // Package: Logbert
 // Project: Logbert
-// 
+//
 // The MIT License (MIT)
-// 
+//
 // Copyright (c) 2015 Couchcoding
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -31,18 +31,17 @@
 using System;
 using System.IO.Pipes;
 using System.Text;
-using System.Windows.Forms;
-
+using Avalonia;
 using Couchcoding.Logbert.Helper;
 using Couchcoding.Logbert.Properties;
 
-namespace Logbert
+namespace Couchcoding.Logbert;
+
+/// <summary>
+/// Implements the main entry point of the application.
+/// </summary>
+internal static class Program
 {
-  /// <summary>
-  /// Implements the main entry point of the application.
-  /// </summary>
-  internal static class Program
-  {
     #region Private Consts
 
     /// <summary>
@@ -63,76 +62,101 @@ namespace Logbert
     /// The main entry point for the application.
     /// </summary>
     [STAThread]
-    private static void Main(string[] args)
+    public static void Main(string[] args)
     {
-      try
-      {
-        // Upgrade the user settings if necessary.
-        if (Settings.Default.SettingsUpgradeRequired)
-        {
-          Settings.Default.Upgrade();
-          Settings.Default.SettingsUpgradeRequired = false;
-          Settings.Default.SaveSettings();
-        }
-      }
-      catch (Exception ex)
-      {
-        Logger.Error(
-            "Error while upgrading the user settings: {0}"
-          , ex);
-      }
-
-      if (Settings.Default.FrmMainAllowOnlyOneInstance && !MainForm.CreateNamedPipe(NAMED_PIPED_NAME))
-      {
-        Logger.Info("Another instance of Logbert is already running.");
-
-        // Bring the window of the other instance to front.
-        NamedPipeClientStream anotherLogbertInstance = new NamedPipeClientStream(
-            "."
-          , NAMED_PIPED_NAME
-          , PipeDirection.Out);
-
         try
         {
-          if (!anotherLogbertInstance.ConnectAndWrite(Encoding.Default.GetBytes(BRING_TO_FRONT_MSG)))
-          {
-            Logger.Error("Unable to passing arguments to it.");
-            return;
-          }
-
-          Logger.Info("Passing arguments to it and exiting.");
-
-          if (args.Length > 0)
-          {
-            // Send the command line arguments to the other instance and exit.
-            anotherLogbertInstance = new NamedPipeClientStream(
-                "."
-              , NAMED_PIPED_NAME
-              , PipeDirection.Out);
-
-            anotherLogbertInstance.ConnectAndWrite(
-              Encoding.Default.GetBytes(args[0]));
-
-            return;
-          }
+            // Upgrade the user settings if necessary.
+            if (Settings.Default.SettingsUpgradeRequired)
+            {
+                Settings.Default.Upgrade();
+                Settings.Default.SettingsUpgradeRequired = false;
+                Settings.Default.SaveSettings();
+            }
         }
         catch (Exception ex)
         {
-          Logger.Error(ex.Message);
-          return;
+            Logger.Error(
+                "Error while upgrading the user settings: {0}",
+                ex);
         }
 
-        return;
-      }
+        if (Settings.Default.FrmMainAllowOnlyOneInstance && !TryCreateNamedPipe(NAMED_PIPED_NAME))
+        {
+            Logger.Info("Another instance of Logbert is already running.");
 
-      Application.EnableVisualStyles();
-      Application.SetCompatibleTextRenderingDefault(false);
+            try
+            {
+                // Bring the window of the other instance to front.
+                using var anotherLogbertInstance = new NamedPipeClientStream(
+                    ".",
+                    NAMED_PIPED_NAME,
+                    PipeDirection.Out);
 
-      Application.Run(new MainForm(args.Length == 0
-        ? string.Empty
-        : args[0]));
+                anotherLogbertInstance.Connect(500);
+                var message = Encoding.UTF8.GetBytes(BRING_TO_FRONT_MSG);
+                anotherLogbertInstance.Write(message, 0, message.Length);
+
+                Logger.Info("Notified running instance to come to front.");
+
+                if (args.Length > 0)
+                {
+                    // Send the command line arguments to the other instance and exit.
+                    using var pipe = new NamedPipeClientStream(
+                        ".",
+                        NAMED_PIPED_NAME,
+                        PipeDirection.Out);
+
+                    pipe.Connect(500);
+                    var data = Encoding.UTF8.GetBytes(args[0]);
+                    pipe.Write(data, 0, data.Length);
+
+                    Logger.Info("Passing arguments to running instance and exiting.");
+                }
+
+                return;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error communicating with running instance: " + ex.Message);
+                return;
+            }
+        }
+
+        BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+    }
+
+    /// <summary>
+    /// Configures and builds the Avalonia application.
+    /// </summary>
+    public static AppBuilder BuildAvaloniaApp()
+        => AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .WithInterFont()
+            .LogToTrace();
+
+    /// <summary>
+    /// Tries to create a named pipe server for single instance detection.
+    /// </summary>
+    private static bool TryCreateNamedPipe(string pipeName)
+    {
+        try
+        {
+            var pipe = new NamedPipeServerStream(
+                pipeName,
+                PipeDirection.InOut,
+                1,
+                PipeTransmissionMode.Byte,
+                PipeOptions.Asynchronous);
+
+            // If we get here, no other instance is running
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     #endregion
-  }
 }
