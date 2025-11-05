@@ -10,6 +10,9 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
+        // Initialize ViewModel
+        DataContext = new MainWindowViewModel();
     }
 
     public async void ShowAboutDialog(object? sender, RoutedEventArgs e)
@@ -23,20 +26,23 @@ public partial class MainWindow : Window
         var dialog = new OptionsDialog();
         var result = await dialog.ShowDialog<bool>(this);
 
-        // TODO: MainWindowViewModel excluded from compilation, settings application disabled
+        // TODO: Apply settings if result is true
     }
 
     public async void ShowFindDialog(object? sender, RoutedEventArgs e)
     {
-        // TODO: MainWindowViewModel excluded from compilation, search functionality disabled for now
+        // TODO: SearchDialog needs to be recreated
         await System.Threading.Tasks.Task.CompletedTask;
     }
 
     public async void ShowNewLogSourceDialog(object? sender, RoutedEventArgs e)
     {
-        // TODO: This functionality is currently disabled as ReceiverConfigurationDialog
-        // depends on receiver settings ViewModels that are excluded from compilation.
-        // Will be re-implemented after completing Avalonia receiver migration.
+        // TODO: NewLogSourceDialog needs to be recreated
+        // For now, the ViewModel will create a sample document
+        if (DataContext is MainWindowViewModel viewModel)
+        {
+            viewModel.NewDocumentCommand.Execute(null);
+        }
         await System.Threading.Tasks.Task.CompletedTask;
     }
 
@@ -48,8 +54,7 @@ public partial class MainWindow : Window
 
     public async void ShowStatisticsDialog(object? sender, RoutedEventArgs e)
     {
-        // TODO: StatisticsDialog is currently excluded from compilation.
-        // Will be re-implemented as an Avalonia dialog after migrations are complete.
+        // TODO: StatisticsDialog needs to be recreated
         await System.Threading.Tasks.Task.CompletedTask;
     }
 }

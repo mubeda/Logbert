@@ -1,12 +1,13 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="using:Couchcoding.Logbert.Views.Controls"
-        xmlns:dock="using:Dock.Avalonia.Controls"
+        xmlns:docking="using:Couchcoding.Logbert.Views.Docking"
         xmlns:vm="using:Couchcoding.Logbert.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
         x:Class="Couchcoding.Logbert.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="Logbert - Log File Viewer"
         Width="1200" Height="800">
@@ -26,9 +27,9 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="_Close" HotKey="Ctrl+W"/>
+                <MenuItem Header="_Close" Command="{Binding CloseDocumentCommand}" HotKey="Ctrl+W"/>
                 <Separator/>
-                <MenuItem Header="E_xit" HotKey="Alt+F4"/>
+                <MenuItem Header="E_xit" Command="{Binding ExitCommand}" HotKey="Alt+F4"/>
             </MenuItem>
 
             <MenuItem Header="_Edit">
@@ -69,7 +70,7 @@
             </MenuItem>
         </Menu>
 
-        <!-- Toolbar - ToolBar control not available in standard Avalonia, using StackPanel instead -->
+        <!-- Toolbar -->
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="5" Background="#F0F0F0">
             <Button Click="ShowNewLogSourceDialog" ToolTip.Tip="New Log Source (Ctrl+N)" Padding="8,6">
                 <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
@@ -81,7 +82,7 @@
             <Button ToolTip.Tip="Refresh" Padding="8,6">
                 <PathIcon Data="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
             </Button>
-            <Button ToolTip.Tip="Clear" Padding="8,6">
+            <Button Command="{Binding CloseDocumentCommand}" ToolTip.Tip="Close Document" Padding="8,6">
                 <PathIcon Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
             </Button>
             <Separator/>
@@ -90,24 +91,18 @@
             </Button>
         </StackPanel>
 
-        <!-- Status Bar - StatusBar control not available in standard Avalonia, using StackPanel instead -->
+        <!-- Status Bar -->
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="10" Margin="5" Background="#F0F0F0">
             <TextBlock Text="Ready" VerticalAlignment="Center"/>
             <Separator/>
-            <TextBlock Text="Documents: 0" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Documents.Count, StringFormat='Documents: {0}'}" VerticalAlignment="Center"/>
         </StackPanel>
 
-        <!-- Main Content Area with Docking -->
-        <!-- TODO: Docking system disabled - MainWindowViewModel excluded from compilation -->
+        <!-- Main Content Area with Custom Docking Layout -->
         <Grid>
-            <TextBlock Text="Docking system temporarily disabled during migration"
-                      VerticalAlignment="Center"
-                      HorizontalAlignment="Center"
-                      FontSize="16"/>
-
             <!-- Welcome Screen (shown when no documents open) -->
             <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
-                   IsVisible="True">
+                    IsVisible="{Binding IsWelcomeScreenVisible}">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
                     <TextBlock Text="Welcome to Logbert" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"/>
                     <TextBlock Text="Cross-platform log file viewer" FontSize="16" HorizontalAlignment="Center" Opacity="0.7"/>
@@ -127,6 +122,49 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
+
+            <!-- Custom Docking Layout (shown when documents are open) -->
+            <Grid IsVisible="{Binding !IsWelcomeScreenVisible}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250" MinWidth="150"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Panel - Tabs for Filter, Logger Tree, and Bookmarks -->
+                <TabControl Grid.Column="0" Background="#F5F5F5">
+                    <TabItem Header="Filter">
+                        <docking:FilterPanelView DataContext="{Binding FilterPanel}"/>
+                    </TabItem>
+                    <TabItem Header="Logger Tree">
+                        <docking:LoggerTreeView DataContext="{Binding LoggerTree}"/>
+                    </TabItem>
+                    <TabItem Header="Bookmarks">
+                        <docking:BookmarksPanelView DataContext="{Binding BookmarksPanel}"/>
+                    </TabItem>
+                </TabControl>
+
+                <!-- Splitter -->
+                <GridSplitter Grid.Column="1"
+                              Background="#D0D0D0"
+                              ResizeDirection="Columns"/>
+
+                <!-- Center Panel - Log Documents -->
+                <TabControl Grid.Column="2"
+                            Items="{Binding Documents}"
+                            SelectedItem="{Binding ActiveDocument}">
+                    <TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}"/>
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>
+                    <TabControl.ContentTemplate>
+                        <DataTemplate>
+                            <controls:LogViewerControl DataContext="{Binding LogViewerViewModel}"/>
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>
+                </TabControl>
+            </Grid>
         </Grid>
     </DockPanel>
 </Window>

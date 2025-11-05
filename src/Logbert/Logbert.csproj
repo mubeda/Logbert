@@ -194,12 +194,8 @@
     <!-- LogFilterRegex references deleted LogFilterString -->
     <Compile Remove="Logging\Filter\LogFilterRegex.cs" />
     <!-- Docking infrastructure - Tool/Factory classes need Dock.Mvvm which is not available in Dock.Avalonia v11.1.0 -->
-    <Compile Remove="ViewModels\Docking\BookmarksPanelViewModel.cs" />
-    <Compile Remove="ViewModels\Docking\FilterPanelViewModel.cs" />
-    <Compile Remove="ViewModels\Docking\LoggerTreeViewModel.cs" />
     <Compile Remove="Docking\DockFactory.cs" />
     <Compile Remove="Docking\DockLayoutManager.cs" />
-    <Compile Remove="ViewModels\MainWindowViewModel.cs" />
     <!-- All ReceiverSettings inherit from WinForms UserControl - need Avalonia equivalents -->
     <Compile Remove="Receiver\EventlogReceiver\EventlogReceiverSettings.cs" />
     <Compile Remove="Receiver\EventlogReceiver\EventlogReceiverSettings.Designer.cs" />
@@ -239,9 +235,6 @@
     <Compile Remove="Logging\LogMessageSyslog.cs" />
     <Compile Remove="Logging\LogMessageWinDebug.cs" />
     <!-- Docking Views excluded due to MainWindowViewModel and related ViewModels being excluded -->
-    <Compile Remove="Views\Docking\BookmarksPanelView.axaml.cs" />
-    <Compile Remove="Views\Docking\FilterPanelView.axaml.cs" />
-    <Compile Remove="Views\Docking\LoggerTreeView.axaml.cs" />
     <!-- Dialogs with missing Avalonia control types or properties -->
     <Compile Remove="Views\Dialogs\NewLogSourceDialog.axaml.cs" />
     <Compile Remove="Views\Dialogs\SearchDialog.axaml.cs" />

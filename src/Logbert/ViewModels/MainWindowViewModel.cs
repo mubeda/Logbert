@@ -3,10 +3,9 @@ using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Couchcoding.Logbert.Docking;
 using Couchcoding.Logbert.Logging;
 using Couchcoding.Logbert.Logging.Sample;
-using Dock.Model.Core;
+using Couchcoding.Logbert.ViewModels.Docking;
 
 namespace Couchcoding.Logbert.ViewModels;
 
@@ -27,20 +26,25 @@ public partial class MainWindowViewModel : ViewModelBase
     private LogDocumentViewModel? _activeDocument;
 
     /// <summary>
-    /// Gets the dock factory for managing docking layout.
+    /// Gets the filter panel view model.
     /// </summary>
-    public DockFactory DockFactory { get; } = null!;
+    public FilterPanelViewModel FilterPanel { get; } = new();
 
     /// <summary>
-    /// Gets the dock layout manager for persistence.
+    /// Gets the logger tree view model.
     /// </summary>
-    public DockLayoutManager LayoutManager { get; } = null!;
+    public LoggerTreeViewModel LoggerTree { get; } = new();
 
     /// <summary>
-    /// Gets the root dock layout.
+    /// Gets the bookmarks panel view model.
+    /// </summary>
+    public BookmarksPanelViewModel BookmarksPanel { get; } = new();
+
+    /// <summary>
+    /// Gets or sets whether the welcome screen is visible.
     /// </summary>
     [ObservableProperty]
-    private IDock? _layout;
+    private bool _isWelcomeScreenVisible = true;
 
     /// <summary>
     /// Gets the command to create a new log document.
@@ -90,29 +94,29 @@ public partial class MainWindowViewModel : ViewModelBase
         ShowOptionsCommand = new RelayCommand(OnShowOptions);
         ShowFindCommand = new RelayCommand(OnShowFind, CanShowFind);
 
-        // Initialize docking
-        DockFactory = new DockFactory(this);
-        LayoutManager = new DockLayoutManager();
-
-        // Try to load saved layout, otherwise create default
-        Layout = LayoutManager.LoadLayout(DockFactory);
-        if (Layout == null)
-        {
-            Layout = DockFactory.CreateLayout();
-        }
-        DockFactory.InitLayout(Layout);
-
         // Listen for document changes
         Documents.CollectionChanged += (s, e) =>
         {
             ((RelayCommand)CloseDocumentCommand).NotifyCanExecuteChanged();
             ((RelayCommand)ShowFindCommand).NotifyCanExecuteChanged();
+            UpdateWelcomeScreenVisibility();
         };
     }
 
     partial void OnActiveDocumentChanged(LogDocumentViewModel? value)
     {
-        DockFactory.SetActiveDocument(value);
+        // Sync filter panel with active document
+        if (value != null)
+        {
+            // Update logger tree with loggers from the document
+            var loggerNames = value.Messages.Select(m => m.Logger ?? "Unknown").Distinct();
+            LoggerTree.UpdateLoggers(loggerNames);
+        }
+    }
+
+    private void UpdateWelcomeScreenVisibility()
+    {
+        IsWelcomeScreenVisible = Documents.Count == 0;
     }
 
     private void OnNewDocument()
@@ -131,7 +135,6 @@ public partial class MainWindowViewModel : ViewModelBase
         }
 
         Documents.Add(newDoc);
-        DockFactory.AddDocument(newDoc);
         ActiveDocument = newDoc;
     }
 
@@ -151,16 +154,12 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             var docToClose = ActiveDocument;
             Documents.Remove(docToClose);
-            DockFactory.RemoveDocument(docToClose);
             ActiveDocument = Documents.Count > 0 ? Documents[^1] : null;
         }
     }
 
     private void OnExit()
     {
-        // Save layout before exit
-        LayoutManager.SaveLayout(Layout);
-
         // Close the application
         if (Avalonia.Application.Current?.ApplicationLifetime
             is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)

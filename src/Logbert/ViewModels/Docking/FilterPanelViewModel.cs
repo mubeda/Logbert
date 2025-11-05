@@ -1,13 +1,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using Dock.Model.Controls;
 
 namespace Couchcoding.Logbert.ViewModels.Docking;
 
 /// <summary>
 /// ViewModel for the filter panel tool window.
 /// </summary>
-[ObservableObject]
-public partial class FilterPanelViewModel : Tool
+public partial class FilterPanelViewModel : ViewModelBase
 {
     [ObservableProperty]
     private string _filterText = string.Empty;

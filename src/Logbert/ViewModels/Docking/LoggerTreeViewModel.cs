@@ -1,14 +1,14 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Dock.Model.Controls;
 
 namespace Couchcoding.Logbert.ViewModels.Docking;
 
 /// <summary>
 /// ViewModel for the logger tree tool window.
 /// </summary>
-[ObservableObject]
-public partial class LoggerTreeViewModel : Tool
+public partial class LoggerTreeViewModel : ViewModelBase
 {
     [ObservableProperty]
     private ObservableCollection<LoggerTreeNode> _loggers = new();
