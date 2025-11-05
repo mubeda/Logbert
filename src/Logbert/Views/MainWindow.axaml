@@ -96,7 +96,7 @@
                 <dock:DockControl.DataTemplates>
                     <!-- Log Document Template -->
                     <DataTemplate DataType="vm:LogDocumentViewModel">
-                        <Grid RowDefinitions="*,Auto,200">
+                        <Grid RowDefinitions="*,Auto,250">
                             <!-- Log Viewer -->
                             <controls:LogViewerControl Grid.Row="0"
                                                       DataContext="{Binding LogViewerViewModel}"/>
@@ -107,11 +107,10 @@
                                          HorizontalAlignment="Stretch"
                                          Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"/>
 
-                            <!-- Details View -->
+                            <!-- Enhanced Details View -->
                             <Border Grid.Row="2"
-                                   Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
-                                   Padding="10">
-                                <controls:LogDetailsView DataContext="{Binding SelectedMessage}"/>
+                                   Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                                <controls:EnhancedLogDetailsView DataContext="{Binding LogViewerViewModel.SelectedMessage}"/>
                             </Border>
                         </Grid>
                     </DataTemplate>

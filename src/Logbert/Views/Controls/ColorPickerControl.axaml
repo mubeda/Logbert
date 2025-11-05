@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Couchcoding.Logbert.ViewModels.Controls"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="200"
+             x:Class="Couchcoding.Logbert.Views.Controls.ColorPickerControl"
+             x:DataType="vm:ColorPickerViewModel">
+
+    <Design.DataContext>
+        <vm:ColorPickerViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Header -->
+        <TextBlock Grid.Row="0"
+                   Text="Select Color:"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,8"/>
+
+        <!-- Color Grid -->
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding StandardColors}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="vm:ColorItem">
+                        <Button Width="40" Height="40"
+                                Margin="4"
+                                Padding="0"
+                                ToolTip.Tip="{Binding Name}"
+                                Command="{Binding $parent[UserControl].((vm:ColorPickerViewModel)DataContext).PickCustomColorCommand}">
+                            <Border Width="32" Height="32"
+                                    CornerRadius="4"
+                                    BorderThickness="2"
+                                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding Color}"/>
+                                </Border.Background>
+                            </Border>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Custom Color Section -->
+        <Border Grid.Row="2"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="0,8,0,0"
+                Margin="0,8,0,0">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <TextBlock Grid.Column="0"
+                           Text="Custom:"
+                           VerticalAlignment="Center"
+                           Margin="0,0,8,0"/>
+
+                <Border Grid.Column="1"
+                        Width="40" Height="40"
+                        CornerRadius="4"
+                        BorderThickness="2"
+                        BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}">
+                    <Border.Background>
+                        <SolidColorBrush Color="{Binding CustomColor}"/>
+                    </Border.Background>
+                </Border>
+
+                <Button Grid.Column="2"
+                        Content="Pick Color..."
+                        Command="{Binding PickCustomColorCommand}"
+                        Margin="8,0,0,0"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

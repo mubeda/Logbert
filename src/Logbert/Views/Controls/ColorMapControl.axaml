@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Couchcoding.Logbert.ViewModels.Controls"
+             mc:Ignorable="d" d:DesignWidth="30" d:DesignHeight="600"
+             x:Class="Couchcoding.Logbert.Views.Controls.ColorMapControl"
+             x:DataType="vm:ColorMapViewModel"
+             Width="30">
+
+    <Design.DataContext>
+        <vm:ColorMapViewModel/>
+    </Design.DataContext>
+
+    <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+            BorderThickness="1"
+            CornerRadius="2"
+            Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+        <Canvas>
+            <!-- Color map items -->
+            <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="vm:ColorMapItem">
+                        <Rectangle Width="28"
+                                   Height="2"
+                                   Canvas.Left="1"
+                                   Canvas.Top="{Binding Position, Converter={StaticResource PositionToTopConverter}}">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{Binding Color}"/>
+                            </Rectangle.Fill>
+                            <Rectangle.ToolTip>
+                                <ToolTip>
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="{Binding Message.Level, StringFormat='Level: {0}'}"
+                                                   FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Message.Timestamp, StringFormat='Time: {0:HH:mm:ss.fff}'}"/>
+                                        <TextBlock Text="{Binding Message.Message}"
+                                                   MaxWidth="300"
+                                                   TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Rectangle.ToolTip>
+                        </Rectangle>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Visible range indicator (optional overlay) -->
+            <Rectangle Width="28"
+                       Height="40"
+                       Canvas.Left="1"
+                       Opacity="0.3"
+                       Fill="{DynamicResource SystemControlBackgroundAccentBrush}"
+                       IsVisible="{Binding TotalMessages, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+        </Canvas>
+    </Border>
+</UserControl>

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Couchcoding.Logbert.ViewModels.Controls"
              xmlns:logging="using:Couchcoding.Logbert.Logging"
+             xmlns:controls="using:Couchcoding.Logbert.Views.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Couchcoding.Logbert.Views.Controls.LogViewerControl"
              x:DataType="vm:LogViewerViewModel">
@@ -22,8 +23,9 @@
         <SolidColorBrush x:Key="FatalColor" Color="#8B0000"/>
     </UserControl.Resources>
 
-    <Grid>
-        <DataGrid ItemsSource="{Binding FilteredMessages}"
+    <Grid ColumnDefinitions="*,Auto">
+        <DataGrid Grid.Column="0"
+                  ItemsSource="{Binding FilteredMessages}"
                   SelectedItem="{Binding SelectedMessage}"
                   IsReadOnly="True"
                   GridLinesVisibility="None"
@@ -112,11 +114,20 @@
         </DataGrid>
 
         <!-- Empty state message -->
-        <TextBlock Text="No log messages to display"
+        <TextBlock Grid.Column="0"
+                   Text="No log messages to display"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="16"
                    Opacity="0.5"
                    IsVisible="{Binding !FilteredMessages.Count}"/>
+
+        <!-- ColorMap Control -->
+        <Border Grid.Column="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="1,0,0,0"
+                Margin="4,0,0,0">
+            <controls:ColorMapControl Width="30"/>
+        </Border>
     </Grid>
 </UserControl>
