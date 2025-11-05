@@ -21,7 +21,7 @@ public partial class ColorPickerViewModel : ViewModelBase
     [ObservableProperty]
     private Color _customColor = Colors.Black;
 
-    public IRelayCommand PickCustomColorCommand { get; }
+    public IRelayCommand PickCustomColorCommand { get; } = null!;
 
     public ColorPickerViewModel()
     {

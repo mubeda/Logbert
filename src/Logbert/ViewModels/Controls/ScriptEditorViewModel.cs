@@ -31,11 +31,11 @@ public partial class ScriptEditorViewModel : ViewModelBase
     [ObservableProperty]
     private ObservableCollection<string> _outputMessages = new();
 
-    public IRelayCommand ExecuteScriptCommand { get; }
-    public IRelayCommand ClearOutputCommand { get; }
-    public IRelayCommand NewScriptCommand { get; }
-    public IRelayCommand OpenScriptCommand { get; }
-    public IRelayCommand SaveScriptCommand { get; }
+    public IRelayCommand ExecuteScriptCommand { get; } = null!;
+    public IRelayCommand ClearOutputCommand { get; } = null!;
+    public IRelayCommand NewScriptCommand { get; } = null!;
+    public IRelayCommand OpenScriptCommand { get; } = null!;
+    public IRelayCommand SaveScriptCommand { get; } = null!;
 
     public ScriptEditorViewModel()
     {

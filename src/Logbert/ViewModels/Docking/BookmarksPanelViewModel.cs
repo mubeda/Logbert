@@ -19,8 +19,8 @@ public partial class BookmarksPanelViewModel : Tool
     [ObservableProperty]
     private BookmarkItem? _selectedBookmark;
 
-    public ICommand ClearBookmarksCommand { get; }
-    public ICommand RemoveBookmarkCommand { get; }
+    public ICommand ClearBookmarksCommand { get; } = null!;
+    public ICommand RemoveBookmarkCommand { get; } = null!;
 
     public BookmarksPanelViewModel()
     {

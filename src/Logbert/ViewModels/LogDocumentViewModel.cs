@@ -79,7 +79,7 @@ public partial class LogDocumentViewModel : ViewModelBase
     /// <summary>
     /// Gets the log viewer view model.
     /// </summary>
-    public LogViewerViewModel LogViewerViewModel { get; }
+    public LogViewerViewModel LogViewerViewModel { get; } = null!;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LogDocumentViewModel"/> class.

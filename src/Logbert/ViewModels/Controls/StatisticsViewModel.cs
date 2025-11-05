@@ -52,7 +52,7 @@ public partial class StatisticsViewModel : ViewModelBase
         // Calculate time range
         FirstMessageTime = messageList.Min(m => m.Timestamp);
         LastMessageTime = messageList.Max(m => m.Timestamp);
-        TimeRange = LastMessageTime.Value - FirstMessageTime.Value;
+        TimeRange = LastMessageTime!.Value - FirstMessageTime!.Value;
         MessagesPerSecond = TimeRange.TotalSeconds > 0
             ? TotalMessages / TimeRange.TotalSeconds
             : 0;

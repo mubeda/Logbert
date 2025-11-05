@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -9,6 +10,7 @@ namespace Couchcoding.Logbert.Helper
   /// <summary>
   /// Class to protect data like credentials.
   /// </summary>
+  [SupportedOSPlatform("windows")]
   public sealed class DataProtection
   {
     #region Private Methods

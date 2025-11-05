@@ -30,8 +30,8 @@ public partial class SearchDialogViewModel : ViewModelBase
     [ObservableProperty]
     private string? _statusMessage;
 
-    public IRelayCommand FindNextCommand { get; }
-    public IRelayCommand FindPreviousCommand { get; }
+    public IRelayCommand FindNextCommand { get; } = null!;
+    public IRelayCommand FindPreviousCommand { get; } = null!;
 
     public SearchDialogViewModel()
     {

@@ -48,17 +48,17 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     /// <summary>
     /// Gets the command to zoom in.
     /// </summary>
-    public IRelayCommand ZoomInCommand { get; }
+    public IRelayCommand ZoomInCommand { get; } = null!;
 
     /// <summary>
     /// Gets the command to zoom out.
     /// </summary>
-    public IRelayCommand ZoomOutCommand { get; }
+    public IRelayCommand ZoomOutCommand { get; } = null!;
 
     /// <summary>
     /// Gets the command to copy selected message.
     /// </summary>
-    public IRelayCommand CopyMessageCommand { get; }
+    public IRelayCommand CopyMessageCommand { get; } = null!;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LogViewerViewModel"/> class.

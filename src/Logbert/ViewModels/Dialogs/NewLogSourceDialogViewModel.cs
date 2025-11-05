@@ -18,8 +18,8 @@ public partial class NewLogSourceDialogViewModel : ViewModelBase
     [ObservableProperty]
     private string _description = string.Empty;
 
-    public IRelayCommand OkCommand { get; }
-    public IRelayCommand CancelCommand { get; }
+    public IRelayCommand OkCommand { get; } = null!;
+    public IRelayCommand CancelCommand { get; } = null!;
 
     public bool DialogResult { get; private set; }
 

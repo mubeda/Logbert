@@ -52,9 +52,9 @@ public partial class OptionsDialogViewModel : ViewModelBase
         "Fira Code"
     };
 
-    public IRelayCommand OkCommand { get; }
-    public IRelayCommand CancelCommand { get; }
-    public IRelayCommand ResetCommand { get; }
+    public IRelayCommand OkCommand { get; } = null!;
+    public IRelayCommand CancelCommand { get; } = null!;
+    public IRelayCommand ResetCommand { get; } = null!;
 
     public bool DialogResult { get; private set; }
 

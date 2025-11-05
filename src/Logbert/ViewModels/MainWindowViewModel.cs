@@ -29,12 +29,12 @@ public partial class MainWindowViewModel : ViewModelBase
     /// <summary>
     /// Gets the dock factory for managing docking layout.
     /// </summary>
-    public DockFactory DockFactory { get; }
+    public DockFactory DockFactory { get; } = null!;
 
     /// <summary>
     /// Gets the dock layout manager for persistence.
     /// </summary>
-    public DockLayoutManager LayoutManager { get; }
+    public DockLayoutManager LayoutManager { get; } = null!;
 
     /// <summary>
     /// Gets the root dock layout.
@@ -45,37 +45,37 @@ public partial class MainWindowViewModel : ViewModelBase
     /// <summary>
     /// Gets the command to create a new log document.
     /// </summary>
-    public ICommand NewDocumentCommand { get; }
+    public ICommand NewDocumentCommand { get; } = null!;
 
     /// <summary>
     /// Gets the command to open an existing log file.
     /// </summary>
-    public ICommand OpenFileCommand { get; }
+    public ICommand OpenFileCommand { get; } = null!;
 
     /// <summary>
     /// Gets the command to close the active document.
     /// </summary>
-    public ICommand CloseDocumentCommand { get; }
+    public ICommand CloseDocumentCommand { get; } = null!;
 
     /// <summary>
     /// Gets the command to exit the application.
     /// </summary>
-    public ICommand ExitCommand { get; }
+    public ICommand ExitCommand { get; } = null!;
 
     /// <summary>
     /// Gets the command to show the About dialog.
     /// </summary>
-    public ICommand ShowAboutCommand { get; }
+    public ICommand ShowAboutCommand { get; } = null!;
 
     /// <summary>
     /// Gets the command to show the Options dialog.
     /// </summary>
-    public ICommand ShowOptionsCommand { get; }
+    public ICommand ShowOptionsCommand { get; } = null!;
 
     /// <summary>
     /// Gets the command to show the Find dialog.
     /// </summary>
-    public ICommand ShowFindCommand { get; }
+    public ICommand ShowFindCommand { get; } = null!;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
