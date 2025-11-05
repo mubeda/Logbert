@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Couchcoding.Logbert.Logging;
 using Couchcoding.Logbert.ViewModels.Controls;
+using Couchcoding.Logbert.Interfaces;
 
 namespace Couchcoding.Logbert.ViewModels;
 
@@ -15,6 +16,12 @@ public partial class LogDocumentViewModel : ViewModelBase
 
     [ObservableProperty]
     private bool _isActive;
+
+    [ObservableProperty]
+    private string _filePath = string.Empty;
+
+    [ObservableProperty]
+    private ILogProvider? _logProvider;
 
     /// <summary>
     /// Gets the collection of log messages in this document.

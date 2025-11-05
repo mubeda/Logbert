@@ -3,13 +3,15 @@ using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Couchcoding.Logbert.Logging;
+using Couchcoding.Logbert.Interfaces;
+using Avalonia.Threading;
 
 namespace Couchcoding.Logbert.ViewModels.Controls;
 
 /// <summary>
 /// ViewModel for the log viewer control.
 /// </summary>
-public partial class LogViewerViewModel : ViewModelBase
+public partial class LogViewerViewModel : ViewModelBase, ILogHandler
 {
     [ObservableProperty]
     private ObservableCollection<LogMessage> _messages = new();
@@ -144,5 +146,52 @@ public partial class LogViewerViewModel : ViewModelBase
     private void OnCopyMessage()
     {
         // TODO: Implement clipboard copy
+    }
+
+    /// <summary>
+    /// Handles a single log message from the receiver.
+    /// </summary>
+    public void HandleMessage(LogMessage logMsg)
+    {
+        Dispatcher.UIThread.Post(() =>
+        {
+            Messages.Add(logMsg);
+
+            if (ShouldShowMessage(logMsg))
+            {
+                FilteredMessages.Add(logMsg);
+            }
+        });
+    }
+
+    /// <summary>
+    /// Handles multiple log messages from the receiver.
+    /// </summary>
+    public void HandleMessage(LogMessage[] logMsgs)
+    {
+        Dispatcher.UIThread.Post(() =>
+        {
+            foreach (var msg in logMsgs)
+            {
+                Messages.Add(msg);
+
+                if (ShouldShowMessage(msg))
+                {
+                    FilteredMessages.Add(msg);
+                }
+            }
+        });
+    }
+
+    /// <summary>
+    /// Handles an error from the receiver.
+    /// </summary>
+    public void HandleError(LogError error)
+    {
+        Dispatcher.UIThread.Post(() =>
+        {
+            // TODO: Show error notification to user
+            System.Diagnostics.Debug.WriteLine($"Log receiver error: {error.Message}");
+        });
     }
 }

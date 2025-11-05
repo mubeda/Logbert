@@ -44,32 +44,45 @@ public partial class MainWindow : Window
 
     public async void ShowNewLogSourceDialog(object? sender, RoutedEventArgs e)
     {
-        var dialog = new NewLogSourceDialog();
-        var result = await dialog.ShowDialog<bool>(this);
+        // Step 1: Let user select receiver type
+        var typeDialog = new NewLogSourceDialog();
+        var typeResult = await typeDialog.ShowDialog<bool>(this);
 
-        if (result && DataContext is MainWindowViewModel viewModel)
+        if (!typeResult || typeDialog.SelectedReceiverType == null)
+            return;
+
+        var receiverType = typeDialog.SelectedReceiverType.Name;
+
+        // Step 2: Configure the selected receiver
+        var configDialog = new ReceiverConfigurationDialog(receiverType);
+        var configResult = await configDialog.ShowDialog<bool>(this);
+
+        if (!configResult || configDialog.ConfiguredReceiver == null)
+            return;
+
+        // Step 3: Create a new log document with the configured receiver
+        if (DataContext is MainWindowViewModel viewModel)
         {
-            var selectedReceiver = dialog.SelectedReceiverType;
-            if (selectedReceiver != null)
+            var receiver = configDialog.ConfiguredReceiver;
+
+            // Create a new document
+            var newDocument = new LogDocumentViewModel
             {
-                // For now, just create a sample document
-                // TODO: Create actual log provider based on selected receiver
-                var newDoc = new LogDocumentViewModel
-                {
-                    Title = $"{selectedReceiver.Name} {viewModel.Documents.Count + 1}"
-                };
+                Title = receiver.Description,
+                FilePath = receiver.Tooltip
+            };
 
-                // Generate sample log messages for testing
-                var sampleMessages = Couchcoding.Logbert.Logging.Sample.SampleLogGenerator.GenerateMessages(100);
-                foreach (var message in sampleMessages)
-                {
-                    newDoc.Messages.Add(message);
-                }
+            // Initialize the receiver with a log handler
+            // The document's LogViewerViewModel will act as the log handler
+            receiver.Initialize(newDocument.LogViewerViewModel);
 
-                viewModel.Documents.Add(newDoc);
-                viewModel.DockFactory.AddDocument(newDoc);
-                viewModel.ActiveDocument = newDoc;
-            }
+            // Store the receiver in the document
+            newDocument.LogProvider = receiver;
+
+            // Add to documents collection and docking system
+            viewModel.Documents.Add(newDocument);
+            viewModel.DockFactory.AddDocument(newDocument);
+            viewModel.ActiveDocument = newDocument;
         }
     }
 

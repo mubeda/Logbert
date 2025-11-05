@@ -1,0 +1,55 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="450"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.ReceiverConfigurationDialog"
+        Title="Configure Log Source"
+        Width="550" Height="450"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Assets/avalonia-logo.ico">
+
+    <Grid Margin="0" RowDefinitions="Auto,*,Auto">
+        <!-- Header -->
+        <Border Grid.Row="0"
+                Background="{DynamicResource SystemControlBackgroundAccentBrush}"
+                Padding="20,15"
+                Opacity="0.1">
+            <StackPanel Spacing="5">
+                <TextBlock Name="TitleText"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Opacity="10"/>
+                <TextBlock Name="SubtitleText"
+                           FontSize="12"
+                           Opacity="8"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Settings Content -->
+        <Border Grid.Row="1"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <ContentControl Name="SettingsContent"/>
+        </Border>
+
+        <!-- Buttons -->
+        <Border Grid.Row="2"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="20,15">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Spacing="10">
+                <Button Content="OK"
+                        Click="OnOkClick"
+                        Padding="30,8"
+                        IsDefault="True"/>
+
+                <Button Content="Cancel"
+                        Click="OnCancelClick"
+                        Padding="30,8"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

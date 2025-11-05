@@ -1,0 +1,74 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="300"
+             x:Class="Couchcoding.Logbert.Views.Dialogs.ReceiverSettings.Log4NetFileReceiverSettingsView"
+             x:DataType="vm:Log4NetFileReceiverSettingsViewModel">
+
+    <StackPanel Spacing="15" Margin="20">
+        <!-- File Path Selection -->
+        <StackPanel Spacing="8">
+            <TextBlock Text="Log File Path:" FontWeight="SemiBold"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox Grid.Column="0"
+                         Text="{Binding FilePath}"
+                         Watermark="Select a Log4Net XML log file..."
+                         Margin="0,0,10,0"/>
+                <Button Grid.Column="1"
+                        Content="Browse..."
+                        Click="BrowseFile"
+                        Width="100"/>
+            </Grid>
+            <TextBlock Text="Select the Log4Net XML log file to monitor"
+                       FontSize="11"
+                       Opacity="0.7"/>
+        </StackPanel>
+
+        <!-- Start From Beginning -->
+        <StackPanel Spacing="8">
+            <CheckBox IsChecked="{Binding StartFromBeginning}"
+                      Content="Start reading from beginning"/>
+            <TextBlock Text="When checked, existing log entries will be loaded. When unchecked, only new entries will be shown."
+                       FontSize="11"
+                       Opacity="0.7"
+                       Margin="25,0,0,0"/>
+        </StackPanel>
+
+        <!-- Encoding Selection -->
+        <StackPanel Spacing="8">
+            <TextBlock Text="Text Encoding:" FontWeight="SemiBold"/>
+            <ComboBox ItemsSource="{Binding AvailableEncodings}"
+                      SelectedItem="{Binding SelectedEncoding}"
+                      MinWidth="300"
+                      HorizontalAlignment="Left">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding DisplayName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Text="Select the character encoding used in the log file"
+                       FontSize="11"
+                       Opacity="0.7"/>
+        </StackPanel>
+
+        <!-- Info Panel -->
+        <Border Background="{DynamicResource SystemControlBackgroundAccentBrush}"
+                CornerRadius="4"
+                Padding="12"
+                Opacity="0.1"
+                Margin="0,10,0,0">
+            <StackPanel Spacing="8">
+                <TextBlock Text="ℹ Log4Net XML Format"
+                           FontWeight="SemiBold"
+                           Opacity="10"/>
+                <TextBlock TextWrapping="Wrap"
+                           Opacity="10">
+                    This receiver expects log4net XML output format. Configure your Log4Net appender to use the XMLLayoutSchemaLog4j layout.
+                </TextBlock>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>
