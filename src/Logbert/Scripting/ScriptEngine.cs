@@ -1,5 +1,6 @@
 using MoonSharp.Interpreter;
 using Couchcoding.Logbert.Logging;
+using System;
 using System.Text;
 
 namespace Couchcoding.Logbert.Scripting;

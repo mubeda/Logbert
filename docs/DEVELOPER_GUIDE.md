@@ -15,10 +15,10 @@ This guide provides information for developers who want to contribute to Logbert
 
 ### Prerequisites
 
-- **.NET 10 SDK** - [Download](https://dotnet.microsoft.com/download/dotnet/10.0)
+- **.NET 9.0 SDK** or later - [Download](https://dotnet.microsoft.com/download/dotnet/9.0)
 - **IDE** - Choose one:
-  - Visual Studio 2022 17.8+ with .NET desktop development workload
-  - JetBrains Rider 2024.1+
+  - Visual Studio 2022 17.9+ with .NET desktop development workload
+  - JetBrains Rider 2024.2+
   - Visual Studio Code with C# Dev Kit extension
 
 ### Optional Tools

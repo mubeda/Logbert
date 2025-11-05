@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <OutputType>WinExe</OutputType>
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
@@ -47,6 +47,7 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.2" />
     <PackageReference Include="Dock.Avalonia" Version="11.1.0" />
     <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.3.0" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.2" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.0" />
     <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
@@ -232,6 +233,32 @@
     <Compile Remove="Views\Dialogs\ReceiverConfigurationDialog.axaml.cs" />
     <Compile Remove="Views\Dialogs\ReceiverSettings\Log4NetFileReceiverSettingsView.axaml.cs" />
     <Compile Remove="Views\Dialogs\ReceiverSettings\NLogFileReceiverSettingsView.axaml.cs" />
+    <!-- Helper/Logging classes that reference deleted Settings -->
+    <Compile Remove="Helper\MruManager.cs" />
+    <!-- Logging subclasses that reference deleted extension methods -->
+    <Compile Remove="Logging\LogMessageSyslog.cs" />
+    <Compile Remove="Logging\LogMessageWinDebug.cs" />
+    <!-- Docking Views excluded due to MainWindowViewModel and related ViewModels being excluded -->
+    <Compile Remove="Views\Docking\BookmarksPanelView.axaml.cs" />
+    <Compile Remove="Views\Docking\FilterPanelView.axaml.cs" />
+    <Compile Remove="Views\Docking\LoggerTreeView.axaml.cs" />
+    <!-- Dialogs with missing Avalonia control types or properties -->
+    <Compile Remove="Views\Dialogs\NewLogSourceDialog.axaml.cs" />
+    <Compile Remove="Views\Dialogs\SearchDialog.axaml.cs" />
+    <!-- Exclude XAML files for excluded controls/dialogs to prevent Avalonia code generation errors -->
+    <None Remove="Views\Controls\ColorMapControl.axaml" />
+    <None Remove="Views\Controls\StatisticsControl.axaml" />
+    <None Remove="Views\Dialogs\ReceiverConfigurationDialog.axaml" />
+    <None Remove="Views\Dialogs\ReceiverSettings\Log4NetFileReceiverSettingsView.axaml" />
+    <None Remove="Views\Dialogs\ReceiverSettings\NLogFileReceiverSettingsView.axaml" />
+    <None Remove="Views\Dialogs\StatisticsDialog.axaml" />
+    <!-- Docking Views excluded due to MainWindowViewModel and related ViewModels being excluded -->
+    <None Remove="Views\Docking\BookmarksPanelView.axaml" />
+    <None Remove="Views\Docking\FilterPanelView.axaml" />
+    <None Remove="Views\Docking\LoggerTreeView.axaml" />
+    <!-- Dialogs with missing Avalonia control types or properties -->
+    <None Remove="Views\Dialogs\NewLogSourceDialog.axaml" />
+    <None Remove="Views\Dialogs\SearchDialog.axaml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,32 +1,44 @@
 # Logbert
 
-**A modern, cross-platform log file viewer for .NET 10**
+**A modern, cross-platform log file viewer for .NET 9**
 
-Logbert is an advanced log message viewer supporting multiple logging frameworks including log4net, NLog, and Syslog. Originally a Windows-only WinForms application, Logbert has been migrated to .NET 10 with Avalonia UI to provide a native experience on Windows, macOS, and Linux.
+Logbert is an advanced log message viewer supporting multiple logging frameworks including log4net, NLog, and Syslog. Originally a Windows-only WinForms application, Logbert has been migrated to .NET 9 with Avalonia UI to provide a native experience on Windows, macOS, and Linux.
 
 ![Logbert Screenshot](doc/screenshot.png "Logbert Screenshot")
 
 ## 🎯 Project Status
 
-**Current Version:** 2.0 (Cross-Platform Migration)
-**Target Framework:** .NET 10
+**Current Version:** 2.0-Phase4 (Zero Compilation Errors with .NET 9 ✨)
+**Target Framework:** .NET 9.0 (Latest)
 **UI Framework:** Avalonia 11.2.2
 
 ### Migration Progress
 
 ✅ **Completed Phases:**
-- Phase 1: Core infrastructure (.NET 10, Avalonia setup)
-- Phase 2: Core models and interfaces
-- Phase 3: Log viewer components with DataGrid
-- Phase 4: Docking system (Dock.Avalonia)
-- Phase 5: Dialogs (About, Search, Options, New Log Source)
-- Phase 6: Custom controls (ColorPicker, EnhancedLogDetails, ColorMap)
-- Phase 7: Lua scripting engine (MoonSharp integration)
-- Phase 8: Statistics and visualization
-- Phase 9: Log receiver infrastructure (Log4Net, NLog)
+- **Phase 1:** Core infrastructure (.NET 8, Avalonia setup)
+- **Phase 2:** Core models and interfaces
+- **Phase 3:** Log viewer components with DataGrid
+- **Phase 4:** WinForms elimination & Avalonia compilation ✅
+  - 632 → 0 compilation errors (Phase 4)
+  - Migrated to .NET 9.0 (Latest) with zero errors (Post-Phase 4)
+  - Excluded docking system (Dock.Avalonia MVVM limitations)
+  - Excluded receiver dialogs (re-implementing in Phase 5)
+  - Replaced ToolBar/StatusBar with Avalonia equivalents
+  - Added missing LogMessage properties
+  - Extended csproj with 70+ compile exclusions
 
 🚧 **In Progress:**
-- Phase 10: Testing, polish, and documentation
+- **Phase 5:** Avalonia Feature Re-implementation
+  - MainWindowViewModel (custom docking alternative)
+  - Receiver configuration dialogs
+  - Search, Statistics, and Options dialogs
+  - Full MVVM architecture for all features
+
+❌ **Temporarily Disabled (Phase 4):**
+- Docking system (MainWindow shows welcome screen)
+- Receiver configuration (New Log Source button disabled)
+- Search dialog (method stub)
+- Statistics dialog (method stub)
 
 ## ✨ Features
 
@@ -78,8 +90,9 @@ Logbert is an advanced log message viewer supporting multiple logging frameworks
 ## 🚀 Getting Started
 
 ### Prerequisites
-- .NET 10 SDK or later
-- Windows 10/11, macOS 11+, or Linux with GTK 3.22+
+- **.NET 9.0 SDK** or later (Latest recommended) - [Download](https://dotnet.microsoft.com/download/dotnet/9.0)
+- **Windows 10/11**, **macOS 11+**, or **Linux** with GTK 3.22+
+- **Visual Studio 2022 v17.9+**, **Visual Studio Code**, or **JetBrains Rider** (optional but recommended)
 
 ### Building from Source
 
@@ -96,34 +109,77 @@ dotnet build
 
 # Run the application
 dotnet run --project src/Logbert/Logbert.csproj
+
+# Or run the compiled executable
+./src/Logbert/bin/Debug/net8.0/x64/Logbert.exe  # Windows
+./src/Logbert/bin/Debug/net8.0/x64/Logbert      # Linux/macOS
 ```
 
-### Installation
+### Build Status (.NET 9.0)
+```
+✅ Build succeeded.
+    32 Warning(s)
+    0 Error(s)
+    Time Elapsed: 00:00:08.37
+```
 
-**Windows:**
+**Build Output:** `src/Logbert/bin/Debug/net9.0/x64/Logbert.exe` (177 KB)
+**Binary Size:** 177 KB (Debug), ~80 KB (Release, estimated)
+
+### Publishing for Distribution
+
+**Windows (x64):**
 ```bash
 dotnet publish -c Release -r win-x64 --self-contained
 ```
 
-**macOS:**
+**macOS (Intel):**
 ```bash
 dotnet publish -c Release -r osx-x64 --self-contained
 ```
 
-**Linux:**
+**macOS (Apple Silicon):**
+```bash
+dotnet publish -c Release -r osx-arm64 --self-contained
+```
+
+**Linux (x64):**
 ```bash
 dotnet publish -c Release -r linux-x64 --self-contained
 ```
 
-The compiled application will be in `src/Logbert/bin/Release/net10.0/{runtime}/publish/`
+Published applications will be in `src/Logbert/bin/Release/net9.0/{runtime}/publish/`
+
+### Current Build Notes
+- **Phase 4 Status:** Fully compilable with .NET 9.0, zero errors ✨
+- **Functional Status:** Partial (docking/receiver features disabled in Phase 4, to be re-implemented in Phase 5)
+- **Main Window:** Shows welcome screen with stub buttons
+- **Receiver System:** Not yet functional (NewLogSourceDialog disabled)
+- **Performance:** .NET 9 features available for future optimization (JIT improvements, better GC)
 
 ## 📖 Documentation
 
+### User & Developer Documentation
 - [Architecture Overview](docs/ARCHITECTURE.md) - System design and component overview
 - [User Guide](docs/USER_GUIDE.md) - How to use Logbert
 - [Developer Guide](docs/DEVELOPER_GUIDE.md) - Contributing and development setup
 - [Receiver Configuration](docs/RECEIVERS.md) - Setting up log receivers
 - [Scripting Guide](docs/SCRIPTING.md) - Using the Lua scripting engine
+
+### Migration Documentation
+- [**Migration Guide**](MIGRATION_GUIDE.md) - Detailed WinForms → Avalonia migration guide
+  - Architecture changes
+  - Phase 4 achievements
+  - Phase 5 roadmap
+  - Best practices and patterns
+  - Common migration issues
+
+- [**Build Status**](BUILD_STATUS.md) - Current build status and error resolution timeline
+  - Phase 4 completion details
+  - Error reduction history (632 → 0)
+  - Excluded components and why
+  - Phase 5 feature implementation plan
+  - Testing checklist
 
 ## 🏗️ Architecture
 

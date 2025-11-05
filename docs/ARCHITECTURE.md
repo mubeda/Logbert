@@ -7,8 +7,8 @@ Logbert is built using modern .NET technologies with a focus on cross-platform c
 ## Technology Stack
 
 ### Core Technologies
-- **.NET 10** - Cross-platform runtime
-- **C# 12** - Programming language with latest features
+- **.NET 9.0** - Cross-platform runtime (Latest)
+- **C# 13** - Programming language with latest features
 - **Avalonia UI 11.2.2** - Cross-platform XAML-based UI framework
 
 ### Key Dependencies

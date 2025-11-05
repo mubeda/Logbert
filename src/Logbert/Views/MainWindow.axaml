@@ -1,20 +1,15 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Couchcoding.Logbert.ViewModels"
         xmlns:controls="using:Couchcoding.Logbert.Views.Controls"
         xmlns:dock="using:Dock.Avalonia.Controls"
+        xmlns:vm="using:Couchcoding.Logbert.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
         x:Class="Couchcoding.Logbert.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="Logbert - Log File Viewer"
         Width="1200" Height="800">
-
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
 
     <DockPanel>
         <!-- Menu Bar -->
@@ -25,15 +20,15 @@
                         <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Open..." Command="{Binding OpenFileCommand}" HotKey="Ctrl+O">
+                <MenuItem Header="_Open..." HotKey="Ctrl+O">
                     <MenuItem.Icon>
                         <PathIcon Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="_Close" Command="{Binding CloseDocumentCommand}" HotKey="Ctrl+W"/>
+                <MenuItem Header="_Close" HotKey="Ctrl+W"/>
                 <Separator/>
-                <MenuItem Header="E_xit" Command="{Binding ExitCommand}" HotKey="Alt+F4"/>
+                <MenuItem Header="E_xit" HotKey="Alt+F4"/>
             </MenuItem>
 
             <MenuItem Header="_Edit">
@@ -74,64 +69,45 @@
             </MenuItem>
         </Menu>
 
-        <!-- Toolbar -->
-        <ToolBar DockPanel.Dock="Top">
-            <Button Click="ShowNewLogSourceDialog" ToolTip.Tip="New Log Source (Ctrl+N)">
+        <!-- Toolbar - ToolBar control not available in standard Avalonia, using StackPanel instead -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="5" Background="#F0F0F0">
+            <Button Click="ShowNewLogSourceDialog" ToolTip.Tip="New Log Source (Ctrl+N)" Padding="8,6">
                 <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
             </Button>
-            <Button Command="{Binding OpenFileCommand}" ToolTip.Tip="Open Log File (Ctrl+O)">
+            <Button ToolTip.Tip="Open Log File (Ctrl+O)" Padding="8,6">
                 <PathIcon Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z"/>
             </Button>
             <Separator/>
-            <Button ToolTip.Tip="Refresh">
+            <Button ToolTip.Tip="Refresh" Padding="8,6">
                 <PathIcon Data="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
             </Button>
-            <Button ToolTip.Tip="Clear">
+            <Button ToolTip.Tip="Clear" Padding="8,6">
                 <PathIcon Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
             </Button>
             <Separator/>
-            <Button Click="ShowFindDialog" ToolTip.Tip="Find (Ctrl+F)">
+            <Button Click="ShowFindDialog" ToolTip.Tip="Find (Ctrl+F)" Padding="8,6">
                 <PathIcon Data="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
             </Button>
-        </ToolBar>
+        </StackPanel>
 
-        <!-- Status Bar -->
-        <StatusBar DockPanel.Dock="Bottom">
-            <TextBlock Text="Ready"/>
+        <!-- Status Bar - StatusBar control not available in standard Avalonia, using StackPanel instead -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="10" Margin="5" Background="#F0F0F0">
+            <TextBlock Text="Ready" VerticalAlignment="Center"/>
             <Separator/>
-            <TextBlock Text="{Binding Documents.Count, StringFormat='Documents: {0}'}"/>
-        </StatusBar>
+            <TextBlock Text="Documents: 0" VerticalAlignment="Center"/>
+        </StackPanel>
 
         <!-- Main Content Area with Docking -->
+        <!-- TODO: Docking system disabled - MainWindowViewModel excluded from compilation -->
         <Grid>
-            <dock:DockControl Layout="{Binding Layout}">
-                <dock:DockControl.DataTemplates>
-                    <!-- Log Document Template -->
-                    <DataTemplate DataType="vm:LogDocumentViewModel">
-                        <Grid RowDefinitions="*,Auto,250">
-                            <!-- Log Viewer -->
-                            <controls:LogViewerControl Grid.Row="0"
-                                                      DataContext="{Binding LogViewerViewModel}"/>
-
-                            <!-- Splitter -->
-                            <GridSplitter Grid.Row="1"
-                                         Height="4"
-                                         HorizontalAlignment="Stretch"
-                                         Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"/>
-
-                            <!-- Enhanced Details View -->
-                            <Border Grid.Row="2"
-                                   Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
-                                <controls:EnhancedLogDetailsView DataContext="{Binding LogViewerViewModel.SelectedMessage}"/>
-                            </Border>
-                        </Grid>
-                    </DataTemplate>
-                </dock:DockControl.DataTemplates>
-            </dock:DockControl>
+            <TextBlock Text="Docking system temporarily disabled during migration"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      FontSize="16"/>
 
             <!-- Welcome Screen (shown when no documents open) -->
             <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
-                   IsVisible="{Binding !Documents.Count}">
+                   IsVisible="True">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
                     <TextBlock Text="Welcome to Logbert" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"/>
                     <TextBlock Text="Cross-platform log file viewer" FontSize="16" HorizontalAlignment="Center" Opacity="0.7"/>
@@ -142,7 +118,7 @@
                                 <TextBlock Text="New Log Source"/>
                             </StackPanel>
                         </Button>
-                        <Button Command="{Binding OpenFileCommand}" HorizontalAlignment="Stretch" Padding="20,10">
+                        <Button HorizontalAlignment="Stretch" Padding="20,10">
                             <StackPanel Orientation="Horizontal" Spacing="10">
                                 <PathIcon Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z" Width="20" Height="20"/>
                                 <TextBlock Text="Open Log File"/>

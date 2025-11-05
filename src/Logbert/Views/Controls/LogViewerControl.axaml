@@ -122,12 +122,8 @@
                    Opacity="0.5"
                    IsVisible="{Binding !FilteredMessages.Count}"/>
 
-        <!-- ColorMap Control -->
-        <Border Grid.Column="1"
-                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                BorderThickness="1,0,0,0"
-                Margin="4,0,0,0">
-            <controls:ColorMapControl Width="30"/>
-        </Border>
+        <!-- ColorMap Control - Currently excluded from compilation -->
+        <!-- TODO: Re-implement as Avalonia control after migration -->
+
     </Grid>
 </UserControl>

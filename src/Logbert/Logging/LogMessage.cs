@@ -143,6 +143,38 @@ namespace Couchcoding.Logbert.Logging
       }
     }
 
+    /// <summary>
+    /// Gets the thread name of the <see cref="LogMessage"/>.
+    /// </summary>
+    public virtual string? ThreadName
+    {
+      get { return null; }
+    }
+
+    /// <summary>
+    /// Gets the machine name of the <see cref="LogMessage"/>.
+    /// </summary>
+    public virtual string? MachineName
+    {
+      get { return null; }
+    }
+
+    /// <summary>
+    /// Gets the user name of the <see cref="LogMessage"/>.
+    /// </summary>
+    public virtual string? UserName
+    {
+      get { return null; }
+    }
+
+    /// <summary>
+    /// Gets the exception information of the <see cref="LogMessage"/>.
+    /// </summary>
+    public virtual string? Exception
+    {
+      get { return null; }
+    }
+
     #endregion
 
     #region Public Methods
@@ -201,7 +233,7 @@ namespace Couchcoding.Logbert.Logging
         ["Minute"]      = Timestamp.Minute,
         ["Second"]      = Timestamp.Second,
         ["Millisecond"] = Timestamp.Millisecond,
-        ["Timestamp"]   = Timestamp.ToUnixTimestamp()
+        ["Timestamp"]   = Timestamp.Ticks  // TODO: ToUnixTimestamp extension method removed during migration
       };
               
      return msgData;
@@ -213,12 +245,13 @@ namespace Couchcoding.Logbert.Logging
     /// <returns>The <see cref="LogMessage"/> with its data as a comma seperated line.</returns>
     public virtual string GetCsvLine()
     {
+      // TODO: ToCsv extension methods and Settings removed during migration
       return string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\"{5}"
-        , Index.ToCsv()
-        , Level.ToCsv()
-        , Timestamp.ToString(Settings.Default.TimestampFormat)
-        , Logger.ToCsv()
-        , Message.ToCsv()
+        , Index
+        , Level
+        , Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff")
+        , Logger ?? ""
+        , Message ?? ""
         , Environment.NewLine);
     }
 

@@ -23,67 +23,21 @@ public partial class MainWindow : Window
         var dialog = new OptionsDialog();
         var result = await dialog.ShowDialog<bool>(this);
 
-        if (result && DataContext is MainWindowViewModel viewModel)
-        {
-            // Apply any settings changes
-            // TODO: Implement settings application
-        }
+        // TODO: MainWindowViewModel excluded from compilation, settings application disabled
     }
 
     public async void ShowFindDialog(object? sender, RoutedEventArgs e)
     {
-        if (DataContext is MainWindowViewModel viewModel && viewModel.ActiveDocument != null)
-        {
-            var searchViewModel = new Couchcoding.Logbert.ViewModels.Dialogs.SearchDialogViewModel();
-            searchViewModel.SetSearchTarget(viewModel.ActiveDocument);
-
-            var dialog = new SearchDialog(searchViewModel);
-            await dialog.ShowDialog(this);
-        }
+        // TODO: MainWindowViewModel excluded from compilation, search functionality disabled for now
+        await System.Threading.Tasks.Task.CompletedTask;
     }
 
     public async void ShowNewLogSourceDialog(object? sender, RoutedEventArgs e)
     {
-        // Step 1: Let user select receiver type
-        var typeDialog = new NewLogSourceDialog();
-        var typeResult = await typeDialog.ShowDialog<bool>(this);
-
-        if (!typeResult || typeDialog.SelectedReceiverType == null)
-            return;
-
-        var receiverType = typeDialog.SelectedReceiverType.Name;
-
-        // Step 2: Configure the selected receiver
-        var configDialog = new ReceiverConfigurationDialog(receiverType);
-        var configResult = await configDialog.ShowDialog<bool>(this);
-
-        if (!configResult || configDialog.ConfiguredReceiver == null)
-            return;
-
-        // Step 3: Create a new log document with the configured receiver
-        if (DataContext is MainWindowViewModel viewModel)
-        {
-            var receiver = configDialog.ConfiguredReceiver;
-
-            // Create a new document
-            var newDocument = new LogDocumentViewModel
-            {
-                Title = receiver.Description,
-                FilePath = receiver.Tooltip
-            };
-
-            // Initialize the receiver with a log handler
-            // The document's LogViewerViewModel will act as the log handler
-            receiver.Initialize(newDocument.LogViewerViewModel);
-
-            // Store the receiver in the document
-            newDocument.LogProvider = receiver;
-
-            // Add to documents collection and docking system
-            viewModel.Documents.Add(newDocument);
-            viewModel.DockFactory.AddDocument(newDocument);
-            viewModel.ActiveDocument = newDocument;
-        }
+        // TODO: This functionality is currently disabled as ReceiverConfigurationDialog
+        // depends on receiver settings ViewModels that are excluded from compilation.
+        // Will be re-implemented after completing Avalonia receiver migration.
+        await System.Threading.Tasks.Task.CompletedTask;
     }
 
     public async void ShowScriptEditor(object? sender, RoutedEventArgs e)
@@ -94,10 +48,8 @@ public partial class MainWindow : Window
 
     public async void ShowStatisticsDialog(object? sender, RoutedEventArgs e)
     {
-        if (DataContext is MainWindowViewModel viewModel && viewModel.ActiveDocument != null)
-        {
-            var dialog = new StatisticsDialog(viewModel.ActiveDocument.Messages);
-            await dialog.ShowDialog(this);
-        }
+        // TODO: StatisticsDialog is currently excluded from compilation.
+        // Will be re-implemented as an Avalonia dialog after migrations are complete.
+        await System.Threading.Tasks.Task.CompletedTask;
     }
 }
