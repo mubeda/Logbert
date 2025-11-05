@@ -1,0 +1,17 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="using:Couchcoding.Logbert.Views.Controls"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="700"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.ScriptEditorDialog"
+        Title="Script Editor"
+        Width="900" Height="700"
+        CanResize="True"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Assets/avalonia-logo.ico">
+
+    <Grid Margin="0">
+        <controls:ScriptEditorControl/>
+    </Grid>
+</Window>

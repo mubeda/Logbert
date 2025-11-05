@@ -72,4 +72,10 @@ public partial class MainWindow : Window
             }
         }
     }
+
+    public async void ShowScriptEditor(object? sender, RoutedEventArgs e)
+    {
+        var dialog = new ScriptEditorDialog();
+        await dialog.ShowDialog(this);
+    }
 }
