@@ -10,6 +10,7 @@ namespace Couchcoding.Logbert.ViewModels.Docking;
 /// <summary>
 /// ViewModel for the bookmarks panel tool window.
 /// </summary>
+[ObservableObject]
 public partial class BookmarksPanelViewModel : Tool
 {
     [ObservableProperty]

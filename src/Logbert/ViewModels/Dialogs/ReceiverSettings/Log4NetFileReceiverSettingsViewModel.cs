@@ -42,7 +42,7 @@ namespace Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings
         }
 
         [RelayCommand]
-        private async Task BrowseFile()
+        private void BrowseFile()
         {
             // In a real implementation, we would use Avalonia's file picker
             // For now, this is a placeholder that would be called from the View

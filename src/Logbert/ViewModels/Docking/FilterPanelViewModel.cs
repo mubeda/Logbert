@@ -6,6 +6,7 @@ namespace Couchcoding.Logbert.ViewModels.Docking;
 /// <summary>
 /// ViewModel for the filter panel tool window.
 /// </summary>
+[ObservableObject]
 public partial class FilterPanelViewModel : Tool
 {
     [ObservableProperty]

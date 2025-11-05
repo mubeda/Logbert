@@ -7,6 +7,7 @@ namespace Couchcoding.Logbert.ViewModels.Docking;
 /// <summary>
 /// ViewModel for the logger tree tool window.
 /// </summary>
+[ObservableObject]
 public partial class LoggerTreeViewModel : Tool
 {
     [ObservableProperty]

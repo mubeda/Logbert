@@ -12,6 +12,7 @@
     <ApplicationIcon>Logbert.ico</ApplicationIcon>
     <LangVersion>latest</LangVersion>
     <Platforms>AnyCPU;x86;x64</Platforms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
@@ -45,9 +46,10 @@
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.2" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.2" />
     <PackageReference Include="Dock.Avalonia" Version="11.1.0" />
-    <PackageReference Include="AvaloniaEdit" Version="11.1.0" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.3.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.0" />
+    <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
   </ItemGroup>
 
