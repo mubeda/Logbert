@@ -67,6 +67,90 @@
   </ItemGroup>
   -->
 
+  <!-- Exclude legacy WinForms files that are being migrated to Avalonia -->
+  <ItemGroup>
+    <Compile Remove="MainForm.cs" />
+    <Compile Remove="MainForm.Designer.cs" />
+    <Compile Remove="MainForm.resx" />
+    <!-- Legacy dialog forms to be migrated -->
+    <Compile Remove="Dialogs\FrmAbout.cs" />
+    <Compile Remove="Dialogs\FrmAbout.Designer.cs" />
+    <Compile Remove="Dialogs\FrmAddEditFilter.cs" />
+    <Compile Remove="Dialogs\FrmAddEditFilter.Designer.cs" />
+    <Compile Remove="Dialogs\FrmColumnizer.cs" />
+    <Compile Remove="Dialogs\FrmColumnizer.Designer.cs" />
+    <Compile Remove="Dialogs\FrmColumnizerTest.cs" />
+    <Compile Remove="Dialogs\FrmColumnizerTest.Designer.cs" />
+    <Compile Remove="Dialogs\FrmEditTimeStampFormat.cs" />
+    <Compile Remove="Dialogs\FrmEditTimeStampFormat.Designer.cs" />
+    <Compile Remove="Dialogs\FrmLogLevelMap.cs" />
+    <Compile Remove="Dialogs\FrmLogLevelMap.Designer.cs" />
+    <Compile Remove="Dialogs\FrmLogSearch.cs" />
+    <Compile Remove="Dialogs\FrmLogSearch.Designer.cs" />
+    <Compile Remove="Dialogs\FrmNew.cs" />
+    <Compile Remove="Dialogs\FrmNew.Designer.cs" />
+    <Compile Remove="Dialogs\FrmOptions.cs" />
+    <Compile Remove="Dialogs\FrmOptions.Designer.cs" />
+    <Compile Remove="Dialogs\FrmTimestamps.cs" />
+    <Compile Remove="Dialogs\FrmTimestamps.Designer.cs" />
+    <!-- Legacy docking forms to be migrated -->
+    <Compile Remove="Dialogs\Docking\FrmLogBookmarks.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogBookmarks.Designer.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogDetails.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogDetails.Designer.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogDocument.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogDocument.Designer.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogFilter.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogFilter.Designer.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogScript.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogScript.Designer.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogStatistic.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogStatistic.Designer.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogTree.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogTree.Designer.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogWindow.cs" />
+    <Compile Remove="Dialogs\Docking\FrmLogWindow.Designer.cs" />
+    <Compile Remove="Dialogs\Docking\FrmWelcome.cs" />
+    <Compile Remove="Dialogs\Docking\FrmWelcome.Designer.cs" />
+    <!-- Legacy detail/option controls -->
+    <Compile Remove="Controls\ColorMap.cs" />
+    <Compile Remove="Controls\ColorMap.Designer.cs" />
+    <Compile Remove="Controls\ColorPickerCtrl.cs" />
+    <Compile Remove="Controls\ColorPickerCtrl.Designer.cs" />
+    <Compile Remove="Controls\CustomDetailsControl.cs" />
+    <Compile Remove="Controls\CustomDetailsControl.Designer.cs" />
+    <Compile Remove="Controls\DockContentEx.cs" />
+    <Compile Remove="Controls\DockPanelEx.cs" />
+    <Compile Remove="Controls\EventLogDetailsControl.cs" />
+    <Compile Remove="Controls\EventLogDetailsControl.Designer.cs" />
+    <Compile Remove="Controls\Log4NetDetailsControl.cs" />
+    <Compile Remove="Controls\Log4NetDetailsControl.Designer.cs" />
+    <Compile Remove="Controls\OptionPanels\OptionPanelBase.cs" />
+    <Compile Remove="Controls\OptionPanels\OptionPanelFontColor.cs" />
+    <Compile Remove="Controls\OptionPanels\OptionPanelFontColor.Designer.cs" />
+    <Compile Remove="Controls\OptionPanels\OptionPanelGeneral.cs" />
+    <Compile Remove="Controls\OptionPanels\OptionPanelGeneral.Designer.cs" />
+    <Compile Remove="Controls\OptionPanels\OptionPanelScriptEditor.cs" />
+    <Compile Remove="Controls\OptionPanels\OptionPanelScriptEditor.Designer.cs" />
+    <Compile Remove="Controls\SyslogDetailsControl.cs" />
+    <Compile Remove="Controls\SyslogDetailsControl.Designer.cs" />
+    <Compile Remove="Controls\ThemedListBoxEx.cs" />
+    <Compile Remove="Controls\WinDebugDetailsControl.cs" />
+    <Compile Remove="Controls\WinDebugDetailsControl.Designer.cs" />
+    <!-- Legacy helper classes with WinForms/GDI+ dependencies -->
+    <Compile Remove="Helper\Browser.cs" />
+    <Compile Remove="Helper\FlatColorTable.cs" />
+    <Compile Remove="Helper\WaitCursor.cs" />
+    <Compile Remove="Helper\Extensions.cs" />
+    <Compile Remove="Helper\BrushCache.cs" />
+    <Compile Remove="Helper\FontCache.cs" />
+    <Compile Remove="Helper\GdiCache.cs" />
+    <!-- LogMessage classes with WinForms dialog dependencies -->
+    <Compile Remove="Logging\LogMessageCustom.cs" />
+    <Compile Remove="Logging\LogMessageEventlog.cs" />
+    <Compile Remove="Logging\LogMessageLog4Net.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
