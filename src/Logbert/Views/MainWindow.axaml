@@ -48,6 +48,12 @@
                 <MenuItem Header="_Toolbar" IsChecked="True"/>
                 <MenuItem Header="_Status Bar" IsChecked="True"/>
                 <Separator/>
+                <MenuItem Header="_Statistics..." Click="ShowStatisticsDialog">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M3,3H21V21H3V3M5,5V19H19V5H5M7,7H9V17H7V7M11,7H13V17H11V7M15,7H17V17H15V7Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
                 <MenuItem Header="_Full Screen" HotKey="F11"/>
             </MenuItem>
 

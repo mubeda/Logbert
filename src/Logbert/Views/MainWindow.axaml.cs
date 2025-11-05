@@ -78,4 +78,13 @@ public partial class MainWindow : Window
         var dialog = new ScriptEditorDialog();
         await dialog.ShowDialog(this);
     }
+
+    public async void ShowStatisticsDialog(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainWindowViewModel viewModel && viewModel.ActiveDocument != null)
+        {
+            var dialog = new StatisticsDialog(viewModel.ActiveDocument.Messages);
+            await dialog.ShowDialog(this);
+        }
+    }
 }
