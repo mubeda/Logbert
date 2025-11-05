@@ -63,6 +63,21 @@ public partial class MainWindowViewModel : ViewModelBase
     public ICommand ExitCommand { get; }
 
     /// <summary>
+    /// Gets the command to show the About dialog.
+    /// </summary>
+    public ICommand ShowAboutCommand { get; }
+
+    /// <summary>
+    /// Gets the command to show the Options dialog.
+    /// </summary>
+    public ICommand ShowOptionsCommand { get; }
+
+    /// <summary>
+    /// Gets the command to show the Find dialog.
+    /// </summary>
+    public ICommand ShowFindCommand { get; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
     /// </summary>
     public MainWindowViewModel()
@@ -71,6 +86,9 @@ public partial class MainWindowViewModel : ViewModelBase
         OpenFileCommand = new RelayCommand(OnOpenFile);
         CloseDocumentCommand = new RelayCommand(OnCloseDocument, CanCloseDocument);
         ExitCommand = new RelayCommand(OnExit);
+        ShowAboutCommand = new RelayCommand(OnShowAbout);
+        ShowOptionsCommand = new RelayCommand(OnShowOptions);
+        ShowFindCommand = new RelayCommand(OnShowFind, CanShowFind);
 
         // Initialize docking
         DockFactory = new DockFactory(this);
@@ -88,6 +106,7 @@ public partial class MainWindowViewModel : ViewModelBase
         Documents.CollectionChanged += (s, e) =>
         {
             ((RelayCommand)CloseDocumentCommand).NotifyCanExecuteChanged();
+            ((RelayCommand)ShowFindCommand).NotifyCanExecuteChanged();
         };
     }
 
@@ -148,5 +167,25 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             desktop.Shutdown();
         }
+    }
+
+    private void OnShowAbout()
+    {
+        // Will be handled by MainWindow code-behind
+    }
+
+    private void OnShowOptions()
+    {
+        // Will be handled by MainWindow code-behind
+    }
+
+    private bool CanShowFind()
+    {
+        return ActiveDocument != null;
+    }
+
+    private void OnShowFind()
+    {
+        // Will be handled by MainWindow code-behind
     }
 }

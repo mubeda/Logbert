@@ -1,0 +1,185 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Couchcoding.Logbert.ViewModels.Dialogs"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="500"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.OptionsDialog"
+        x:DataType="vm:OptionsDialogViewModel"
+        Title="Options"
+        Width="600" Height="500"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Assets/avalonia-logo.ico">
+
+    <Design.DataContext>
+        <vm:OptionsDialogViewModel/>
+    </Design.DataContext>
+
+    <Grid Margin="20" RowDefinitions="*,Auto">
+        <!-- Options Content -->
+        <TabControl Grid.Row="0">
+            <!-- General Tab -->
+            <TabItem Header="General">
+                <ScrollViewer>
+                    <StackPanel Spacing="15" Margin="10">
+                        <TextBlock Text="General Settings"
+                                   FontSize="16"
+                                   FontWeight="Bold"/>
+
+                        <CheckBox IsChecked="{Binding AlwaysOnTop}"
+                                  Content="Always on top"/>
+
+                        <CheckBox IsChecked="{Binding MinimizeToTray}"
+                                  Content="Minimize to system tray"/>
+
+                        <CheckBox IsChecked="{Binding ShowWelcomeScreen}"
+                                  Content="Show welcome screen on startup"/>
+
+                        <Separator/>
+
+                        <TextBlock Text="Recent Files"
+                                   FontWeight="Bold"/>
+
+                        <Grid ColumnDefinitions="Auto,150,*">
+                            <TextBlock Grid.Column="0"
+                                       Text="Maximum recent files:"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <NumericUpDown Grid.Column="1"
+                                           Value="{Binding MaxRecentFiles}"
+                                           Minimum="5"
+                                           Maximum="20"
+                                           Increment="1"
+                                           FormatString="0"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Appearance Tab -->
+            <TabItem Header="Appearance">
+                <ScrollViewer>
+                    <StackPanel Spacing="15" Margin="10">
+                        <TextBlock Text="Appearance Settings"
+                                   FontSize="16"
+                                   FontWeight="Bold"/>
+
+                        <Grid ColumnDefinitions="Auto,200,*">
+                            <TextBlock Grid.Column="0"
+                                       Text="Theme:"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AvailableThemes}"
+                                      SelectedItem="{Binding SelectedTheme}"/>
+                        </Grid>
+
+                        <Separator/>
+
+                        <TextBlock Text="Font Settings"
+                                   FontWeight="Bold"/>
+
+                        <Grid ColumnDefinitions="Auto,200,*" Margin="0,0,0,10">
+                            <TextBlock Grid.Column="0"
+                                       Text="Font family:"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AvailableFonts}"
+                                      SelectedItem="{Binding DefaultFontFamily}"/>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="Auto,150,*">
+                            <TextBlock Grid.Column="0"
+                                       Text="Font size:"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <NumericUpDown Grid.Column="1"
+                                           Value="{Binding DefaultFontSize}"
+                                           Minimum="8"
+                                           Maximum="24"
+                                           Increment="1"
+                                           FormatString="0"/>
+                        </Grid>
+
+                        <TextBlock>
+                            <Run Text="Preview: "/>
+                            <Run Text="The quick brown fox jumps over the lazy dog"
+                                 FontFamily="{Binding DefaultFontFamily}"
+                                 FontSize="{Binding DefaultFontSize}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Logging Tab -->
+            <TabItem Header="Logging">
+                <ScrollViewer>
+                    <StackPanel Spacing="15" Margin="10">
+                        <TextBlock Text="Application Logging"
+                                   FontSize="16"
+                                   FontWeight="Bold"/>
+
+                        <CheckBox IsChecked="{Binding EnableLogging}"
+                                  Content="Enable application logging"/>
+
+                        <TextBlock TextWrapping="Wrap"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}">
+                            Enable this option to log application events for troubleshooting purposes.
+                            Logs are stored in the application data directory.
+                        </TextBlock>
+
+                        <Grid ColumnDefinitions="Auto,150,*"
+                              IsEnabled="{Binding EnableLogging}">
+                            <TextBlock Grid.Column="0"
+                                       Text="Log retention (days):"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <NumericUpDown Grid.Column="1"
+                                           Value="{Binding LogRetentionDays}"
+                                           Minimum="1"
+                                           Maximum="30"
+                                           Increment="1"
+                                           FormatString="0"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <!-- Buttons -->
+        <Border Grid.Row="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="0,15,0,0"
+                Margin="0,15,0,0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Spacing="10">
+                <Button Content="Reset to Defaults"
+                        Command="{Binding ResetCommand}"
+                        Padding="15,8"
+                        MinWidth="120"/>
+
+                <Button Content="OK"
+                        Command="{Binding OkCommand}"
+                        Padding="15,8"
+                        MinWidth="80"
+                        IsDefault="True"
+                        Click="OnOkClick"/>
+
+                <Button Content="Cancel"
+                        Command="{Binding CancelCommand}"
+                        Padding="15,8"
+                        MinWidth="80"
+                        Click="OnCancelClick"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

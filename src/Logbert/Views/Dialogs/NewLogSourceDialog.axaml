@@ -1,0 +1,117 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Couchcoding.Logbert.ViewModels.Dialogs"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="500"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.NewLogSourceDialog"
+        x:DataType="vm:NewLogSourceDialogViewModel"
+        Title="New Log Source"
+        Width="600" Height="500"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Assets/avalonia-logo.ico">
+
+    <Design.DataContext>
+        <vm:NewLogSourceDialogViewModel/>
+    </Design.DataContext>
+
+    <Grid Margin="20" RowDefinitions="Auto,*,Auto,Auto">
+        <!-- Header -->
+        <TextBlock Grid.Row="0"
+                   Text="Select a log source type:"
+                   FontSize="14"
+                   FontWeight="Bold"
+                   Margin="0,0,0,15"/>
+
+        <!-- Receiver List -->
+        <Border Grid.Row="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="1"
+                CornerRadius="4">
+            <ListBox ItemsSource="{Binding AvailableReceivers}"
+                     SelectedItem="{Binding SelectedReceiver}">
+                <ListBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <Border Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                                        Padding="8,4"
+                                        Margin="0,4,0,0">
+                                    <TextBlock Text="{Binding Key}"
+                                               FontWeight="Bold"
+                                               FontSize="12"/>
+                                </Border>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListBox.GroupStyle>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="vm:LogReceiverType">
+                        <Grid ColumnDefinitions="Auto,*" Margin="4">
+                            <!-- Icon -->
+                            <Border Grid.Column="0"
+                                    Width="32" Height="32"
+                                    CornerRadius="4"
+                                    Background="{DynamicResource SystemControlBackgroundAccentBrush}"
+                                    Margin="0,0,10,0">
+                                <PathIcon Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z"
+                                          Width="16" Height="16"
+                                          Foreground="White"/>
+                            </Border>
+
+                            <!-- Text -->
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Name}"
+                                           FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding Description}"
+                                           FontSize="11"
+                                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+
+        <!-- Description Panel -->
+        <Border Grid.Row="2"
+                Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="1"
+                CornerRadius="4"
+                Padding="15"
+                Margin="0,15,0,0"
+                MinHeight="80"
+                IsVisible="{Binding SelectedReceiver, Converter={x:Static ObjectConverters.IsNotNull}}">
+            <StackPanel Spacing="5">
+                <TextBlock Text="Description"
+                           FontWeight="Bold"
+                           FontSize="12"/>
+                <TextBlock Text="{Binding Description}"
+                           TextWrapping="Wrap"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="10"
+                    Margin="0,15,0,0">
+            <Button Content="OK"
+                    Command="{Binding OkCommand}"
+                    Padding="30,8"
+                    IsDefault="True"
+                    Click="OnOkClick"/>
+
+            <Button Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    Padding="30,8"
+                    Click="OnCancelClick"/>
+        </StackPanel>
+    </Grid>
+</Window>
