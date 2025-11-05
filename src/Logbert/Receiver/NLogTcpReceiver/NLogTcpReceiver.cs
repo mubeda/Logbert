@@ -35,11 +35,11 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
+// using System.Windows.Forms; // WinForms removed for Avalonia
 
 using Couchcoding.Logbert.Interfaces;
 
-using Couchcoding.Logbert.Controls;
+// using Couchcoding.Logbert.Controls; // WinForms controls removed for Avalonia
 using Couchcoding.Logbert.Helper;
 using Couchcoding.Logbert.Logging;
 

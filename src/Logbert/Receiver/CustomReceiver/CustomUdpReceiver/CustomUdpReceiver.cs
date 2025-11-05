@@ -37,7 +37,7 @@ using System.Net;
 using System.Net.Sockets;
 using Couchcoding.Logbert.Receiver.Log4NetUdpReceiver;
 using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Controls;
+// using Couchcoding.Logbert.Controls; // WinForms controls removed for Avalonia
 
 namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomUdpReceiver
 {

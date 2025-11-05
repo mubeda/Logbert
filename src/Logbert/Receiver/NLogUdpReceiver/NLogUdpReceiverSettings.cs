@@ -31,7 +31,7 @@
 using System;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Windows.Forms;
+// using System.Windows.Forms; // WinForms removed for Avalonia
 
 using Couchcoding.Logbert.Interfaces;
 using Couchcoding.Logbert.Properties;

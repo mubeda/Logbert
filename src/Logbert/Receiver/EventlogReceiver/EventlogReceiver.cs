@@ -35,7 +35,7 @@ using Couchcoding.Logbert.Interfaces;
 using Couchcoding.Logbert.Logging;
 using System.Diagnostics;
 
-using Couchcoding.Logbert.Controls;
+// using Couchcoding.Logbert.Controls; // WinForms controls removed for Avalonia
 using Couchcoding.Logbert.Helper;
 
 namespace Couchcoding.Logbert.Receiver.EventlogReceiver

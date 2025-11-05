@@ -33,7 +33,7 @@ using System.Collections.Generic;
 using System.IO;
 using Couchcoding.Logbert.Interfaces;
 
-using Couchcoding.Logbert.Controls;
+// using Couchcoding.Logbert.Controls; // WinForms controls removed for Avalonia
 using Couchcoding.Logbert.Helper;
 using Couchcoding.Logbert.Logging;
 
