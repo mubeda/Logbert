@@ -3,7 +3,7 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Couchcoding.Logbert.Logging;
-using Dock.Model.Mvvm.Controls;
+using Dock.Model.Controls;
 
 namespace Couchcoding.Logbert.ViewModels.Docking;
 

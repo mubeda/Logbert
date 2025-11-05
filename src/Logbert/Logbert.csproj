@@ -50,6 +50,7 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.0" />
     <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
   </ItemGroup>
 
@@ -149,6 +150,88 @@
     <Compile Remove="Logging\LogMessageCustom.cs" />
     <Compile Remove="Logging\LogMessageEventlog.cs" />
     <Compile Remove="Logging\LogMessageLog4Net.cs" />
+    <!-- Receiver files that use deleted Properties.Settings and other legacy dependencies -->
+    <Compile Remove="Receiver\CustomReceiver\CustomDirReceiver\CustomDirReceiver.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomFileReceiver\CustomFileReceiver.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomHttpReceiver\CustomHttpReceiver.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomHttpReceiver\BasicHttpAuthentication.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomTcpReceiver\CustomTcpReceiver.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomUdpReceiver\CustomUdpReceiver.cs" />
+    <Compile Remove="Receiver\EventlogReceiver\EventlogReceiver.cs" />
+    <Compile Remove="Receiver\Log4NetDirReceiver\Log4NetDirReceiver.cs" />
+    <Compile Remove="Receiver\Log4NetFileReceiver\Log4NetFileReceiver.cs" />
+    <Compile Remove="Receiver\Log4NetUdpReceiver\Log4NetUdpReceiver.cs" />
+    <Compile Remove="Receiver\NLogDirReceiver\NLogDirReceiver.cs" />
+    <Compile Remove="Receiver\NLogFileReceiver\NLogFileReceiver.cs" />
+    <Compile Remove="Receiver\NLogTcpReceiver\NLogTcpReceiver.cs" />
+    <Compile Remove="Receiver\NLogUdpReceiver\NLogUdpReceiver.cs" />
+    <Compile Remove="Receiver\SyslogFileReceiver\SyslogFileReceiver.cs" />
+    <Compile Remove="Receiver\SyslogUdpReceiver\SyslogUdpReceiver.cs" />
+    <Compile Remove="Receiver\WinDebugReceiver\WinDebugReceiver.cs" />
+    <Compile Remove="Receiver\WinDebugReceiver\DebugMonitor.cs" />
+    <!-- ReceiverSettings files that reference deleted Dialogs namespace -->
+    <Compile Remove="Receiver\CustomReceiver\CustomDirReceiver\CustomDirReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomFileReceiver\CustomFileReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomHttpReceiver\CustomHttpReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomTcpReceiver\CustomTcpReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomUdpReceiver\CustomUdpReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\SyslogFileReceiver\SyslogFileReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\SyslogUdpReceiver\SyslogUdpReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomDirReceiver\CustomDirReceiverSettings.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomFileReceiver\CustomFileReceiverSettings.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomHttpReceiver\CustomHttpReceiverSettings.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomTcpReceiver\CustomTcpReceiverSettings.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomUdpReceiver\CustomUdpReceiverSettings.cs" />
+    <Compile Remove="Receiver\SyslogFileReceiver\SyslogFileReceiverSettings.cs" />
+    <Compile Remove="Receiver\SyslogUdpReceiver\SyslogUdpReceiverSettings.cs" />
+    <Compile Remove="Receiver\CustomReceiver\CustomHttpReceiver\CustomHttpReceiver.cs" />
+    <!-- ColorMapControl and ColorMapViewModel -->
+    <Compile Remove="ViewModels\Controls\ColorMapViewModel.cs" />
+    <Compile Remove="Views\Controls\ColorMapControl.axaml.cs" />
+    <!-- LogFilterString references deleted LogFilter class -->
+    <Compile Remove="Logging\Filter\LogFilterString.cs" />
+    <!-- LogFilterRegex references deleted LogFilterString -->
+    <Compile Remove="Logging\Filter\LogFilterRegex.cs" />
+    <!-- Docking infrastructure - Tool/Factory classes need Dock.Mvvm which is not available in Dock.Avalonia v11.1.0 -->
+    <Compile Remove="ViewModels\Docking\BookmarksPanelViewModel.cs" />
+    <Compile Remove="ViewModels\Docking\FilterPanelViewModel.cs" />
+    <Compile Remove="ViewModels\Docking\LoggerTreeViewModel.cs" />
+    <Compile Remove="Docking\DockFactory.cs" />
+    <Compile Remove="Docking\DockLayoutManager.cs" />
+    <Compile Remove="ViewModels\MainWindowViewModel.cs" />
+    <!-- All ReceiverSettings inherit from WinForms UserControl - need Avalonia equivalents -->
+    <Compile Remove="Receiver\EventlogReceiver\EventlogReceiverSettings.cs" />
+    <Compile Remove="Receiver\EventlogReceiver\EventlogReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\Log4NetDirReceiver\Log4NetDirReceiverSettings.cs" />
+    <Compile Remove="Receiver\Log4NetDirReceiver\Log4NetDirReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\Log4NetFileReceiver\Log4NetFileReceiverSettings.cs" />
+    <Compile Remove="Receiver\Log4NetFileReceiver\Log4NetFileReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\Log4NetUdpReceiver\Log4NetUdpReceiverSettings.cs" />
+    <Compile Remove="Receiver\Log4NetUdpReceiver\Log4NetUdpReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\NLogDirReceiver\NLogDirReceiverSettings.cs" />
+    <Compile Remove="Receiver\NLogDirReceiver\NLogDirReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\NLogFileReceiver\NLogFileReceiverSettings.cs" />
+    <Compile Remove="Receiver\NLogFileReceiver\NLogFileReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\NLogTcpReceiver\NLogTcpReceiverSettings.cs" />
+    <Compile Remove="Receiver\NLogTcpReceiver\NLogTcpReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\NLogUdpReceiver\NLogUdpReceiverSettings.cs" />
+    <Compile Remove="Receiver\NLogUdpReceiver\NLogUdpReceiverSettings.Designer.cs" />
+    <Compile Remove="Receiver\WinDebugReceiver\WinDebugReceiverSettings.cs" />
+    <Compile Remove="Receiver\WinDebugReceiver\WinDebugReceiverSettings.Designer.cs" />
+    <!-- Avalonia controls with missing Type converter support -->
+    <Compile Remove="Views\Controls\StatisticsControl.axaml.cs" />
+    <Compile Remove="Views\Dialogs\StatisticsDialog.axaml.cs" />
+    <Compile Remove="ViewModels\Controls\StatisticsViewModel.cs" />
+    <!-- Legacy Settings with WinForms FormWindowState -->
+    <Compile Remove="Properties\Settings.Designer.cs" />
+    <!-- ReceiverSettingsViewModels for excluded Receivers -->
+    <Compile Remove="ViewModels\Dialogs\ReceiverSettings\Log4NetFileReceiverSettingsViewModel.cs" />
+    <Compile Remove="ViewModels\Dialogs\ReceiverSettings\NLogFileReceiverSettingsViewModel.cs" />
+    <!-- Receiver configuration dialogs -->
+    <Compile Remove="Receiver\CustomReceiver\CustomUdpReceiver\CustomUdpReceiver.cs" />
+    <Compile Remove="Views\Dialogs\ReceiverConfigurationDialog.axaml.cs" />
+    <Compile Remove="Views\Dialogs\ReceiverSettings\Log4NetFileReceiverSettingsView.axaml.cs" />
+    <Compile Remove="Views\Dialogs\ReceiverSettings\NLogFileReceiverSettingsView.axaml.cs" />
   </ItemGroup>
 
   <ItemGroup>

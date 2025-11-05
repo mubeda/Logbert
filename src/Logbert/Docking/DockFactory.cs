@@ -1,7 +1,5 @@
 using Dock.Model.Controls;
 using Dock.Model.Core;
-using Dock.Model.Mvvm;
-using Dock.Model.Mvvm.Controls;
 using Couchcoding.Logbert.ViewModels;
 using Couchcoding.Logbert.ViewModels.Docking;
 

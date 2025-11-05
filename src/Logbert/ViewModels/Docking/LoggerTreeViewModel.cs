@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Dock.Model.Mvvm.Controls;
+using Dock.Model.Controls;
 
 namespace Couchcoding.Logbert.ViewModels.Docking;
 
