@@ -1,49 +1,92 @@
-using Avalonia;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings;
-using System.Linq;
 
-namespace Couchcoding.Logbert.Views.Dialogs.ReceiverSettings
+namespace Couchcoding.Logbert.Views.Dialogs.ReceiverSettings;
+
+public partial class NLogFileReceiverSettingsView : Window
 {
-    public partial class NLogFileReceiverSettingsView : UserControl
+    public NLogFileReceiverSettingsViewModel? ViewModel => DataContext as NLogFileReceiverSettingsViewModel;
+
+    public NLogFileReceiverSettingsView()
     {
-        public NLogFileReceiverSettingsView()
+        InitializeComponent();
+        DataContext = new NLogFileReceiverSettingsViewModel();
+    }
+
+    private async void OnBrowseClick(object? sender, RoutedEventArgs e)
+    {
+        var storageProvider = StorageProvider;
+        if (storageProvider == null) return;
+
+        var options = new FilePickerOpenOptions
         {
-            InitializeComponent();
-        }
-
-        public async void BrowseFile(object? sender, RoutedEventArgs e)
-        {
-            if (DataContext is not NLogFileReceiverSettingsViewModel viewModel)
-                return;
-
-            var topLevel = TopLevel.GetTopLevel(this);
-            if (topLevel == null)
-                return;
-
-            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            Title = "Select Log File",
+            AllowMultiple = false,
+            FileTypeFilter = new[]
             {
-                Title = "Select NLog XML File",
-                AllowMultiple = false,
-                FileTypeFilter = new[]
+                new FilePickerFileType("Log Files")
                 {
-                    new FilePickerFileType("Log Files")
-                    {
-                        Patterns = new[] { "*.log", "*.xml", "*.txt" }
-                    },
-                    new FilePickerFileType("All Files")
-                    {
-                        Patterns = new[] { "*.*" }
-                    }
+                    Patterns = new[] { "*.log", "*.txt", "*.xml" }
+                },
+                new FilePickerFileType("All Files")
+                {
+                    Patterns = new[] { "*.*" }
                 }
-            });
+            }
+        };
 
-            if (files.Count > 0)
+        var result = await storageProvider.OpenFilePickerAsync(options);
+        if (result != null && result.Count > 0 && ViewModel != null)
+        {
+            ViewModel.FilePath = result[0].Path.LocalPath;
+        }
+    }
+
+    private void OnOkClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel != null)
+        {
+            var validation = ViewModel.ValidateSettings();
+            if (validation.IsSuccess)
             {
-                viewModel.FilePath = files[0].Path.LocalPath;
+                Close(ViewModel);
+            }
+            else
+            {
+                // Show error message
+                var messageBox = new Window
+                {
+                    Title = "Validation Error",
+                    Width = 400,
+                    Height = 150,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                    Content = new StackPanel
+                    {
+                        Margin = new Avalonia.Thickness(20),
+                        Spacing = 15,
+                        Children =
+                        {
+                            new TextBlock { Text = validation.ErrorMsg, TextWrapping = Avalonia.Media.TextWrapping.Wrap },
+                            new Button
+                            {
+                                Content = "OK",
+                                Width = 80,
+                                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
+                                Command = new Avalonia.ReactiveUI.ReactiveCommand<object>(_ => { })
+                            }
+                        }
+                    }
+                };
+                messageBox.ShowDialog(this);
             }
         }
+    }
+
+    private void OnCancelClick(object? sender, RoutedEventArgs e)
+    {
+        Close(null);
     }
 }
