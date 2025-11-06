@@ -28,17 +28,19 @@ Logbert is an advanced log message viewer supporting multiple logging frameworks
   - Extended csproj with 70+ compile exclusions
 
 🚧 **In Progress:**
-- **Phase 5:** Avalonia Feature Re-implementation
-  - MainWindowViewModel (custom docking alternative)
-  - Receiver configuration dialogs
-  - Search, Statistics, and Options dialogs
-  - Full MVVM architecture for all features
+- **Phase 5:** Avalonia Feature Re-implementation (~75% Complete)
+  - ✅ Custom docking system (Grid-based layout)
+  - ✅ MainWindowViewModel with full MVVM
+  - ✅ Search dialog with regex support
+  - 🚧 Receiver configuration dialogs (2/24 types working)
+  - 🚧 Statistics dialog (ViewModel ready, UI pending)
+  - ✅ Options dialog (basic functionality)
 
-❌ **Temporarily Disabled (Phase 4):**
-- Docking system (MainWindow shows welcome screen)
-- Receiver configuration (New Log Source button disabled)
-- Search dialog (method stub)
-- Statistics dialog (method stub)
+✅ **Recently Completed:**
+- Custom docking layout (replaces Dock.Avalonia)
+- Log4Net & NLog file receiver UIs
+- Complete search functionality (Find Next/Previous, regex, case-sensitive)
+- MainWindow with filter panel, bookmarks, logger tree
 
 ## ✨ Features
 
@@ -224,7 +226,7 @@ Contributions are welcome! Please read our [Developer Guide](docs/DEVELOPER_GUID
 
 ### Development Setup
 
-1. Install .NET 10 SDK
+1. Install .NET 9 SDK
 2. Install an IDE (Visual Studio 2022, VS Code, or JetBrains Rider)
 3. Clone the repository
 4. Open `src/Logbert.sln` in your IDE
@@ -242,11 +244,13 @@ Contributions are welcome! Please read our [Developer Guide](docs/DEVELOPER_GUID
 ## 📋 Roadmap
 
 ### Version 2.0 (Current)
-- ✅ Cross-platform migration to .NET 10 + Avalonia
+- ✅ Cross-platform migration to .NET 9 + Avalonia
 - ✅ Core receiver infrastructure
 - ✅ Lua scripting support
 - ✅ Statistics and visualization
-- 🚧 Complete documentation
+- ✅ Custom docking system
+- ✅ Search functionality
+- 🚧 Complete receiver UI coverage (2/24 types)
 - 🚧 Cross-platform testing
 
 ### Version 2.1 (Planned)
