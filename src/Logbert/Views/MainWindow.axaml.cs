@@ -179,7 +179,12 @@ public partial class MainWindow : Window
 
     public async void ShowStatisticsDialog(object? sender, RoutedEventArgs e)
     {
-        // TODO: StatisticsDialog needs to be recreated
-        await System.Threading.Tasks.Task.CompletedTask;
+        if (ViewModel?.ActiveDocument == null)
+        {
+            return; // No active document with messages
+        }
+
+        var dialog = new StatisticsDialog(ViewModel.ActiveDocument.Messages);
+        await dialog.ShowDialog(this);
     }
 }

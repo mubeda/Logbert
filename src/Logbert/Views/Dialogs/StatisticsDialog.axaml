@@ -1,0 +1,158 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Couchcoding.Logbert.ViewModels.Controls"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="500"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.StatisticsDialog"
+        x:DataType="vm:StatisticsViewModel"
+        Title="Log Statistics"
+        Width="600" Height="500"
+        WindowStartupLocation="CenterOwner"
+        CanResize="True">
+
+    <DockPanel Margin="15">
+        <!-- Close Button -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,15,0,0">
+            <Button Content="Close" Width="80" Click="OnCloseClick" IsDefault="True"/>
+        </StackPanel>
+
+        <!-- Content -->
+        <ScrollViewer>
+            <StackPanel Spacing="20">
+                <!-- Header -->
+                <TextBlock Text="Log Message Statistics"
+                           FontSize="20"
+                           FontWeight="Bold"/>
+
+                <!-- Summary Statistics -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                        BorderThickness="1"
+                        Padding="15"
+                        CornerRadius="4">
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*">
+                        <!-- Total Messages -->
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="Total Messages:"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,10,8"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1"
+                                   Text="{Binding TotalMessages}"
+                                   Margin="0,0,0,8"/>
+
+                        <!-- Time Range -->
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                   Text="Time Range:"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,10,8"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                   Margin="0,0,0,8">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0:yyyy-MM-dd HH:mm:ss} to {1:yyyy-MM-dd HH:mm:ss}">
+                                    <Binding Path="FirstMessageTime"/>
+                                    <Binding Path="LastMessageTime"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+
+                        <!-- Duration -->
+                        <TextBlock Grid.Row="2" Grid.Column="0"
+                                   Text="Duration:"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,10,8"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1"
+                                   Text="{Binding TimeRange, StringFormat='{}{0:hh\\:mm\\:ss}'}"
+                                   Margin="0,0,0,8"/>
+
+                        <!-- Messages Per Second -->
+                        <TextBlock Grid.Row="3" Grid.Column="0"
+                                   Text="Messages/Second:"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,10,0"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1"
+                                   Text="{Binding MessagesPerSecond, StringFormat='{}{0:F2}'}"/>
+                    </Grid>
+                </Border>
+
+                <!-- Log Level Breakdown Header -->
+                <TextBlock Text="Log Level Breakdown"
+                           FontSize="16"
+                           FontWeight="SemiBold"/>
+
+                <!-- Log Level Statistics -->
+                <ItemsControl Items="{Binding Statistics}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                    BorderThickness="0,0,0,1"
+                                    Padding="10,8"
+                                    Margin="0,0,0,4">
+                                <Grid ColumnDefinitions="20,Auto,*,Auto,Auto">
+                                    <!-- Color Indicator -->
+                                    <Border Grid.Column="0"
+                                            Width="16"
+                                            Height="16"
+                                            CornerRadius="2"
+                                            Margin="0,0,8,0">
+                                        <Border.Background>
+                                            <SolidColorBrush Color="{Binding Color}"/>
+                                        </Border.Background>
+                                    </Border>
+
+                                    <!-- Level Name -->
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding Level}"
+                                               FontWeight="SemiBold"
+                                               MinWidth="80"
+                                               VerticalAlignment="Center"/>
+
+                                    <!-- Progress Bar -->
+                                    <ProgressBar Grid.Column="2"
+                                                 Value="{Binding Percentage}"
+                                                 Maximum="100"
+                                                 Height="20"
+                                                 Margin="10,0"
+                                                 VerticalAlignment="Center">
+                                        <ProgressBar.Foreground>
+                                            <SolidColorBrush Color="{Binding Color}"/>
+                                        </ProgressBar.Foreground>
+                                    </ProgressBar>
+
+                                    <!-- Count -->
+                                    <TextBlock Grid.Column="3"
+                                               Text="{Binding Count}"
+                                               MinWidth="60"
+                                               TextAlignment="Right"
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,8,0"/>
+
+                                    <!-- Percentage -->
+                                    <TextBlock Grid.Column="4"
+                                               Text="{Binding Percentage, StringFormat='({0:F1}%)'}"
+                                               MinWidth="60"
+                                               VerticalAlignment="Center"
+                                               Opacity="0.7"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Empty State -->
+                <Border IsVisible="{Binding !Statistics.Count}"
+                        Padding="40"
+                        HorizontalAlignment="Center">
+                    <StackPanel Spacing="10" HorizontalAlignment="Center">
+                        <TextBlock Text="📊"
+                                   FontSize="48"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="No log messages to analyze"
+                                   FontSize="16"
+                                   Opacity="0.6"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>
