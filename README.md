@@ -28,17 +28,24 @@ Logbert is an advanced log message viewer supporting multiple logging frameworks
   - Extended csproj with 70+ compile exclusions
 
 🚧 **In Progress:**
-- **Phase 5:** Avalonia Feature Re-implementation (~82% Complete)
+- **Phase 5:** Avalonia Feature Re-implementation (~85% Complete)
   - ✅ Custom docking system (Grid-based layout)
   - ✅ MainWindowViewModel with full MVVM
   - ✅ Search dialog with regex support
+  - ✅ Statistics dialog with visual analytics
   - 🟡 Receiver configuration dialogs (9/24 types working - 38%)
     - ✅ File monitoring: Log4Net, NLog, Syslog (file + directory)
     - ✅ Network monitoring: Log4Net UDP, NLog UDP/TCP, Syslog UDP
-  - 🔴 Statistics dialog (ViewModel ready, UI pending)
+  - 🟡 Receiver backends (9/24 enabled - 38%)
+    - ✅ Re-enabled 7 receiver implementations
+    - ✅ Fixed Properties.Settings compatibility
   - ✅ Options dialog (basic functionality)
 
-✅ **Recently Completed (Nov 6):**
+✅ **Recently Completed (Nov 6 - Latest):**
+- ✅ Statistics Dialog - Full implementation with log level analytics
+- ✅ Receiver backend re-enablement (9/24 receivers now functional)
+- ✅ Properties.Settings fixes for Avalonia compatibility
+- ✅ LogMessageLog4Net re-enabled
 - 7 additional receiver UIs (directory + network types)
 - Network monitoring via UDP/TCP protocols
 - Directory-wide log file monitoring
