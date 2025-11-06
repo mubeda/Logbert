@@ -37,6 +37,13 @@ public partial class MainWindow : Window
     public async void ShowFindDialog(object? sender, RoutedEventArgs e)
     {
         var dialog = new SearchDialog();
+
+        // Pass the active document to the search dialog
+        if (ViewModel?.ActiveDocument != null)
+        {
+            dialog.ViewModel.SetSearchTarget(ViewModel.ActiveDocument);
+        }
+
         await dialog.ShowDialog(this);
     }
 
