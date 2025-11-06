@@ -88,7 +88,28 @@ public partial class MainWindow : Window
                 receiverSettings = await syslogDialog.ShowDialog<ILogSettingsCtrl?>(this);
                 break;
 
-            // TODO: Add more receiver types here (Network and System receivers)
+            // Network receivers
+            case "Log4Net UDP":
+                var log4NetUdpDialog = new Log4NetUdpReceiverSettingsView();
+                receiverSettings = await log4NetUdpDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
+            case "NLog UDP":
+                var nlogUdpDialog = new NLogUdpReceiverSettingsView();
+                receiverSettings = await nlogUdpDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
+            case "NLog TCP":
+                var nlogTcpDialog = new NLogTcpReceiverSettingsView();
+                receiverSettings = await nlogTcpDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
+            case "Syslog UDP":
+                var syslogUdpDialog = new SyslogUdpReceiverSettingsView();
+                receiverSettings = await syslogUdpDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
+            // TODO: Add remaining receiver types (Custom UDP/TCP/HTTP, Windows Event Log, etc.)
 
             default:
                 // For now, fall back to creating a sample document

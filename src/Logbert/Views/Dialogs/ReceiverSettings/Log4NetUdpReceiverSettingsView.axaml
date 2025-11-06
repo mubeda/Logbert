@@ -1,0 +1,84 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="400"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.ReceiverSettings.Log4NetUdpReceiverSettingsView"
+        x:DataType="vm:Log4NetUdpReceiverSettingsViewModel"
+        Title="Log4Net UDP Receiver Configuration"
+        Width="500" Height="400"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+
+    <DockPanel Margin="15">
+        <!-- Buttons -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,15,0,0">
+            <Button Content="OK" Width="80" Click="OnOkClick" IsDefault="True"/>
+            <Button Content="Cancel" Width="80" Click="OnCancelClick" IsCancel="True"/>
+        </StackPanel>
+
+        <!-- Settings -->
+        <StackPanel Spacing="15">
+            <!-- Listen Port -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="Listen Port:" FontWeight="SemiBold"/>
+                <NumericUpDown Value="{Binding Port}"
+                               Minimum="1"
+                               Maximum="65535"
+                               Increment="1"
+                               FormatString="0"/>
+                <TextBlock Text="UDP port to listen on (e.g., 8080)"
+                           FontSize="11"
+                           Opacity="0.7"/>
+            </StackPanel>
+
+            <!-- Listen Interface IP -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="Listen Interface IP:" FontWeight="SemiBold"/>
+                <TextBox Text="{Binding ListenInterfaceIp}"
+                         Watermark="0.0.0.0"/>
+                <TextBlock Text="IP address to bind to (0.0.0.0 = all interfaces)"
+                           FontSize="11"
+                           Opacity="0.7"/>
+            </StackPanel>
+
+            <!-- Multicast IP -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="Multicast IP (optional):" FontWeight="SemiBold"/>
+                <TextBox Text="{Binding MulticastIp}"
+                         Watermark="Leave empty for unicast"/>
+                <TextBlock Text="Multicast group IP (e.g., 239.255.0.1) or leave empty"
+                           FontSize="11"
+                           Opacity="0.7"/>
+            </StackPanel>
+
+            <!-- Encoding -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="Encoding:" FontWeight="SemiBold"/>
+                <ComboBox Items="{Binding AvailableEncodings}"
+                          SelectedItem="{Binding SelectedEncoding}"
+                          HorizontalAlignment="Stretch">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DisplayName}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+            <!-- Info -->
+            <Border Background="#F0F8FF"
+                    BorderBrush="#B0C4DE"
+                    BorderThickness="1"
+                    Padding="10"
+                    CornerRadius="4">
+                <StackPanel Spacing="5">
+                    <TextBlock Text="💡 Note:" FontWeight="SemiBold"/>
+                    <TextBlock TextWrapping="Wrap"
+                               Text="This receiver listens for Log4Net XML log messages via UDP. Configure your Log4Net appender to send to the specified port. Supports both unicast and multicast."/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </DockPanel>
+</Window>
