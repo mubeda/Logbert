@@ -109,7 +109,18 @@ public partial class MainWindow : Window
                 receiverSettings = await syslogUdpDialog.ShowDialog<ILogSettingsCtrl?>(this);
                 break;
 
-            // TODO: Add remaining receiver types (Custom UDP/TCP/HTTP, Windows Event Log, etc.)
+            // System receivers
+            case "Windows Event Log":
+                var eventlogDialog = new EventlogReceiverSettingsView();
+                receiverSettings = await eventlogDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
+            case "Windows Debug Output":
+                var winDebugDialog = new WinDebugReceiverSettingsView();
+                receiverSettings = await winDebugDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
+            // TODO: Add remaining receiver types (Custom UDP/TCP/HTTP, etc.)
 
             default:
                 // For now, fall back to creating a sample document

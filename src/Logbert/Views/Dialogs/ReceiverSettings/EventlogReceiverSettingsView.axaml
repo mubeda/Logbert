@@ -1,0 +1,92 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.ReceiverSettings.EventlogReceiverSettingsView"
+        x:DataType="vm:EventlogReceiverSettingsViewModel"
+        Title="Windows Event Log Receiver Settings"
+        Width="500" Height="350"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+
+  <Design.DataContext>
+    <vm:EventlogReceiverSettingsViewModel />
+  </Design.DataContext>
+
+  <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+    <!-- Header -->
+    <TextBlock Grid.Row="0"
+               Text="Configure Windows Event Log Receiver"
+               FontSize="16"
+               FontWeight="SemiBold"
+               Margin="0,0,0,20" />
+
+    <!-- Settings -->
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+      <StackPanel Spacing="15">
+
+        <!-- Log Name -->
+        <StackPanel Spacing="5">
+          <TextBlock Text="Event Log Name:" FontWeight="SemiBold" />
+          <ComboBox SelectedItem="{Binding LogName}"
+                    ItemsSource="{Binding AvailableLogNames}"
+                    HorizontalAlignment="Stretch"
+                    IsEditable="True"
+                    Watermark="Select or enter log name" />
+          <TextBlock Text="Common logs: Application, System, Security"
+                     FontSize="11"
+                     Foreground="Gray" />
+        </StackPanel>
+
+        <!-- Machine Name -->
+        <StackPanel Spacing="5">
+          <TextBlock Text="Machine Name:" FontWeight="SemiBold" />
+          <TextBox Text="{Binding MachineName}"
+                   Watermark="Enter machine name or '.' for local machine" />
+          <TextBlock Text="Use '.' for local computer, or specify a remote computer name"
+                     FontSize="11"
+                     Foreground="Gray" />
+        </StackPanel>
+
+        <!-- Source Name -->
+        <StackPanel Spacing="5">
+          <TextBlock Text="Source Name (optional):" FontWeight="SemiBold" />
+          <TextBox Text="{Binding SourceName}"
+                   Watermark="Leave empty for all sources" />
+          <TextBlock Text="Filter by event source, or leave empty to capture all sources"
+                     FontSize="11"
+                     Foreground="Gray" />
+        </StackPanel>
+
+        <!-- Info Panel -->
+        <Border Background="#F0F0F0"
+                Padding="12"
+                CornerRadius="4"
+                Margin="0,10,0,0">
+          <StackPanel Spacing="8">
+            <TextBlock Text="ℹ️ Windows Event Log Receiver"
+                       FontWeight="SemiBold" />
+            <TextBlock TextWrapping="Wrap"
+                       Text="Monitors Windows Event Log in real-time. Captures events as they are written to the specified log. Requires appropriate permissions to access event logs."
+                       FontSize="12"
+                       Foreground="#606060" />
+          </StackPanel>
+        </Border>
+
+      </StackPanel>
+    </ScrollViewer>
+
+    <!-- Buttons -->
+    <StackPanel Grid.Row="2"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                Spacing="10"
+                Margin="0,20,0,0">
+      <Button Content="OK"
+              Width="80"
+              Click="OnOkClick" />
+      <Button Content="Cancel"
+              Width="80"
+              Click="OnCancelClick" />
+    </StackPanel>
+  </Grid>
+</Window>

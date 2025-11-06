@@ -1,0 +1,107 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.ReceiverSettings.WinDebugReceiverSettingsView"
+        x:DataType="vm:WinDebugReceiverSettingsViewModel"
+        Title="Windows Debug Output Receiver Settings"
+        Width="500" Height="350"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+
+  <Design.DataContext>
+    <vm:WinDebugReceiverSettingsViewModel />
+  </Design.DataContext>
+
+  <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+    <!-- Header -->
+    <TextBlock Grid.Row="0"
+               Text="Configure Windows Debug Output Receiver"
+               FontSize="16"
+               FontWeight="SemiBold"
+               Margin="0,0,0,20" />
+
+    <!-- Settings -->
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+      <StackPanel Spacing="15">
+
+        <!-- Capture Mode -->
+        <StackPanel Spacing="5">
+          <TextBlock Text="Capture Mode:" FontWeight="SemiBold" />
+          <RadioButton Content="Capture all processes"
+                       IsChecked="{Binding CaptureAllProcesses}"
+                       GroupName="CaptureMode" />
+          <RadioButton Content="Capture specific process"
+                       IsChecked="{Binding !CaptureAllProcesses}"
+                       GroupName="CaptureMode" />
+        </StackPanel>
+
+        <!-- Process ID -->
+        <StackPanel Spacing="5" IsEnabled="{Binding !CaptureAllProcesses}">
+          <TextBlock Text="Process ID:" FontWeight="SemiBold" />
+          <NumericUpDown Value="{Binding ProcessId}"
+                         Minimum="0"
+                         Maximum="2147483647"
+                         Increment="1"
+                         FormatString="0"
+                         ShowButtonSpinner="True"
+                         AllowSpin="True"
+                         Watermark="Enter process ID" />
+          <TextBlock Text="Enter the Process ID (PID) to capture debug output from"
+                     FontSize="11"
+                     Foreground="Gray" />
+        </StackPanel>
+
+        <!-- Process List Helper -->
+        <Border Background="#F0F0F0"
+                Padding="12"
+                CornerRadius="4"
+                IsVisible="{Binding !CaptureAllProcesses}">
+          <StackPanel Spacing="6">
+            <TextBlock Text="💡 Tip: Finding Process IDs"
+                       FontWeight="SemiBold"
+                       FontSize="12" />
+            <TextBlock TextWrapping="Wrap"
+                       FontSize="11"
+                       Foreground="#505050">
+              <Run Text="• Windows Task Manager: Details tab → PID column"/>
+              <LineBreak/>
+              <Run Text="• PowerShell: Get-Process | Select Name, Id"/>
+              <LineBreak/>
+              <Run Text="• Command Prompt: tasklist /FI &quot;IMAGENAME eq notepad.exe&quot;"/>
+            </TextBlock>
+          </StackPanel>
+        </Border>
+
+        <!-- Info Panel -->
+        <Border Background="#F0F0F0"
+                Padding="12"
+                CornerRadius="4"
+                Margin="0,10,0,0">
+          <StackPanel Spacing="8">
+            <TextBlock Text="ℹ️ Windows Debug Output Receiver"
+                       FontWeight="SemiBold" />
+            <TextBlock TextWrapping="Wrap"
+                       Text="Captures debug output from Windows applications using OutputDebugString API. Useful for monitoring debug messages from applications during development and troubleshooting."
+                       FontSize="12"
+                       Foreground="#606060" />
+          </StackPanel>
+        </Border>
+
+      </StackPanel>
+    </ScrollViewer>
+
+    <!-- Buttons -->
+    <StackPanel Grid.Row="2"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                Spacing="10"
+                Margin="0,20,0,0">
+      <Button Content="OK"
+              Width="80"
+              Click="OnOkClick" />
+      <Button Content="Cancel"
+              Width="80"
+              Click="OnCancelClick" />
+    </StackPanel>
+  </Grid>
+</Window>

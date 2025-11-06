@@ -30,7 +30,7 @@
 
 using System;
 using System.Diagnostics;
-using System.Windows.Forms;
+// using System.Windows.Forms; // Removed for Avalonia migration - unused reference
 
 using Couchcoding.Logbert.Helper;
 using Couchcoding.Logbert.Properties;

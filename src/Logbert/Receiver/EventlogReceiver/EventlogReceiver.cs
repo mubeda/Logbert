@@ -129,7 +129,8 @@ namespace Couchcoding.Logbert.Receiver.EventlogReceiver
     {
       get
       {
-        return new EventlogReceiverSettings();
+        // Settings UI handled separately in Avalonia - see EventlogReceiverSettingsView
+        return null;
       }
     }
 
@@ -175,7 +176,8 @@ namespace Couchcoding.Logbert.Receiver.EventlogReceiver
     {
       get
       {
-        return new EventLogDetailsControl();
+        // Details control not yet implemented in Avalonia
+        return null;
       }
     }
 

@@ -123,7 +123,8 @@ namespace Couchcoding.Logbert.Receiver.WinDebugReceiver
     {
       get
       {
-        return new WinDebugReceiverSettings();
+        // Settings UI handled separately in Avalonia - see WinDebugReceiverSettingsView
+        return null;
       }
     }
 
@@ -179,7 +180,8 @@ namespace Couchcoding.Logbert.Receiver.WinDebugReceiver
     {
       get
       {
-        return new WinDebugDetailsControl();
+        // Details control not yet implemented in Avalonia
+        return null;
       }
     }
 
