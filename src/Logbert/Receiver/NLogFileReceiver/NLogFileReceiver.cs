@@ -144,11 +144,9 @@ namespace Couchcoding.Logbert.Receiver.NLogFileReceiver
     {
       get
       {
-        return new NLogFileReceiverSettings();
+        return null; // Settings UI handled by NLogFileReceiverSettingsView
       }
     }
-
-    /// <summary>
     /// Gets the columns to display of the <see cref="ILogProvider"/>.
     /// </summary>
     public override Dictionary<int, LogColumnData> Columns

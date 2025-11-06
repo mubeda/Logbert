@@ -160,10 +160,8 @@
     <Compile Remove="Receiver\CustomReceiver\CustomUdpReceiver\CustomUdpReceiver.cs" />
     <Compile Remove="Receiver\EventlogReceiver\EventlogReceiver.cs" />
     <Compile Remove="Receiver\Log4NetDirReceiver\Log4NetDirReceiver.cs" />
-    <Compile Remove="Receiver\Log4NetFileReceiver\Log4NetFileReceiver.cs" />
     <Compile Remove="Receiver\Log4NetUdpReceiver\Log4NetUdpReceiver.cs" />
     <Compile Remove="Receiver\NLogDirReceiver\NLogDirReceiver.cs" />
-    <Compile Remove="Receiver\NLogFileReceiver\NLogFileReceiver.cs" />
     <Compile Remove="Receiver\NLogTcpReceiver\NLogTcpReceiver.cs" />
     <Compile Remove="Receiver\NLogUdpReceiver\NLogUdpReceiver.cs" />
     <Compile Remove="Receiver\SyslogFileReceiver\SyslogFileReceiver.cs" />

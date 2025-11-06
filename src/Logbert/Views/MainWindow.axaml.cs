@@ -36,8 +36,8 @@ public partial class MainWindow : Window
 
     public async void ShowFindDialog(object? sender, RoutedEventArgs e)
     {
-        // TODO: SearchDialog needs to be recreated
-        await System.Threading.Tasks.Task.CompletedTask;
+        var dialog = new SearchDialog();
+        await dialog.ShowDialog(this);
     }
 
     public async void ShowNewLogSourceDialog(object? sender, RoutedEventArgs e)

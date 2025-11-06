@@ -143,7 +143,7 @@ namespace Couchcoding.Logbert.Receiver.Log4NetFileReceiver
     {
       get
       {
-        return new Log4NetFileReceiverSettings();
+        return null; // Settings UI handled by Log4NetFileReceiverSettingsView
       }
     }
 

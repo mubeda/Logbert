@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Couchcoding.Logbert.ViewModels.Dialogs"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="250"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.SearchDialog"
+        x:DataType="vm:SearchDialogViewModel"
+        Title="Find"
+        Width="450" Height="250"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+
+    <DockPanel Margin="15">
+        <!-- Buttons -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,15,0,0">
+            <Button Content="Find Next" Command="{Binding FindNextCommand}" Width="100"/>
+            <Button Content="Find Previous" Command="{Binding FindPreviousCommand}" Width="100"/>
+            <Button Content="Close" Click="OnCloseClick" Width="80"/>
+        </StackPanel>
+
+        <!-- Search options -->
+        <StackPanel Spacing="15">
+            <!-- Search text -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="Find what:" FontWeight="SemiBold"/>
+                <ComboBox Items="{Binding SearchHistory}"
+                          Text="{Binding SearchText}"
+                          IsEditable="True"
+                          HorizontalAlignment="Stretch"/>
+            </StackPanel>
+
+            <!-- Options -->
+            <StackPanel Spacing="8">
+                <CheckBox IsChecked="{Binding MatchCase}"
+                          Content="Match case"/>
+
+                <CheckBox IsChecked="{Binding MatchWholeWord}"
+                          Content="Match whole word only"/>
+
+                <CheckBox IsChecked="{Binding UseRegularExpression}"
+                          Content="Use regular expressions"/>
+
+                <CheckBox IsChecked="{Binding SearchBackward}"
+                          Content="Search backward"/>
+            </StackPanel>
+
+            <!-- Status -->
+            <Border Background="#F0F8FF"
+                    BorderBrush="#B0C4DE"
+                    BorderThickness="1"
+                    Padding="10"
+                    CornerRadius="4"
+                    IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                <TextBlock Text="{Binding StatusMessage}"
+                           TextWrapping="Wrap"/>
+            </Border>
+        </StackPanel>
+    </DockPanel>
+</Window>

@@ -6,16 +6,13 @@ namespace Couchcoding.Logbert.Views.Dialogs;
 
 public partial class SearchDialog : Window
 {
+    public SearchDialogViewModel ViewModel { get; }
+
     public SearchDialog()
     {
         InitializeComponent();
-        DataContext = new SearchDialogViewModel();
-    }
-
-    public SearchDialog(SearchDialogViewModel viewModel)
-    {
-        InitializeComponent();
-        DataContext = viewModel;
+        ViewModel = new SearchDialogViewModel();
+        DataContext = ViewModel;
     }
 
     private void OnCloseClick(object? sender, RoutedEventArgs e)
