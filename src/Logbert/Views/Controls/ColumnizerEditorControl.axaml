@@ -1,0 +1,148 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Couchcoding.Logbert.ViewModels.Controls"
+             xmlns:receiver="clr-namespace:Couchcoding.Logbert.Receiver.CustomReceiver"
+             x:Class="Couchcoding.Logbert.Views.Controls.ColumnizerEditorControl"
+             x:DataType="vm:ColumnizerEditorViewModel">
+
+  <Design.DataContext>
+    <vm:ColumnizerEditorViewModel />
+  </Design.DataContext>
+
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="20" Margin="10">
+
+      <!-- Basic Settings -->
+      <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4" Padding="15">
+        <StackPanel Spacing="12">
+          <TextBlock Text="Basic Settings" FontWeight="Bold" FontSize="14" />
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="Columnizer Name:" FontWeight="SemiBold" />
+            <TextBox Text="{Binding ColumnizerName}" Watermark="Enter columnizer name" />
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="DateTime Format:" FontWeight="SemiBold" />
+            <TextBox Text="{Binding DateTimeFormat}" Watermark="yyyy-MM-dd HH:mm:ss.fff" />
+            <TextBlock Text="Example: yyyy-MM-dd HH:mm:ss.fff" FontSize="11" Foreground="Gray" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Log Columns -->
+      <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4" Padding="15">
+        <StackPanel Spacing="12">
+          <TextBlock Text="Log Columns (Regex Patterns)" FontWeight="Bold" FontSize="14" />
+
+          <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="#606060"
+                     Text="Define regex patterns to extract fields from log lines. Use capturing groups in your expressions." />
+
+          <!-- Column List -->
+          <ListBox Items="{Binding Columns}"
+                   SelectedItem="{Binding SelectedColumn}"
+                   Height="150"
+                   BorderBrush="#D0D0D0"
+                   BorderThickness="1">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                  <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Width="120" />
+                  <TextBlock Text="{Binding ColumnType}" Foreground="Blue" Width="80" />
+                  <TextBlock Text="{Binding Expression}" Foreground="#606060" TextTrimming="CharacterEllipsis" Width="200" />
+                  <TextBlock Text="(Optional)" Foreground="Orange" IsVisible="{Binding Optional}" />
+                </StackPanel>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+
+          <!-- Column Buttons -->
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button Content="Add Column" Command="{Binding AddColumnCommand}" />
+            <Button Content="Remove" Command="{Binding RemoveColumnCommand}" />
+            <Button Content="Move Up ↑" Command="{Binding MoveColumnUpCommand}" />
+            <Button Content="Move Down ↓" Command="{Binding MoveColumnDownCommand}" />
+          </StackPanel>
+
+          <!-- Column Editor (when column is selected) -->
+          <Border Background="#F8F8F8" Padding="12" CornerRadius="4" IsVisible="{Binding SelectedColumn, Converter={x:Static ObjectConverters.IsNotNull}}">
+            <StackPanel Spacing="10">
+              <TextBlock Text="Edit Selected Column" FontWeight="SemiBold" />
+
+              <StackPanel Spacing="6">
+                <TextBlock Text="Column Name:" />
+                <TextBox Text="{Binding SelectedColumn.Name}" Watermark="Enter column name" />
+              </StackPanel>
+
+              <StackPanel Spacing="6">
+                <TextBlock Text="Regex Expression:" />
+                <TextBox Text="{Binding SelectedColumn.Expression}" Watermark="Enter regex pattern" />
+                <TextBlock Text="Use capturing groups like (.+?) or (\d+)" FontSize="11" Foreground="Gray" />
+              </StackPanel>
+
+              <StackPanel Spacing="6">
+                <TextBlock Text="Column Type:" />
+                <ComboBox SelectedItem="{Binding SelectedColumn.ColumnType}" HorizontalAlignment="Stretch">
+                  <receiver:LogColumnType>Unknown</receiver:LogColumnType>
+                  <receiver:LogColumnType>Timestamp</receiver:LogColumnType>
+                  <receiver:LogColumnType>Level</receiver:LogColumnType>
+                  <receiver:LogColumnType>Message</receiver:LogColumnType>
+                </ComboBox>
+              </StackPanel>
+
+              <CheckBox IsChecked="{Binding SelectedColumn.Optional}" Content="Optional (column may be missing)" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </Border>
+
+      <!-- Log Level Mappings -->
+      <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4" Padding="15">
+        <StackPanel Spacing="12">
+          <TextBlock Text="Log Level Mappings (Regex Patterns)" FontWeight="Bold" FontSize="14" />
+
+          <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="#606060"
+                     Text="Define regex patterns to match log level text in your logs." />
+
+          <ItemsControl Items="{Binding LogLevelMappings}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Grid ColumnDefinitions="100,*" Margin="0,0,0,8">
+                  <TextBlock Grid.Column="0" Text="{Binding LevelName}" VerticalAlignment="Center" FontWeight="SemiBold" />
+                  <TextBox Grid.Column="1" Text="{Binding Pattern}" Watermark="Enter regex pattern" />
+                </Grid>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </Border>
+
+      <!-- Example Section -->
+      <Border Background="#EFF8FF" BorderBrush="#B3D9FF" BorderThickness="1" CornerRadius="4" Padding="15">
+        <StackPanel Spacing="10">
+          <TextBlock Text="💡 Example Configuration" FontWeight="Bold" FontSize="14" />
+
+          <TextBlock TextWrapping="Wrap" FontSize="12">
+            <Run Text="Sample log line:"/>
+            <LineBreak/>
+            <Run Text="2025-01-15 10:30:45.123 [INFO] MyApp - Application started" FontFamily="Consolas" Foreground="#303030"/>
+          </TextBlock>
+
+          <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="#404040">
+            <Run Text="Column configuration:"/>
+            <LineBreak/>
+            <Run Text="1. Timestamp: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3})"/>
+            <LineBreak/>
+            <Run Text="2. Level: \[(.*?)\]"/>
+            <LineBreak/>
+            <Run Text="3. Logger: (.*?) -"/>
+            <LineBreak/>
+            <Run Text="4. Message: - (.*)"/>
+          </TextBlock>
+        </StackPanel>
+      </Border>
+
+    </StackPanel>
+  </ScrollViewer>
+
+</UserControl>
