@@ -194,22 +194,15 @@
     <Compile Remove="Receiver\WinDebugReceiver\WinDebugReceiverSettings.Designer.cs" />
     <!-- Avalonia controls with missing Type converter support -->
     <Compile Remove="Views\Controls\StatisticsControl.axaml.cs" />
-    <!-- ReceiverSettingsViewModels for excluded Receivers -->
-    <Compile Remove="ViewModels\Dialogs\ReceiverSettings\Log4NetFileReceiverSettingsViewModel.cs" />
-    <Compile Remove="ViewModels\Dialogs\ReceiverSettings\NLogFileReceiverSettingsViewModel.cs" />
+    <!-- Active Avalonia dialogs - SearchDialog and NewLogSourceDialog are now re-enabled -->
+    <!-- Active Avalonia receiver settings views - Log4Net and NLog File receivers now re-enabled -->
     <!-- Receiver configuration dialogs -->
     <Compile Remove="Views\Dialogs\ReceiverConfigurationDialog.axaml.cs" />
-    <Compile Remove="Views\Dialogs\ReceiverSettings\Log4NetFileReceiverSettingsView.axaml.cs" />
-    <Compile Remove="Views\Dialogs\ReceiverSettings\NLogFileReceiverSettingsView.axaml.cs" />
     <!-- Helper/Logging classes that reference deleted Settings -->
     <Compile Remove="Helper\MruManager.cs" />
     <!-- Logging subclasses that reference deleted extension methods -->
     <Compile Remove="Logging\LogMessageSyslog.cs" />
     <Compile Remove="Logging\LogMessageWinDebug.cs" />
-    <!-- Docking Views excluded due to MainWindowViewModel and related ViewModels being excluded -->
-    <!-- Dialogs with missing Avalonia control types or properties -->
-    <Compile Remove="Views\Dialogs\NewLogSourceDialog.axaml.cs" />
-    <Compile Remove="Views\Dialogs\SearchDialog.axaml.cs" />
     <!-- Exclude XAML files for excluded controls/dialogs to prevent Avalonia code generation errors -->
     <None Remove="Views\Controls\ColorMapControl.axaml" />
     <None Remove="Views\Controls\StatisticsControl.axaml" />
