@@ -142,7 +142,7 @@ namespace Couchcoding.Logbert.Receiver.NLogDirReceiver
     /// <summary>
     /// Gets the settings <see cref="Control"/> of the <see cref="ILogProvider"/>.
     /// </summary>
-    public override ILogSettingsCtrl Settings => new NLogDirReceiverSettings();
+    public override ILogSettingsCtrl Settings => null; // Settings UI handled by NLogDirReceiverSettingsView
 
     /// <summary>
     /// Gets the columns to display of the <see cref="ILogProvider"/>.
@@ -190,7 +190,7 @@ namespace Couchcoding.Logbert.Receiver.NLogDirReceiver
     /// <summary>
     /// Get the <see cref="Control"/> to display details about a selected <see cref="LogMessage"/>.
     /// </summary>
-    public override ILogPresenter DetailsControl => new Log4NetDetailsControl();
+    public override ILogPresenter DetailsControl => null; // Details control not yet implemented in Avalonia
 
     #endregion
 

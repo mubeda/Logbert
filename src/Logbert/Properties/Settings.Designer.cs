@@ -286,17 +286,18 @@ namespace Couchcoding.Logbert.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
-        public global::System.Windows.Forms.FormWindowState FrmMainFormState {
-            get {
-                return ((global::System.Windows.Forms.FormWindowState)(this["FrmMainFormState"]));
-            }
-            set {
-                this["FrmMainFormState"] = value;
-            }
-        }
+        // Commented out for Avalonia migration - FormWindowState is WinForms-specific
+        // [global::System.Configuration.UserScopedSettingAttribute()]
+        // [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        // [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        // public global::System.Windows.Forms.FormWindowState FrmMainFormState {
+        //     get {
+        //         return ((global::System.Windows.Forms.FormWindowState)(this["FrmMainFormState"]));
+        //     }
+        //     set {
+        //         this["FrmMainFormState"] = value;
+        //     }
+        // }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

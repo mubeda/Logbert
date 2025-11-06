@@ -144,7 +144,8 @@ namespace Couchcoding.Logbert.Receiver.SyslogFileReceiver
     {
       get
       {
-        return new SyslogFileReceiverSettings();
+        // Settings UI handled separately in Avalonia - see SyslogFileReceiverSettingsView
+        return null;
       }
     }
 
@@ -199,7 +200,8 @@ namespace Couchcoding.Logbert.Receiver.SyslogFileReceiver
     {
       get
       {
-        return new SyslogDetailsControl();
+        // Details control not yet implemented in Avalonia
+        return null;
       }
     }
 

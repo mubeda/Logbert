@@ -31,7 +31,7 @@
 using Couchcoding.Logbert.Properties;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+// using System.Windows.Forms; // Removed for Avalonia migration - unused reference
 using System.Xml;
 
 using Couchcoding.Logbert.Helper;

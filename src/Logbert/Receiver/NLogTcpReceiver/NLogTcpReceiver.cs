@@ -131,7 +131,8 @@ namespace Couchcoding.Logbert.Receiver.NlogTcpReceiver
     {
       get
       {
-        return new NlogTcpReceiverSettings();
+        // Settings UI handled separately in Avalonia - see NLogTcpReceiverSettingsView
+        return null;
       }
     }
 
@@ -175,7 +176,8 @@ namespace Couchcoding.Logbert.Receiver.NlogTcpReceiver
     {
       get
       {
-        return new Log4NetDetailsControl();
+        // Details control not yet implemented in Avalonia
+        return null;
       }
     }
 

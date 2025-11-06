@@ -150,7 +150,6 @@
     <!-- LogMessage classes with WinForms dialog dependencies -->
     <Compile Remove="Logging\LogMessageCustom.cs" />
     <Compile Remove="Logging\LogMessageEventlog.cs" />
-    <Compile Remove="Logging\LogMessageLog4Net.cs" />
     <!-- Receiver files that use deleted Properties.Settings and other legacy dependencies -->
     <Compile Remove="Receiver\CustomReceiver\CustomDirReceiver\CustomDirReceiver.cs" />
     <Compile Remove="Receiver\CustomReceiver\CustomFileReceiver\CustomFileReceiver.cs" />
@@ -159,13 +158,6 @@
     <Compile Remove="Receiver\CustomReceiver\CustomTcpReceiver\CustomTcpReceiver.cs" />
     <Compile Remove="Receiver\CustomReceiver\CustomUdpReceiver\CustomUdpReceiver.cs" />
     <Compile Remove="Receiver\EventlogReceiver\EventlogReceiver.cs" />
-    <Compile Remove="Receiver\Log4NetDirReceiver\Log4NetDirReceiver.cs" />
-    <Compile Remove="Receiver\Log4NetUdpReceiver\Log4NetUdpReceiver.cs" />
-    <Compile Remove="Receiver\NLogDirReceiver\NLogDirReceiver.cs" />
-    <Compile Remove="Receiver\NLogTcpReceiver\NLogTcpReceiver.cs" />
-    <Compile Remove="Receiver\NLogUdpReceiver\NLogUdpReceiver.cs" />
-    <Compile Remove="Receiver\SyslogFileReceiver\SyslogFileReceiver.cs" />
-    <Compile Remove="Receiver\SyslogUdpReceiver\SyslogUdpReceiver.cs" />
     <Compile Remove="Receiver\WinDebugReceiver\WinDebugReceiver.cs" />
     <Compile Remove="Receiver\WinDebugReceiver\DebugMonitor.cs" />
     <!-- ReceiverSettings files that reference deleted Dialogs namespace -->
@@ -215,10 +207,6 @@
     <Compile Remove="Receiver\WinDebugReceiver\WinDebugReceiverSettings.Designer.cs" />
     <!-- Avalonia controls with missing Type converter support -->
     <Compile Remove="Views\Controls\StatisticsControl.axaml.cs" />
-    <Compile Remove="Views\Dialogs\StatisticsDialog.axaml.cs" />
-    <Compile Remove="ViewModels\Controls\StatisticsViewModel.cs" />
-    <!-- Legacy Settings with WinForms FormWindowState -->
-    <Compile Remove="Properties\Settings.Designer.cs" />
     <!-- ReceiverSettingsViewModels for excluded Receivers -->
     <Compile Remove="ViewModels\Dialogs\ReceiverSettings\Log4NetFileReceiverSettingsViewModel.cs" />
     <Compile Remove="ViewModels\Dialogs\ReceiverSettings\NLogFileReceiverSettingsViewModel.cs" />
@@ -242,7 +230,6 @@
     <None Remove="Views\Dialogs\ReceiverConfigurationDialog.axaml" />
     <None Remove="Views\Dialogs\ReceiverSettings\Log4NetFileReceiverSettingsView.axaml" />
     <None Remove="Views\Dialogs\ReceiverSettings\NLogFileReceiverSettingsView.axaml" />
-    <None Remove="Views\Dialogs\StatisticsDialog.axaml" />
     <!-- Docking Views excluded due to MainWindowViewModel and related ViewModels being excluded -->
     <None Remove="Views\Docking\BookmarksPanelView.axaml" />
     <None Remove="Views\Docking\FilterPanelView.axaml" />
