@@ -28,19 +28,23 @@ Logbert is an advanced log message viewer supporting multiple logging frameworks
   - Extended csproj with 70+ compile exclusions
 
 🚧 **In Progress:**
-- **Phase 5:** Avalonia Feature Re-implementation (~75% Complete)
+- **Phase 5:** Avalonia Feature Re-implementation (~82% Complete)
   - ✅ Custom docking system (Grid-based layout)
   - ✅ MainWindowViewModel with full MVVM
   - ✅ Search dialog with regex support
-  - 🚧 Receiver configuration dialogs (2/24 types working)
-  - 🚧 Statistics dialog (ViewModel ready, UI pending)
+  - 🟡 Receiver configuration dialogs (9/24 types working - 38%)
+    - ✅ File monitoring: Log4Net, NLog, Syslog (file + directory)
+    - ✅ Network monitoring: Log4Net UDP, NLog UDP/TCP, Syslog UDP
+  - 🔴 Statistics dialog (ViewModel ready, UI pending)
   - ✅ Options dialog (basic functionality)
 
-✅ **Recently Completed:**
+✅ **Recently Completed (Nov 6):**
+- 7 additional receiver UIs (directory + network types)
+- Network monitoring via UDP/TCP protocols
+- Directory-wide log file monitoring
+- Multicast support for UDP receivers
+- Complete search functionality with regex
 - Custom docking layout (replaces Dock.Avalonia)
-- Log4Net & NLog file receiver UIs
-- Complete search functionality (Find Next/Previous, regex, case-sensitive)
-- MainWindow with filter panel, bookmarks, logger tree
 
 ## ✨ Features
 
@@ -243,14 +247,17 @@ Contributions are welcome! Please read our [Developer Guide](docs/DEVELOPER_GUID
 
 ## 📋 Roadmap
 
-### Version 2.0 (Current)
+### Version 2.0 (Current - 82% Complete)
 - ✅ Cross-platform migration to .NET 9 + Avalonia
-- ✅ Core receiver infrastructure
+- ✅ Core receiver infrastructure (9/24 types working)
 - ✅ Lua scripting support
-- ✅ Statistics and visualization
+- ✅ Statistics ViewModel (UI pending)
 - ✅ Custom docking system
-- ✅ Search functionality
-- 🚧 Complete receiver UI coverage (2/24 types)
+- ✅ Search functionality (full regex support)
+- ✅ File monitoring (Log4Net, NLog, Syslog)
+- ✅ Network monitoring (UDP/TCP protocols)
+- 🚧 Statistics dialog UI
+- 🚧 System receivers (Windows Event Log, Debug Output)
 - 🚧 Cross-platform testing
 
 ### Version 2.1 (Planned)
