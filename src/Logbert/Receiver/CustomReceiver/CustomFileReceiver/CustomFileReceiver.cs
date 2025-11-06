@@ -141,7 +141,7 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomFileReceiver
     {
       get
       {
-        return new CustomFileReceiverSettings();
+        return null; // Avalonia UI handles settings dialogs differently
       }
     }
 
@@ -176,7 +176,7 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomFileReceiver
     {
       get
       {
-        return new CustomDetailsControl(mColumnizer);
+        return null; // Avalonia UI handles details display differently
       }
     }
 

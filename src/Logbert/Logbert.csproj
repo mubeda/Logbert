@@ -147,15 +147,7 @@
     <Compile Remove="Helper\BrushCache.cs" />
     <Compile Remove="Helper\FontCache.cs" />
     <Compile Remove="Helper\GdiCache.cs" />
-    <!-- LogMessage classes with WinForms dialog dependencies -->
-    <Compile Remove="Logging\LogMessageCustom.cs" />
-    <!-- Receiver files that use deleted Properties.Settings and other legacy dependencies -->
-    <Compile Remove="Receiver\CustomReceiver\CustomDirReceiver\CustomDirReceiver.cs" />
-    <Compile Remove="Receiver\CustomReceiver\CustomFileReceiver\CustomFileReceiver.cs" />
-    <Compile Remove="Receiver\CustomReceiver\CustomHttpReceiver\CustomHttpReceiver.cs" />
-    <Compile Remove="Receiver\CustomReceiver\CustomHttpReceiver\BasicHttpAuthentication.cs" />
-    <Compile Remove="Receiver\CustomReceiver\CustomTcpReceiver\CustomTcpReceiver.cs" />
-    <Compile Remove="Receiver\CustomReceiver\CustomUdpReceiver\CustomUdpReceiver.cs" />
+    <!-- Custom receiver backends are now re-enabled with Avalonia UI -->
     <!-- ReceiverSettings files that reference deleted Dialogs namespace -->
     <Compile Remove="Receiver\CustomReceiver\CustomDirReceiver\CustomDirReceiverSettings.Designer.cs" />
     <Compile Remove="Receiver\CustomReceiver\CustomFileReceiver\CustomFileReceiverSettings.Designer.cs" />
@@ -171,7 +163,6 @@
     <Compile Remove="Receiver\CustomReceiver\CustomUdpReceiver\CustomUdpReceiverSettings.cs" />
     <Compile Remove="Receiver\SyslogFileReceiver\SyslogFileReceiverSettings.cs" />
     <Compile Remove="Receiver\SyslogUdpReceiver\SyslogUdpReceiverSettings.cs" />
-    <Compile Remove="Receiver\CustomReceiver\CustomHttpReceiver\CustomHttpReceiver.cs" />
     <!-- ColorMapControl and ColorMapViewModel -->
     <Compile Remove="ViewModels\Controls\ColorMapViewModel.cs" />
     <Compile Remove="Views\Controls\ColorMapControl.axaml.cs" />
@@ -207,7 +198,6 @@
     <Compile Remove="ViewModels\Dialogs\ReceiverSettings\Log4NetFileReceiverSettingsViewModel.cs" />
     <Compile Remove="ViewModels\Dialogs\ReceiverSettings\NLogFileReceiverSettingsViewModel.cs" />
     <!-- Receiver configuration dialogs -->
-    <Compile Remove="Receiver\CustomReceiver\CustomUdpReceiver\CustomUdpReceiver.cs" />
     <Compile Remove="Views\Dialogs\ReceiverConfigurationDialog.axaml.cs" />
     <Compile Remove="Views\Dialogs\ReceiverSettings\Log4NetFileReceiverSettingsView.axaml.cs" />
     <Compile Remove="Views\Dialogs\ReceiverSettings\NLogFileReceiverSettingsView.axaml.cs" />

@@ -136,7 +136,7 @@ namespace Couchcoding.Logbert.Receiver.NlogTcpReceiver
     {
       get
       {
-        return new CustomTcpReceiverSettings();
+        return null; // Avalonia UI handles settings dialogs differently
       }
     }
 
@@ -182,7 +182,7 @@ namespace Couchcoding.Logbert.Receiver.NlogTcpReceiver
     {
       get
       {
-        return new CustomDetailsControl(mColumnizer);
+        return null; // Avalonia UI handles details display differently
       }
     }
 

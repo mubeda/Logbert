@@ -120,7 +120,7 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
     /// <summary>
     /// Gets the settings <see cref="Control"/> of the <see cref="ILogProvider"/>.
     /// </summary>
-    public override ILogSettingsCtrl Settings => new CustomHttpReceiverSettings();
+    public override ILogSettingsCtrl Settings => null; // Avalonia UI handles settings dialogs differently
 
     /// <summary>
     /// Determines whether this <see cref="ILogProvider"/> supports the logger tree window.
@@ -158,7 +158,7 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
     {
       get
       {
-        return new CustomDetailsControl(mColumnizer);
+        return null; // Avalonia UI handles details display differently
       }
     }
 

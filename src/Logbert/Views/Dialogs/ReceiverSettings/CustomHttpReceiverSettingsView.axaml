@@ -1,0 +1,126 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings"
+        xmlns:controls="clr-namespace:Couchcoding.Logbert.Views.Controls"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.ReceiverSettings.CustomHttpReceiverSettingsView"
+        x:DataType="vm:CustomHttpReceiverSettingsViewModel"
+        Title="Custom HTTP Receiver Settings"
+        Width="700" Height="750"
+        WindowStartupLocation="CenterOwner"
+        CanResize="True">
+
+  <Design.DataContext>
+    <vm:CustomHttpReceiverSettingsViewModel />
+  </Design.DataContext>
+
+  <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+    <!-- Header -->
+    <TextBlock Grid.Row="0"
+               Text="Configure Custom HTTP Receiver"
+               FontSize="16"
+               FontWeight="SemiBold"
+               Margin="0,0,0,15" />
+
+    <!-- Settings -->
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+      <StackPanel Spacing="15">
+
+        <!-- HTTP Settings -->
+        <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4" Padding="12">
+          <StackPanel Spacing="10">
+            <TextBlock Text="HTTP Settings" FontWeight="Bold" />
+
+            <StackPanel Spacing="5">
+              <TextBlock Text="HTTP URL:" FontWeight="SemiBold" />
+              <TextBox Text="{Binding Url}" Watermark="http://example.com/api/logs" />
+              <TextBlock Text="Enter the full HTTP/HTTPS URL endpoint" FontSize="11" Foreground="Gray" />
+            </StackPanel>
+
+            <StackPanel Spacing="5">
+              <TextBlock Text="Poll Interval (seconds):" FontWeight="SemiBold" />
+              <NumericUpDown Value="{Binding PollIntervalSeconds}"
+                             Minimum="1"
+                             Maximum="3600"
+                             Increment="1"
+                             FormatString="0"
+                             ShowButtonSpinner="True"
+                             AllowSpin="True" />
+              <TextBlock Text="How often to poll the HTTP endpoint for new log data" FontSize="11" Foreground="Gray" />
+            </StackPanel>
+
+            <StackPanel Spacing="5">
+              <TextBlock Text="Encoding:" FontWeight="SemiBold" />
+              <ComboBox SelectedItem="{Binding SelectedEncoding}"
+                        ItemsSource="{Binding AvailableEncodings}"
+                        HorizontalAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding DisplayName}" />
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+            </StackPanel>
+          </StackPanel>
+        </Border>
+
+        <!-- Authentication (Optional) -->
+        <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4" Padding="12">
+          <StackPanel Spacing="10">
+            <TextBlock Text="Authentication (Optional)" FontWeight="Bold" />
+
+            <CheckBox IsChecked="{Binding UseAuthentication}"
+                      Content="Enable Basic HTTP Authentication" />
+
+            <StackPanel Spacing="5" IsEnabled="{Binding UseAuthentication}">
+              <TextBlock Text="Username:" FontWeight="SemiBold" />
+              <TextBox Text="{Binding Username}" Watermark="Enter username" />
+            </StackPanel>
+
+            <StackPanel Spacing="5" IsEnabled="{Binding UseAuthentication}">
+              <TextBlock Text="Password:" FontWeight="SemiBold" />
+              <TextBox Text="{Binding Password}" Watermark="Enter password" PasswordChar="•" />
+            </StackPanel>
+          </StackPanel>
+        </Border>
+
+        <!-- Columnizer Configuration -->
+        <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4" Padding="12">
+          <StackPanel Spacing="10">
+            <TextBlock Text="Custom Format Configuration (Columnizer)" FontWeight="Bold" />
+
+            <controls:ColumnizerEditorControl x:Name="ColumnizerEditor" />
+          </StackPanel>
+        </Border>
+
+        <!-- Info Panel -->
+        <Border Background="#F0F0F0"
+                Padding="12"
+                CornerRadius="4">
+          <StackPanel Spacing="8">
+            <TextBlock Text="ℹ️ Custom HTTP Receiver"
+                       FontWeight="SemiBold" />
+            <TextBlock TextWrapping="Wrap"
+                       Text="Polls an HTTP endpoint at regular intervals for log data using custom regex patterns. Each response should contain log messages to be parsed."
+                       FontSize="12"
+                       Foreground="#606060" />
+          </StackPanel>
+        </Border>
+
+      </StackPanel>
+    </ScrollViewer>
+
+    <!-- Buttons -->
+    <StackPanel Grid.Row="2"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                Spacing="10"
+                Margin="0,15,0,0">
+      <Button Content="OK"
+              Width="80"
+              Click="OnOkClick" />
+      <Button Content="Cancel"
+              Width="80"
+              Click="OnCancelClick" />
+    </StackPanel>
+  </Grid>
+</Window>

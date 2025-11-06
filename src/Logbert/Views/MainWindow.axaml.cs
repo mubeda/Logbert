@@ -120,7 +120,31 @@ public partial class MainWindow : Window
                 receiverSettings = await winDebugDialog.ShowDialog<ILogSettingsCtrl?>(this);
                 break;
 
-            // TODO: Add remaining receiver types (Custom UDP/TCP/HTTP, etc.)
+            // Custom receivers
+            case "Custom File":
+                var customFileDialog = new CustomFileReceiverSettingsView();
+                receiverSettings = await customFileDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
+            case "Custom Dir":
+                var customDirDialog = new CustomDirReceiverSettingsView();
+                receiverSettings = await customDirDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
+            case "Custom UDP":
+                var customUdpDialog = new CustomUdpReceiverSettingsView();
+                receiverSettings = await customUdpDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
+            case "Custom TCP":
+                var customTcpDialog = new CustomTcpReceiverSettingsView();
+                receiverSettings = await customTcpDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
+            case "Custom HTTP":
+                var customHttpDialog = new CustomHttpReceiverSettingsView();
+                receiverSettings = await customHttpDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
 
             default:
                 // For now, fall back to creating a sample document

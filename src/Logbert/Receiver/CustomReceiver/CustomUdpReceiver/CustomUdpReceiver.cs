@@ -179,7 +179,7 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomUdpReceiver
     {
       get
       {
-        return new CustomUdpReceiverSettings();
+        return null; // Avalonia UI handles settings dialogs differently
       }
     }
 
@@ -225,7 +225,7 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomUdpReceiver
     {
       get
       {
-        return new CustomDetailsControl(mColumnizer);
+        return null; // Avalonia UI handles details display differently
       }
     }
 

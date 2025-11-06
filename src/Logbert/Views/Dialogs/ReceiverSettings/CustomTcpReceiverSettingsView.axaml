@@ -1,0 +1,105 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings"
+        xmlns:controls="clr-namespace:Couchcoding.Logbert.Views.Controls"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.ReceiverSettings.CustomTcpReceiverSettingsView"
+        x:DataType="vm:CustomTcpReceiverSettingsViewModel"
+        Title="Custom TCP Receiver Settings"
+        Width="700" Height="750"
+        WindowStartupLocation="CenterOwner"
+        CanResize="True">
+
+  <Design.DataContext>
+    <vm:CustomTcpReceiverSettingsViewModel />
+  </Design.DataContext>
+
+  <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+    <!-- Header -->
+    <TextBlock Grid.Row="0"
+               Text="Configure Custom TCP Receiver"
+               FontSize="16"
+               FontWeight="SemiBold"
+               Margin="0,0,0,15" />
+
+    <!-- Settings -->
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+      <StackPanel Spacing="15">
+
+        <!-- Network Settings -->
+        <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4" Padding="12">
+          <StackPanel Spacing="10">
+            <TextBlock Text="Network Settings" FontWeight="Bold" />
+
+            <StackPanel Spacing="5">
+              <TextBlock Text="Port:" FontWeight="SemiBold" />
+              <NumericUpDown Value="{Binding Port}"
+                             Minimum="1"
+                             Maximum="65535"
+                             Increment="1"
+                             FormatString="0"
+                             ShowButtonSpinner="True"
+                             AllowSpin="True" />
+            </StackPanel>
+
+            <StackPanel Spacing="5">
+              <TextBlock Text="Listen Interface IP:" FontWeight="SemiBold" />
+              <TextBox Text="{Binding ListenInterfaceIp}" Watermark="0.0.0.0 for all interfaces" />
+              <TextBlock Text="Use 0.0.0.0 to listen on all network interfaces" FontSize="11" Foreground="Gray" />
+            </StackPanel>
+
+            <StackPanel Spacing="5">
+              <TextBlock Text="Encoding:" FontWeight="SemiBold" />
+              <ComboBox SelectedItem="{Binding SelectedEncoding}"
+                        ItemsSource="{Binding AvailableEncodings}"
+                        HorizontalAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding DisplayName}" />
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+            </StackPanel>
+          </StackPanel>
+        </Border>
+
+        <!-- Columnizer Configuration -->
+        <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4" Padding="12">
+          <StackPanel Spacing="10">
+            <TextBlock Text="Custom Format Configuration (Columnizer)" FontWeight="Bold" />
+
+            <controls:ColumnizerEditorControl x:Name="ColumnizerEditor" />
+          </StackPanel>
+        </Border>
+
+        <!-- Info Panel -->
+        <Border Background="#F0F0F0"
+                Padding="12"
+                CornerRadius="4">
+          <StackPanel Spacing="8">
+            <TextBlock Text="ℹ️ Custom TCP Receiver"
+                       FontWeight="SemiBold" />
+            <TextBlock TextWrapping="Wrap"
+                       Text="Receives log messages via TCP using custom regex patterns. Maintains persistent connections and supports streaming log data."
+                       FontSize="12"
+                       Foreground="#606060" />
+          </StackPanel>
+        </Border>
+
+      </StackPanel>
+    </ScrollViewer>
+
+    <!-- Buttons -->
+    <StackPanel Grid.Row="2"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                Spacing="10"
+                Margin="0,15,0,0">
+      <Button Content="OK"
+              Width="80"
+              Click="OnOkClick" />
+      <Button Content="Cancel"
+              Width="80"
+              Click="OnCancelClick" />
+    </StackPanel>
+  </Grid>
+</Window>
