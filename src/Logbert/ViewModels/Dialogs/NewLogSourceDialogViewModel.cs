@@ -51,8 +51,22 @@ public partial class NewLogSourceDialogViewModel : ViewModelBase
 
         AvailableReceivers.Add(new LogReceiverType
         {
+            Name = "Log4Net Dir",
+            Description = "Read log messages from all Log4Net log files in a directory",
+            Category = "File"
+        });
+
+        AvailableReceivers.Add(new LogReceiverType
+        {
             Name = "NLog File",
             Description = "Read log messages from an NLog log file",
+            Category = "File"
+        });
+
+        AvailableReceivers.Add(new LogReceiverType
+        {
+            Name = "NLog Dir",
+            Description = "Read log messages from all NLog log files in a directory",
             Category = "File"
         });
 

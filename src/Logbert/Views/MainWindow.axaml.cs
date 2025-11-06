@@ -68,12 +68,27 @@ public partial class MainWindow : Window
                 receiverSettings = await log4NetDialog.ShowDialog<ILogSettingsCtrl?>(this);
                 break;
 
+            case "Log4Net Dir":
+                var log4NetDirDialog = new Log4NetDirReceiverSettingsView();
+                receiverSettings = await log4NetDirDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
             case "NLog File":
                 var nlogDialog = new NLogFileReceiverSettingsView();
                 receiverSettings = await nlogDialog.ShowDialog<ILogSettingsCtrl?>(this);
                 break;
 
-            // TODO: Add more receiver types here
+            case "NLog Dir":
+                var nlogDirDialog = new NLogDirReceiverSettingsView();
+                receiverSettings = await nlogDirDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
+            case "Syslog File":
+                var syslogDialog = new SyslogFileReceiverSettingsView();
+                receiverSettings = await syslogDialog.ShowDialog<ILogSettingsCtrl?>(this);
+                break;
+
+            // TODO: Add more receiver types here (Network and System receivers)
 
             default:
                 // For now, fall back to creating a sample document

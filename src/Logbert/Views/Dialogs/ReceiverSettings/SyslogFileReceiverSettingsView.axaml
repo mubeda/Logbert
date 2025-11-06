@@ -1,0 +1,80 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="350"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.ReceiverSettings.SyslogFileReceiverSettingsView"
+        x:DataType="vm:SyslogFileReceiverSettingsViewModel"
+        Title="Syslog File Receiver Configuration"
+        Width="500" Height="350"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+
+    <DockPanel Margin="15">
+        <!-- Buttons -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,15,0,0">
+            <Button Content="OK" Width="80" Click="OnOkClick" IsDefault="True"/>
+            <Button Content="Cancel" Width="80" Click="OnCancelClick" IsCancel="True"/>
+        </StackPanel>
+
+        <!-- Settings -->
+        <StackPanel Spacing="15">
+            <!-- File Path -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="Log File Path:" FontWeight="SemiBold"/>
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBox Grid.Column="0"
+                             Text="{Binding FilePath}"
+                             Watermark="Select a syslog file..."/>
+                    <Button Grid.Column="1"
+                            Content="Browse..."
+                            Width="80"
+                            Margin="5,0,0,0"
+                            Click="OnBrowseClick"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- Timestamp Format -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="Timestamp Format:" FontWeight="SemiBold"/>
+                <TextBox Text="{Binding TimestampFormat}"
+                         Watermark="MMM dd HH:mm:ss"/>
+                <TextBlock Text="Example: 'MMM dd HH:mm:ss' for 'Jan 15 10:30:45'"
+                           FontSize="11"
+                           Opacity="0.7"/>
+            </StackPanel>
+
+            <!-- Options -->
+            <CheckBox IsChecked="{Binding StartFromBeginning}"
+                      Content="Start reading from beginning of file"/>
+
+            <!-- Encoding -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="File Encoding:" FontWeight="SemiBold"/>
+                <ComboBox Items="{Binding AvailableEncodings}"
+                          SelectedItem="{Binding SelectedEncoding}"
+                          HorizontalAlignment="Stretch">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DisplayName}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+            <!-- Info -->
+            <Border Background="#F0F8FF"
+                    BorderBrush="#B0C4DE"
+                    BorderThickness="1"
+                    Padding="10"
+                    CornerRadius="4">
+                <StackPanel Spacing="5">
+                    <TextBlock Text="💡 Note:" FontWeight="SemiBold"/>
+                    <TextBlock TextWrapping="Wrap"
+                               Text="This receiver monitors Syslog format log files (RFC 3164). The file will be watched for changes and new log entries will be loaded automatically."/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </DockPanel>
+</Window>
