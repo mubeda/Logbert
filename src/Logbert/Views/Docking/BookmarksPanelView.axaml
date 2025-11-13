@@ -16,7 +16,7 @@
         </StackPanel>
 
         <!-- Bookmarks List -->
-        <ListBox Items="{Binding Bookmarks}"
+        <ListBox ItemsSource="{Binding Bookmarks}"
                  SelectedItem="{Binding SelectedBookmark}"
                  Margin="10,0">
             <ListBox.ItemTemplate>

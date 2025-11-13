@@ -80,9 +80,9 @@
                            FontWeight="SemiBold"/>
 
                 <!-- Log Level Statistics -->
-                <ItemsControl Items="{Binding Statistics}">
+                <ItemsControl ItemsSource="{Binding Statistics}">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate DataType="vm:LogLevelStatistic">
                             <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}"
                                     BorderThickness="0,0,0,1"
                                     Padding="10,8"

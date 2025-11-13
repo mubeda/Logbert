@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Couchcoding.Logbert.Interfaces;
@@ -59,5 +60,10 @@ public partial class WinDebugReceiverSettingsViewModel : ViewModelBase, ILogSett
                 return new WinDebugReceiver(null);
             }
         }
+    }
+
+    public void Dispose()
+    {
+        // No resources to dispose
     }
 }

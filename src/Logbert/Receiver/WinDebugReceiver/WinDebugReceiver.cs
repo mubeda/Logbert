@@ -304,7 +304,7 @@ namespace Couchcoding.Logbert.Receiver.WinDebugReceiver
         , columnLayout[3].Width
         , columnLayout[4].Width);
 
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

@@ -420,7 +420,7 @@ namespace Couchcoding.Logbert.Receiver.NLogUdpReceiver
         , columnLayout[4].Width
         , columnLayout[5].Width);
 
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

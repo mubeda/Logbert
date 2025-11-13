@@ -443,7 +443,7 @@ namespace Couchcoding.Logbert.Receiver.SyslogUdpReceiver
         , columnLayout[5].Width
         , columnLayout[6].Width);
 
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

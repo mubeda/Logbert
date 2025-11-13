@@ -8,7 +8,8 @@
     <Application.Styles>
         <FluentTheme />
 
-        <StyleInclude Source="avares://Dock.Avalonia/Themes/DockFluentTheme.axaml" />
+        <!-- Dock.Avalonia theme temporarily disabled - docking not yet implemented -->
+        <!-- <StyleInclude Source="avares://Dock.Avalonia/Themes/DockFluentTheme.axaml" /> -->
     </Application.Styles>
 
     <Application.DataTemplates>

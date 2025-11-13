@@ -455,7 +455,7 @@ namespace Couchcoding.Logbert.Receiver.Log4NetDirReceiver
     public override void SaveLayout(string layout, List<LogColumnData> columnLayout)
     {
       Properties.Settings.Default.DockLayoutCustomDirReceiver = layout ?? string.Empty;
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

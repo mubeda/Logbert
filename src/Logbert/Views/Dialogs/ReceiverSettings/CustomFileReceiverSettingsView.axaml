@@ -33,7 +33,7 @@
             <StackPanel Spacing="5">
               <TextBlock Text="Log File Path:" FontWeight="SemiBold" />
               <Grid ColumnDefinitions="*,Auto">
-                <TextBox Grid.Column="0" Text="{Binding FilePath}" Watermark="Select a log file..." />
+                <TextBox Grid.Column="0" Text="{Binding FilePath}" />
                 <Button Grid.Column="1" Content="Browse..." Click="OnBrowseClick" Margin="5,0,0,0" />
               </Grid>
             </StackPanel>

@@ -43,13 +43,13 @@
 
             <StackPanel Spacing="5">
               <TextBlock Text="Listen Interface IP:" FontWeight="SemiBold" />
-              <TextBox Text="{Binding ListenInterfaceIp}" Watermark="0.0.0.0 for all interfaces" />
+              <TextBox Text="{Binding ListenInterfaceIp}" />
               <TextBlock Text="Use 0.0.0.0 to listen on all network interfaces" FontSize="11" Foreground="Gray" />
             </StackPanel>
 
             <StackPanel Spacing="5">
               <TextBlock Text="Multicast IP (optional):" FontWeight="SemiBold" />
-              <TextBox Text="{Binding MulticastIp}" Watermark="Leave empty for unicast" />
+              <TextBox Text="{Binding MulticastIp}" />
               <TextBlock Text="Specify multicast IP if using UDP multicast (e.g., 239.255.0.1)" FontSize="11" Foreground="Gray" />
             </StackPanel>
 

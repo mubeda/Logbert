@@ -44,7 +44,7 @@ public partial class NLogUdpReceiverSettingsView : Window
                                 Content = "OK",
                                 Width = 80,
                                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
-                                Command = new Avalonia.ReactiveUI.ReactiveCommand<object>(_ => { })
+                                // Command removed - using click handler instead
                             }
                         }
                     }

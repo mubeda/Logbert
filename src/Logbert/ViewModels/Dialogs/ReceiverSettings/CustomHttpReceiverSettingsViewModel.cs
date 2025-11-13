@@ -105,4 +105,9 @@ public partial class CustomHttpReceiverSettingsViewModel : ViewModelBase, ILogSe
 
         return new CustomHttpReceiver(Url, authentication!, PollIntervalSeconds, Columnizer!, codepage);
     }
+
+    public void Dispose()
+    {
+        // No resources to dispose
+    }
 }

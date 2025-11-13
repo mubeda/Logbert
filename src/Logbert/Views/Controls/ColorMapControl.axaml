@@ -12,7 +12,7 @@
     <Border Background="#F0F0F0" BorderBrush="#CCCCCC" BorderThickness="1">
       <!-- The Canvas displays color-coded log messages -->
       <Canvas Name="ColorMapCanvas" Background="White">
-        <ItemsControl Items="{Binding Items}">
+        <ItemsControl ItemsSource="{Binding Items}">
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
               <Canvas />
@@ -20,7 +20,7 @@
           </ItemsControl.ItemsPanel>
 
           <ItemsControl.ItemTemplate>
-            <DataTemplate>
+            <DataTemplate DataType="vm:ColorMapItem">
               <Rectangle Width="28"
                          Height="2"
                          Fill="{Binding Color}"

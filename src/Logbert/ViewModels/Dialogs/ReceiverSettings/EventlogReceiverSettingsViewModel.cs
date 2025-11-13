@@ -50,4 +50,9 @@ public partial class EventlogReceiverSettingsViewModel : ViewModelBase, ILogSett
             MachineName.Trim(),
             string.IsNullOrWhiteSpace(SourceName) ? string.Empty : SourceName.Trim());
     }
+
+    public void Dispose()
+    {
+        // No resources to dispose
+    }
 }

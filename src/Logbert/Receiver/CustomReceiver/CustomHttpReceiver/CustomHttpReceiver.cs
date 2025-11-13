@@ -34,7 +34,7 @@ using Couchcoding.Logbert.Interfaces;
 using System;
 using System.Net.Http;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
+// using System.Runtime.Remoting.Messaging; // Removed - not available in .NET 9
 using System.ComponentModel;
 using System.Net;
 using System.Linq;
@@ -381,6 +381,9 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
     /// <param name="ar"></param>
     private void HttpFileListeningCallback(IAsyncResult ar)
     {
+      // TODO: Refactor this to use async/await instead of AsyncResult (not available in .NET 9)
+      // For now, this callback is not used in the current implementation
+      /*
       StartHttpFileListeningDelegate worker =
         (StartHttpFileListeningDelegate)((AsyncResult)ar).AsyncDelegate;
 
@@ -390,9 +393,10 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
         worker.EndInvoke(ar);
       }
       catch
-      { 
-        
+      {
+
       }
+      */
     }
 
     /// <summary>
@@ -453,7 +457,7 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
     public override void SaveLayout(string layout, List<LogColumnData> columnLayout)
     {
       Properties.Settings.Default.DockLayoutCustomHttpReceiver = layout ?? string.Empty;
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

@@ -45,7 +45,7 @@ public partial class CustomDirReceiverSettingsView : Window
         }
 
         var validationResult = ViewModel.ValidateSettings();
-        if (!validationResult.Success)
+        if (!validationResult.IsSuccess)
         {
             // TODO: Show validation error dialog
             // For now, just close with null

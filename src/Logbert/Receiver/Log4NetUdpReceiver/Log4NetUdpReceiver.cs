@@ -419,7 +419,7 @@ namespace Couchcoding.Logbert.Receiver.Log4NetUdpReceiver
         , columnLayout[4].Width
         , columnLayout[5].Width);
 
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

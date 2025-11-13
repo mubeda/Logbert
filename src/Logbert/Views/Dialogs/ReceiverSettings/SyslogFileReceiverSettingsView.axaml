@@ -25,8 +25,7 @@
                 <TextBlock Text="Log File Path:" FontWeight="SemiBold"/>
                 <Grid ColumnDefinitions="*,Auto">
                     <TextBox Grid.Column="0"
-                             Text="{Binding FilePath}"
-                             Watermark="Select a syslog file..."/>
+                             Text="{Binding FilePath}" />
                     <Button Grid.Column="1"
                             Content="Browse..."
                             Width="80"
@@ -38,8 +37,7 @@
             <!-- Timestamp Format -->
             <StackPanel Spacing="5">
                 <TextBlock Text="Timestamp Format:" FontWeight="SemiBold"/>
-                <TextBox Text="{Binding TimestampFormat}"
-                         Watermark="MMM dd HH:mm:ss"/>
+                <TextBox Text="{Binding TimestampFormat}" />
                 <TextBlock Text="Example: 'MMM dd HH:mm:ss' for 'Jan 15 10:30:45'"
                            FontSize="11"
                            Opacity="0.7"/>
@@ -52,7 +50,7 @@
             <!-- Encoding -->
             <StackPanel Spacing="5">
                 <TextBlock Text="File Encoding:" FontWeight="SemiBold"/>
-                <ComboBox Items="{Binding AvailableEncodings}"
+                <ComboBox ItemsSource="{Binding AvailableEncodings}"
                           SelectedItem="{Binding SelectedEncoding}"
                           HorizontalAlignment="Stretch">
                     <ComboBox.ItemTemplate>

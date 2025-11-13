@@ -24,9 +24,8 @@
             <!-- Search text -->
             <StackPanel Spacing="5">
                 <TextBlock Text="Find what:" FontWeight="SemiBold"/>
-                <ComboBox Items="{Binding SearchHistory}"
-                          Text="{Binding SearchText}"
-                          IsEditable="True"
+                <ComboBox ItemsSource="{Binding SearchHistory}"
+                          IsEnabled="True"
                           HorizontalAlignment="Stretch"/>
             </StackPanel>
 

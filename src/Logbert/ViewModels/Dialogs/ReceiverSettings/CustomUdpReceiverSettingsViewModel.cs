@@ -87,4 +87,9 @@ public partial class CustomUdpReceiverSettingsViewModel : ViewModelBase, ILogSet
 
         return new CustomUdpReceiver(multicast, listenEndPoint, Columnizer!, codepage);
     }
+
+    public void Dispose()
+    {
+        // No resources to dispose
+    }
 }

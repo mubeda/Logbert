@@ -19,12 +19,10 @@
 
           <StackPanel Spacing="6">
             <TextBlock Text="Columnizer Name:" FontWeight="SemiBold" />
-            <TextBox Text="{Binding ColumnizerName}" Watermark="Enter columnizer name" />
           </StackPanel>
 
           <StackPanel Spacing="6">
             <TextBlock Text="DateTime Format:" FontWeight="SemiBold" />
-            <TextBox Text="{Binding DateTimeFormat}" Watermark="yyyy-MM-dd HH:mm:ss.fff" />
             <TextBlock Text="Example: yyyy-MM-dd HH:mm:ss.fff" FontSize="11" Foreground="Gray" />
           </StackPanel>
         </StackPanel>
@@ -39,13 +37,13 @@
                      Text="Define regex patterns to extract fields from log lines. Use capturing groups in your expressions." />
 
           <!-- Column List -->
-          <ListBox Items="{Binding Columns}"
+          <ListBox ItemsSource="{Binding Columns}"
                    SelectedItem="{Binding SelectedColumn}"
                    Height="150"
                    BorderBrush="#D0D0D0"
                    BorderThickness="1">
             <ListBox.ItemTemplate>
-              <DataTemplate>
+              <DataTemplate DataType="vm:LogColumnViewModel">
                 <StackPanel Orientation="Horizontal" Spacing="10">
                   <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Width="120" />
                   <TextBlock Text="{Binding ColumnType}" Foreground="Blue" Width="80" />
@@ -71,12 +69,10 @@
 
               <StackPanel Spacing="6">
                 <TextBlock Text="Column Name:" />
-                <TextBox Text="{Binding SelectedColumn.Name}" Watermark="Enter column name" />
               </StackPanel>
 
               <StackPanel Spacing="6">
                 <TextBlock Text="Regex Expression:" />
-                <TextBox Text="{Binding SelectedColumn.Expression}" Watermark="Enter regex pattern" />
                 <TextBlock Text="Use capturing groups like (.+?) or (\d+)" FontSize="11" Foreground="Gray" />
               </StackPanel>
 
@@ -104,12 +100,11 @@
           <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="#606060"
                      Text="Define regex patterns to match log level text in your logs." />
 
-          <ItemsControl Items="{Binding LogLevelMappings}">
+          <ItemsControl ItemsSource="{Binding LogLevelMappings}">
             <ItemsControl.ItemTemplate>
-              <DataTemplate>
+              <DataTemplate DataType="vm:LogColumnViewModel">
                 <Grid ColumnDefinitions="100,*" Margin="0,0,0,8">
                   <TextBlock Grid.Column="0" Text="{Binding LevelName}" VerticalAlignment="Center" FontWeight="SemiBold" />
-                  <TextBox Grid.Column="1" Text="{Binding Pattern}" Watermark="Enter regex pattern" />
                 </Grid>
               </DataTemplate>
             </ItemsControl.ItemTemplate>

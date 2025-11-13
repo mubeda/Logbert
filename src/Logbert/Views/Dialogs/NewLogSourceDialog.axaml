@@ -31,18 +31,9 @@
 
             <!-- Receiver list grouped by category -->
             <ListBox Grid.Row="1"
-                     Items="{Binding AvailableReceivers}"
+                     ItemsSource="{Binding AvailableReceivers}"
                      SelectedItem="{Binding SelectedReceiver}"
                      Background="#FAFAFA">
-                <ListBox.GroupStyle>
-                    <GroupStyle>
-                        <GroupStyle.Panel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel/>
-                            </ItemsPanelTemplate>
-                        </GroupStyle.Panel>
-                    </GroupStyle>
-                </ListBox.GroupStyle>
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>

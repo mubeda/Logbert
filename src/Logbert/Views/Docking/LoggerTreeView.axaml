@@ -15,7 +15,7 @@
                    Margin="10"/>
 
         <!-- Tree View -->
-        <TreeView Items="{Binding Loggers}"
+        <TreeView ItemsSource="{Binding Loggers}"
                   SelectedItem="{Binding SelectedLogger}"
                   Margin="10,0">
             <TreeView.ItemTemplate>

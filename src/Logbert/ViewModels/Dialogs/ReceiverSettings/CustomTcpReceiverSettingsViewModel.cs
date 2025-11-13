@@ -75,4 +75,9 @@ public partial class CustomTcpReceiverSettingsViewModel : ViewModelBase, ILogSet
 
         return new CustomTcpReceiver(Port, listenEndPoint, Columnizer!, codepage);
     }
+
+    public void Dispose()
+    {
+        // No resources to dispose
+    }
 }

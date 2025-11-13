@@ -80,4 +80,9 @@ public partial class CustomDirReceiverSettingsViewModel : ViewModelBase, ILogSet
         int codepage = SelectedEncoding?.CodePage ?? Encoding.UTF8.CodePage;
         return new CustomDirReceiver(DirectoryPath, FilenamePattern, StartFromBeginning, Columnizer!, codepage);
     }
+
+    public void Dispose()
+    {
+        // No resources to dispose
+    }
 }

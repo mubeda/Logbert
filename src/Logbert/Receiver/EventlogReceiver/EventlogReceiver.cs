@@ -318,7 +318,7 @@ namespace Couchcoding.Logbert.Receiver.EventlogReceiver
         , columnLayout[6].Width
         , columnLayout[7].Width);
 
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

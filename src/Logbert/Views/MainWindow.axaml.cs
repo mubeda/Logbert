@@ -169,14 +169,12 @@ public partial class MainWindow : Window
                 };
 
                 // Set up the receiver to feed messages to the document
+                // Initialize automatically starts the receiver
                 receiver.Initialize(newDoc.LogViewerViewModel);
 
                 // Add document to main window
                 ViewModel.Documents.Add(newDoc);
                 ViewModel.ActiveDocument = newDoc;
-
-                // Start receiving
-                receiver.Start();
             }
             catch (System.Exception ex)
             {

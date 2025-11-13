@@ -43,7 +43,7 @@ using Couchcoding.Logbert.Helper;
 using Couchcoding.Logbert.Logging;
 using Couchcoding.Logbert.Receiver.CustomReceiver;
 
-namespace Couchcoding.Logbert.Receiver.NlogTcpReceiver
+namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomTcpReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the custom TCP service.
@@ -389,7 +389,7 @@ namespace Couchcoding.Logbert.Receiver.NlogTcpReceiver
     public override void SaveLayout(string layout, List<LogColumnData> columnLayout)
     {
       Properties.Settings.Default.DockLayoutCustomTcpReceiver = layout ?? string.Empty;
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

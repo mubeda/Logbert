@@ -35,7 +35,6 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using Couchcoding.Logbert.Properties;
 using System.Text;
-using System.Windows.Forms;
 
 using Couchcoding.Logbert.Helper;
 using MoonSharp.Interpreter;

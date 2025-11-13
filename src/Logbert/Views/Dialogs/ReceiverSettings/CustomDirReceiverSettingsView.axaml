@@ -33,14 +33,14 @@
             <StackPanel Spacing="5">
               <TextBlock Text="Log Directory Path:" FontWeight="SemiBold" />
               <Grid ColumnDefinitions="*,Auto">
-                <TextBox Grid.Column="0" Text="{Binding DirectoryPath}" Watermark="Select a directory..." />
+                <TextBox Grid.Column="0" Text="{Binding DirectoryPath}" />
                 <Button Grid.Column="1" Content="Browse..." Click="OnBrowseClick" Margin="5,0,0,0" />
               </Grid>
             </StackPanel>
 
             <StackPanel Spacing="5">
               <TextBlock Text="Filename Pattern:" FontWeight="SemiBold" />
-              <TextBox Text="{Binding FilenamePattern}" Watermark="*.log" />
+              <TextBox Text="{Binding FilenamePattern}" />
               <TextBlock Text="Use wildcards like *.log, app-*.txt, etc." FontSize="11" Foreground="Gray" />
             </StackPanel>
 

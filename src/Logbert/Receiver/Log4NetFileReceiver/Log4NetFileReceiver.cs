@@ -197,7 +197,7 @@ namespace Couchcoding.Logbert.Receiver.Log4NetFileReceiver
     {
       get
       {
-        return new Log4NetDetailsControl();
+        return null; // WinForms control removed for Avalonia
       }
     }
 
@@ -450,7 +450,7 @@ namespace Couchcoding.Logbert.Receiver.Log4NetFileReceiver
         , columnLayout[4].Width
         , columnLayout[5].Width);
 
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

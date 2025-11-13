@@ -32,7 +32,7 @@
 
             <StackPanel Spacing="5">
               <TextBlock Text="HTTP URL:" FontWeight="SemiBold" />
-              <TextBox Text="{Binding Url}" Watermark="http://example.com/api/logs" />
+              <TextBox Text="{Binding Url}" />
               <TextBlock Text="Enter the full HTTP/HTTPS URL endpoint" FontSize="11" Foreground="Gray" />
             </StackPanel>
 
@@ -73,7 +73,7 @@
 
             <StackPanel Spacing="5" IsEnabled="{Binding UseAuthentication}">
               <TextBlock Text="Username:" FontWeight="SemiBold" />
-              <TextBox Text="{Binding Username}" Watermark="Enter username" />
+              <TextBox Text="{Binding Username}" />
             </StackPanel>
 
             <StackPanel Spacing="5" IsEnabled="{Binding UseAuthentication}">

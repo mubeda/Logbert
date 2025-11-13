@@ -400,7 +400,7 @@ namespace Couchcoding.Logbert.Receiver.NlogTcpReceiver
         , columnLayout[4].Width
         , columnLayout[5].Width);
 
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

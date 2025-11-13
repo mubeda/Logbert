@@ -151,7 +151,7 @@
 
                 <!-- Center Panel - Log Documents -->
                 <TabControl Grid.Column="2"
-                            Items="{Binding Documents}"
+                            ItemsSource="{Binding Documents}"
                             SelectedItem="{Binding ActiveDocument}">
                     <TabControl.ItemTemplate>
                         <DataTemplate>

@@ -72,4 +72,9 @@ public partial class CustomFileReceiverSettingsViewModel : ViewModelBase, ILogSe
         int codepage = SelectedEncoding?.CodePage ?? Encoding.UTF8.CodePage;
         return new CustomFileReceiver(FilePath, StartFromBeginning, Columnizer!, codepage);
     }
+
+    public void Dispose()
+    {
+        // No resources to dispose
+    }
 }

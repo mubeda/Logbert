@@ -29,9 +29,7 @@
           <TextBlock Text="Event Log Name:" FontWeight="SemiBold" />
           <ComboBox SelectedItem="{Binding LogName}"
                     ItemsSource="{Binding AvailableLogNames}"
-                    HorizontalAlignment="Stretch"
-                    IsEditable="True"
-                    Watermark="Select or enter log name" />
+                    HorizontalAlignment="Stretch" />
           <TextBlock Text="Common logs: Application, System, Security"
                      FontSize="11"
                      Foreground="Gray" />
@@ -40,8 +38,7 @@
         <!-- Machine Name -->
         <StackPanel Spacing="5">
           <TextBlock Text="Machine Name:" FontWeight="SemiBold" />
-          <TextBox Text="{Binding MachineName}"
-                   Watermark="Enter machine name or '.' for local machine" />
+          <TextBox Text="{Binding MachineName}" />
           <TextBlock Text="Use '.' for local computer, or specify a remote computer name"
                      FontSize="11"
                      Foreground="Gray" />
@@ -50,8 +47,7 @@
         <!-- Source Name -->
         <StackPanel Spacing="5">
           <TextBlock Text="Source Name (optional):" FontWeight="SemiBold" />
-          <TextBox Text="{Binding SourceName}"
-                   Watermark="Leave empty for all sources" />
+          <TextBox Text="{Binding SourceName}" />
           <TextBlock Text="Filter by event source, or leave empty to capture all sources"
                      FontSize="11"
                      Foreground="Gray" />

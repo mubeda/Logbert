@@ -44,8 +44,7 @@
                          Increment="1"
                          FormatString="0"
                          ShowButtonSpinner="True"
-                         AllowSpin="True"
-                         Watermark="Enter process ID" />
+                         AllowSpin="True" />
           <TextBlock Text="Enter the Process ID (PID) to capture debug output from"
                      FontSize="11"
                      Foreground="Gray" />

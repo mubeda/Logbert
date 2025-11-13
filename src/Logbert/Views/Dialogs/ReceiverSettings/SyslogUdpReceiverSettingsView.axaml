@@ -36,8 +36,7 @@
             <!-- Listen Interface IP -->
             <StackPanel Spacing="5">
                 <TextBlock Text="Listen Interface IP:" FontWeight="SemiBold"/>
-                <TextBox Text="{Binding ListenInterfaceIp}"
-                         Watermark="0.0.0.0"/>
+                <TextBox Text="{Binding ListenInterfaceIp}" />
                 <TextBlock Text="IP address to bind to (0.0.0.0 = all interfaces)"
                            FontSize="11"
                            Opacity="0.7"/>
@@ -46,8 +45,7 @@
             <!-- Multicast IP -->
             <StackPanel Spacing="5">
                 <TextBlock Text="Multicast IP (optional):" FontWeight="SemiBold"/>
-                <TextBox Text="{Binding MulticastIp}"
-                         Watermark="Leave empty for unicast"/>
+                <TextBox Text="{Binding MulticastIp}" />
                 <TextBlock Text="Multicast group IP (e.g., 239.255.0.1) or leave empty"
                            FontSize="11"
                            Opacity="0.7"/>
@@ -56,8 +54,7 @@
             <!-- Timestamp Format -->
             <StackPanel Spacing="5">
                 <TextBlock Text="Timestamp Format:" FontWeight="SemiBold"/>
-                <TextBox Text="{Binding TimestampFormat}"
-                         Watermark="MMM dd HH:mm:ss"/>
+                <TextBox Text="{Binding TimestampFormat}" />
                 <TextBlock Text="Example: 'MMM dd HH:mm:ss' for 'Jan 15 10:30:45'"
                            FontSize="11"
                            Opacity="0.7"/>
@@ -66,7 +63,7 @@
             <!-- Encoding -->
             <StackPanel Spacing="5">
                 <TextBlock Text="Encoding:" FontWeight="SemiBold"/>
-                <ComboBox Items="{Binding AvailableEncodings}"
+                <ComboBox ItemsSource="{Binding AvailableEncodings}"
                           SelectedItem="{Binding SelectedEncoding}"
                           HorizontalAlignment="Stretch">
                     <ComboBox.ItemTemplate>
