@@ -13,6 +13,7 @@
 |--------|--------|
 | **Build** | 0 errors, 0 warnings |
 | **Phase 5** | Complete (100%) |
+| **Phase 6** | In Progress (~20%) |
 | **Receivers** | 16/16 implemented |
 | **Core Features** | All functional |
 
@@ -74,6 +75,7 @@ Phase 6: Testing & Polish           [####................]  20%
 - Filter panel (log levels)
 - Lua scripting (MoonSharp)
 - Enhanced log details view
+- **Advanced filters** - LogFilterString & LogFilterRegex fully implemented
 
 ### Architecture
 
@@ -94,74 +96,307 @@ Logbert (Avalonia)
 
 ---
 
-## Phase 6: Testing & Polish
+## Phase 6: Detailed Implementation Plan
 
-### Objectives
+### 1. Settings Persistence (Priority: HIGH)
 
-1. **Cross-Platform Verification** - Windows, macOS, Linux validation
-2. **Performance Optimization** - Handle large log files (1M+ entries)
-3. **Code Quality** - Maintain zero warnings
-4. **User Experience** - Polish UI, improve responsiveness
-5. **Documentation** - Complete user and developer documentation
-6. **Deployment** - Prepare release packages for all platforms
+**Current State:** NOT IMPLEMENTED (0%)
 
-### Testing Checklist
+**Problem:** `OptionsDialogViewModel.cs` has TODO stubs:
+```csharp
+private void LoadSettings()
+{
+    // TODO: Load from application settings
+    // For now, using defaults
+}
 
-#### Cross-Platform Testing
+private void SaveSettings()
+{
+    // TODO: Save to application settings
+}
+```
 
-| Platform | Build | Run | Receivers | UI |
-|----------|-------|-----|-----------|-----|
-| Windows x64 | ⏳ | ⏳ | ⏳ | ⏳ |
-| Windows ARM64 | ⏳ | ⏳ | ⏳ | ⏳ |
-| macOS x64 | ⏳ | ⏳ | ⏳ | ⏳ |
-| macOS ARM64 | ⏳ | ⏳ | ⏳ | ⏳ |
-| Linux x64 | ⏳ | ⏳ | ⏳ | ⏳ |
+**Implementation Required:**
 
-#### Feature Testing
+| Task | File(s) | Description |
+|------|---------|-------------|
+| Create Settings Service | `Services/SettingsService.cs` (new) | JSON-based settings with auto-save |
+| Settings Model | `Models/AppSettings.cs` (new) | POCO for all user preferences |
+| Window State | `MainWindowViewModel.cs` | Track window position, size, state |
+| Panel Layout | `MainWindowViewModel.cs` | Splitter positions, panel visibility |
+| Column Widths | `LogViewerViewModel.cs` | DataGrid column widths |
+| User Preferences | `OptionsDialogViewModel.cs` | Theme, font, logging level |
+| Save on Exit | `MainWindow.axaml.cs` | Trigger save on window closing |
+| Load on Start | `App.axaml.cs` | Load settings before UI creation |
 
-- [x] All 16 receiver configuration dialogs
-- [x] Search (regex, case-sensitive, whole word)
-- [x] Statistics dialog
-- [x] Filter panel (log levels)
-- [x] Logger tree
-- [x] Bookmarks
-- [ ] Settings persistence
-- [ ] Performance with large files
+**Settings to Persist:**
+- Window: X, Y, Width, Height, WindowState (Normal/Maximized)
+- Panels: LeftPanelWidth, RightPanelWidth, BottomPanelHeight
+- Columns: Array of column name → width mappings
+- Preferences: Theme (Light/Dark/System), Font family/size
+- Behavior: AutoScroll, ShowTimestamps, TimestampFormat
 
-#### Performance Targets
+**Suggested Storage:** `%AppData%/Logbert/settings.json` (Windows), `~/.config/Logbert/settings.json` (Linux/macOS)
 
-- Load 1M messages in <5 seconds
-- Smooth scrolling (60 FPS) with virtualization
-- Memory usage <500MB for 1M messages
-- Search through 1M messages in <2 seconds
+---
 
-### Remaining Work
+### 2. Recent Files Menu (Priority: MEDIUM)
 
-**Testing:**
+**Current State:** PARTIALLY IMPLEMENTED (40%)
 
-- [ ] Cross-platform validation (Windows, macOS, Linux)
-- [ ] Performance testing with large files (1M+ entries)
-- [ ] All 16 receiver functional testing
-- [ ] Memory profiling and leak detection
+**What Exists:**
+- `Helper/MruManager.cs` - Fully functional MRU logic (max 9 files)
+- Methods: `AddFile()`, `RemoveFile()`, `ClearFiles()`
+- Events: `MruListChanged`
+- Legacy integration in `MainForm.cs` (WinForms, excluded from build)
 
-**Polish:**
+**Implementation Required:**
 
-- [ ] Settings persistence (window position, column widths)
-- [ ] Recent files menu
-- [ ] UI/UX refinements
-- [ ] Error message improvements
+| Task | File(s) | Description |
+|------|---------|-------------|
+| Add MRU Property | `MainWindowViewModel.cs` | `ObservableCollection<string> RecentFiles` |
+| Initialize MruManager | `MainWindowViewModel.cs` | Create instance, subscribe to events |
+| Menu Binding | `MainWindow.axaml` | Add "Recent Files" submenu under File |
+| Open Recent Command | `MainWindowViewModel.cs` | `OpenRecentFileCommand` with file path parameter |
+| Update on Open | `MainWindowViewModel.cs` | Call `MruManager.AddFile()` when opening files |
+| Persist MRU List | `SettingsService.cs` | Include RecentFiles in settings JSON |
 
-**Documentation:**
+**Menu Structure:**
+```xml
+<MenuItem Header="_File">
+    <MenuItem Header="_New Log Source..." />
+    <MenuItem Header="_Open..." />
+    <MenuItem Header="Recent Files" ItemsSource="{Binding RecentFiles}">
+        <MenuItem.ItemTemplate>
+            <DataTemplate>
+                <MenuItem Header="{Binding}" Command="{Binding $parent.OpenRecentFileCommand}" CommandParameter="{Binding}" />
+            </DataTemplate>
+        </MenuItem.ItemTemplate>
+    </MenuItem>
+    <Separator />
+    <MenuItem Header="E_xit" />
+</MenuItem>
+```
 
-- [ ] User guide updates
-- [ ] Developer guide updates
-- [ ] Release notes
+---
 
-**Deployment:**
+### 3. Export Functionality (Priority: MEDIUM)
 
-- [ ] Windows installer/zip
-- [ ] macOS .app/.dmg bundle
-- [ ] Linux .deb/.rpm/AppImage
+**Current State:** PARTIALLY IMPLEMENTED (60%)
+
+**What Exists:**
+- `LogMessage.GetCsvLine()` - Abstract method implemented in all LogMessage subclasses
+- `LogMessageLog4Net.GetCsvLine()` - Full CSV export with proper escaping
+- `LogMessageSyslog.GetCsvLine()`, `LogMessageWinDebug.GetCsvLine()`, etc.
+- `Helper/StringExtensions.ToCsv()` - CSV escaping utility
+- `ILogProvider.GetCsvHeader()` - Column headers for CSV
+
+**Implementation Required:**
+
+| Task | File(s) | Description |
+|------|---------|-------------|
+| Export Command | `MainWindowViewModel.cs` | `ExportToCsvCommand` |
+| Export Dialog | `Views/Dialogs/ExportDialog.axaml` (new) | Options: All/Filtered, delimiter, encoding |
+| Save File Dialog | Export command handler | Show native save dialog |
+| Export Logic | `Services/ExportService.cs` (new) | Write CSV with progress |
+| Menu Integration | `MainWindow.axaml` | Add "Export..." menu item |
+| Progress Indicator | `MainWindowViewModel.cs` | Show export progress for large files |
+
+**Export Options:**
+- Scope: All Messages / Filtered Messages Only / Selected Messages
+- Format: CSV / Original Format
+- Encoding: UTF-8 / UTF-16 / ASCII
+- Include Headers: Yes/No
+
+---
+
+### 4. Error Handling Improvements (Priority: MEDIUM)
+
+**Current State:** INCOMPLETE (40%)
+
+**What Exists:**
+- Validation messages in receiver dialogs (good)
+- `ValidationResult` with user-friendly messages
+
+**Problems Found:**
+- Many `// TODO: Show error notification to user` comments
+- Generic exception catching without user feedback
+- Locations with TODOs:
+  - `SearchDialogViewModel.cs` - Search errors
+  - `LogViewerViewModel.cs` - Load/parse errors
+  - Multiple receiver ViewModels - Validation errors
+
+**Implementation Required:**
+
+| Task | File(s) | Description |
+|------|---------|-------------|
+| Notification Service | `Services/NotificationService.cs` (new) | Centralized error/info display |
+| Error Dialog | `Views/Dialogs/ErrorDialog.axaml` (new) | Standard error display with details |
+| Toast Notifications | Consider Avalonia.Notifications | Non-blocking info messages |
+| Replace TODOs | Multiple ViewModels | Wire up NotificationService calls |
+| Exception Handling | Receiver classes | User-friendly messages for common errors |
+
+**Error Categories:**
+- **Validation Errors**: Show inline or dialog
+- **Runtime Errors**: Show dialog with "Details" expander
+- **Recoverable Errors**: Show toast with retry option
+- **Fatal Errors**: Show dialog with "Exit" option
+
+---
+
+### 5. Cross-Platform Testing
+
+**Current State:** NOT STARTED
+
+| Platform | Build | Run | Receivers | UI | Notes |
+|----------|-------|-----|-----------|-----|-------|
+| Windows x64 | ⏳ | ⏳ | ⏳ | ⏳ | Primary dev platform |
+| Windows ARM64 | ⏳ | ⏳ | ⏳ | ⏳ | Surface Pro X, etc. |
+| macOS x64 | ⏳ | ⏳ | ⏳ | ⏳ | Intel Macs |
+| macOS ARM64 | ⏳ | ⏳ | ⏳ | ⏳ | Apple Silicon |
+| Linux x64 | ⏳ | ⏳ | ⏳ | ⏳ | Ubuntu, Fedora |
+
+**Test Procedure per Platform:**
+1. Build: `dotnet build`
+2. Run: `dotnet run`
+3. Test each receiver type applicable to platform
+4. Test all UI interactions (resize, menus, dialogs)
+5. Test theme following system preferences
+
+**Platform-Specific Considerations:**
+- **Windows**: Event Log and Debug Output receivers work
+- **macOS**: File permissions, Gatekeeper signing
+- **Linux**: GTK theme integration, firewall rules for network receivers
+
+---
+
+### 6. Performance Testing
+
+**Current State:** NOT STARTED
+
+**Performance Targets:**
+
+| Metric | Target | Test Method |
+|--------|--------|-------------|
+| Load 100K messages | < 3 seconds | Stopwatch + profiler |
+| Load 1M messages | < 10 seconds | Stopwatch + profiler |
+| Scrolling FPS | > 30 FPS | Avalonia diagnostics |
+| Search 1M messages | < 3 seconds | Stopwatch |
+| Memory (1M messages) | < 500 MB | Process.WorkingSet64 |
+
+**Test Files Needed:**
+- Generate 100K, 500K, 1M message log files
+- Include variety of log levels and message lengths
+- Test both file and network receivers
+
+**Optimization Areas:**
+- DataGrid virtualization verification
+- Lazy loading for large files
+- Search algorithm efficiency
+- Memory pooling for LogMessage objects
+
+---
+
+### 7. Documentation Updates
+
+**Current State:** PENDING
+
+| Document | Status | Updates Needed |
+|----------|--------|----------------|
+| USER_GUIDE.md | ⏳ | Screenshots, new features |
+| DEVELOPER_GUIDE.md | ⏳ | Build instructions, architecture |
+| RECEIVERS.md | ⏳ | Verify all 16 receivers documented |
+| SCRIPTING.md | ⏳ | Verify Lua API reference |
+| Release Notes | ❌ | Create for v2.0 |
+
+---
+
+### 8. Deployment Preparation
+
+**Current State:** NOT STARTED
+
+| Platform | Package Type | Tool | Status |
+|----------|-------------|------|--------|
+| Windows | ZIP / MSIX | dotnet publish | ⏳ |
+| macOS | .app bundle | dotnet publish + bundler | ⏳ |
+| macOS | .dmg | create-dmg | ⏳ |
+| Linux | AppImage | appimage-builder | ⏳ |
+| Linux | .deb | dpkg-deb | ⏳ |
+| Linux | .rpm | rpmbuild | ⏳ |
+
+**Publish Commands:**
+```bash
+# Windows
+dotnet publish -c Release -r win-x64 --self-contained -o publish/win-x64
+dotnet publish -c Release -r win-arm64 --self-contained -o publish/win-arm64
+
+# macOS
+dotnet publish -c Release -r osx-x64 --self-contained -o publish/osx-x64
+dotnet publish -c Release -r osx-arm64 --self-contained -o publish/osx-arm64
+
+# Linux
+dotnet publish -c Release -r linux-x64 --self-contained -o publish/linux-x64
+dotnet publish -c Release -r linux-arm64 --self-contained -o publish/linux-arm64
+```
+
+---
+
+## Phase 6 Summary Checklist
+
+### Implementation Tasks
+
+- [ ] **Settings Persistence**
+  - [ ] Create SettingsService with JSON storage
+  - [ ] Create AppSettings model
+  - [ ] Wire up window state saving/loading
+  - [ ] Wire up column width persistence
+  - [ ] Update OptionsDialogViewModel to use SettingsService
+
+- [ ] **Recent Files Menu**
+  - [ ] Add RecentFiles property to MainWindowViewModel
+  - [ ] Add Recent Files submenu to MainWindow.axaml
+  - [ ] Wire up MruManager integration
+  - [ ] Persist MRU list in settings
+
+- [ ] **Export Functionality**
+  - [ ] Add Export menu item
+  - [ ] Create ExportDialog for options
+  - [ ] Implement CSV export with progress
+  - [ ] Test with large files
+
+- [ ] **Error Handling**
+  - [ ] Create NotificationService
+  - [ ] Create ErrorDialog view
+  - [ ] Replace all TODO error comments
+  - [ ] Add user-friendly exception messages
+
+### Testing Tasks
+
+- [ ] Cross-platform: Windows x64
+- [ ] Cross-platform: Windows ARM64
+- [ ] Cross-platform: macOS x64
+- [ ] Cross-platform: macOS ARM64
+- [ ] Cross-platform: Linux x64
+- [ ] Performance: 100K messages
+- [ ] Performance: 1M messages
+- [ ] Memory profiling
+- [ ] All 16 receivers functional test
+
+### Documentation Tasks
+
+- [ ] Update USER_GUIDE.md
+- [ ] Update DEVELOPER_GUIDE.md
+- [ ] Verify RECEIVERS.md
+- [ ] Create Release Notes
+
+### Deployment Tasks
+
+- [ ] Windows ZIP package
+- [ ] macOS .app bundle
+- [ ] macOS .dmg installer
+- [ ] Linux AppImage
+- [ ] Linux .deb package
+- [ ] Linux .rpm package
 
 ---
 
@@ -214,12 +449,16 @@ Legacy WinForms files are excluded from compilation but retained for reference:
 - Created ColorMap visualization
 - Added LogMessage subclasses (Syslog, WinDebug)
 
-### Phase 6 (In Progress)
+### Phase 6 (In Progress - 20%)
 
-- Cross-platform testing
-- Performance optimization
-- Documentation completion
-- Release preparation
+- Documentation cleanup and consolidation
+- Build configuration simplified to AnyCPU only
+- Updated all docs to .NET 10 references
+- Settings persistence (pending)
+- Recent files menu (pending)
+- Export UI integration (pending)
+- Cross-platform testing (pending)
+- Deployment preparation (pending)
 
 ---
 
@@ -227,8 +466,8 @@ Legacy WinForms files are excluded from compilation but retained for reference:
 
 1. **Windows Event Log** - Windows only (by design)
 2. **Windows Debug Output** - Windows only (by design)
-3. **Settings persistence** - Not yet implemented
-4. **Advanced filters** (LogFilterString, LogFilterRegex) - Deferred
+3. **Settings persistence** - Implementation pending (Phase 6)
+4. **Code signing** - Not yet configured for macOS/Windows
 
 ---
 
