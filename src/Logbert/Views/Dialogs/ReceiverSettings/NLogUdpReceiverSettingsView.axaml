@@ -7,9 +7,10 @@
         x:Class="Couchcoding.Logbert.Views.Dialogs.ReceiverSettings.NLogUdpReceiverSettingsView"
         x:DataType="vm:NLogUdpReceiverSettingsViewModel"
         Title="NLog UDP Receiver Configuration"
-        Width="500" Height="400"
+        Width="500" Height="520"
+        MinWidth="400" MinHeight="450"
         WindowStartupLocation="CenterOwner"
-        CanResize="False">
+        CanResize="True">
 
     <DockPanel Margin="15">
         <!-- Buttons -->
@@ -19,6 +20,7 @@
         </StackPanel>
 
         <!-- Settings -->
+        <ScrollViewer>
         <StackPanel Spacing="15">
             <!-- Listen Port -->
             <StackPanel Spacing="5">
@@ -78,5 +80,6 @@
                 </StackPanel>
             </Border>
         </StackPanel>
+        </ScrollViewer>
     </DockPanel>
 </Window>

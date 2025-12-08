@@ -1,7 +1,7 @@
 # Logbert Testing Checklist
 
-**Version:** 2.0 (Avalonia .NET 9)
-**Last Updated:** November 6, 2025
+**Version:** 2.0 (Avalonia .NET 10)
+**Last Updated:** December 2025
 
 ---
 
@@ -16,8 +16,9 @@ This checklist provides systematic test procedures for verifying Logbert functio
 ### Environment Preparation
 
 **Install Required Software:**
-- [ ] .NET 9.0 SDK or Runtime
-- [ ] Avalonia UI 11.2.2 (included with project)
+
+- [ ] .NET 10.0 SDK or Runtime
+- [ ] Avalonia UI 11.3.8 (included with project)
 - [ ] Test log file generators (optional)
 
 **Test Data Preparation:**

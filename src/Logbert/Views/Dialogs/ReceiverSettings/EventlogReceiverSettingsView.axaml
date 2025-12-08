@@ -4,9 +4,10 @@
         x:Class="Couchcoding.Logbert.Views.Dialogs.ReceiverSettings.EventlogReceiverSettingsView"
         x:DataType="vm:EventlogReceiverSettingsViewModel"
         Title="Windows Event Log Receiver Settings"
-        Width="500" Height="350"
+        Width="500" Height="450"
+        MinWidth="400" MinHeight="380"
         WindowStartupLocation="CenterOwner"
-        CanResize="False">
+        CanResize="True">
 
   <Design.DataContext>
     <vm:EventlogReceiverSettingsViewModel />

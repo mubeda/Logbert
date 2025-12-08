@@ -168,16 +168,15 @@
                         MinWidth="120"/>
 
                 <Button Content="OK"
-                        Command="{Binding OkCommand}"
                         Padding="15,8"
                         MinWidth="80"
                         IsDefault="True"
                         Click="OnOkClick"/>
 
                 <Button Content="Cancel"
-                        Command="{Binding CancelCommand}"
                         Padding="15,8"
                         MinWidth="80"
+                        IsCancel="True"
                         Click="OnCancelClick"/>
             </StackPanel>
         </Border>
