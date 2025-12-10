@@ -7,17 +7,17 @@ Logbert is built using modern .NET technologies with a focus on cross-platform c
 ## Technology Stack
 
 ### Core Technologies
-- **.NET 9.0** - Cross-platform runtime (Latest)
+- **.NET 10.0** - Cross-platform runtime (Latest)
 - **C# 13** - Programming language with latest features
-- **Avalonia UI 11.2.2** - Cross-platform XAML-based UI framework
+- **Avalonia UI 11.3.8** - Cross-platform XAML-based UI framework
 
 ### Key Dependencies
 | Package | Version | Purpose |
 |---------|---------|---------|
-| Avalonia | 11.2.2 | UI framework |
-| CommunityToolkit.Mvvm | 8.3.2 | MVVM infrastructure with source generators |
-| Dock.Avalonia | 11.1.0 | Docking panel system |
-| AvaloniaEdit | 11.1.0 | Code editor control |
+| Avalonia | 11.3.8 | UI framework |
+| CommunityToolkit.Mvvm | 8.4.0 | MVVM infrastructure with source generators |
+| Dock.Avalonia | 11.3.6.5 | Docking panel system |
+| AvaloniaEdit | 11.3.0 | Code editor control |
 | MoonSharp | Latest | Lua scripting engine |
 
 ### Platform Support
@@ -400,7 +400,7 @@ public class ScriptEngine
 
 **Files:**
 - `layout.json` - Dock layout configuration
-- `settings.json` - Application settings (planned)
+- `settings.json` - Application settings (JSON-based persistence)
 - `scripts/` - Saved Lua scripts (planned)
 
 #### Layout Persistence

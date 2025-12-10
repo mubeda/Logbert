@@ -15,7 +15,7 @@ This guide provides information for developers who want to contribute to Logbert
 
 ### Prerequisites
 
-- **.NET 9.0 SDK** or later - [Download](https://dotnet.microsoft.com/download/dotnet/9.0)
+- **.NET 10.0 SDK** or later - [Download](https://dotnet.microsoft.com/download/dotnet/10.0)
 - **IDE** - Choose one:
   - Visual Studio 2022 17.9+ with .NET desktop development workload
   - JetBrains Rider 2024.2+
@@ -676,7 +676,7 @@ Enable Avalonia DevTools for runtime inspection:
 
 1. Add package:
    ```bash
-   dotnet add package Avalonia.Diagnostics --version 11.2.2
+   dotnet add package Avalonia.Diagnostics --version 11.3.8
    ```
 
 2. Enable in code:
