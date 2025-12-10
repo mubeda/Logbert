@@ -1,0 +1,239 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Couchcoding.Logbert.ViewModels.Dialogs"
+        mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="550"
+        x:Class="Couchcoding.Logbert.Views.Dialogs.TimestampFormatDialog"
+        x:DataType="vm:TimestampFormatDialogViewModel"
+        Title="Timestamp Format"
+        Width="550" Height="550"
+        MinWidth="450" MinHeight="450"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Assets/avalonia-logo.ico">
+
+    <Design.DataContext>
+        <vm:TimestampFormatDialogViewModel/>
+    </Design.DataContext>
+
+    <DockPanel Margin="15">
+        <!-- Header -->
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,15">
+            <TextBlock Text="Timestamp Format"
+                       FontSize="18"
+                       FontWeight="Bold"/>
+            <TextBlock Text="Configure how timestamps are formatted and parsed in log messages."
+                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                       Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <!-- Bottom Buttons -->
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="10"
+                    Margin="0,15,0,0">
+            <Button Content="OK"
+                    Padding="25,8"
+                    Click="OnOkClick"
+                    IsEnabled="{Binding IsFormatValid}"/>
+            <Button Content="Cancel"
+                    Padding="25,8"
+                    Click="OnCancelClick"
+                    IsCancel="True"/>
+        </StackPanel>
+
+        <!-- Main Content -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="15">
+                <!-- Format Preset Selection -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Format Preset" FontWeight="SemiBold"/>
+                        <ComboBox SelectedIndex="{Binding SelectedPresetIndex}"
+                                  ItemsSource="{Binding FormatPresets}"
+                                  HorizontalAlignment="Stretch">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="vm:TimestampFormatPreset">
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding Format}"
+                                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                                   FontFamily="Consolas, Courier New, monospace"
+                                                   FontSize="11"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                </Border>
+
+                <!-- Custom Format String -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Format String" FontWeight="SemiBold"/>
+                        <TextBox Text="{Binding FormatString}"
+                                 FontFamily="Consolas, Courier New, monospace"
+                                 Watermark="Enter format string (e.g., yyyy-MM-dd HH:mm:ss)"/>
+
+                        <!-- Validation Message -->
+                        <Border IsVisible="{Binding ValidationMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Background="{Binding IsFormatValid, Converter={StaticResource BoolToBackgroundConverter}}"
+                                CornerRadius="3"
+                                Padding="8,5">
+                            <TextBlock Text="{Binding ValidationMessage}"
+                                       FontSize="12"
+                                       Foreground="{Binding IsFormatValid, Converter={StaticResource BoolToForegroundConverter}}"/>
+                        </Border>
+
+                        <!-- Quick Insert Tokens -->
+                        <Expander Header="Insert Format Tokens" IsExpanded="False">
+                            <WrapPanel Margin="5" Orientation="Horizontal">
+                                <Button Content="yyyy" Command="{Binding InsertTokenCommand}" CommandParameter="yyyy" Margin="2" Padding="8,4" ToolTip.Tip="4-digit year"/>
+                                <Button Content="yy" Command="{Binding InsertTokenCommand}" CommandParameter="yy" Margin="2" Padding="8,4" ToolTip.Tip="2-digit year"/>
+                                <Button Content="MM" Command="{Binding InsertTokenCommand}" CommandParameter="MM" Margin="2" Padding="8,4" ToolTip.Tip="Month (01-12)"/>
+                                <Button Content="MMM" Command="{Binding InsertTokenCommand}" CommandParameter="MMM" Margin="2" Padding="8,4" ToolTip.Tip="Month abbreviation"/>
+                                <Button Content="dd" Command="{Binding InsertTokenCommand}" CommandParameter="dd" Margin="2" Padding="8,4" ToolTip.Tip="Day (01-31)"/>
+                                <Button Content="HH" Command="{Binding InsertTokenCommand}" CommandParameter="HH" Margin="2" Padding="8,4" ToolTip.Tip="Hour (00-23)"/>
+                                <Button Content="hh" Command="{Binding InsertTokenCommand}" CommandParameter="hh" Margin="2" Padding="8,4" ToolTip.Tip="Hour (01-12)"/>
+                                <Button Content="mm" Command="{Binding InsertTokenCommand}" CommandParameter="mm" Margin="2" Padding="8,4" ToolTip.Tip="Minute (00-59)"/>
+                                <Button Content="ss" Command="{Binding InsertTokenCommand}" CommandParameter="ss" Margin="2" Padding="8,4" ToolTip.Tip="Second (00-59)"/>
+                                <Button Content="fff" Command="{Binding InsertTokenCommand}" CommandParameter="fff" Margin="2" Padding="8,4" ToolTip.Tip="Milliseconds"/>
+                                <Button Content="tt" Command="{Binding InsertTokenCommand}" CommandParameter="tt" Margin="2" Padding="8,4" ToolTip.Tip="AM/PM"/>
+                                <Button Content="T" Command="{Binding InsertTokenCommand}" CommandParameter="T" Margin="2" Padding="8,4" ToolTip.Tip="ISO separator"/>
+                                <Button Content="Z" Command="{Binding InsertTokenCommand}" CommandParameter="Z" Margin="2" Padding="8,4" ToolTip.Tip="UTC indicator"/>
+                                <Button Content="zzz" Command="{Binding InsertTokenCommand}" CommandParameter="zzz" Margin="2" Padding="8,4" ToolTip.Tip="Timezone offset"/>
+                            </WrapPanel>
+                        </Expander>
+                    </StackPanel>
+                </Border>
+
+                <!-- Timezone -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Timezone" FontWeight="SemiBold"/>
+                        <ComboBox SelectedItem="{Binding SelectedTimezone}"
+                                  ItemsSource="{Binding Timezones}"
+                                  HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Live Preview -->
+                <Border Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                        BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Live Preview" FontWeight="SemiBold"/>
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Text="Current Time:"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+                            <TextBox Grid.Column="1"
+                                     Text="{Binding PreviewResult}"
+                                     IsReadOnly="True"
+                                     FontFamily="Consolas, Courier New, monospace"
+                                     FontSize="14"
+                                     FontWeight="SemiBold"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Test Parsing -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Test Parsing" FontWeight="SemiBold"/>
+                        <TextBlock Text="Enter a sample timestamp to verify parsing works correctly."
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   FontSize="12"/>
+
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                            <TextBox Grid.Row="0" Grid.Column="0"
+                                     Text="{Binding SampleTimestamp}"
+                                     FontFamily="Consolas, Courier New, monospace"
+                                     Watermark="Enter sample timestamp..."
+                                     Margin="0,0,10,0"/>
+                            <Button Grid.Row="0" Grid.Column="1"
+                                    Content="Test"
+                                    Command="{Binding TestParseCommand}"
+                                    Padding="15,6"/>
+
+                            <!-- Parse Result -->
+                            <Border Grid.Row="1" Grid.ColumnSpan="2"
+                                    IsVisible="{Binding ParsedResult, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                    Background="{Binding SampleParsed, Converter={StaticResource BoolToBackgroundConverter}}"
+                                    CornerRadius="3"
+                                    Padding="8,5"
+                                    Margin="0,10,0,0">
+                                <TextBlock Text="{Binding ParsedResult}"
+                                           FontSize="12"
+                                           FontFamily="Consolas, Courier New, monospace"
+                                           Foreground="{Binding SampleParsed, Converter={StaticResource BoolToForegroundConverter}}"/>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Format Reference -->
+                <Expander Header="Format String Reference">
+                    <Border Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                            Padding="12"
+                            CornerRadius="4">
+                        <StackPanel Spacing="5">
+                            <TextBlock FontFamily="Consolas, Courier New, monospace" FontSize="11">
+                                <Run Text="yyyy" FontWeight="Bold"/> - 4-digit year (2024)
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas, Courier New, monospace" FontSize="11">
+                                <Run Text="yy  " FontWeight="Bold"/> - 2-digit year (24)
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas, Courier New, monospace" FontSize="11">
+                                <Run Text="MM  " FontWeight="Bold"/> - Month 01-12
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas, Courier New, monospace" FontSize="11">
+                                <Run Text="MMM " FontWeight="Bold"/> - Month name (Jan, Feb, ...)
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas, Courier New, monospace" FontSize="11">
+                                <Run Text="dd  " FontWeight="Bold"/> - Day 01-31
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas, Courier New, monospace" FontSize="11">
+                                <Run Text="HH  " FontWeight="Bold"/> - Hour 00-23 (24-hour)
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas, Courier New, monospace" FontSize="11">
+                                <Run Text="hh  " FontWeight="Bold"/> - Hour 01-12 (12-hour)
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas, Courier New, monospace" FontSize="11">
+                                <Run Text="mm  " FontWeight="Bold"/> - Minute 00-59
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas, Courier New, monospace" FontSize="11">
+                                <Run Text="ss  " FontWeight="Bold"/> - Second 00-59
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas, Courier New, monospace" FontSize="11">
+                                <Run Text="fff " FontWeight="Bold"/> - Milliseconds
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas, Courier New, monospace" FontSize="11">
+                                <Run Text="tt  " FontWeight="Bold"/> - AM/PM designator
+                            </TextBlock>
+                            <TextBlock FontFamily="Consolas, Courier New, monospace" FontSize="11">
+                                <Run Text="zzz " FontWeight="Bold"/> - Timezone offset (+00:00)
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

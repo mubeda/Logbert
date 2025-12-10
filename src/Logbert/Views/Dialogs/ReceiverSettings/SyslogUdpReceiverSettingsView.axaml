@@ -56,7 +56,16 @@
             <!-- Timestamp Format -->
             <StackPanel Spacing="5">
                 <TextBlock Text="Timestamp Format:" FontWeight="SemiBold"/>
-                <TextBox Text="{Binding TimestampFormat}" />
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBox Grid.Column="0"
+                             Text="{Binding TimestampFormat}" />
+                    <Button Grid.Column="1"
+                            Content="Configure..."
+                            Width="90"
+                            Margin="5,0,0,0"
+                            Click="OnConfigureTimestampClick"
+                            ToolTip.Tip="Open timestamp format editor"/>
+                </Grid>
                 <TextBlock Text="Example: 'MMM dd HH:mm:ss' for 'Jan 15 10:30:45'"
                            FontSize="11"
                            Opacity="0.7"/>

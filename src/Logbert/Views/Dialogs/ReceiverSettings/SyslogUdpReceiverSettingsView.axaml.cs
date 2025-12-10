@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Couchcoding.Logbert.Views.Dialogs;
 using Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings;
 
 namespace Couchcoding.Logbert.Views.Dialogs.ReceiverSettings;
@@ -57,5 +58,20 @@ public partial class SyslogUdpReceiverSettingsView : Window
     private void OnCancelClick(object? sender, RoutedEventArgs e)
     {
         Close(null);
+    }
+
+    private async void OnConfigureTimestampClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null) return;
+
+        var dialog = new TimestampFormatDialog();
+        dialog.Initialize(ViewModel.TimestampFormat);
+
+        var result = await dialog.ShowDialog<bool?>(this);
+
+        if (result == true && dialog.FormatAccepted && !string.IsNullOrEmpty(dialog.ResultFormat))
+        {
+            ViewModel.TimestampFormat = dialog.ResultFormat;
+        }
     }
 }
