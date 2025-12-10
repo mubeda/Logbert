@@ -60,6 +60,10 @@
             <Button Content="Remove" Command="{Binding RemoveColumnCommand}" />
             <Button Content="Move Up ↑" Command="{Binding MoveColumnUpCommand}" />
             <Button Content="Move Down ↓" Command="{Binding MoveColumnDownCommand}" />
+            <Button x:Name="TestPatternButton"
+                    Content="Test Pattern..."
+                    Click="OnTestPatternClick"
+                    ToolTip.Tip="Open the regex pattern tester dialog" />
           </StackPanel>
 
           <!-- Column Editor (when column is selected) -->
@@ -82,6 +86,8 @@
                   <receiver:LogColumnType>Unknown</receiver:LogColumnType>
                   <receiver:LogColumnType>Timestamp</receiver:LogColumnType>
                   <receiver:LogColumnType>Level</receiver:LogColumnType>
+                  <receiver:LogColumnType>Logger</receiver:LogColumnType>
+                  <receiver:LogColumnType>Thread</receiver:LogColumnType>
                   <receiver:LogColumnType>Message</receiver:LogColumnType>
                 </ComboBox>
               </StackPanel>

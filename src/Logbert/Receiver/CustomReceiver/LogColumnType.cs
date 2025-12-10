@@ -51,7 +51,17 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver
     Level,
 
     /// <summary>
-    /// Column type fot the log message.
+    /// Column type for logger/class names.
+    /// </summary>
+    Logger,
+
+    /// <summary>
+    /// Column type for thread identifiers.
+    /// </summary>
+    Thread,
+
+    /// <summary>
+    /// Column type for the log message.
     /// </summary>
     Message
   }
