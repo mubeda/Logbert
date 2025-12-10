@@ -1,0 +1,53 @@
+# Logbert AppImage Builder Configuration
+# Use with appimage-builder: https://appimage-builder.readthedocs.io/
+
+version: 1
+script:
+  - rm -rf AppDir || true
+  - mkdir -p AppDir/usr/bin
+  - mkdir -p AppDir/usr/share/applications
+  - mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
+  # Copy application files from publish directory
+  - cp -r ../../publish/linux-x64/* AppDir/usr/bin/
+  - chmod +x AppDir/usr/bin/Logbert
+
+AppDir:
+  path: ./AppDir
+
+  app_info:
+    id: com.logbert.Logbert
+    name: Logbert
+    icon: logbert
+    version: "2.0.0"
+    exec: usr/bin/Logbert
+    exec_args: $@
+
+  apt:
+    arch: amd64
+    sources:
+      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse'
+        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C'
+
+    include:
+      - libicu70
+      - libssl3
+
+  runtime:
+    env:
+      DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: "1"
+
+  test:
+    fedora-30:
+      image: appimagecrafters/tests-env:fedora-30
+      command: ./AppRun --version
+    debian-stable:
+      image: appimagecrafters/tests-env:debian-stable
+      command: ./AppRun --version
+    ubuntu-xenial:
+      image: appimagecrafters/tests-env:ubuntu-xenial
+      command: ./AppRun --version
+
+AppImage:
+  arch: x86_64
+  update-information: "gh-releases-zsync|logbert|logbert|latest|Logbert-*x86_64.AppImage.zsync"
+  sign-key: None
