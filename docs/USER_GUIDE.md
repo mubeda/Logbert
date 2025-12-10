@@ -360,6 +360,8 @@ Click **View → Statistics** to open the statistics dialog.
 |----------|--------|
 | `Ctrl+N` | New log source |
 | `Ctrl+O` | Open file |
+| `Ctrl+S` | Save/Export |
+| `Ctrl+E` | Export log messages |
 | `Ctrl+W` | Close current tab |
 | `Ctrl+F` | Find |
 | `F3` | Find next |
@@ -396,17 +398,27 @@ Click **View → Statistics** to open the statistics dialog.
 
 **Export Filtered Logs:**
 1. Apply filters (level, logger, script)
-2. Click **File → Export**
-3. Choose format:
-   - CSV (for Excel/spreadsheets)
-   - Text (original format)
-   - JSON (structured data)
+2. Click **File → Export** or press `Ctrl+E`
+3. Configure export options:
+   - **Scope**: All Messages or Filtered Messages Only
+   - **Format**: CSV (for Excel/spreadsheets) or Plain Text
+   - **Encoding**: UTF-8, UTF-8 BOM, UTF-16, UTF-16 BE, ASCII, or Latin-1
+   - **Include Headers**: Check to add column headers (CSV only)
+4. Click **Browse** to choose output file
+5. Click **Export** to start
+6. Progress bar shows export status (cancellable)
 
 **CSV Format:**
 ```csv
 Index,Level,Timestamp,Logger,Message
 1,Error,2024-01-15 14:23:45,MyApp.Database,"Connection timeout"
 2,Warning,2024-01-15 14:23:46,MyApp.API,"Slow response time"
+```
+
+**Plain Text Format:**
+```
+[1] 2024-01-15 14:23:45 [ERROR] MyApp.Database: Connection timeout
+[2] 2024-01-15 14:23:46 [WARNING] MyApp.API: Slow response time
 ```
 
 ### Dark Mode
