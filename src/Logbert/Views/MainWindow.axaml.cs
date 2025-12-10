@@ -1,6 +1,8 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Couchcoding.Logbert.Interfaces;
+using Couchcoding.Logbert.Services;
 using Couchcoding.Logbert.ViewModels;
 using Couchcoding.Logbert.ViewModels.Dialogs;
 using Couchcoding.Logbert.Views.Dialogs;
@@ -18,6 +20,54 @@ public partial class MainWindow : Window
 
         // Initialize ViewModel
         DataContext = new MainWindowViewModel();
+
+        // Wire up window events for settings persistence
+        Loaded += OnWindowLoaded;
+        Closing += OnWindowClosing;
+    }
+
+    private void OnWindowLoaded(object? sender, RoutedEventArgs e)
+    {
+        // Load window state from settings
+        var settings = SettingsService.Instance.Settings;
+
+        // Restore window position and size
+        if (settings.WindowX >= 0 && settings.WindowY >= 0)
+        {
+            Position = new Avalonia.PixelPoint(settings.WindowX, settings.WindowY);
+        }
+
+        Width = settings.WindowWidth;
+        Height = settings.WindowHeight;
+
+        // Restore window state
+        WindowState = settings.WindowState switch
+        {
+            "Maximized" => WindowState.Maximized,
+            "Minimized" => WindowState.Minimized,
+            _ => WindowState.Normal
+        };
+    }
+
+    private void OnWindowClosing(object? sender, WindowClosingEventArgs e)
+    {
+        // Save window state to settings
+        SettingsService.Instance.UpdateSettings(settings =>
+        {
+            settings.WindowX = Position.X;
+            settings.WindowY = Position.Y;
+            settings.WindowWidth = (int)Width;
+            settings.WindowHeight = (int)Height;
+            settings.WindowState = WindowState switch
+            {
+                WindowState.Maximized => "Maximized",
+                WindowState.Minimized => "Minimized",
+                _ => "Normal"
+            };
+        });
+
+        // Save settings to disk
+        SettingsService.Instance.Save();
     }
 
     public async void ShowAboutDialog(object? sender, RoutedEventArgs e)

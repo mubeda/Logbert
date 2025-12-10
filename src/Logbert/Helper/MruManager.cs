@@ -29,10 +29,10 @@
 #endregion
 
 using System;
-
-using Couchcoding.Logbert.Properties;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Couchcoding.Logbert.Services;
 
 namespace Couchcoding.Logbert.Helper
 {
@@ -55,91 +55,86 @@ namespace Couchcoding.Logbert.Helper
     /// <summary>
     /// Occurs if the MRU list has been changed.
     /// </summary>
-    public static event EventHandler MruListChanged = delegate { };
+    public static event EventHandler? MruListChanged;
 
     #endregion
 
     #region Public Properties
 
     /// <summary>
-    /// Gets the <see cref="StringCollection"/> of all known files.
+    /// Gets the list of all recently used files.
     /// </summary>
-    public static StringCollection MruFiles => Settings.Default.MruManagerFiles ?? new StringCollection();
+    public static List<string> MruFiles => SettingsService.Instance.Settings.RecentFiles ?? new List<string>();
 
       #endregion
 
     #region Public Methods
 
     /// <summary>
-    /// Adds the given <paramref name="filename"/> to the recently used <see cref="StringCollection"/>.
+    /// Adds the given <paramref name="filename"/> to the recently used files list.
     /// </summary>
     /// <param name="filename">The full path of the file to add.</param>
     public static void AddFile(string filename)
     {
       if (!string.IsNullOrEmpty(filename) && File.Exists(filename))
       {
-        if (Settings.Default.MruManagerFiles == null)
+        SettingsService.Instance.UpdateSettings(settings =>
         {
-          Settings.Default.MruManagerFiles = new StringCollection();
-        }
+          settings.RecentFiles ??= new List<string>();
 
-        if (!Settings.Default.MruManagerFiles.Contains(filename))
-        {
-          while (Settings.Default.MruManagerFiles.Count > MAX_MRU_FILE_COUNT)
+          // Remove existing entry if present
+          if (settings.RecentFiles.Contains(filename))
           {
-            // Ensure the maximum count of MRU file is not exceeded.
-            Settings.Default.MruManagerFiles.RemoveAt(Settings.Default.MruManagerFiles.Count - 1);
+            settings.RecentFiles.Remove(filename);
           }
 
-          Settings.Default.MruManagerFiles.Add(filename);
-          Settings.Default.SaveSettings();
-        }
-        else
-        {
-          // The file already exists. Move it to the last position.
-          Settings.Default.MruManagerFiles.Remove(filename);
-          Settings.Default.MruManagerFiles.Add(filename);
-          Settings.Default.SaveSettings();
-        }
+          // Add to the beginning of the list (most recent first)
+          settings.RecentFiles.Insert(0, filename);
 
+          // Ensure maximum count is not exceeded
+          while (settings.RecentFiles.Count > MAX_MRU_FILE_COUNT)
+          {
+            settings.RecentFiles.RemoveAt(settings.RecentFiles.Count - 1);
+          }
+        });
+
+        SettingsService.Instance.Save();
         MruListChanged?.Invoke(null, EventArgs.Empty);
       }
     }
 
       /// <summary>
-      /// Removes the given <paramref name="filename"/> from the <see cref="StringCollection"/>.
+      /// Removes the given <paramref name="filename"/> from the recently used files list.
       /// </summary>
       /// <param name="filename">The full path of the file to remove.</param>
       public static void RemoveFile(string filename)
       {
-          if (string.IsNullOrEmpty(filename) || Settings.Default.MruManagerFiles == null)
+          if (string.IsNullOrEmpty(filename))
           {
               return;
           }
 
-          if (Settings.Default.MruManagerFiles.Contains(filename))
+          SettingsService.Instance.UpdateSettings(settings =>
           {
-              Settings.Default.MruManagerFiles.Remove(filename);
-              Settings.Default.SaveSettings();
-          }
+              settings.RecentFiles?.Remove(filename);
+          });
 
+          SettingsService.Instance.Save();
           MruListChanged?.Invoke(null, EventArgs.Empty);
       }
 
       /// <summary>
-    /// Removes all recently used files from the <see cref="StringCollection"/>.
+    /// Removes all recently used files from the list.
     /// </summary>
     public static void ClearFiles()
     {
-      if (Settings.Default.MruManagerFiles == null)
+      SettingsService.Instance.UpdateSettings(settings =>
       {
-        return;
-      }
+          settings.RecentFiles?.Clear();
+      });
 
-      Settings.Default.MruManagerFiles.Clear();
-      Settings.Default.SaveSettings();
-
-        MruListChanged?.Invoke(null, EventArgs.Empty);
+      SettingsService.Instance.Save();
+      MruListChanged?.Invoke(null, EventArgs.Empty);
         }
 
     #endregion

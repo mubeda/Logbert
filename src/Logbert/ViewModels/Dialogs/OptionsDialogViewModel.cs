@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Couchcoding.Logbert.Services;
 
 namespace Couchcoding.Logbert.ViewModels.Dialogs;
 
@@ -69,13 +70,35 @@ public partial class OptionsDialogViewModel : ViewModelBase
 
     private void LoadSettings()
     {
-        // TODO: Load from application settings
-        // For now, using defaults
+        var settings = SettingsService.Instance.Settings;
+
+        AlwaysOnTop = settings.AlwaysOnTop;
+        MinimizeToTray = settings.MinimizeToTray;
+        ShowWelcomeScreen = settings.ShowWelcomeScreen;
+        MaxRecentFiles = settings.MaxRecentFiles;
+        SelectedTheme = settings.SelectedTheme;
+        EnableLogging = settings.EnableLogging;
+        LogRetentionDays = settings.LogRetentionDays;
+        DefaultFontFamily = settings.DefaultFontFamily;
+        DefaultFontSize = settings.DefaultFontSize;
     }
 
     private void SaveSettings()
     {
-        // TODO: Save to application settings
+        SettingsService.Instance.UpdateSettings(settings =>
+        {
+            settings.AlwaysOnTop = AlwaysOnTop;
+            settings.MinimizeToTray = MinimizeToTray;
+            settings.ShowWelcomeScreen = ShowWelcomeScreen;
+            settings.MaxRecentFiles = MaxRecentFiles;
+            settings.SelectedTheme = SelectedTheme;
+            settings.EnableLogging = EnableLogging;
+            settings.LogRetentionDays = LogRetentionDays;
+            settings.DefaultFontFamily = DefaultFontFamily;
+            settings.DefaultFontSize = DefaultFontSize;
+        });
+
+        SettingsService.Instance.Save();
     }
 
     private void OnOk()

@@ -1,8 +1,10 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Couchcoding.Logbert.Helper;
 using Couchcoding.Logbert.Logging;
 using Couchcoding.Logbert.Logging.Sample;
 using Couchcoding.Logbert.ViewModels.Docking;
@@ -47,9 +49,19 @@ public partial class MainWindowViewModel : ViewModelBase
     private bool _isWelcomeScreenVisible = true;
 
     /// <summary>
+    /// Gets the collection of recently opened files.
+    /// </summary>
+    public ObservableCollection<string> RecentFiles { get; } = new();
+
+    /// <summary>
     /// Gets the command to create a new log document.
     /// </summary>
     public ICommand NewDocumentCommand { get; } = null!;
+
+    /// <summary>
+    /// Gets the command to open a recent file.
+    /// </summary>
+    public ICommand OpenRecentFileCommand { get; } = null!;
 
     /// <summary>
     /// Gets the command to open an existing log file.
@@ -88,6 +100,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         NewDocumentCommand = new RelayCommand(OnNewDocument);
         OpenFileCommand = new RelayCommand(OnOpenFile);
+        OpenRecentFileCommand = new RelayCommand<string>(OnOpenRecentFile);
         CloseDocumentCommand = new RelayCommand(OnCloseDocument, CanCloseDocument);
         ExitCommand = new RelayCommand(OnExit);
         ShowAboutCommand = new RelayCommand(OnShowAbout);
@@ -101,6 +114,26 @@ public partial class MainWindowViewModel : ViewModelBase
             ((RelayCommand)ShowFindCommand).NotifyCanExecuteChanged();
             UpdateWelcomeScreenVisibility();
         };
+
+        // Initialize recent files from MruManager
+        RefreshRecentFiles();
+
+        // Listen for MRU list changes
+        MruManager.MruListChanged += OnMruListChanged;
+    }
+
+    private void RefreshRecentFiles()
+    {
+        RecentFiles.Clear();
+        foreach (var file in MruManager.MruFiles)
+        {
+            RecentFiles.Add(file);
+        }
+    }
+
+    private void OnMruListChanged(object? sender, EventArgs e)
+    {
+        RefreshRecentFiles();
     }
 
     partial void OnActiveDocumentChanged(LogDocumentViewModel? value)
@@ -141,6 +174,31 @@ public partial class MainWindowViewModel : ViewModelBase
     private void OnOpenFile()
     {
         // TODO: Show file open dialog
+    }
+
+    private void OnOpenRecentFile(string? filePath)
+    {
+        if (string.IsNullOrEmpty(filePath))
+        {
+            return;
+        }
+
+        // TODO: Open the file and create a document
+        // For now, just add it as a sample document
+        var newDoc = new LogDocumentViewModel
+        {
+            Title = System.IO.Path.GetFileName(filePath)
+        };
+
+        // Generate sample log messages for testing
+        var sampleMessages = SampleLogGenerator.GenerateMessages(50);
+        foreach (var message in sampleMessages)
+        {
+            newDoc.Messages.Add(message);
+        }
+
+        Documents.Add(newDoc);
+        ActiveDocument = newDoc;
     }
 
     private bool CanCloseDocument()
