@@ -126,15 +126,6 @@ public partial class ColumnizerTestDialogViewModel : ViewModelBase
 
     #endregion
 
-    #region Events
-
-    /// <summary>
-    /// Raised when the dialog is accepted with the pattern.
-    /// </summary>
-    public event EventHandler<string>? PatternAccepted;
-
-    #endregion
-
     #region Constructor
 
     public ColumnizerTestDialogViewModel()

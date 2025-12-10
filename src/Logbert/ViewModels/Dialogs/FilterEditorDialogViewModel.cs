@@ -17,7 +17,6 @@ public partial class FilterEditorDialogViewModel : ViewModelBase
     #region Fields
 
     private FilterRule? _editingRule;
-    private bool _isEditMode;
 
     #endregion
 
@@ -186,7 +185,6 @@ public partial class FilterEditorDialogViewModel : ViewModelBase
     /// </summary>
     public void InitializeForAdd()
     {
-        _isEditMode = false;
         _editingRule = null;
         DialogTitle = "Add Filter Rule";
 
@@ -209,7 +207,6 @@ public partial class FilterEditorDialogViewModel : ViewModelBase
     /// <param name="rule">The rule to edit.</param>
     public void InitializeForEdit(FilterRule rule)
     {
-        _isEditMode = true;
         _editingRule = rule;
         DialogTitle = "Edit Filter Rule";
 

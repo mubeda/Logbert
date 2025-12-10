@@ -246,15 +246,16 @@
                                                         Binding="{Binding GroupName}"
                                                         Width="*"
                                                         IsReadOnly="True"/>
-                                    <DataGridComboBoxColumn Header="Column Type"
-                                                            SelectedItemBinding="{Binding ColumnType}"
-                                                            Width="Auto">
-                                        <DataGridComboBoxColumn.ElementStyle>
-                                            <Style TargetType="ComboBox">
-                                                <Setter Property="ItemsSource" Value="{x:Static vm:ColumnizerTestDialogViewModel.ColumnTypeValues}"/>
-                                            </Style>
-                                        </DataGridComboBoxColumn.ElementStyle>
-                                    </DataGridComboBoxColumn>
+                                    <DataGridTemplateColumn Header="Column Type" Width="Auto">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate x:DataType="vm:CaptureGroupViewModel">
+                                                <ComboBox SelectedItem="{Binding ColumnType}"
+                                                          ItemsSource="{x:Static vm:ColumnizerTestDialogViewModel.ColumnTypeValues}"
+                                                          MinWidth="100"
+                                                          Margin="2"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </DockPanel>
