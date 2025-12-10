@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using Couchcoding.Logbert.Interfaces;
+using Couchcoding.Logbert.Services;
 using Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings;
 
 namespace Couchcoding.Logbert.Views.Dialogs.ReceiverSettings;
@@ -30,7 +31,7 @@ public partial class CustomDirReceiverSettingsView : Window
         }
     }
 
-    private void OnOkClick(object? sender, RoutedEventArgs e)
+    private async void OnOkClick(object? sender, RoutedEventArgs e)
     {
         if (ViewModel == null)
         {
@@ -47,9 +48,8 @@ public partial class CustomDirReceiverSettingsView : Window
         var validationResult = ViewModel.ValidateSettings();
         if (!validationResult.IsSuccess)
         {
-            // TODO: Show validation error dialog
-            // For now, just close with null
-            Close(null);
+            await NotificationService.Instance.ShowValidationErrorAsync(
+                validationResult.Message ?? "Please check your settings and try again.");
             return;
         }
 

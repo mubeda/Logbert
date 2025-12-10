@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Couchcoding.Logbert.Logging;
 using Couchcoding.Logbert.Interfaces;
+using Couchcoding.Logbert.Services;
 using Avalonia.Threading;
 
 namespace Couchcoding.Logbert.ViewModels.Controls;
@@ -188,10 +189,14 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     /// </summary>
     public void HandleError(LogError error)
     {
-        Dispatcher.UIThread.Post(() =>
+        Dispatcher.UIThread.Post(async () =>
         {
-            // TODO: Show error notification to user
             System.Diagnostics.Debug.WriteLine($"Log receiver error: {error.Message}");
+
+            // Show error notification to user
+            await NotificationService.Instance.ShowErrorAsync(
+                $"Log receiver error: {error.Message}",
+                "Receiver Error");
         });
     }
 }
