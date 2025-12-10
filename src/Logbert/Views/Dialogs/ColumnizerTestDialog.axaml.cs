@@ -1,8 +1,6 @@
-using System;
-using System.Globalization;
 using Avalonia.Controls;
-using Avalonia.Data.Converters;
-using Avalonia.Media;
+using Avalonia.Interactivity;
+using Couchcoding.Logbert.Converters;
 using Couchcoding.Logbert.ViewModels.Dialogs;
 
 namespace Couchcoding.Logbert.Views.Dialogs;
@@ -34,7 +32,7 @@ public partial class ColumnizerTestDialog : Window
         ViewModel = new ColumnizerTestDialogViewModel();
         DataContext = ViewModel;
 
-        // Add converters to resources
+        // Add converters to resources (using shared converters)
         Resources["BoolToBackgroundConverter"] = new BoolToBackgroundConverter();
         Resources["BoolToForegroundConverter"] = new BoolToForegroundConverter();
         Resources["MatchBackgroundConverter"] = new MatchBackgroundConverter();
@@ -50,7 +48,7 @@ public partial class ColumnizerTestDialog : Window
         ViewModel.Initialize(existingPattern);
     }
 
-    private void OnUsePatternClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void OnUsePatternClick(object? sender, RoutedEventArgs e)
     {
         if (ViewModel.IsPatternValid)
         {
@@ -60,96 +58,10 @@ public partial class ColumnizerTestDialog : Window
         }
     }
 
-    private void OnCloseClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void OnCloseClick(object? sender, RoutedEventArgs e)
     {
         PatternAccepted = false;
         ResultPattern = null;
         Close(false);
-    }
-}
-
-/// <summary>
-/// Converts a boolean to a background brush (green for valid/match, red for invalid/no match).
-/// </summary>
-public class BoolToBackgroundConverter : IValueConverter
-{
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        if (value is bool isSuccess)
-        {
-            return isSuccess
-                ? new SolidColorBrush(Color.FromRgb(232, 245, 233)) // Light green
-                : new SolidColorBrush(Color.FromRgb(255, 235, 238)); // Light red
-        }
-        return new SolidColorBrush(Colors.Transparent);
-    }
-
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
-    }
-}
-
-/// <summary>
-/// Converts a boolean to a foreground brush (green for valid/match, red for invalid/no match).
-/// </summary>
-public class BoolToForegroundConverter : IValueConverter
-{
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        if (value is bool isSuccess)
-        {
-            return isSuccess
-                ? new SolidColorBrush(Color.FromRgb(46, 125, 50)) // Dark green
-                : new SolidColorBrush(Color.FromRgb(198, 40, 40)); // Dark red
-        }
-        return new SolidColorBrush(Colors.Gray);
-    }
-
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
-    }
-}
-
-/// <summary>
-/// Converts a match result boolean to an appropriate background color.
-/// </summary>
-public class MatchBackgroundConverter : IValueConverter
-{
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        if (value is bool isMatch)
-        {
-            return isMatch
-                ? new SolidColorBrush(Color.FromRgb(232, 245, 233)) // Light green for match
-                : new SolidColorBrush(Color.FromRgb(255, 243, 224)); // Light orange for no match
-        }
-        return new SolidColorBrush(Colors.Transparent);
-    }
-
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
-    }
-}
-
-/// <summary>
-/// Converts a match result boolean to a status text.
-/// </summary>
-public class MatchStatusConverter : IValueConverter
-{
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        if (value is bool isMatch)
-        {
-            return isMatch ? "Matched" : "No Match";
-        }
-        return "Unknown";
-    }
-
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
     }
 }
