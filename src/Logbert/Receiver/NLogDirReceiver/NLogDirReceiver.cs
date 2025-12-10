@@ -475,7 +475,7 @@ namespace Logbert.Receiver.NLogDirReceiver
     /// <returns>The restored layout, or <c>null</c> if none exists.</returns>
     public override string LoadLayout()
     {
-      return Properties.Settings.Default.DockLayoutNLogFileReceiver;
+      return Properties.Settings.Default.DockLayoutNLogDirReceiver;
     }
 
     #endregion

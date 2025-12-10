@@ -30,6 +30,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.Versioning;
 using Logbert.Interfaces;
 using System.Diagnostics;
 using Logbert.Helper;
@@ -40,7 +41,9 @@ namespace Logbert.Receiver.WinDebugReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the windows debugger service.
+  /// This receiver is only available on Windows platforms.
   /// </summary>
+  [SupportedOSPlatform("windows")]
   public class WinDebugReceiver : ReceiverBase
   {
     #region Private Fields

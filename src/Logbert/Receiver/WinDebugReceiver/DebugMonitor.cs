@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Threading;
 
 namespace Logbert.Receiver.WinDebugReceiver
@@ -11,7 +12,8 @@ namespace Logbert.Receiver.WinDebugReceiver
 
   /// <summary>
   /// This class captures all strings passed to <c>OutputDebugString</c> when
-  /// the application is not debugged.	
+  /// the application is not debugged.
+  /// This class is only available on Windows platforms.
   /// </summary>
   /// <remarks>	
   ///	This class is a port of Microsofts Visual Studio's C++ example "dbmon", which
@@ -32,6 +34,7 @@ namespace Logbert.Receiver.WinDebugReceiver
   ///			}
   ///		</code>
   /// </remarks>
+  [SupportedOSPlatform("windows")]
   public sealed class DebugMonitor
   {
     #region Win32 API Imports

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -128,17 +129,35 @@ public partial class NewLogSourceDialogViewModel : ViewModelBase
 
         AvailableReceivers.Add(new LogReceiverType
         {
-            Name = "Windows Event Log",
-            Description = "Read log messages from Windows Event Log",
-            Category = "System"
+            Name = "Custom Dir",
+            Description = "Read log messages from a directory with custom format",
+            Category = "File"
         });
 
         AvailableReceivers.Add(new LogReceiverType
         {
-            Name = "Windows Debug Output",
-            Description = "Capture Windows debug output messages",
-            Category = "System"
+            Name = "Custom TCP",
+            Description = "Receive log messages via TCP with custom format",
+            Category = "Network"
         });
+
+        // Windows-only receivers - only show on Windows platform
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            AvailableReceivers.Add(new LogReceiverType
+            {
+                Name = "Windows Event Log",
+                Description = "Read log messages from Windows Event Log",
+                Category = "System (Windows only)"
+            });
+
+            AvailableReceivers.Add(new LogReceiverType
+            {
+                Name = "Windows Debug Output",
+                Description = "Capture Windows debug output messages",
+                Category = "System (Windows only)"
+            });
+        }
     }
 
     private void OnSelectedReceiverChanged()

@@ -30,6 +30,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.Versioning;
 
 using Logbert.Interfaces;
 using Logbert.Logging;
@@ -42,7 +43,9 @@ namespace Logbert.Receiver.EventlogReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the event log service.
+  /// This receiver is only available on Windows platforms.
   /// </summary>
+  [SupportedOSPlatform("windows")]
   public class EventlogReceiver : ReceiverBase
   {
     #region Private Consts

@@ -35,6 +35,7 @@ using System.Drawing;
 using System.IO.Pipes;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -42,7 +43,9 @@ namespace Logbert.Helper
 {
   /// <summary>
   /// Implements some <see cref="Control"/> extensions.
+  /// This class contains WinForms extensions and is only available on Windows platforms.
   /// </summary>
+  [SupportedOSPlatform("windows")]
   public static class Extensions
   {
     #region Private Consts

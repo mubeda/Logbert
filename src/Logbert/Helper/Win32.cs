@@ -30,12 +30,15 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 
 namespace Logbert.Helper
 {
   /// <summary>
   /// Implements several Win32 API method calls.
+  /// This class is only available on Windows platforms.
   /// </summary>
+  [SupportedOSPlatform("windows")]
   public static class Win32
   {
     #region Public Consts

@@ -131,7 +131,7 @@ namespace Logbert.Logging
       Title     = title;
       Message   = message;
       BackColor = backColor;
-      ForeColor = ForeColor;
+      ForeColor = foreColor;
     }
 
     #endregion

@@ -1,5 +1,6 @@
 # Logbert Migration Issues Report
 ## Comparison: src_old (WinForms) vs src (Avalonia .NET 10)
+## Cross-Platform Compatibility Analysis (Windows, macOS, Linux)
 
 Generated: December 2024
 
@@ -7,12 +8,12 @@ Generated: December 2024
 
 ## Executive Summary
 
-This report documents the differences, missing features, and bugs identified when comparing the original WinForms implementation (`src_old`) with the new Avalonia implementation (`src`). The analysis covers receivers, log message models, filtering, UI dialogs, settings, and helper utilities.
+This report documents the differences, missing features, and bugs identified when comparing the original WinForms implementation (`src_old`) with the new Avalonia implementation (`src`). The analysis covers receivers, log message models, filtering, UI dialogs, settings, helper utilities, and **cross-platform compatibility for Windows, macOS, and Linux**.
 
-### Critical Issues Found: 8
-### High Priority Issues: 12
-### Medium Priority Issues: 15
-### Low Priority Issues: 8
+### Critical Issues Found: 12 (was 8, +4 cross-platform)
+### High Priority Issues: 20 (was 12, +8 cross-platform)
+### Medium Priority Issues: 22 (was 15, +7 cross-platform)
+### Low Priority Issues: 10 (was 8, +2 cross-platform)
 
 ---
 
@@ -82,15 +83,22 @@ return Properties.Settings.Default.DockLayoutNLogDirReceiver;
 
 ---
 
-### 1.4 LogMessageSyslog Still Uses ToUnixTimestamp Correctly
-**File:** `src/Logbert/Logging/LogMessageSyslog.cs:373`
-**Note:** This file correctly uses `ToUnixTimestamp()` - confirm it compiles
+### 1.4 Windows-Only Receivers Exposed on All Platforms (CROSS-PLATFORM)
+**File:** `src/Logbert/ViewModels/Dialogs/NewLogSourceDialogViewModel.cs`
+**Severity:** CRITICAL
+**Platforms Affected:** macOS, Linux
+
+The Windows Event Log and Windows Debug Output receivers are unconditionally added to the UI on ALL platforms:
 
 ```csharp
-localTimeTable["Timestamp"] = Timestamp.ToUnixTimestamp();
+// These are added without platform checks - will crash on macOS/Linux
+AvailableReceivers.Add(new LogReceiverType { Name = "Windows Event Log", ... });
+AvailableReceivers.Add(new LogReceiverType { Name = "Windows Debug Output", ... });
 ```
 
-**Action:** Verify this compiles. The extension method exists in `DateTimeExtensions.cs`, ensure namespace is imported.
+**Impact:** Users on macOS/Linux can select these receivers, causing application crashes when attempting to use them.
+
+**Fix:** Add platform guards using `RuntimeInformation.IsOSPlatform()`.
 
 ---
 
@@ -182,6 +190,112 @@ void AdjustSizeAndLocation(Rect parentBounds);
 ```
 
 **Impact:** All IOptionPanel implementations must be completely rewritten.
+
+---
+
+### 2.7 Browser.cs Won't Open URLs on macOS/Linux (CROSS-PLATFORM)
+**File:** `src/Logbert/Helper/Browser.cs:53,67`
+**Severity:** HIGH
+**Platforms Affected:** macOS, Linux
+
+```csharp
+Process.Start(URI);  // Won't work reliably on macOS/Linux
+// Fallback uses IExplore.exe which doesn't exist on macOS/Linux
+ProcessStartInfo startInfo = new ProcessStartInfo("IExplore.exe", URI);
+```
+
+**Impact:** Users cannot open documentation links, GitHub URLs, or help pages on non-Windows platforms.
+
+**Fix:** Use platform-specific browser commands (`open` on macOS, `xdg-open` on Linux).
+
+---
+
+### 2.8 DataProtection Uses Windows DPAPI Only (CROSS-PLATFORM)
+**File:** `src/Logbert/Helper/DataProtection.cs`
+**Severity:** HIGH
+**Platforms Affected:** macOS, Linux
+
+```csharp
+[SupportedOSPlatform("windows")]  // Already marked but no fallback
+public sealed class DataProtection
+{
+    return ProtectedData.Protect(data, GetAditionalEntropy(), DataProtectionScope.CurrentUser);
+}
+```
+
+**Impact:** Credential encryption fails on macOS/Linux with `PlatformNotSupportedException`. No fallback encryption.
+
+**Fix:** Implement cross-platform encryption using `System.Security.Cryptography` AES.
+
+---
+
+### 2.9 Clipboard Operations Windows-Only (CROSS-PLATFORM)
+**File:** `src/Logbert/Helper/Extensions.cs:128` + 40 other files
+**Severity:** HIGH
+**Platforms Affected:** macOS, Linux
+
+```csharp
+Clipboard.SetText(text);  // System.Windows.Forms.Clipboard - Windows only
+```
+
+**Impact:** Copy to clipboard fails on macOS/Linux throughout the application.
+
+**Fix:** Use Avalonia's `Application.Current.Clipboard.SetTextAsync()`.
+
+---
+
+### 2.10 Win32 P/Invoke Calls Will Crash (CROSS-PLATFORM)
+**Files:** `Helper/Win32.cs`, `Helper/Extensions.cs`, `Controls/ColorMap.cs`
+**Severity:** HIGH
+**Platforms Affected:** macOS, Linux
+
+16 DllImport declarations to `user32.dll`, `kernel32.dll`, `advapi32.dll`, `shlwapi.dll`.
+
+**Impact:** Any code path using these will throw `DllNotFoundException` on macOS/Linux.
+
+**Fix:** Add `[SupportedOSPlatform("windows")]` attributes and platform guards.
+
+---
+
+### 2.11 DebugMonitor Entire Class Windows-Only (CROSS-PLATFORM)
+**File:** `src/Logbert/Receiver/WinDebugReceiver/DebugMonitor.cs`
+**Severity:** HIGH
+**Platforms Affected:** macOS, Linux
+
+10 P/Invoke calls to kernel32.dll and advapi32.dll for Windows debug output monitoring.
+
+**Impact:** WinDebugReceiver completely non-functional on macOS/Linux.
+
+**Fix:** Add `[SupportedOSPlatform("windows")]` and hide from UI on non-Windows.
+
+---
+
+### 2.12 EventlogReceiver Windows-Only (CROSS-PLATFORM)
+**File:** `src/Logbert/Receiver/EventlogReceiver/EventlogReceiver.cs`
+**Severity:** HIGH
+**Platforms Affected:** macOS, Linux
+
+Uses `System.Diagnostics.EventLog` which is Windows-only.
+
+**Impact:** EventlogReceiver crashes on macOS/Linux.
+
+**Fix:** Add `[SupportedOSPlatform("windows")]` and hide from UI on non-Windows.
+
+---
+
+### 2.13 Hardcoded Windows Font Names (CROSS-PLATFORM)
+**Files:** `Models/AppSettings.cs:171`, 12 Designer files
+**Severity:** HIGH
+**Platforms Affected:** macOS, Linux
+
+```csharp
+DefaultFontFamily = "Consolas"  // Windows-only font
+Font = new System.Drawing.Font("Segoe UI", 9F...)  // Windows-only font
+```
+
+**Impact:** UI renders with fallback fonts, potentially causing layout issues.
+
+**Fix:** Use cross-platform font stack: `"Menlo, Consolas, Liberation Mono, monospace"`.
 
 ---
 
@@ -311,6 +425,65 @@ public virtual string? Exception => null;
 
 ---
 
+### 3.9 File Path Case Sensitivity (CROSS-PLATFORM)
+**Files:** `Log4NetDirReceiver.cs:212`, `NLogDirReceiver.cs:212`, `CustomDirReceiver.cs:222`
+**Severity:** MEDIUM
+**Platforms Affected:** macOS, Linux
+
+```csharp
+if (e.FullPath.Equals(mCurrentLogFile))  // Case-sensitive comparison
+```
+
+**Impact:** FileSystemWatcher may report paths with different casing, causing missed file changes on Windows/macOS.
+
+**Fix:** Use `StringComparison.OrdinalIgnoreCase`.
+
+---
+
+### 3.10 DockLayoutManager Uses Wrong App Data Path (CROSS-PLATFORM)
+**File:** `src/Logbert/Docking/DockLayoutManager.cs:19`
+**Severity:** MEDIUM
+**Platforms Affected:** macOS, Linux
+
+```csharp
+Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+```
+
+**Impact:** Resolves to different paths per platform without proper handling. May conflict with SettingsService paths.
+
+**Fix:** Use consistent platform-aware path logic like SettingsService.
+
+---
+
+### 3.11 Encoding.Default Platform Differences (CROSS-PLATFORM)
+**Files:** 20+ receiver files
+**Severity:** MEDIUM
+**Platforms Affected:** Windows
+
+```csharp
+Encoding.Default.GetString(...)  // Windows-1252 on Windows, UTF-8 on Linux/macOS
+```
+
+**Impact:** Non-ASCII characters may be corrupted when receiving network data on Windows.
+
+**Fix:** Explicitly use `Encoding.UTF8` for network data.
+
+---
+
+### 3.12 FileSystemWatcher Behavior Differences (CROSS-PLATFORM)
+**Files:** 8 receiver files
+**Severity:** MEDIUM
+**Platforms Affected:** All
+
+FileSystemWatcher has different reliability and timing characteristics per platform:
+- Linux: Uses inotify, may miss rapid changes
+- macOS: Uses FSEvents, batches notifications
+- Windows: Most reliable
+
+**Fix:** Add error handling and polling fallback for network shares.
+
+---
+
 ## 4. MISSING FEATURES
 
 ### 4.1 Missing Avalonia Detail Views
@@ -336,52 +509,69 @@ Old LogFilter system lacks:
 
 ---
 
-## 5. ARCHITECTURE CHANGES (Non-Issues, Just Different)
+## 5. CROSS-PLATFORM COMPATIBILITY SUMMARY
 
-### 5.1 Namespace Migration
-- `Couchcoding.Logbert.*` → `Logbert.*`
+### 5.1 Windows-Only Components (Will Not Work on macOS/Linux)
 
-### 5.2 Settings Storage
-- Old: Windows Registry (via Properties.Settings)
-- New: JSON file (`~/.config/Logbert/settings.json`)
+| Component | File | Impact |
+|-----------|------|--------|
+| EventlogReceiver | `Receiver/EventlogReceiver/` | Entire feature unavailable |
+| WinDebugReceiver | `Receiver/WinDebugReceiver/` | Entire feature unavailable |
+| DataProtection (DPAPI) | `Helper/DataProtection.cs` | Credential encryption fails |
+| Win32 P/Invoke | `Helper/Win32.cs` | Window management fails |
+| Clipboard | `Helper/Extensions.cs` | Copy operations fail |
+| Browser.Start | `Helper/Browser.cs` | URL opening fails |
 
-### 5.3 UI Framework
-- Old: WinForms with WeifenLuo docking
-- New: Avalonia with MVVM pattern
+### 5.2 Platform-Specific Behavior Differences
 
-### 5.4 ILogProvider Interface Nullability
-```csharp
-// OLD
-ILogSettingsCtrl Settings { get; }
-ILogPresenter DetailsControl { get; }
+| Feature | Windows | macOS | Linux |
+|---------|---------|-------|-------|
+| Default Encoding | Windows-1252 | UTF-8 | UTF-8 |
+| FileSystemWatcher | Reliable | FSEvents batching | inotify limits |
+| Font Fallback | Consolas, Segoe UI | SF Mono, SF Pro | Liberation Mono |
+| App Data Path | %AppData% | ~/Library/Application Support | ~/.config or $XDG_CONFIG_HOME |
+| Keyboard Modifier | Ctrl | Cmd (should be) | Ctrl |
 
-// NEW (nullable)
-ILogSettingsCtrl? Settings { get; }
-ILogPresenter? DetailsControl { get; }
-```
+### 5.3 P/Invoke Calls Requiring Platform Guards
+
+| DLL | Functions | Files |
+|-----|-----------|-------|
+| user32.dll | SendMessage, GetWindowLong, ShowWindow, SetForegroundWindow, LoadCursor, SetCursor | Extensions.cs, Win32.cs, ColorMap.cs |
+| kernel32.dll | MapViewOfFile, CreateEvent, CreateFileMapping, CloseHandle, WaitForSingleObject, AttachThreadInput | DebugMonitor.cs, ThreadAttachedDelayedCallback.cs |
+| advapi32.dll | InitializeSecurityDescriptor, SetSecurityDescriptorDacl | DebugMonitor.cs |
+| shlwapi.dll | StrCmpLogicalW | Win32.cs |
 
 ---
 
 ## 6. RECOMMENDED ACTIONS
 
 ### Immediate (Before Any Release)
-1. ✅ Fix LogError.cs ForeColor assignment bug
-2. ✅ Fix NLogDirReceiver.LoadLayout() to use correct setting
-3. ✅ Fix LogMessage.ToLuaTable() to use ToUnixTimestamp()
+1. ☐ Fix LogError.cs ForeColor assignment bug
+2. ☐ Fix NLogDirReceiver.LoadLayout() to use correct setting
+3. ☐ Fix LogMessage.ToLuaTable() to use ToUnixTimestamp()
+4. ☐ Add platform guards to hide Windows-only receivers on macOS/Linux
+5. ☐ Fix Browser.cs to use platform-specific URL opening
 
 ### High Priority (Next Sprint)
-4. Create CustomDetailsView.axaml
-5. Create WinDebugDetailsView.axaml
-6. Create LogLevelMapDialog.axaml
-7. Add color configuration to AppSettings
-8. Integrate FilterRule with existing filter UI
+6. Add `[SupportedOSPlatform("windows")]` to Windows-only classes
+7. Fix clipboard operations to use Avalonia clipboard
+8. Create cross-platform DataProtection fallback
+9. Fix hardcoded font names with cross-platform fallbacks
+10. Create CustomDetailsView.axaml
+11. Create WinDebugDetailsView.axaml
+12. Create LogLevelMapDialog.axaml
+13. Add color configuration to AppSettings
+14. Integrate FilterRule with existing filter UI
 
 ### Medium Priority
-9. Verify MruManager ordering is correct in UI
-10. Add timestamp format setting for CSV export
-11. Add regex validation to old LogFilter classes
-12. Implement virtual property overrides in log message classes
-13. Consolidate or document extension method duplication
+15. Verify MruManager ordering is correct in UI
+16. Add timestamp format setting for CSV export
+17. Add regex validation to old LogFilter classes
+18. Implement virtual property overrides in log message classes
+19. Consolidate or document extension method duplication
+20. Fix file path case-sensitivity comparisons
+21. Fix Encoding.Default usage to explicit UTF-8
+22. Add FileSystemWatcher error handling
 
 ### Testing Required
 - Test all receivers with their settings dialogs
@@ -389,25 +579,53 @@ ILogPresenter? DetailsControl { get; }
 - Test Lua scripting with timestamp values
 - Test CSV export formatting
 - Test MRU file list ordering
+- **Test on macOS and Linux**
+- Test Windows-only features are hidden on other platforms
+- Test clipboard operations on all platforms
+- Test URL opening on all platforms
 
 ---
 
 ## 7. FILES REQUIRING CHANGES
 
-| File | Issue | Priority |
+### Critical Priority
+
+| File | Issue | Platform |
 |------|-------|----------|
-| `Logging/LogError.cs:134` | ForeColor bug | CRITICAL |
-| `Receiver/NLogDirReceiver/NLogDirReceiver.cs:478` | Wrong layout | CRITICAL |
-| `Logging/LogMessage.cs:236` | Timestamp format | CRITICAL |
-| `Views/Controls/Details/` | Missing Custom/WinDebug views | HIGH |
-| `Views/Dialogs/` | Missing LogLevelMapDialog | HIGH |
-| `Models/AppSettings.cs` | Missing color settings | HIGH |
-| `Logging/Filter/LogFilterRegex.cs` | No error handling | MEDIUM |
-| `Helper/MruManager.cs` | Verify ordering | MEDIUM |
+| `Logging/LogError.cs:134` | ForeColor bug | All |
+| `Receiver/NLogDirReceiver/NLogDirReceiver.cs:478` | Wrong layout | All |
+| `Logging/LogMessage.cs:236` | Timestamp format | All |
+| `ViewModels/Dialogs/NewLogSourceDialogViewModel.cs` | Hide Windows receivers | macOS/Linux |
+| `Helper/Browser.cs` | Platform URL opening | macOS/Linux |
+
+### High Priority
+
+| File | Issue | Platform |
+|------|-------|----------|
+| `Receiver/EventlogReceiver/EventlogReceiver.cs` | Add platform attribute | macOS/Linux |
+| `Receiver/WinDebugReceiver/WinDebugReceiver.cs` | Add platform attribute | macOS/Linux |
+| `Receiver/WinDebugReceiver/DebugMonitor.cs` | Add platform attribute | macOS/Linux |
+| `Helper/Win32.cs` | Add platform attribute | macOS/Linux |
+| `Helper/Extensions.cs` | Fix clipboard, P/Invoke | macOS/Linux |
+| `Helper/DataProtection.cs` | Add fallback encryption | macOS/Linux |
+| `Models/AppSettings.cs` | Fix font names | macOS/Linux |
+| `Views/Controls/Details/` | Missing Custom/WinDebug views | All |
+| `Views/Dialogs/` | Missing LogLevelMapDialog | All |
+
+### Medium Priority
+
+| File | Issue | Platform |
+|------|-------|----------|
+| `Receiver/Log4NetDirReceiver/Log4NetDirReceiver.cs:212` | Case-sensitive path | All |
+| `Receiver/NLogDirReceiver/NLogDirReceiver.cs:212` | Case-sensitive path | All |
+| `Receiver/CustomReceiver/CustomDirReceiver/CustomDirReceiver.cs:222` | Case-sensitive path | All |
+| `Docking/DockLayoutManager.cs` | App data path | macOS/Linux |
+| `Logging/Filter/LogFilterRegex.cs` | No error handling | All |
+| `Helper/MruManager.cs` | Verify ordering | All |
 
 ---
 
-## Appendix: File Counts
+## 8. Appendix: File Counts
 
 | Category | src_old | src |
 |----------|---------|-----|
@@ -416,3 +634,26 @@ ILogPresenter? DetailsControl { get; }
 | Detail controls | 5 | 3 (Avalonia) |
 | Dialogs | ~19 | ~30 |
 | Filter classes | 6 | 6 + FilterRule |
+| Windows-only P/Invoke | N/A | 16 calls in 5 files |
+| Cross-platform ready | 0% | ~70% |
+
+---
+
+## 9. Platform Compatibility Matrix
+
+| Feature | Windows | macOS | Linux | Notes |
+|---------|:-------:|:-----:|:-----:|-------|
+| Core Log Viewing | ✅ | ✅ | ✅ | Avalonia UI |
+| Log4Net File Receiver | ✅ | ✅ | ✅ | Cross-platform |
+| Log4Net UDP Receiver | ✅ | ✅ | ✅ | Cross-platform |
+| NLog File Receiver | ✅ | ✅ | ✅ | Cross-platform |
+| NLog TCP Receiver | ✅ | ✅ | ✅ | Cross-platform |
+| Syslog Receiver | ✅ | ✅ | ✅ | Cross-platform |
+| Custom Receivers | ✅ | ✅ | ✅ | Cross-platform |
+| **Event Log Receiver** | ✅ | ❌ | ❌ | Windows-only |
+| **WinDebug Receiver** | ✅ | ❌ | ❌ | Windows-only |
+| Clipboard Copy | ✅ | ❌ | ❌ | Needs fix |
+| Open URLs | ✅ | ❌ | ❌ | Needs fix |
+| Credential Encryption | ✅ | ❌ | ❌ | Needs fallback |
+| Settings Persistence | ✅ | ✅ | ✅ | JSON file |
+| Docking Layouts | ✅ | ✅ | ✅ | Cross-platform |

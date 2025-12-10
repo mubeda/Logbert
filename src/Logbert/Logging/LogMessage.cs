@@ -233,7 +233,7 @@ namespace Logbert.Logging
         ["Minute"]      = Timestamp.Minute,
         ["Second"]      = Timestamp.Second,
         ["Millisecond"] = Timestamp.Millisecond,
-        ["Timestamp"]   = Timestamp.Ticks  // TODO: ToUnixTimestamp extension method removed during migration
+        ["Timestamp"]   = Timestamp.ToUnixTimestamp()
       };
               
      return msgData;

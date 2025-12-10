@@ -167,8 +167,9 @@ public class AppSettings
 
     /// <summary>
     /// Gets or sets the default font family for log display.
+    /// Cross-platform monospace font stack: Menlo (macOS), Consolas (Windows), DejaVu Sans Mono (Linux).
     /// </summary>
-    public string DefaultFontFamily { get; set; } = "Consolas";
+    public string DefaultFontFamily { get; set; } = "Menlo, Consolas, DejaVu Sans Mono, Liberation Mono, monospace";
 
     /// <summary>
     /// Gets or sets the default font size for log display.
