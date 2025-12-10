@@ -90,6 +90,42 @@ public class AppSettings
         { "Message", 500 }
     };
 
+    /// <summary>
+    /// Gets or sets the DataGrid column visibility (column name -> visible).
+    /// </summary>
+    public Dictionary<string, bool> ColumnVisibility { get; set; } = new()
+    {
+        { "Number", true },
+        { "Level", true },
+        { "Timestamp", true },
+        { "Logger", true },
+        { "Thread", true },
+        { "Message", true },
+        { "Exception", false },
+        { "Class", false },
+        { "Method", false },
+        { "File", false },
+        { "Line", false }
+    };
+
+    /// <summary>
+    /// Gets or sets the DataGrid column order (column name -> display index).
+    /// </summary>
+    public Dictionary<string, int> ColumnOrder { get; set; } = new()
+    {
+        { "Number", 0 },
+        { "Level", 1 },
+        { "Timestamp", 2 },
+        { "Logger", 3 },
+        { "Thread", 4 },
+        { "Message", 5 },
+        { "Exception", 6 },
+        { "Class", 7 },
+        { "Method", 8 },
+        { "File", 9 },
+        { "Line", 10 }
+    };
+
     #endregion
 
     #region User Preferences

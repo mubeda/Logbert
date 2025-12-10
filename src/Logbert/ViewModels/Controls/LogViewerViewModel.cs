@@ -199,4 +199,17 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
                 "Receiver Error");
         });
     }
+
+    /// <summary>
+    /// Event raised when column configuration changes.
+    /// </summary>
+    public event System.EventHandler? ColumnConfigurationChanged;
+
+    /// <summary>
+    /// Refreshes the column configuration from settings.
+    /// </summary>
+    public void RefreshColumnConfiguration()
+    {
+        ColumnConfigurationChanged?.Invoke(this, System.EventArgs.Empty);
+    }
 }

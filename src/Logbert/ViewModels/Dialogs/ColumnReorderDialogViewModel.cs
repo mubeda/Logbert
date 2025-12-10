@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Logbert.Services;
 
 namespace Logbert.ViewModels.Dialogs;
 
@@ -31,6 +33,21 @@ public partial class ColumnItem : ObservableObject
 /// </summary>
 public partial class ColumnReorderDialogViewModel : ViewModelBase
 {
+    private static readonly Dictionary<string, string> ColumnDisplayNames = new()
+    {
+        { "Number", "Number" },
+        { "Level", "Level" },
+        { "Timestamp", "Timestamp" },
+        { "Logger", "Logger" },
+        { "Thread", "Thread" },
+        { "Message", "Message" },
+        { "Exception", "Exception" },
+        { "Class", "Class" },
+        { "Method", "Method" },
+        { "File", "File" },
+        { "Line", "Line" }
+    };
+
     /// <summary>
     /// Gets the collection of column items.
     /// </summary>
@@ -69,8 +86,64 @@ public partial class ColumnReorderDialogViewModel : ViewModelBase
         OkCommand = new RelayCommand(OnOk);
         CancelCommand = new RelayCommand(OnCancel);
 
-        // Initialize with default columns
-        LoadDefaultColumns();
+        // Load columns from settings
+        LoadFromSettings();
+    }
+
+    /// <summary>
+    /// Loads column configuration from application settings.
+    /// </summary>
+    public void LoadFromSettings()
+    {
+        Columns.Clear();
+
+        var settings = SettingsService.Instance.Settings;
+        var columnOrder = settings.ColumnOrder;
+        var columnVisibility = settings.ColumnVisibility;
+        var columnWidths = settings.ColumnWidths;
+
+        // Build column list from settings, sorted by display order
+        var columns = ColumnDisplayNames.Keys
+            .Select(name => new ColumnItem
+            {
+                Name = name,
+                DisplayName = ColumnDisplayNames[name],
+                IsVisible = columnVisibility.TryGetValue(name, out var visible) ? visible : true,
+                Width = columnWidths.TryGetValue(name, out var width) ? width : 100,
+                DisplayIndex = columnOrder.TryGetValue(name, out var order) ? order : 0
+            })
+            .OrderBy(c => c.DisplayIndex)
+            .ToList();
+
+        foreach (var column in columns)
+        {
+            Columns.Add(column);
+        }
+
+        // Update display indices to be sequential
+        UpdateDisplayIndices();
+    }
+
+    /// <summary>
+    /// Saves column configuration to application settings.
+    /// </summary>
+    public void SaveToSettings()
+    {
+        SettingsService.Instance.UpdateSettings(settings =>
+        {
+            settings.ColumnOrder.Clear();
+            settings.ColumnVisibility.Clear();
+            settings.ColumnWidths.Clear();
+
+            foreach (var column in Columns)
+            {
+                settings.ColumnOrder[column.Name] = column.DisplayIndex;
+                settings.ColumnVisibility[column.Name] = column.IsVisible;
+                settings.ColumnWidths[column.Name] = column.Width;
+            }
+        });
+
+        SettingsService.Instance.Save();
     }
 
     private void LoadDefaultColumns()

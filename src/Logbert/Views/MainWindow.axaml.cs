@@ -27,7 +27,7 @@ public partial class MainWindow : Window
         Closing += OnWindowClosing;
     }
 
-    private void OnWindowLoaded(object? sender, RoutedEventArgs e)
+    private async void OnWindowLoaded(object? sender, RoutedEventArgs e)
     {
         // Load window state from settings
         var settings = SettingsService.Instance.Settings;
@@ -48,6 +48,13 @@ public partial class MainWindow : Window
             "Minimized" => WindowState.Minimized,
             _ => WindowState.Normal
         };
+
+        // Show Welcome dialog on first run or if enabled in settings
+        if (settings.ShowWelcomeScreen)
+        {
+            var welcomeDialog = new WelcomeDialog();
+            await welcomeDialog.ShowDialog(this);
+        }
     }
 
     private void OnWindowClosing(object? sender, WindowClosingEventArgs e)
@@ -305,18 +312,17 @@ public partial class MainWindow : Window
     public async void ShowColumnConfigDialog(object? sender, RoutedEventArgs e)
     {
         var dialog = new ColumnReorderDialog();
-        var result = await dialog.ShowDialog<object?>(this);
+        await dialog.ShowDialog(this);
 
-        // TODO: Apply column configuration if dialog result is OK
         if (dialog.DialogResult)
         {
-            // Column configuration would be applied to the DataGrid here
-            // For now, just save the configuration
-            var columnConfig = dialog.ViewModel?.GetColumnConfiguration();
-            if (columnConfig != null)
+            // Save column configuration to settings
+            dialog.ViewModel?.SaveToSettings();
+
+            // Notify active document to refresh column configuration
+            if (ViewModel?.ActiveDocument?.LogViewerViewModel != null)
             {
-                // Save column configuration to settings
-                // Implementation would persist this in SettingsService
+                ViewModel.ActiveDocument.LogViewerViewModel.RefreshColumnConfiguration();
             }
         }
     }
