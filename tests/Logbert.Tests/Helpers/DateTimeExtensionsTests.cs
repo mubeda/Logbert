@@ -1,6 +1,6 @@
 using Xunit;
 using Couchcoding.Logbert.Helper;
-using AwesomeAssertions;
+using FluentAssertions;
 
 namespace Logbert.Tests.Helpers;
 

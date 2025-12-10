@@ -2,7 +2,7 @@ using Xunit;
 using System.Text;
 using Couchcoding.Logbert.Logging;
 using Couchcoding.Logbert.Services;
-using AwesomeAssertions;
+using FluentAssertions;
 
 namespace Logbert.Tests.Services;
 

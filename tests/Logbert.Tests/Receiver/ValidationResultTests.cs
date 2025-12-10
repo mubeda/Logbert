@@ -1,6 +1,6 @@
 using Xunit;
 using Couchcoding.Logbert.Receiver;
-using AwesomeAssertions;
+using FluentAssertions;
 
 namespace Logbert.Tests.Receiver;
 

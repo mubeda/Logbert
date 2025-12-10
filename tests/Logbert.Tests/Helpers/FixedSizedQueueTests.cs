@@ -1,5 +1,5 @@
 using Xunit;
-using AwesomeAssertions;
+using FluentAssertions;
 using System.Reflection;
 
 namespace Logbert.Tests.Helpers;
