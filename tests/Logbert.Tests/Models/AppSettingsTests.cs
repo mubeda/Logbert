@@ -1,3 +1,4 @@
+using Xunit;
 using Couchcoding.Logbert.Models;
 using AwesomeAssertions;
 using System.Text.Json;

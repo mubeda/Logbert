@@ -1,3 +1,4 @@
+using Xunit;
 using Couchcoding.Logbert.Receiver;
 using AwesomeAssertions;
 

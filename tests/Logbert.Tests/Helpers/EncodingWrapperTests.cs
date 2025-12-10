@@ -1,3 +1,4 @@
+using Xunit;
 using System.Text;
 using Couchcoding.Logbert.Helper;
 using AwesomeAssertions;
