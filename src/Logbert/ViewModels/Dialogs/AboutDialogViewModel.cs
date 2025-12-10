@@ -1,5 +1,7 @@
 using System;
+using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -25,6 +27,31 @@ public partial class AboutDialogViewModel : ViewModelBase
     [ObservableProperty]
     private string _licenseText = string.Empty;
 
+    #region System Information
+
+    [ObservableProperty]
+    private string _operatingSystem = string.Empty;
+
+    [ObservableProperty]
+    private string _dotNetVersion = string.Empty;
+
+    [ObservableProperty]
+    private string _architecture = string.Empty;
+
+    [ObservableProperty]
+    private string _avaloniaVersion = string.Empty;
+
+    #endregion
+
+    #region Commands
+
+    public IRelayCommand OpenGitHubCommand { get; }
+    public IRelayCommand OpenIssuesCommand { get; }
+    public IRelayCommand OpenDocumentationCommand { get; }
+    public IRelayCommand CopySystemInfoCommand { get; }
+
+    #endregion
+
     public AboutDialogViewModel()
     {
         // Get version from assembly
@@ -32,7 +59,25 @@ public partial class AboutDialogViewModel : ViewModelBase
         var versionInfo = assembly.GetName().Version;
         Version = versionInfo != null
             ? $"Version {versionInfo.Major}.{versionInfo.Minor}.{versionInfo.Build}"
-            : "Version 1.0.0";
+            : "Version 2.0.0";
+
+        // Get system information
+        OperatingSystem = $"{RuntimeInformation.OSDescription}";
+        DotNetVersion = $".NET {Environment.Version}";
+        Architecture = RuntimeInformation.ProcessArchitecture.ToString();
+
+        // Get Avalonia version
+        var avaloniaAssembly = typeof(Avalonia.Application).Assembly;
+        var avaloniaVersionInfo = avaloniaAssembly.GetName().Version;
+        AvaloniaVersion = avaloniaVersionInfo != null
+            ? $"Avalonia {avaloniaVersionInfo.Major}.{avaloniaVersionInfo.Minor}.{avaloniaVersionInfo.Build}"
+            : "Avalonia 11.x";
+
+        // Initialize commands
+        OpenGitHubCommand = new RelayCommand(() => OpenUrl("https://github.com/logbert/logbert"));
+        OpenIssuesCommand = new RelayCommand(() => OpenUrl("https://github.com/logbert/logbert/issues"));
+        OpenDocumentationCommand = new RelayCommand(() => OpenUrl("https://github.com/logbert/logbert/wiki"));
+        CopySystemInfoCommand = new RelayCommand(OnCopySystemInfo);
 
         // Load MIT license text
         LicenseText = @"The MIT License (MIT)
@@ -56,5 +101,52 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.";
+    }
+
+    private void OpenUrl(string url)
+    {
+        try
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                Process.Start("xdg-open", url);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", url);
+            }
+        }
+        catch
+        {
+            // Ignore errors opening browser
+        }
+    }
+
+    private async void OnCopySystemInfo()
+    {
+        var info = $"""
+            Logbert {Version}
+            OS: {OperatingSystem}
+            Runtime: {DotNetVersion}
+            Architecture: {Architecture}
+            UI Framework: {AvaloniaVersion}
+            """;
+
+        try
+        {
+            var clipboard = Avalonia.Application.Current?.Clipboard;
+            if (clipboard != null)
+            {
+                await clipboard.SetTextAsync(info);
+            }
+        }
+        catch
+        {
+            // Ignore clipboard errors
+        }
     }
 }

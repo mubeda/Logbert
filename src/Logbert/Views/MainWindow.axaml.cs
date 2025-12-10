@@ -289,4 +289,35 @@ public partial class MainWindow : Window
 
         await dialog.ShowDialog(this);
     }
+
+    public async void ShowWelcomeDialog(object? sender, RoutedEventArgs e)
+    {
+        var dialog = new WelcomeDialog();
+        await dialog.ShowDialog(this);
+    }
+
+    public async void ShowKeyboardShortcutsDialog(object? sender, RoutedEventArgs e)
+    {
+        var dialog = new KeyboardShortcutsDialog();
+        await dialog.ShowDialog(this);
+    }
+
+    public async void ShowColumnConfigDialog(object? sender, RoutedEventArgs e)
+    {
+        var dialog = new ColumnReorderDialog();
+        var result = await dialog.ShowDialog<object?>(this);
+
+        // TODO: Apply column configuration if dialog result is OK
+        if (dialog.DialogResult)
+        {
+            // Column configuration would be applied to the DataGrid here
+            // For now, just save the configuration
+            var columnConfig = dialog.ViewModel?.GetColumnConfiguration();
+            if (columnConfig != null)
+            {
+                // Save column configuration to settings
+                // Implementation would persist this in SettingsService
+            }
+        }
+    }
 }

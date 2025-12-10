@@ -132,6 +132,12 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
+                <MenuItem Header="_Configure Columns..." Click="ShowColumnConfigDialog">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M4,5V7H21V5M4,11H21V9H4M4,19H21V17H4M4,15H21V13H4"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
                 <MenuItem Header="_Full Screen" HotKey="F11"/>
             </MenuItem>
 
@@ -146,9 +152,24 @@
             </MenuItem>
 
             <MenuItem Header="_Help">
-                <MenuItem Header="_About Logbert" Click="ShowAboutDialog"/>
+                <MenuItem Header="_Welcome" Click="ShowWelcomeDialog">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M12,3L2,12H5V20H19V12H22L12,3M12,8.75A2.25,2.25 0 0,1 14.25,11A2.25,2.25 0 0,1 12,13.25A2.25,2.25 0 0,1 9.75,11A2.25,2.25 0 0,1 12,8.75M12,15C13.5,15 16.5,15.75 16.5,17.25V18H7.5V17.25C7.5,15.75 10.5,15 12,15Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Keyboard Shortcuts..." Click="ShowKeyboardShortcutsDialog" HotKey="Ctrl+Shift+?">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M19,10H17V8H19M19,13H17V11H19M16,10H14V8H16M16,13H14V11H16M16,17H8V15H16M7,10H5V8H7M7,13H5V11H7M8,11H10V13H8M8,8H10V10H8M11,11H13V13H11M11,8H13V10H11M20,5H4C2.89,5 2,5.89 2,7V17A2,2 0 0,0 4,19H20A2,2 0 0,0 22,17V7C22,5.89 21.1,5 20,5Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator/>
-                <MenuItem Header="Check for _Updates..."/>
+                <MenuItem Header="_About Logbert" Click="ShowAboutDialog">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Check for _Updates..." IsEnabled="False"/>
             </MenuItem>
         </Menu>
 

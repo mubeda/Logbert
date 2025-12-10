@@ -1,0 +1,146 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Logbert.ViewModels.Dialogs"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
+        x:Class="Logbert.Views.Dialogs.ColumnReorderDialog"
+        x:DataType="vm:ColumnReorderDialogViewModel"
+        Title="Configure Columns"
+        Width="500" Height="500"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Assets/avalonia-logo.ico">
+
+    <Design.DataContext>
+        <vm:ColumnReorderDialogViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="*,Auto" Margin="20">
+        <!-- Main Content -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+            <!-- Column List -->
+            <Border Grid.Column="0"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Margin="0,0,10,0">
+                <ListBox ItemsSource="{Binding Columns}"
+                         SelectedItem="{Binding SelectedColumn}"
+                         SelectionMode="Single">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="vm:ColumnItem">
+                            <Grid ColumnDefinitions="Auto,*,Auto" Margin="5">
+                                <CheckBox Grid.Column="0"
+                                          IsChecked="{Binding IsVisible}"
+                                          Margin="0,0,10,0"/>
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding DisplayName}"
+                                           VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="2"
+                                           Text="{Binding Width, StringFormat='({0}px)'}"
+                                           VerticalAlignment="Center"
+                                           Opacity="0.5"
+                                           FontSize="11"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+
+            <!-- Action Buttons -->
+            <StackPanel Grid.Column="1" Spacing="10" Width="100">
+                <TextBlock Text="Reorder"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,5"/>
+
+                <Button Command="{Binding MoveUpCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        ToolTip.Tip="Move selected column up">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <PathIcon Data="M7,15L12,10L17,15H7Z"
+                                  Width="16" Height="16"/>
+                        <TextBlock Text="Up"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding MoveDownCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        ToolTip.Tip="Move selected column down">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <PathIcon Data="M7,10L12,15L17,10H7Z"
+                                  Width="16" Height="16"/>
+                        <TextBlock Text="Down"/>
+                    </StackPanel>
+                </Button>
+
+                <Separator Margin="0,10"/>
+
+                <TextBlock Text="Visibility"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,5"/>
+
+                <Button Command="{Binding ShowAllCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        ToolTip.Tip="Show all columns">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <PathIcon Data="M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"
+                                  Width="14" Height="14"/>
+                        <TextBlock Text="Show All"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding HideAllCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        ToolTip.Tip="Hide optional columns">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <PathIcon Data="M11.83,9L15,12.16C15,12.11 15,12.05 15,12A3,3 0 0,0 12,9C11.94,9 11.89,9 11.83,9M7.53,9.8L9.08,11.35C9.03,11.56 9,11.77 9,12A3,3 0 0,0 12,15C12.22,15 12.44,14.97 12.65,14.92L14.2,16.47C13.53,16.8 12.79,17 12,17A5,5 0 0,1 7,12C7,11.21 7.2,10.47 7.53,9.8M2,4.27L4.28,6.55L4.73,7C3.08,8.3 1.78,10 1,12C2.73,16.39 7,19.5 12,19.5C13.55,19.5 15.03,19.2 16.38,18.66L16.81,19.08L19.73,22L21,20.73L3.27,3M12,7A5,5 0 0,1 17,12C17,12.64 16.87,13.26 16.64,13.82L19.57,16.75C21.07,15.5 22.27,13.86 23,12C21.27,7.61 17,4.5 12,4.5C10.6,4.5 9.26,4.75 8,5.2L10.17,7.35C10.74,7.13 11.35,7 12,7Z"
+                                  Width="14" Height="14"/>
+                        <TextBlock Text="Hide All"/>
+                    </StackPanel>
+                </Button>
+
+                <Separator Margin="0,10"/>
+
+                <Button Command="{Binding ResetCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        ToolTip.Tip="Reset to default column configuration">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <PathIcon Data="M12.5,8C9.85,8 7.45,9 5.6,10.6L2,7V16H11L7.38,12.38C8.77,11.22 10.54,10.5 12.5,10.5C16.04,10.5 19.05,12.81 20.1,16L22.47,15.22C21.08,11.03 17.15,8 12.5,8Z"
+                                  Width="14" Height="14"/>
+                        <TextBlock Text="Reset"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Dialog Buttons -->
+        <Border Grid.Row="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="0,15,0,0"
+                Margin="0,15,0,0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Spacing="10">
+                <Button Content="OK"
+                        Padding="20,8"
+                        MinWidth="80"
+                        Click="OnOkClick"
+                        IsDefault="True"/>
+                <Button Content="Cancel"
+                        Padding="20,8"
+                        MinWidth="80"
+                        IsCancel="True"
+                        Click="OnCancelClick"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

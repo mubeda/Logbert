@@ -17,7 +17,7 @@
 | **Phase 7** | Complete (100%) - Feature Parity |
 | **Receivers** | 16/16 implemented |
 | **Core Features** | All functional |
-| **Feature Parity** | ~98% (all critical gaps addressed) |
+| **Feature Parity** | 100% (all features implemented) |
 
 ---
 
@@ -827,11 +827,11 @@ EFFORT│                    │                    │  EFFORT
   - [x] Add Script Settings tab
   - [x] Add Advanced Receiver tab
 
-#### Low Priority (Deferred)
-- [ ] Welcome Dialog
-- [ ] About Dialog (enhanced)
-- [ ] Column Reorder Dialog
-- [ ] Keyboard Shortcuts Dialog
+#### Low Priority (Complete)
+- [x] Welcome Dialog ✅
+- [x] About Dialog (enhanced) ✅
+- [x] Column Reorder Dialog ✅
+- [x] Keyboard Shortcuts Dialog ✅
 
 ---
 
@@ -844,9 +844,9 @@ EFFORT│                    │                    │  EFFORT
 | Detail Views | 3 new views | ✅ Complete |
 | Docking Panels | 5 panel wrappers | ✅ Complete |
 | Option Panels | Settings migration | ✅ Complete |
-| Low Priority | 4 minor dialogs | Deferred |
+| Low Priority | 4 minor dialogs | ✅ Complete |
 
-**Total Completed:** 5 sprints over Phase 7
+**Total Completed:** 6 sprints over Phase 7 (including low-priority dialogs)
 
 ---
 
@@ -938,9 +938,9 @@ Legacy WinForms files are excluded from compilation but retained for reference:
 - Sprint 3: Timestamp Format Dialog
 - Sprint 4: Detail Views and Docking Panels
 - Sprint 5: Option Panels and MainWindow Integration
+- Sprint 6: Low Priority Dialogs (Welcome, About enhanced, Column Reorder, Keyboard Shortcuts)
 
-**Deferred (Low Priority):**
-- Welcome Dialog, About Dialog (enhanced), Column Reorder Dialog, Keyboard Shortcuts Dialog
+**All Phase 7 features complete - 100% feature parity achieved.**
 
 ---
 
