@@ -187,8 +187,8 @@
     <!-- Active Avalonia receiver settings views - Log4Net and NLog File receivers now re-enabled -->
     <!-- Receiver configuration dialogs -->
     <Compile Remove="Views\Dialogs\ReceiverConfigurationDialog.axaml.cs" />
-    <!-- Helper/Logging classes that reference deleted Settings -->
-    <Compile Remove="Helper\MruManager.cs" />
+    <!-- Helper/Logging classes - MruManager now re-enabled with SettingsService -->
+    <!-- <Compile Remove="Helper\MruManager.cs" /> -->
     <!-- LogMessage subclasses - Now re-enabled with new StringExtensions and DateTimeExtensions -->
     <!-- Exclude XAML files for excluded controls/dialogs to prevent Avalonia code generation errors -->
     <None Remove="Views\Controls\StatisticsControl.axaml" />

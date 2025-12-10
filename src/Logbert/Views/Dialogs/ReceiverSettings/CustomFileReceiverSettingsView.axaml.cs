@@ -55,7 +55,7 @@ public partial class CustomFileReceiverSettingsView : Window
         if (!validationResult.IsSuccess)
         {
             await NotificationService.Instance.ShowValidationErrorAsync(
-                validationResult.Message ?? "Please check your settings and try again.");
+                validationResult.ErrorMsg ?? "Please check your settings and try again.");
             return;
         }
 

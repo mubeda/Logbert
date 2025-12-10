@@ -155,7 +155,7 @@ public class NotificationService
             };
 
             // Set DockPanel.Dock for button
-            DockPanel.SetDock((Control)((DockPanel)dialog.Content).Children[0], Dock.Bottom);
+            DockPanel.SetDock((Control)((DockPanel)dialog.Content).Children[0], Avalonia.Controls.Dock.Bottom);
 
             await dialog.ShowDialog(mainWindow);
         });
@@ -221,7 +221,7 @@ public class NotificationService
             };
 
             // Set DockPanel.Dock for button
-            DockPanel.SetDock((Control)((DockPanel)dialog.Content).Children[0], Dock.Bottom);
+            DockPanel.SetDock((Control)((DockPanel)dialog.Content).Children[0], Avalonia.Controls.Dock.Bottom);
 
             await dialog.ShowDialog(mainWindow);
         });
@@ -298,7 +298,7 @@ public class NotificationService
                 }
             };
 
-            DockPanel.SetDock(buttonPanel, Dock.Bottom);
+            DockPanel.SetDock(buttonPanel, Avalonia.Controls.Dock.Bottom);
 
             await dialog.ShowDialog(mainWindow);
             return result;
