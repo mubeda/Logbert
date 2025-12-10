@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    FlatColorTable.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Couchcoding.Logbert.Helper
+namespace Logbert.Helper
 {
   /// <summary>
   /// Implements a <see cref="Color"/> table used for flat toolStrip rendering.

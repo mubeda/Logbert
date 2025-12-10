@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Couchcoding.Logbert.Models;
+namespace Logbert.Models;
 
 /// <summary>
 /// Represents a single filter rule for log message filtering.

@@ -1,4 +1,4 @@
-﻿#region Copyright © 2017 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    LogColumnType.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2017 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 
 #endregion
 
-namespace Couchcoding.Logbert.Receiver.CustomReceiver
+namespace Logbert.Receiver.CustomReceiver
 {
   /// <summary>
   /// All supported <see cref="LogColumn"/> types.

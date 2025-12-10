@@ -1,4 +1,4 @@
-﻿#region Copyright © 2021 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    CustomFileReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2021 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,9 +28,9 @@
 
 #endregion
 
-// using Couchcoding.Logbert.Controls; // WinForms controls removed for Avalonia
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Interfaces;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
+using Logbert.Helper;
+using Logbert.Interfaces;
 using System;
 using System.Net.Http;
 using System.Collections.Generic;
@@ -38,10 +38,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
 using System.Linq;
-using Couchcoding.Logbert.Logging;
+using Logbert.Logging;
 using System.Threading;
 
-namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
+namespace Logbert.Receiver.CustomReceiver.CustomHttpReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the custom log http service.

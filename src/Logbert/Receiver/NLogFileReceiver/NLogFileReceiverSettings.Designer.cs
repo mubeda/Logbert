@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Receiver.NLogFileReceiver
+﻿namespace Logbert.Receiver.NLogFileReceiver
 {
   partial class NLogFileReceiverSettings
   {
@@ -29,7 +29,7 @@
     private void InitializeComponent()
     {
             this.lblNetworkInterface = new System.Windows.Forms.Label();
-            this.txtLogFile = new Couchcoding.Logbert.Gui.Controls.TextBoxEx();
+            this.txtLogFile = new Logbert.Gui.Controls.TextBoxEx();
             this.chkStartFromBeginning = new System.Windows.Forms.CheckBox();
             this.cmbEncoding = new System.Windows.Forms.ComboBox();
             this.lblEncoding = new System.Windows.Forms.Label();

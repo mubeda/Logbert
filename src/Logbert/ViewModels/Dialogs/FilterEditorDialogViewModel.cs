@@ -5,9 +5,9 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Couchcoding.Logbert.Models;
+using Logbert.Models;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs;
+namespace Logbert.ViewModels.Dialogs;
 
 /// <summary>
 /// ViewModel for the Filter Editor dialog.

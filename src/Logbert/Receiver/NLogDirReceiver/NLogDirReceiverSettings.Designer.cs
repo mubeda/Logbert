@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Receiver.NLogDirReceiver
+﻿namespace Logbert.Receiver.NLogDirReceiver
 {
   partial class NLogDirReceiverSettings
   {
@@ -29,9 +29,9 @@
     private void InitializeComponent()
     {
             this.lblNetworkInterface = new System.Windows.Forms.Label();
-            this.txtLogDirectory = new Couchcoding.Logbert.Gui.Controls.TextBoxEx();
+            this.txtLogDirectory = new Logbert.Gui.Controls.TextBoxEx();
             this.chkInitialReadAll = new System.Windows.Forms.CheckBox();
-            this.txtLogFilePattern = new Couchcoding.Logbert.Gui.Controls.TextBoxEx();
+            this.txtLogFilePattern = new Logbert.Gui.Controls.TextBoxEx();
             this.label1 = new System.Windows.Forms.Label();
             this.mnuFilePattern = new System.Windows.Forms.ContextMenu();
             this.mnuFilePatternPresets = new System.Windows.Forms.MenuItem();

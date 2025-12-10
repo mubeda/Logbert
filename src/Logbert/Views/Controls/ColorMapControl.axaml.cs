@@ -3,9 +3,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using System.Globalization;
-using Couchcoding.Logbert.ViewModels.Controls;
+using Logbert.ViewModels.Controls;
 
-namespace Couchcoding.Logbert.Views.Controls;
+namespace Logbert.Views.Controls;
 
 public partial class ColorMapControl : UserControl
 {

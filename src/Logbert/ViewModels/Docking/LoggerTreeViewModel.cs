@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Couchcoding.Logbert.ViewModels.Docking;
+namespace Logbert.ViewModels.Docking;
 
 /// <summary>
 /// ViewModel for the logger tree tool window.

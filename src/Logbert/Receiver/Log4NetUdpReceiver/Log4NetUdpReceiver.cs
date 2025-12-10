@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    Log4NetUdpReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -34,13 +34,13 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-using Couchcoding.Logbert.Interfaces;
+using Logbert.Interfaces;
 
-// using Couchcoding.Logbert.Controls; // WinForms controls removed for Avalonia
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Logging;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
+using Logbert.Helper;
+using Logbert.Logging;
 
-namespace Couchcoding.Logbert.Receiver.Log4NetUdpReceiver
+namespace Logbert.Receiver.Log4NetUdpReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the Log4Net UDP service.

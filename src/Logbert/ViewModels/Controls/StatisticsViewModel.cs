@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Couchcoding.Logbert.Logging;
+using Logbert.Logging;
 
-namespace Couchcoding.Logbert.ViewModels.Controls;
+namespace Logbert.ViewModels.Controls;
 
 /// <summary>
 /// ViewModel for statistics visualization.

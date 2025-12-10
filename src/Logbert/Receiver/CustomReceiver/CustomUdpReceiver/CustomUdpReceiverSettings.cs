@@ -1,4 +1,4 @@
-﻿#region Copyright © 2018 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    CustomUdpReceiverSettings.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2018 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -33,20 +33,20 @@ using System.Net;
 using System.Net.NetworkInformation;
 // using System.Windows.Forms; // WinForms removed for Avalonia
 
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Properties;
+using Logbert.Interfaces;
+using Logbert.Properties;
 using System.Net.Sockets;
 
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Receiver.CustomReceiver.CustomUdpReceiver;
-using Couchcoding.Logbert.Dialogs;
-using Couchcoding.Logbert.Receiver.CustomReceiver;
+using Logbert.Helper;
+using Logbert.Receiver.CustomReceiver.CustomUdpReceiver;
+using Logbert.Dialogs;
+using Logbert.Receiver.CustomReceiver;
 using System.Xml;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
 
-namespace Couchcoding.Logbert.Receiver.Log4NetUdpReceiver
+namespace Logbert.Receiver.Log4NetUdpReceiver
 {
   /// <summary>
   /// Implements the <see cref="ILogSettingsCtrl"/> control for the custom UDP receiver.

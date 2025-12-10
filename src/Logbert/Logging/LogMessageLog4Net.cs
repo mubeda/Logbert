@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    LogMessageLog4Net.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,19 +28,19 @@
 
 #endregion
 
-using Couchcoding.Logbert.Properties;
+using Logbert.Properties;
 using System;
 using System.Collections.Generic;
 // using System.Windows.Forms; // Removed for Avalonia migration - unused reference
 using System.Xml;
 
-using Couchcoding.Logbert.Helper;
+using Logbert.Helper;
 
 using MoonSharp.Interpreter;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Couchcoding.Logbert.Logging
+namespace Logbert.Logging
 {
   /// <summary>
   /// Implements a <see cref="LogMessage"/> class for Log4Net logger messages.

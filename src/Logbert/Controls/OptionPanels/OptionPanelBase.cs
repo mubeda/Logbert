@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    OptionPanelBase.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,9 +31,9 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Couchcoding.Logbert.Interfaces;
+using Logbert.Interfaces;
 
-namespace Couchcoding.Logbert.Controls.OptionPanels
+namespace Logbert.Controls.OptionPanels
 {
   /// <summary>
   /// Implements the base class for all <see cref="IOptionPanel"/> instances.

@@ -5,7 +5,7 @@ using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Couchcoding.Logbert.ViewModels.Controls;
+namespace Logbert.ViewModels.Controls;
 
 /// <summary>
 /// ViewModel for the ColorPicker control.

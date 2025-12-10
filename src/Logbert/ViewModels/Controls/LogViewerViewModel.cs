@@ -2,12 +2,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Services;
+using Logbert.Logging;
+using Logbert.Interfaces;
+using Logbert.Services;
 using Avalonia.Threading;
 
-namespace Couchcoding.Logbert.ViewModels.Controls;
+namespace Logbert.ViewModels.Controls;
 
 /// <summary>
 /// ViewModel for the log viewer control.

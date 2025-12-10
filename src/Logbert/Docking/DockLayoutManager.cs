@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.Json;
 using Dock.Model.Core;
 
-namespace Couchcoding.Logbert.Docking;
+namespace Logbert.Docking;
 
 /// <summary>
 /// Manages saving and loading dock layouts.

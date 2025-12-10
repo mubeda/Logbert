@@ -1,6 +1,6 @@
 using System;
 
-namespace Couchcoding.Logbert.Logging.Sample;
+namespace Logbert.Logging.Sample;
 
 /// <summary>
 /// Sample log message implementation for testing.

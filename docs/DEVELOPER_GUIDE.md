@@ -170,7 +170,7 @@ Create `src/Logbert/Logging/LogMessageJson.cs`:
 using System;
 using System.Text.Json;
 
-namespace Couchcoding.Logbert.Logging
+namespace Logbert.Logging
 {
     public class LogMessageJson : LogMessage
     {
@@ -239,10 +239,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Logging;
+using Logbert.Interfaces;
+using Logbert.Logging;
 
-namespace Couchcoding.Logbert.Receiver.JsonFileReceiver
+namespace Logbert.Receiver.JsonFileReceiver
 {
     public class JsonFileReceiver : ReceiverBase
     {
@@ -375,11 +375,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Receiver;
-using Couchcoding.Logbert.Receiver.JsonFileReceiver;
+using Logbert.Interfaces;
+using Logbert.Receiver;
+using Logbert.Receiver.JsonFileReceiver;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings
+namespace Logbert.ViewModels.Dialogs.ReceiverSettings
 {
     public partial class JsonFileReceiverSettingsViewModel : ObservableObject, ILogSettingsCtrl
     {
@@ -436,8 +436,8 @@ Create `src/Logbert/Views/Dialogs/ReceiverSettings/JsonFileReceiverSettingsView.
 ```xml
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="using:Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings"
-             x:Class="Couchcoding.Logbert.Views.Dialogs.ReceiverSettings.JsonFileReceiverSettingsView"
+             xmlns:vm="using:Logbert.ViewModels.Dialogs.ReceiverSettings"
+             x:Class="Logbert.Views.Dialogs.ReceiverSettings.JsonFileReceiverSettingsView"
              x:DataType="vm:JsonFileReceiverSettingsViewModel">
 
     <StackPanel Spacing="15" Margin="20">
@@ -532,7 +532,7 @@ public partial class ExportDialogViewModel : ViewModelBase
 
 ```xml
 <Window xmlns="https://github.com/avaloniaui"
-        x:Class="Couchcoding.Logbert.Views.Dialogs.ExportDialog"
+        x:Class="Logbert.Views.Dialogs.ExportDialog"
         Title="Export Logs">
     <StackPanel Margin="20" Spacing="15">
         <ComboBox ItemsSource="{Binding AvailableFormats}"

@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs.Docking
+﻿namespace Logbert.Dialogs.Docking
 {
     partial class FrmWelcome
     {
@@ -30,21 +30,21 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmWelcome));
-            this.tblWelcome = new Couchcoding.Logbert.Gui.Controls.TableLayoutPanelEx();
-            this.tableLayoutPanel2 = new Couchcoding.Logbert.Gui.Controls.TableLayoutPanelEx();
+            this.tblWelcome = new Logbert.Gui.Controls.TableLayoutPanelEx();
+            this.tableLayoutPanel2 = new Logbert.Gui.Controls.TableLayoutPanelEx();
             this.lblOnlineRecources = new System.Windows.Forms.Label();
             this.flOnlineResources = new System.Windows.Forms.FlowLayoutPanel();
-            this.lnkLogbertHomepage = new Couchcoding.Logbert.Gui.Controls.LinkLabelEx();
-            this.lnkLog4NetExamples = new Couchcoding.Logbert.Gui.Controls.LinkLabelEx();
-            this.lnkNlogExamples = new Couchcoding.Logbert.Gui.Controls.LinkLabelEx();
-            this.tblWelcomeLogger = new Couchcoding.Logbert.Gui.Controls.TableLayoutPanelEx();
-            this.lstLogger = new Couchcoding.Logbert.Controls.ThemedListBoxEx();
+            this.lnkLogbertHomepage = new Logbert.Gui.Controls.LinkLabelEx();
+            this.lnkLog4NetExamples = new Logbert.Gui.Controls.LinkLabelEx();
+            this.lnkNlogExamples = new Logbert.Gui.Controls.LinkLabelEx();
+            this.tblWelcomeLogger = new Logbert.Gui.Controls.TableLayoutPanelEx();
+            this.lstLogger = new Logbert.Controls.ThemedListBoxEx();
             this.lblNewLogger = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new Couchcoding.Logbert.Gui.Controls.TableLayoutPanelEx();
+            this.tableLayoutPanel1 = new Logbert.Gui.Controls.TableLayoutPanelEx();
             this.lblRecentFiles = new System.Windows.Forms.Label();
             this.flRecentFiles = new System.Windows.Forms.FlowLayoutPanel();
             this.tlTip = new System.Windows.Forms.ToolTip(this.components);
-            this.nfoBgPanel = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
+            this.nfoBgPanel = new Logbert.Gui.Controls.InfoPanel();
             this.tblWelcome.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flOnlineResources.SuspendLayout();
@@ -273,7 +273,7 @@
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(640, 480);
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = global::Couchcoding.Logbert.Properties.Resources.Logbert_Logo_Background;
+            this.BackgroundImage = global::Logbert.Properties.Resources.Logbert_Logo_Background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.nfoBgPanel);

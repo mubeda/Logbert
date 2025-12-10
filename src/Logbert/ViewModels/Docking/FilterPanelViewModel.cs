@@ -7,9 +7,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Couchcoding.Logbert.Models;
+using Logbert.Models;
 
-namespace Couchcoding.Logbert.ViewModels.Docking;
+namespace Logbert.ViewModels.Docking;
 
 /// <summary>
 /// ViewModel for the filter panel tool window.

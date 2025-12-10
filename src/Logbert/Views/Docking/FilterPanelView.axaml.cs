@@ -4,11 +4,11 @@ using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
-using Couchcoding.Logbert.Models;
-using Couchcoding.Logbert.ViewModels.Docking;
-using Couchcoding.Logbert.Views.Dialogs;
+using Logbert.Models;
+using Logbert.ViewModels.Docking;
+using Logbert.Views.Dialogs;
 
-namespace Couchcoding.Logbert.Views.Docking;
+namespace Logbert.Views.Docking;
 
 public partial class FilterPanelView : UserControl
 {

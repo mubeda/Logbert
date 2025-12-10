@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Couchcoding.Logbert.Services;
+using Logbert.Services;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs;
+namespace Logbert.ViewModels.Dialogs;
 
 /// <summary>
 /// ViewModel for the Options dialog.

@@ -5,7 +5,7 @@ using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Couchcoding.Logbert.Helper
+namespace Logbert.Helper
 {
   /// <summary>
   /// Class to protect data like credentials.

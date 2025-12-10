@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs.Docking
+﻿namespace Logbert.Dialogs.Docking
 {
   partial class FrmLogDocument
   {
@@ -18,7 +18,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogDocument));
             this.LogDockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-            this.tsMessages = new Couchcoding.Logbert.Gui.Controls.ToolStripEx();
+            this.tsMessages = new Logbert.Gui.Controls.ToolStripEx();
             this.tslLogLevel = new System.Windows.Forms.ToolStripLabel();
             this.tsbShowTrace = new System.Windows.Forms.ToolStripButton();
             this.tsbShowDebug = new System.Windows.Forms.ToolStripButton();
@@ -62,11 +62,11 @@
             this.stBar = new System.Windows.Forms.StatusStrip();
             this.stbStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.stbMessageCount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tblInnerLayout = new Couchcoding.Logbert.Gui.Controls.TableLayoutPanelEx();
-            this.errorPanelBack = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
-            this.tblErrorPanel = new Couchcoding.Logbert.Gui.Controls.TableLayoutPanelEx();
-            this.errorPanel = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
-            this.lnkClose = new Couchcoding.Logbert.Gui.Controls.LinkLabelEx();
+            this.tblInnerLayout = new Logbert.Gui.Controls.TableLayoutPanelEx();
+            this.errorPanelBack = new Logbert.Gui.Controls.InfoPanel();
+            this.tblErrorPanel = new Logbert.Gui.Controls.TableLayoutPanelEx();
+            this.errorPanel = new Logbert.Gui.Controls.InfoPanel();
+            this.lnkClose = new Logbert.Gui.Controls.LinkLabelEx();
             ((System.ComponentModel.ISupportInitialize)(this.LogDockPanel)).BeginInit();
             this.tsMessages.SuspendLayout();
             this.stBar.SuspendLayout();
@@ -578,7 +578,7 @@
             this.errorPanel.BackColor = System.Drawing.Color.LightCoral;
             this.errorPanel.BorderColor = System.Drawing.SystemColors.ControlDark;
             this.errorPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.errorPanel.InfoIcon = global::Couchcoding.Logbert.Properties.Resources.log_error;
+            this.errorPanel.InfoIcon = global::Logbert.Properties.Resources.log_error;
             this.errorPanel.Location = new System.Drawing.Point(1, 0);
             this.errorPanel.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.errorPanel.Name = "errorPanel";
@@ -639,7 +639,7 @@
     #endregion
 
     private WeifenLuo.WinFormsUI.Docking.DockPanel LogDockPanel;
-    private Couchcoding.Logbert.Gui.Controls.ToolStripEx tsMessages;
+    private Logbert.Gui.Controls.ToolStripEx tsMessages;
     private System.Windows.Forms.ToolStripButton tsbShowDebug;
     private System.Windows.Forms.ToolStripButton tsbShowInfo;
     private System.Windows.Forms.ToolStripButton tsbShowWarn;

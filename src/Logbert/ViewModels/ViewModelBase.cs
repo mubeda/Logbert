@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Couchcoding.Logbert.ViewModels;
+namespace Logbert.ViewModels;
 
 /// <summary>
 /// Base class for all ViewModels in the application.

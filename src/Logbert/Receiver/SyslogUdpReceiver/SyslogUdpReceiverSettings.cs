@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    SyslogUdpReceiverSettings.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -33,16 +33,16 @@ using System.Net;
 using System.Net.NetworkInformation;
 // using System.Windows.Forms; // WinForms removed for Avalonia
 
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Properties;
+using Logbert.Interfaces;
+using Logbert.Properties;
 using System.Net.Sockets;
 
-using Couchcoding.Logbert.Helper;
+using Logbert.Helper;
 using System.Text;
 
-using Couchcoding.Logbert.Dialogs;
+using Logbert.Dialogs;
 
-namespace Couchcoding.Logbert.Receiver.SyslogUdpReceiver
+namespace Logbert.Receiver.SyslogUdpReceiver
 {
   /// <summary>
   /// Implements the <see cref="ILogSettingsCtrl"/> control for the Syslog UDP receiver.

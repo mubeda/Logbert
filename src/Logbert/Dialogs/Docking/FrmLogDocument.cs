@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    FrmLogDocument.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -36,18 +36,18 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Logging.Filter;
-using Couchcoding.Logbert.Properties;
+using Logbert.Helper;
+using Logbert.Interfaces;
+using Logbert.Logging;
+using Logbert.Logging.Filter;
+using Logbert.Properties;
 
 using WeifenLuo.WinFormsUI.Docking;
-using Couchcoding.Logbert.Theme.Interfaces;
-using Couchcoding.Logbert.Theme;
-using Couchcoding.Logbert.Theme.Themes;
+using Logbert.Theme.Interfaces;
+using Logbert.Theme;
+using Logbert.Theme.Themes;
 
-namespace Couchcoding.Logbert.Dialogs.Docking
+namespace Logbert.Dialogs.Docking
 {
   /// <summary>
   /// Implements the main <see cref="DockContent"/> for the logger windows.
@@ -324,25 +324,25 @@ namespace Couchcoding.Logbert.Dialogs.Docking
     {
       switch (persistString)
       {
-        case "Couchcoding.Logbert.Dialogs.Docking.FrmLogWindow":
+        case "Logbert.Dialogs.Docking.FrmLogWindow":
           return mLogWindow;
 
-        case "Couchcoding.Logbert.Dialogs.Docking.FrmLogScript":
+        case "Logbert.Dialogs.Docking.FrmLogScript":
           return mLogScript;
 
-        case "Couchcoding.Logbert.Dialogs.Docking.FrmMessageDetails":
+        case "Logbert.Dialogs.Docking.FrmMessageDetails":
           return mMessageDetails;
 
-        case "Couchcoding.Logbert.Dialogs.Docking.FrmLogBookmarks":
+        case "Logbert.Dialogs.Docking.FrmLogBookmarks":
           return mBookmarks;
 
-        case "Couchcoding.Logbert.Dialogs.Docking.FrmLogFilter":
+        case "Logbert.Dialogs.Docking.FrmLogFilter":
           return mFilter;
 
-        case "Couchcoding.Logbert.Dialogs.Docking.FrmLogTree":
+        case "Logbert.Dialogs.Docking.FrmLogTree":
           return mLoggerTree;
 
-        case "Couchcoding.Logbert.Dialogs.Docking.FrmLogStatistic":
+        case "Logbert.Dialogs.Docking.FrmLogStatistic":
           return mLogStatistic;
       }
 

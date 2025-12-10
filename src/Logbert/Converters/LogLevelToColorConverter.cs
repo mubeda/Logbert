@@ -2,9 +2,9 @@ using System;
 using System.Globalization;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
-using Couchcoding.Logbert.Logging;
+using Logbert.Logging;
 
-namespace Couchcoding.Logbert.Converters;
+namespace Logbert.Converters;
 
 /// <summary>
 /// Converts a log level to a color brush.

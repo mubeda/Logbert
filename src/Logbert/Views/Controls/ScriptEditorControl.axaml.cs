@@ -2,10 +2,10 @@ using Avalonia.Controls;
 using AvaloniaEdit;
 using AvaloniaEdit.Highlighting;
 using AvaloniaEdit.Highlighting.Xshd;
-using Couchcoding.Logbert.ViewModels.Controls;
+using Logbert.ViewModels.Controls;
 using System.Xml;
 
-namespace Couchcoding.Logbert.Views.Controls;
+namespace Logbert.Views.Controls;
 
 public partial class ScriptEditorControl : UserControl
 {

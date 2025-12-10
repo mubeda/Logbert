@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
+namespace Logbert.Receiver.CustomReceiver.CustomHttpReceiver
 {
   public class BasicHttpAuthentication
   {

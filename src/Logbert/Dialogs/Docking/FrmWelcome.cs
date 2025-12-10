@@ -1,4 +1,4 @@
-﻿#region Copyright © 2018 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    FrmWelcome.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2018 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -33,35 +33,35 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-using Couchcoding.Logbert.Gui.Controls;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Properties;
-using Couchcoding.Logbert.Receiver;
-using Couchcoding.Logbert.Receiver.CustomReceiver.CustomFileReceiver;
-using Couchcoding.Logbert.Receiver.CustomReceiver.CustomUdpReceiver;
-using Couchcoding.Logbert.Receiver.EventlogReceiver;
-using Couchcoding.Logbert.Receiver.Log4NetDirReceiver;
-using Couchcoding.Logbert.Receiver.Log4NetFileReceiver;
-using Couchcoding.Logbert.Receiver.Log4NetUdpReceiver;
-using Couchcoding.Logbert.Receiver.NlogTcpReceiver;
-using Couchcoding.Logbert.Receiver.NLogDirReceiver;
-using Couchcoding.Logbert.Receiver.NLogFileReceiver;
-using Couchcoding.Logbert.Receiver.NLogUdpReceiver;
-using Couchcoding.Logbert.Receiver.SyslogFileReceiver;
-using Couchcoding.Logbert.Receiver.SyslogUdpReceiver;
-using Couchcoding.Logbert.Receiver.WinDebugReceiver;
+using Logbert.Gui.Controls;
+using Logbert.Helper;
+using Logbert.Properties;
+using Logbert.Receiver;
+using Logbert.Receiver.CustomReceiver.CustomFileReceiver;
+using Logbert.Receiver.CustomReceiver.CustomUdpReceiver;
+using Logbert.Receiver.EventlogReceiver;
+using Logbert.Receiver.Log4NetDirReceiver;
+using Logbert.Receiver.Log4NetFileReceiver;
+using Logbert.Receiver.Log4NetUdpReceiver;
+using Logbert.Receiver.NlogTcpReceiver;
+using Logbert.Receiver.NLogDirReceiver;
+using Logbert.Receiver.NLogFileReceiver;
+using Logbert.Receiver.NLogUdpReceiver;
+using Logbert.Receiver.SyslogFileReceiver;
+using Logbert.Receiver.SyslogUdpReceiver;
+using Logbert.Receiver.WinDebugReceiver;
 
 using Logbert;
 
 using WeifenLuo.WinFormsUI.Docking;
-using Couchcoding.Logbert.Theme.Interfaces;
-using Couchcoding.Logbert.Theme;
-using Couchcoding.Logbert.Theme.Themes;
-using Couchcoding.Logbert.Gui.Helper;
-using Couchcoding.Logbert.Controls;
-using Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver;
+using Logbert.Theme.Interfaces;
+using Logbert.Theme;
+using Logbert.Theme.Themes;
+using Logbert.Gui.Helper;
+using Logbert.Controls;
+using Logbert.Receiver.CustomReceiver.CustomHttpReceiver;
 
-namespace Couchcoding.Logbert.Dialogs.Docking
+namespace Logbert.Dialogs.Docking
 {
   public partial class FrmWelcome : DockContentEx, IThemable
   {

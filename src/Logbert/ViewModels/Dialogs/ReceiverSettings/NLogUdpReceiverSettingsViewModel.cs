@@ -4,11 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Receiver;
-using Couchcoding.Logbert.Receiver.NLogUdpReceiver;
+using Logbert.Interfaces;
+using Logbert.Receiver;
+using Logbert.Receiver.NLogUdpReceiver;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings
+namespace Logbert.ViewModels.Dialogs.ReceiverSettings
 {
     /// <summary>
     /// ViewModel for NLog UDP Receiver configuration.

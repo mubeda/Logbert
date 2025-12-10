@@ -1,4 +1,4 @@
-﻿#region Copyright © 2016 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    LogColumn.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2016 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +28,10 @@
 
 #endregion
 
-using Couchcoding.Logbert.Properties;
+using Logbert.Properties;
 using System.Xml;
 
-namespace Couchcoding.Logbert.Receiver.CustomReceiver
+namespace Logbert.Receiver.CustomReceiver
 {
   /// <summary>
   /// Implements a column of a custom log.

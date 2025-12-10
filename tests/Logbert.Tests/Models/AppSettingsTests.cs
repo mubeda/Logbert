@@ -1,5 +1,5 @@
 using Xunit;
-using Couchcoding.Logbert.Models;
+using Logbert.Models;
 using FluentAssertions;
 using System.Text.Json;
 

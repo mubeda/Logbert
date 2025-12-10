@@ -4,9 +4,9 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Couchcoding.Logbert.Logging;
+using Logbert.Logging;
 
-namespace Couchcoding.Logbert.Services;
+namespace Logbert.Services;
 
 /// <summary>
 /// Service for exporting log messages to various formats.

@@ -1,4 +1,4 @@
-﻿#region Copyright © 2018 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    CustomDirReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2018 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -34,14 +34,14 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 // using System.Windows.Forms; // WinForms removed for Avalonia
-using Couchcoding.Logbert.Interfaces;
+using Logbert.Interfaces;
 
-// using Couchcoding.Logbert.Controls; // WinForms controls removed for Avalonia
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Receiver.CustomReceiver;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
+using Logbert.Helper;
+using Logbert.Logging;
+using Logbert.Receiver.CustomReceiver;
 
-namespace Couchcoding.Logbert.Receiver.Log4NetDirReceiver
+namespace Logbert.Receiver.Log4NetDirReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the custom file service.

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Couchcoding.Logbert.Logging;
+using Logbert.Logging;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs;
+namespace Logbert.ViewModels.Dialogs;
 
 /// <summary>
 /// ViewModel for the Search dialog.

@@ -435,7 +435,7 @@ A comprehensive comparison between the new Avalonia implementation (`src/`) and 
 
 #### 1. Filter Editor Dialog (FrmAddEditFilter)
 
-**Legacy Location:** `src_old/Couchcoding.Logbert/Dialogs/Docking/FrmAddEditFilter.cs`
+**Legacy Location:** `src_old/Logbert/Dialogs/Docking/FrmAddEditFilter.cs`
 
 **Legacy Features (Missing):**
 - Visual filter rule builder with drag-and-drop
@@ -474,7 +474,7 @@ Services/FilterService.cs (if not exists)
 
 #### 2. Columnizer Test Dialog (FrmColumnizerTest)
 
-**Legacy Location:** `src_old/Couchcoding.Logbert/Dialogs/FrmColumnizerTest.cs`
+**Legacy Location:** `src_old/Logbert/Dialogs/FrmColumnizerTest.cs`
 
 **Legacy Features (Missing):**
 - Live regex pattern testing against sample log lines
@@ -516,7 +516,7 @@ ViewModels/Dialogs/ColumnizerTestDialogViewModel.cs
 
 #### 3. Timestamp Format Editor (FrmTimestamps)
 
-**Legacy Location:** `src_old/Couchcoding.Logbert/Dialogs/FrmTimestamps.cs`
+**Legacy Location:** `src_old/Logbert/Dialogs/FrmTimestamps.cs`
 
 **Legacy Features (Missing):**
 - Visual timestamp format builder
@@ -563,7 +563,7 @@ HH:mm:ss.fff                     (Time only)
 
 #### 4. Advanced Filter Panel
 
-**Legacy Location:** `src_old/Couchcoding.Logbert/Controls/FrmLogFilter.cs` (532 lines)
+**Legacy Location:** `src_old/Logbert/Controls/FrmLogFilter.cs` (532 lines)
 
 **Legacy Features (Missing):**
 - Complex filter expression builder

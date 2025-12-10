@@ -1,4 +1,4 @@
-﻿#region Copyright © 2017 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    Browser.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2017 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace Couchcoding.Logbert.Helper
+namespace Logbert.Helper
 {
   /// <summary>
   /// Implements helper methods to access the system browser.

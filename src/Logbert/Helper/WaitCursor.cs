@@ -1,4 +1,4 @@
-#region Copyright © 2015 Couchcoding
+#region Copyright © 2015 Logbert Contributors
 
 // File:    WaitCursor.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,9 +31,9 @@
 using System;
 using System.Windows.Forms;
 
-using Couchcoding.Logbert.Properties;
+using Logbert.Properties;
 
-namespace Couchcoding.Logbert.Helper
+namespace Logbert.Helper
 {
 	/// <summary>
 	/// Utility class to make showing (usually) a Wait Cursor much simpler and to remove the

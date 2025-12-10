@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    FrmLogTree.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,24 +30,24 @@
 
 using System;
 
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Logging;
+using Logbert.Interfaces;
+using Logbert.Logging;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-using Couchcoding.Logbert.Helper;
+using Logbert.Helper;
 
 using WeifenLuo.WinFormsUI.Docking;
 using System.Drawing;
 
-using Couchcoding.Logbert.Logging.Filter;
-using Couchcoding.Logbert.Theme.Interfaces;
-using Couchcoding.Logbert.Theme;
-using Couchcoding.Logbert.Theme.Themes;
-using Couchcoding.Logbert.Theme.Helper;
+using Logbert.Logging.Filter;
+using Logbert.Theme.Interfaces;
+using Logbert.Theme;
+using Logbert.Theme.Themes;
+using Logbert.Theme.Helper;
 
-namespace Couchcoding.Logbert.Dialogs.Docking
+namespace Logbert.Dialogs.Docking
 {
   /// <summary>
   /// Implements the <see cref="DockContent"/> of the logger tree.

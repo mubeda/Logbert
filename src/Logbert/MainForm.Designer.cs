@@ -23,8 +23,8 @@ namespace Logbert
             this.loggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.threadColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.msgColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.mainDockPanel = new Couchcoding.Logbert.Controls.DockPanelEx();
-            this.mnuMain = new Couchcoding.Logbert.Gui.Controls.MenuStripEx();
+            this.mainDockPanel = new Logbert.Controls.DockPanelEx();
+            this.mnuMain = new Logbert.Gui.Controls.MenuStripEx();
             this.mnuMainFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMainFileNewLogger = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMainFileOpelLogFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,7 +73,7 @@ namespace Logbert
             // mainDockPanel
             // 
             this.mainDockPanel.AllowDrop = true;
-            this.mainDockPanel.BackgroundImage = global::Couchcoding.Logbert.Properties.Resources.Logbert_Start_Screen;
+            this.mainDockPanel.BackgroundImage = global::Logbert.Properties.Resources.Logbert_Start_Screen;
             this.mainDockPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.mainDockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainDockPanel.Theme = new WeifenLuo.WinFormsUI.Docking.VS2015LightTheme();
@@ -263,8 +263,8 @@ namespace Logbert
     private System.Windows.Forms.ColumnHeader loggerColumnHeader;
     private System.Windows.Forms.ColumnHeader threadColumnHeader;
     private System.Windows.Forms.ColumnHeader msgColumnHeader;
-    private Couchcoding.Logbert.Controls.DockPanelEx mainDockPanel;
-    private Couchcoding.Logbert.Gui.Controls.MenuStripEx mnuMain;
+    private Logbert.Controls.DockPanelEx mainDockPanel;
+    private Logbert.Gui.Controls.MenuStripEx mnuMain;
     private ToolStripMenuItem mnuMainFile;
     private ToolStripMenuItem mnuMainFileNewLogger;
     private ToolStripMenuItem mnuMainFileOpelLogFile;

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Couchcoding.Logbert.Logging.Sample;
+namespace Logbert.Logging.Sample;
 
 /// <summary>
 /// Generates sample log messages for testing.

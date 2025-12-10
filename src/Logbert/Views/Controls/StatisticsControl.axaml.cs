@@ -2,10 +2,10 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
-using Couchcoding.Logbert.ViewModels.Controls;
+using Logbert.ViewModels.Controls;
 using System.Globalization;
 
-namespace Couchcoding.Logbert.Views.Controls;
+namespace Logbert.Views.Controls;
 
 public partial class StatisticsControl : UserControl
 {

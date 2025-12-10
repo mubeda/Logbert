@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    FrmLogFilter.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -33,18 +33,18 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Logging;
+using Logbert.Helper;
+using Logbert.Logging;
 using WeifenLuo.WinFormsUI.Docking;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Logging.Filter;
+using Logbert.Interfaces;
+using Logbert.Logging.Filter;
 using System;
-using Couchcoding.Logbert.Properties;
-using Couchcoding.Logbert.Theme.Interfaces;
-using Couchcoding.Logbert.Theme;
-using Couchcoding.Logbert.Theme.Themes;
+using Logbert.Properties;
+using Logbert.Theme.Interfaces;
+using Logbert.Theme;
+using Logbert.Theme.Themes;
 
-namespace Couchcoding.Logbert.Dialogs.Docking
+namespace Logbert.Dialogs.Docking
 {
   /// <summary>
   /// Implements a <see cref="DockContent"/> to create, configure enable and disable filter.

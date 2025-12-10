@@ -7,7 +7,7 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
-    <RootNamespace>Couchcoding.Logbert</RootNamespace>
+    <RootNamespace>Logbert</RootNamespace>
     <AssemblyName>Logbert</AssemblyName>
     <ApplicationIcon>Logbert.ico</ApplicationIcon>
     <LangVersion>latest</LangVersion>
@@ -55,8 +55,8 @@
   <!-- WinForms projects removed for Avalonia migration -->
   <!--
   <ItemGroup>
-    <ProjectReference Include="..\Couchcoding.Logbert.Gui\Couchcoding.Logbert.Gui.csproj" />
-    <ProjectReference Include="..\Couchcoding.Logbert.Theme\Couchcoding.Logbert.Theme.csproj" />
+    <ProjectReference Include="..\Logbert.Gui\Logbert.Gui.csproj" />
+    <ProjectReference Include="..\Logbert.Theme\Logbert.Theme.csproj" />
   </ItemGroup>
   -->
 

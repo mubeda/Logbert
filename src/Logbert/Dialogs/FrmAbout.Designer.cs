@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs
+﻿namespace Logbert.Dialogs
 {
   partial class FrmAbout
   {
@@ -46,12 +46,12 @@
             this.lblVersion = new System.Windows.Forms.Label();
             this.lblCopyright = new System.Windows.Forms.Label();
             this.tpComponents = new System.Windows.Forms.TabPage();
-            this.lstComponents = new Couchcoding.Logbert.Gui.Controls.ListViewEx();
+            this.lstComponents = new Logbert.Gui.Controls.ListViewEx();
             this.clmComponent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmLicense = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmWebsite = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tpLicense = new System.Windows.Forms.TabPage();
-            this.linkLabelEx1 = new Couchcoding.Logbert.Gui.Controls.LinkLabelEx();
+            this.linkLabelEx1 = new Logbert.Gui.Controls.LinkLabelEx();
             this.txtLicense = new System.Windows.Forms.TextBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.tcAbout.SuspendLayout();
@@ -77,7 +77,7 @@
             // tpAbout
             // 
             this.tpAbout.BackColor = System.Drawing.Color.White;
-            this.tpAbout.BackgroundImage = global::Couchcoding.Logbert.Properties.Resources.logbert_about;
+            this.tpAbout.BackgroundImage = global::Logbert.Properties.Resources.logbert_about;
             this.tpAbout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.tpAbout.Controls.Add(this.lblVersion);
             this.tpAbout.Controls.Add(this.lblCopyright);

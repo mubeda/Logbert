@@ -4,7 +4,7 @@ using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs;
+namespace Logbert.ViewModels.Dialogs;
 
 /// <summary>
 /// ViewModel for the Timestamp Format dialog.

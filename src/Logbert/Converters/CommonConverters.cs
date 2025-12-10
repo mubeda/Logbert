@@ -3,7 +3,7 @@ using System.Globalization;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 
-namespace Couchcoding.Logbert.Converters;
+namespace Logbert.Converters;
 
 /// <summary>
 /// Converts a boolean to a background brush (green for success/valid, red for error/invalid).

@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Controls
+﻿namespace Logbert.Controls
 {
   partial class CustomDetailsControl
   {
@@ -16,14 +16,14 @@
     private void InitializeComponent()
     {
             this.components = new System.ComponentModel.Container();
-            this.logDetailToolStrip = new Couchcoding.Logbert.Gui.Controls.ToolStripEx();
+            this.logDetailToolStrip = new Logbert.Gui.Controls.ToolStripEx();
             this.tsbZoomIn = new System.Windows.Forms.ToolStripButton();
             this.tsbZoomOut = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbCopy = new System.Windows.Forms.ToolStripButton();
             this.tltTip = new System.Windows.Forms.ToolTip(this.components);
-            this.pbxCopyNumber = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-            this.LogMessagePanel = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
+            this.pbxCopyNumber = new Logbert.Gui.Controls.PictureBoxEx();
+            this.LogMessagePanel = new Logbert.Gui.Controls.InfoPanel();
             this.tblLogMessage = new Gui.Controls.TableLayoutPanelEx();
             this.lblCaptionNumber = new System.Windows.Forms.Label();
             this.txtDataNumber = new System.Windows.Forms.TextBox();
@@ -179,7 +179,7 @@
 
     #endregion
 
-    private Couchcoding.Logbert.Gui.Controls.ToolStripEx logDetailToolStrip;
+    private Logbert.Gui.Controls.ToolStripEx logDetailToolStrip;
     private System.Windows.Forms.ToolStripButton tsbZoomIn;
     private System.Windows.Forms.ToolStripButton tsbZoomOut;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

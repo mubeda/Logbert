@@ -1,8 +1,8 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:Couchcoding.Logbert.ViewModels.Controls"
-             xmlns:receiver="clr-namespace:Couchcoding.Logbert.Receiver.CustomReceiver"
-             x:Class="Couchcoding.Logbert.Views.Controls.ColumnizerEditorControl"
+             xmlns:vm="clr-namespace:Logbert.ViewModels.Controls"
+             xmlns:receiver="clr-namespace:Logbert.Receiver.CustomReceiver"
+             x:Class="Logbert.Views.Controls.ColumnizerEditorControl"
              x:DataType="vm:ColumnizerEditorViewModel">
 
   <Design.DataContext>

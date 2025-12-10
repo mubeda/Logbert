@@ -1,11 +1,11 @@
 using System;
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Receiver;
-using Couchcoding.Logbert.Receiver.WinDebugReceiver;
+using Logbert.Interfaces;
+using Logbert.Receiver;
+using Logbert.Receiver.WinDebugReceiver;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings;
+namespace Logbert.ViewModels.Dialogs.ReceiverSettings;
 
 public partial class WinDebugReceiverSettingsViewModel : ViewModelBase, ILogSettingsCtrl
 {

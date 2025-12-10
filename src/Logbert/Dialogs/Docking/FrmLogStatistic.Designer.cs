@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs.Docking
+﻿namespace Logbert.Dialogs.Docking
 {
   partial class FrmLogStatistic
   {
@@ -22,7 +22,7 @@
       System.Windows.Forms.DataVisualization.Charting.LegendCellColumn legendCellColumn3 = new System.Windows.Forms.DataVisualization.Charting.LegendCellColumn();
       System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogStatistic));
-      this.toolStrip1 = new Couchcoding.Logbert.Gui.Controls.ToolStripEx();
+      this.toolStrip1 = new Logbert.Gui.Controls.ToolStripEx();
       this.tsbShowLegend = new System.Windows.Forms.ToolStripButton();
       this.chrtOverview = new System.Windows.Forms.DataVisualization.Charting.Chart();
       this.toolStrip1.SuspendLayout();

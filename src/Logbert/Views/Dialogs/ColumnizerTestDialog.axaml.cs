@@ -1,9 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Couchcoding.Logbert.Converters;
-using Couchcoding.Logbert.ViewModels.Dialogs;
+using Logbert.Converters;
+using Logbert.ViewModels.Dialogs;
 
-namespace Couchcoding.Logbert.Views.Dialogs;
+namespace Logbert.Views.Dialogs;
 
 /// <summary>
 /// Code-behind for the Columnizer Test Dialog.

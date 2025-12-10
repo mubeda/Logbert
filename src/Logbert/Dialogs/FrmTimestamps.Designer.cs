@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs
+﻿namespace Logbert.Dialogs
 {
   partial class FrmTimestamps
   {
@@ -31,7 +31,7 @@
             this.lblTimestampFormat = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
-            this.nfoPanel = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
+            this.nfoPanel = new Logbert.Gui.Controls.InfoPanel();
             this.txtTimestamps = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -75,7 +75,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nfoPanel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.nfoPanel.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.nfoPanel.InfoIcon = global::Couchcoding.Logbert.Properties.Resources.StatusAnnotations_Information_16xLG;
+            this.nfoPanel.InfoIcon = global::Logbert.Properties.Resources.StatusAnnotations_Information_16xLG;
             this.nfoPanel.Location = new System.Drawing.Point(9, 175);
             this.nfoPanel.Name = "nfoPanel";
             this.nfoPanel.ShowInfoIcon = true;

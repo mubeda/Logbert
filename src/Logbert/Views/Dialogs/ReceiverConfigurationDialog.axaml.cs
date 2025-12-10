@@ -1,12 +1,12 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Receiver;
-using Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings;
-using Couchcoding.Logbert.Views.Dialogs.ReceiverSettings;
+using Logbert.Interfaces;
+using Logbert.Receiver;
+using Logbert.ViewModels.Dialogs.ReceiverSettings;
+using Logbert.Views.Dialogs.ReceiverSettings;
 using System;
 
-namespace Couchcoding.Logbert.Views.Dialogs;
+namespace Logbert.Views.Dialogs;
 
 public partial class ReceiverConfigurationDialog : Window
 {

@@ -1,5 +1,5 @@
 using Xunit;
-using Couchcoding.Logbert.Helper;
+using Logbert.Helper;
 using FluentAssertions;
 
 namespace Logbert.Tests.Helpers;

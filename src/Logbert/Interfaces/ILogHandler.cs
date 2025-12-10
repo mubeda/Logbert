@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    ILogHandler.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,9 +30,9 @@
 
 using System;
 
-using Couchcoding.Logbert.Logging;
+using Logbert.Logging;
 
-namespace Couchcoding.Logbert.Interfaces
+namespace Logbert.Interfaces
 {
   /// <summary>
   /// Interface for all <see cref="LogMessage"/> handler.

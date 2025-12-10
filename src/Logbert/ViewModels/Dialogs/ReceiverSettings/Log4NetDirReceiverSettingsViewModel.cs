@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Receiver;
-using Couchcoding.Logbert.Receiver.Log4NetDirReceiver;
+using Logbert.Interfaces;
+using Logbert.Receiver;
+using Logbert.Receiver.Log4NetDirReceiver;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings
+namespace Logbert.ViewModels.Dialogs.ReceiverSettings
 {
     /// <summary>
     /// ViewModel for Log4Net Directory Receiver configuration.

@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace Couchcoding.Logbert.Views.Docking;
+namespace Logbert.Views.Docking;
 
 public partial class LoggerTreeView : UserControl
 {

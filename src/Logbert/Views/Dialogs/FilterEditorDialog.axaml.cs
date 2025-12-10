@@ -1,10 +1,10 @@
 using System;
 using Avalonia.Controls;
-using Couchcoding.Logbert.Converters;
-using Couchcoding.Logbert.Models;
-using Couchcoding.Logbert.ViewModels.Dialogs;
+using Logbert.Converters;
+using Logbert.Models;
+using Logbert.ViewModels.Dialogs;
 
-namespace Couchcoding.Logbert.Views.Dialogs;
+namespace Logbert.Views.Dialogs;
 
 public partial class FilterEditorDialog : Window
 {

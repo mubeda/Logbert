@@ -1,10 +1,10 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
-using Couchcoding.Logbert.Views.Dialogs;
-using Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings;
+using Logbert.Views.Dialogs;
+using Logbert.ViewModels.Dialogs.ReceiverSettings;
 
-namespace Couchcoding.Logbert.Views.Dialogs.ReceiverSettings;
+namespace Logbert.Views.Dialogs.ReceiverSettings;
 
 public partial class SyslogFileReceiverSettingsView : Window
 {

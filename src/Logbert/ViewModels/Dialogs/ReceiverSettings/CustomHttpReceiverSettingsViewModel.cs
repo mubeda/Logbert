@@ -3,12 +3,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Receiver;
-using Couchcoding.Logbert.Receiver.CustomReceiver;
-using Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver;
+using Logbert.Interfaces;
+using Logbert.Receiver;
+using Logbert.Receiver.CustomReceiver;
+using Logbert.Receiver.CustomReceiver.CustomHttpReceiver;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings;
+namespace Logbert.ViewModels.Dialogs.ReceiverSettings;
 
 public partial class CustomHttpReceiverSettingsViewModel : ViewModelBase, ILogSettingsCtrl
 {

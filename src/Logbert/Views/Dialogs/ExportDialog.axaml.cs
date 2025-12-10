@@ -4,11 +4,11 @@ using System.Threading;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Services;
-using Couchcoding.Logbert.ViewModels.Dialogs;
+using Logbert.Logging;
+using Logbert.Services;
+using Logbert.ViewModels.Dialogs;
 
-namespace Couchcoding.Logbert.Views.Dialogs;
+namespace Logbert.Views.Dialogs;
 
 public partial class ExportDialog : Window
 {

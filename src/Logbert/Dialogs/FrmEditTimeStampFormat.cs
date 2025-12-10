@@ -1,4 +1,4 @@
-﻿#region Copyright © 2017 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    FrmEditTimeStampFormat.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2017 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,10 +31,10 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-using Couchcoding.Logbert.Gui.Dialogs;
-using Couchcoding.Logbert.Receiver.CustomReceiver;
+using Logbert.Gui.Dialogs;
+using Logbert.Receiver.CustomReceiver;
 
-namespace Couchcoding.Logbert.Dialogs
+namespace Logbert.Dialogs
 {
   /// <summary>
   /// Implements a dialog to edit the timestamp format to parse.

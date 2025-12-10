@@ -1,4 +1,4 @@
-﻿#region Copyright © 2018 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    CustomUdpReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2018 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,15 +31,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Interfaces;
+using Logbert.Helper;
+using Logbert.Interfaces;
 using System.Net;
 using System.Net.Sockets;
-using Couchcoding.Logbert.Receiver.Log4NetUdpReceiver;
-using Couchcoding.Logbert.Logging;
-// using Couchcoding.Logbert.Controls; // WinForms controls removed for Avalonia
+using Logbert.Receiver.Log4NetUdpReceiver;
+using Logbert.Logging;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
 
-namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomUdpReceiver
+namespace Logbert.Receiver.CustomReceiver.CustomUdpReceiver
 {
   public sealed class CustomUdpReceiver : ReceiverBase
   {

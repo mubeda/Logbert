@@ -1,9 +1,9 @@
 using MoonSharp.Interpreter;
-using Couchcoding.Logbert.Logging;
+using Logbert.Logging;
 using System;
 using System.Text;
 
-namespace Couchcoding.Logbert.Scripting;
+namespace Logbert.Scripting;
 
 /// <summary>
 /// Manages Lua script execution using MoonSharp.

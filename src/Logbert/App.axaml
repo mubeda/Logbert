@@ -1,8 +1,8 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vmDocking="using:Couchcoding.Logbert.ViewModels.Docking"
-             xmlns:viewsDocking="using:Couchcoding.Logbert.Views.Docking"
-             x:Class="Couchcoding.Logbert.App"
+             xmlns:vmDocking="using:Logbert.ViewModels.Docking"
+             xmlns:viewsDocking="using:Logbert.Views.Docking"
+             x:Class="Logbert.App"
              RequestedThemeVariant="Default">
 
     <Application.Styles>

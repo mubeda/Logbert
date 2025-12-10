@@ -3,7 +3,7 @@ using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs;
+namespace Logbert.ViewModels.Dialogs;
 
 /// <summary>
 /// ViewModel for the About dialog.
@@ -17,7 +17,7 @@ public partial class AboutDialogViewModel : ViewModelBase
     private string _version = string.Empty;
 
     [ObservableProperty]
-    private string _copyright = "Copyright © 2015 Couchcoding";
+    private string _copyright = "Copyright © 2024 Logbert Contributors";
 
     [ObservableProperty]
     private string _description = "Cross-platform log file viewer for various log formats";
@@ -37,7 +37,7 @@ public partial class AboutDialogViewModel : ViewModelBase
         // Load MIT license text
         LicenseText = @"The MIT License (MIT)
 
-Copyright (c) 2015 Couchcoding
+Copyright (c) 2024 Logbert Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the ""Software""), to deal

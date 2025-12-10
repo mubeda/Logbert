@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Couchcoding.Logbert.Models;
+namespace Logbert.Models;
 
 /// <summary>
 /// Application settings POCO for JSON serialization.

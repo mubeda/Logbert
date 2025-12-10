@@ -1,9 +1,9 @@
 using Dock.Model.Controls;
 using Dock.Model.Core;
-using Couchcoding.Logbert.ViewModels;
-using Couchcoding.Logbert.ViewModels.Docking;
+using Logbert.ViewModels;
+using Logbert.ViewModels.Docking;
 
-namespace Couchcoding.Logbert.Docking;
+namespace Logbert.Docking;
 
 /// <summary>
 /// Factory for creating dock elements.

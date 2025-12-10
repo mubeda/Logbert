@@ -1,8 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings;
+using Logbert.ViewModels.Dialogs.ReceiverSettings;
 
-namespace Couchcoding.Logbert.Views.Dialogs.ReceiverSettings;
+namespace Logbert.Views.Dialogs.ReceiverSettings;
 
 public partial class Log4NetUdpReceiverSettingsView : Window
 {

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Couchcoding.Logbert.ViewModels.Controls;
-using Couchcoding.Logbert.Logging;
+using Logbert.ViewModels.Controls;
+using Logbert.Logging;
 
-namespace Couchcoding.Logbert.Views.Dialogs;
+namespace Logbert.Views.Dialogs;
 
 public partial class StatisticsDialog : Window
 {

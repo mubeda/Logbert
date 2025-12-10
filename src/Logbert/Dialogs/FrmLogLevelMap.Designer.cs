@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs
+﻿namespace Logbert.Dialogs
 {
   partial class FrmLogLevelMap
   {
@@ -34,12 +34,12 @@
       System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
       this.btnCancel = new System.Windows.Forms.Button();
       this.btnOk = new System.Windows.Forms.Button();
-      this.pnlGrid = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
-      this.dgvLogLevel = new Couchcoding.Logbert.Gui.Controls.DataGridViewEx();
+      this.pnlGrid = new Logbert.Gui.Controls.InfoPanel();
+      this.dgvLogLevel = new Logbert.Gui.Controls.DataGridViewEx();
       this.clmValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.clmImage = new System.Windows.Forms.DataGridViewImageColumn();
       this.clmLogLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.nfoPanel = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
+      this.nfoPanel = new Logbert.Gui.Controls.InfoPanel();
       this.pnlGrid.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvLogLevel)).BeginInit();
       this.SuspendLayout();
@@ -156,7 +156,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.nfoPanel.BackColor = System.Drawing.Color.WhiteSmoke;
       this.nfoPanel.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
-      this.nfoPanel.InfoIcon = global::Couchcoding.Logbert.Properties.Resources.StatusAnnotations_Information_16xLG;
+      this.nfoPanel.InfoIcon = global::Logbert.Properties.Resources.StatusAnnotations_Information_16xLG;
       this.nfoPanel.Location = new System.Drawing.Point(8, 68);
       this.nfoPanel.Name = "nfoPanel";
       this.nfoPanel.ShowInfoIcon = true;

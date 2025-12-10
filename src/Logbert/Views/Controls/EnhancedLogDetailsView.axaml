@@ -2,9 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:logging="using:Couchcoding.Logbert.Logging"
+             xmlns:logging="using:Logbert.Logging"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="300"
-             x:Class="Couchcoding.Logbert.Views.Controls.EnhancedLogDetailsView"
+             x:Class="Logbert.Views.Controls.EnhancedLogDetailsView"
              x:DataType="logging:LogMessage">
 
     <ScrollViewer>

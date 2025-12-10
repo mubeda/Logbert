@@ -1,8 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Couchcoding.Logbert.ViewModels.Dialogs;
+using Logbert.ViewModels.Dialogs;
 
-namespace Couchcoding.Logbert.Views.Dialogs;
+namespace Logbert.Views.Dialogs;
 
 public partial class AboutDialog : Window
 {

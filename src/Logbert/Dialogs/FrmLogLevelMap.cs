@@ -1,4 +1,4 @@
-﻿#region Copyright © 2017 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    FrmLogLevelMap.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2017 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,12 +28,12 @@
 
 #endregion
 
-using Couchcoding.Logbert.Gui.Dialogs;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Properties;
+using Logbert.Gui.Dialogs;
+using Logbert.Logging;
+using Logbert.Properties;
 using System.Collections.Generic;
 
-namespace Couchcoding.Logbert.Dialogs
+namespace Logbert.Dialogs
 {
   /// <summary>
   /// Implements a dialog to edit <see cref="LogLevel"/> mappings for a <see cref="Columnizer"/>.

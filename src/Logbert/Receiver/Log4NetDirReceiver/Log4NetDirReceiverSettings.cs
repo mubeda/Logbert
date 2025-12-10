@@ -1,4 +1,4 @@
-﻿#region Copyright © 2017 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    Log4NetDirReceiverSettings.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2017 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,14 +32,14 @@ using System;
 using System.Drawing;
 // using System.Windows.Forms; // WinForms removed for Avalonia
 
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Properties;
+using Logbert.Interfaces;
+using Logbert.Properties;
 using System.IO;
 using System.Text;
 
-using Couchcoding.Logbert.Helper;
+using Logbert.Helper;
 
-namespace Couchcoding.Logbert.Receiver.Log4NetDirReceiver
+namespace Logbert.Receiver.Log4NetDirReceiver
 {
   /// <summary>
   /// Implements the <see cref="ILogSettingsCtrl"/> control for the Log4Net file receiver.

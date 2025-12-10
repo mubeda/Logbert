@@ -141,8 +141,8 @@ public class FixedSizedQueueTests
 
     private static object CreateFixedSizedQueue<T>(int size)
     {
-        var assembly = typeof(Couchcoding.Logbert.Helper.StringExtensions).Assembly;
-        var type = assembly.GetType("Couchcoding.Logbert.Helper.FixedSizedQueue`1");
+        var assembly = typeof(Logbert.Helper.StringExtensions).Assembly;
+        var type = assembly.GetType("Logbert.Helper.FixedSizedQueue`1");
         var genericType = type!.MakeGenericType(typeof(T));
         return Activator.CreateInstance(genericType, size)!;
     }

@@ -1,10 +1,10 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Receiver.CustomReceiver;
+using Logbert.Logging;
+using Logbert.Receiver.CustomReceiver;
 
-namespace Couchcoding.Logbert.ViewModels.Controls;
+namespace Logbert.ViewModels.Controls;
 
 public partial class ColumnizerEditorViewModel : ViewModelBase
 {

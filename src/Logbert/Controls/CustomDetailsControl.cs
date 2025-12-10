@@ -1,4 +1,4 @@
-﻿#region Copyright © 2017 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    CustomDetailsControl.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2017 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -34,19 +34,19 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Receiver.CustomReceiver;
-using Couchcoding.Logbert.Gui.Controls;
-using Couchcoding.Logbert.Properties;
-using Couchcoding.Logbert.Theme.Palettes;
-using Couchcoding.Logbert.Theme.Interfaces;
-using Couchcoding.Logbert.Theme;
-using Couchcoding.Logbert.Theme.Themes;
-using Couchcoding.Logbert.Theme.Helper;
+using Logbert.Helper;
+using Logbert.Interfaces;
+using Logbert.Logging;
+using Logbert.Receiver.CustomReceiver;
+using Logbert.Gui.Controls;
+using Logbert.Properties;
+using Logbert.Theme.Palettes;
+using Logbert.Theme.Interfaces;
+using Logbert.Theme;
+using Logbert.Theme.Themes;
+using Logbert.Theme.Helper;
 
-namespace Couchcoding.Logbert.Controls
+namespace Logbert.Controls
 {
   /// <summary>
   /// Implements a <see cref="UserControl"/> to display details of a selected <see cref="LogMessage"/>.

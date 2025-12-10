@@ -1,7 +1,7 @@
 using Avalonia.Controls;
-using Couchcoding.Logbert.ViewModels.Controls;
+using Logbert.ViewModels.Controls;
 
-namespace Couchcoding.Logbert.Views.Controls;
+namespace Logbert.Views.Controls;
 
 public partial class ColorPickerControl : UserControl
 {

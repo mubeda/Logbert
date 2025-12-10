@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Controls
+﻿namespace Logbert.Controls
 {
   partial class EventLogDetailsControl
   {
@@ -16,21 +16,21 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
-      this.logDetailToolStrip = new Couchcoding.Logbert.Gui.Controls.ToolStripEx();
+      this.logDetailToolStrip = new Logbert.Gui.Controls.ToolStripEx();
       this.tsbZoomIn = new System.Windows.Forms.ToolStripButton();
       this.tsbZoomOut = new System.Windows.Forms.ToolStripButton();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.tsbCopy = new System.Windows.Forms.ToolStripButton();
       this.tltTip = new System.Windows.Forms.ToolTip(this.components);
-      this.pbxCopyCategory = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyLogger = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyDateAndTime = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyLevel = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyNumber = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyUsername = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyMessage = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyInstanceId = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.LogMessagePanel = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
+      this.pbxCopyCategory = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyLogger = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyDateAndTime = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyLevel = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyNumber = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyUsername = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyMessage = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyInstanceId = new Logbert.Gui.Controls.PictureBoxEx();
+      this.LogMessagePanel = new Logbert.Gui.Controls.InfoPanel();
       this.tblLogMessage = new Gui.Controls.TableLayoutPanelEx();
       this.txtDataInstaceId = new System.Windows.Forms.TextBox();
       this.lblCaptionUsername = new System.Windows.Forms.Label();

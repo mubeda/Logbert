@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    SyslogFileReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -33,16 +33,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-using Couchcoding.Logbert.Interfaces;
+using Logbert.Interfaces;
 
-using Couchcoding.Logbert.Logging;
+using Logbert.Logging;
 using System.Text.RegularExpressions;
 // using System.Windows.Forms; // WinForms removed for Avalonia
 
-// using Couchcoding.Logbert.Controls; // WinForms controls removed for Avalonia
-using Couchcoding.Logbert.Helper;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
+using Logbert.Helper;
 
-namespace Couchcoding.Logbert.Receiver.SyslogFileReceiver
+namespace Logbert.Receiver.SyslogFileReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the Log4Net file service.

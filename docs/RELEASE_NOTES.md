@@ -231,7 +231,7 @@ Please report bugs and feature requests on GitHub:
 ## Credits
 
 ### Core Team
-- Couchcoding (Original author and maintainer)
+- Logbert Contributors (Original author and maintainer)
 
 ### Technologies
 - [Avalonia UI](https://avaloniaui.net/) - Cross-platform UI framework

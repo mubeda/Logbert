@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Controls
+﻿namespace Logbert.Controls
 {
   partial class Log4NetDetailsControl
   {
@@ -16,20 +16,20 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
-      this.logDetailToolStrip = new Couchcoding.Logbert.Gui.Controls.ToolStripEx();
+      this.logDetailToolStrip = new Logbert.Gui.Controls.ToolStripEx();
       this.tsbZoomIn = new System.Windows.Forms.ToolStripButton();
       this.tsbZoomOut = new System.Windows.Forms.ToolStripButton();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.tsbCopy = new System.Windows.Forms.ToolStripButton();
       this.tltTip = new System.Windows.Forms.ToolTip(this.components);
-      this.pbxCopyMessage = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyThread = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyDateTime = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyLevel = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyLogger = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyLocation = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.pbxCopyProperties = new Couchcoding.Logbert.Gui.Controls.PictureBoxEx();
-      this.LogMessagePanel = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
+      this.pbxCopyMessage = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyThread = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyDateTime = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyLevel = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyLogger = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyLocation = new Logbert.Gui.Controls.PictureBoxEx();
+      this.pbxCopyProperties = new Logbert.Gui.Controls.PictureBoxEx();
+      this.LogMessagePanel = new Logbert.Gui.Controls.InfoPanel();
       this.tblLogMessage = new Gui.Controls.TableLayoutPanelEx();
       this.lblCaptionProperties = new System.Windows.Forms.Label();
       this.txtDataProperties = new System.Windows.Forms.TextBox();
@@ -463,7 +463,7 @@
 
     #endregion
 
-    private Couchcoding.Logbert.Gui.Controls.ToolStripEx logDetailToolStrip;
+    private Logbert.Gui.Controls.ToolStripEx logDetailToolStrip;
     private System.Windows.Forms.ToolStripButton tsbZoomIn;
     private System.Windows.Forms.ToolStripButton tsbZoomOut;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

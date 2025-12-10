@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Receiver;
-using Couchcoding.Logbert.Receiver.SyslogFileReceiver;
+using Logbert.Interfaces;
+using Logbert.Receiver;
+using Logbert.Receiver.SyslogFileReceiver;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings
+namespace Logbert.ViewModels.Dialogs.ReceiverSettings
 {
     /// <summary>
     /// ViewModel for Syslog File Receiver configuration.

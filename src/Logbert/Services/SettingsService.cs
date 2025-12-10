@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Couchcoding.Logbert.Models;
+using Logbert.Models;
 
-namespace Couchcoding.Logbert.Services;
+namespace Logbert.Services;
 
 /// <summary>
 /// Service for managing application settings with JSON persistence.

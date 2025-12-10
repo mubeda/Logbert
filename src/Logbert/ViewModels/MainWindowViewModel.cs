@@ -4,12 +4,12 @@ using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Logging.Sample;
-using Couchcoding.Logbert.ViewModels.Docking;
+using Logbert.Helper;
+using Logbert.Logging;
+using Logbert.Logging.Sample;
+using Logbert.ViewModels.Docking;
 
-namespace Couchcoding.Logbert.ViewModels;
+namespace Logbert.ViewModels;
 
 /// <summary>
 /// ViewModel for the main application window.

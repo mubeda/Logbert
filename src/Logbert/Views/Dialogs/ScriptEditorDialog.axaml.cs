@@ -1,7 +1,7 @@
 using Avalonia.Controls;
-using Couchcoding.Logbert.ViewModels.Controls;
+using Logbert.ViewModels.Controls;
 
-namespace Couchcoding.Logbert.Views.Dialogs;
+namespace Logbert.Views.Dialogs;
 
 public partial class ScriptEditorDialog : Window
 {

@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    LogFilterColumn.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@
 
 using System.Text.RegularExpressions;
 
-namespace Couchcoding.Logbert.Logging.Filter
+namespace Logbert.Logging.Filter
 {
   /// <summary>
   /// Implements a <see cref="LogLevel"/> to filter <see cref="LogMessage"/>s with a defined value. 

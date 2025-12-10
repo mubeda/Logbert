@@ -1,10 +1,10 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.ViewModels.Controls;
-using Couchcoding.Logbert.Interfaces;
+using Logbert.Logging;
+using Logbert.ViewModels.Controls;
+using Logbert.Interfaces;
 
-namespace Couchcoding.Logbert.ViewModels;
+namespace Logbert.ViewModels;
 
 /// <summary>
 /// ViewModel for a single log document/tab.

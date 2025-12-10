@@ -2,14 +2,14 @@ using System;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Services;
-using Couchcoding.Logbert.ViewModels;
-using Couchcoding.Logbert.ViewModels.Dialogs;
-using Couchcoding.Logbert.Views.Dialogs;
-using Couchcoding.Logbert.Views.Dialogs.ReceiverSettings;
+using Logbert.Interfaces;
+using Logbert.Services;
+using Logbert.ViewModels;
+using Logbert.ViewModels.Dialogs;
+using Logbert.Views.Dialogs;
+using Logbert.Views.Dialogs.ReceiverSettings;
 
-namespace Couchcoding.Logbert.Views;
+namespace Logbert.Views;
 
 public partial class MainWindow : Window
 {

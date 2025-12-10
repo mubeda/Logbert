@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    EventlogReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,14 +31,14 @@
 using System;
 using System.Collections.Generic;
 
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Logging;
+using Logbert.Interfaces;
+using Logbert.Logging;
 using System.Diagnostics;
 
-// using Couchcoding.Logbert.Controls; // WinForms controls removed for Avalonia
-using Couchcoding.Logbert.Helper;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
+using Logbert.Helper;
 
-namespace Couchcoding.Logbert.Receiver.EventlogReceiver
+namespace Logbert.Receiver.EventlogReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the event log service.

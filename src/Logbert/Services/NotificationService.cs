@@ -7,7 +7,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
 
-namespace Couchcoding.Logbert.Services;
+namespace Logbert.Services;
 
 /// <summary>
 /// Service for displaying notifications and error dialogs to users.

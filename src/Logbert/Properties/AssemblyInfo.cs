@@ -8,9 +8,9 @@ using System.Resources;
 [assembly: AssemblyTitle("Logbert")]
 [assembly: AssemblyDescription("Logbert is an advanced log message viewer for log4net, log4j and others.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Couchcoding")]
+[assembly: AssemblyCompany("Logbert Contributors")]
 [assembly: AssemblyProduct("Logbert")]
-[assembly: AssemblyCopyright("Copyright © 2022 Couchcoding")]
+[assembly: AssemblyCopyright("Copyright © 2024 Logbert Contributors")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

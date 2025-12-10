@@ -1,7 +1,7 @@
 using Xunit;
 using System.Text;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Services;
+using Logbert.Logging;
+using Logbert.Services;
 using FluentAssertions;
 
 namespace Logbert.Tests.Services;

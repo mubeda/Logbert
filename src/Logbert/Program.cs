@@ -1,4 +1,4 @@
-#region Copyright © 2015 Couchcoding
+#region Copyright © 2024 Logbert Contributors
 
 // File:    Program.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,9 +30,9 @@
 
 using System;
 using Avalonia;
-using Couchcoding.Logbert.Helper;
+using Logbert.Helper;
 
-namespace Couchcoding.Logbert;
+namespace Logbert;
 
 /// <summary>
 /// Implements the main entry point of the application.

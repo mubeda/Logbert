@@ -1,10 +1,10 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Receiver;
-using Couchcoding.Logbert.Receiver.EventlogReceiver;
+using Logbert.Interfaces;
+using Logbert.Receiver;
+using Logbert.Receiver.EventlogReceiver;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings;
+namespace Logbert.ViewModels.Dialogs.ReceiverSettings;
 
 public partial class EventlogReceiverSettingsViewModel : ViewModelBase, ILogSettingsCtrl
 {

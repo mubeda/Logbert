@@ -1,6 +1,6 @@
-﻿using Couchcoding.Logbert.Gui.Controls;
+﻿using Logbert.Gui.Controls;
 
-namespace Couchcoding.Logbert.Controls
+namespace Logbert.Controls
 {
   partial class ColorPickerCtrl
   {
@@ -18,7 +18,7 @@ namespace Couchcoding.Logbert.Controls
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
-      this.cddColor = new Couchcoding.Logbert.Gui.Controls.ColorDropDown();
+      this.cddColor = new Logbert.Gui.Controls.ColorDropDown();
       this.btnCustomColor = new System.Windows.Forms.Button();
       this.tblLayout = new TableLayoutPanelEx();
       this.tltTip = new System.Windows.Forms.ToolTip(this.components);
@@ -42,7 +42,7 @@ namespace Couchcoding.Logbert.Controls
       // btnCustomColor
       // 
       this.btnCustomColor.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.btnCustomColor.Image = global::Couchcoding.Logbert.Properties.Resources.eyedropper_16xLG;
+      this.btnCustomColor.Image = global::Logbert.Properties.Resources.eyedropper_16xLG;
       this.btnCustomColor.Location = new System.Drawing.Point(127, 0);
       this.btnCustomColor.Margin = new System.Windows.Forms.Padding(0);
       this.btnCustomColor.Name = "btnCustomColor";
@@ -82,7 +82,7 @@ namespace Couchcoding.Logbert.Controls
 
     #endregion
 
-    private Couchcoding.Logbert.Gui.Controls.ColorDropDown cddColor;
+    private Logbert.Gui.Controls.ColorDropDown cddColor;
     private System.Windows.Forms.Button btnCustomColor;
     private Gui.Controls.TableLayoutPanelEx tblLayout;
     private System.Windows.Forms.ToolTip tltTip;

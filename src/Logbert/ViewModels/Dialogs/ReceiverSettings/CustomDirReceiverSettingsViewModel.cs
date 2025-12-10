@@ -3,12 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Receiver;
-using Couchcoding.Logbert.Receiver.CustomReceiver;
-using Couchcoding.Logbert.Receiver.Log4NetDirReceiver;
+using Logbert.Interfaces;
+using Logbert.Receiver;
+using Logbert.Receiver.CustomReceiver;
+using Logbert.Receiver.Log4NetDirReceiver;
 
-namespace Couchcoding.Logbert.ViewModels.Dialogs.ReceiverSettings;
+namespace Logbert.ViewModels.Dialogs.ReceiverSettings;
 
 public partial class CustomDirReceiverSettingsViewModel : ViewModelBase, ILogSettingsCtrl
 {

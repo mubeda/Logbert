@@ -1,10 +1,10 @@
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Couchcoding.Logbert.ViewModels.Controls;
-using Couchcoding.Logbert.Views.Dialogs;
+using Logbert.ViewModels.Controls;
+using Logbert.Views.Dialogs;
 
-namespace Couchcoding.Logbert.Views.Controls;
+namespace Logbert.Views.Controls;
 
 public partial class ColumnizerEditorControl : UserControl
 {

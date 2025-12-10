@@ -1,9 +1,9 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Couchcoding.Logbert.Views;
+using Logbert.Views;
 
-namespace Couchcoding.Logbert;
+namespace Logbert;
 
 public partial class App : Application
 {
