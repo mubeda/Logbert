@@ -158,13 +158,14 @@ public class LogLevelTests
     }
 
     [Fact]
-    public async Task LogLevelShouldHaveSixValues()
+    public async Task LogLevelShouldHaveEightValues()
     {
         // Arrange & Act
         var values = await Task.FromResult(Enum.GetValues<LogLevel>());
 
         // Assert
-        values.Should().HaveCount(6);
+        // LogLevel has 8 values: None, Trace, Debug, Info, Warning, Error, Fatal, All
+        values.Should().HaveCount(8);
     }
 
     [Fact]

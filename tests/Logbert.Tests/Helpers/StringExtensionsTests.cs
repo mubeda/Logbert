@@ -168,7 +168,8 @@ public class StringExtensionsTests
         var result = await Task.FromResult(input.ToRegex());
 
         // Assert
-        result.Should().Be(@"file\[1\]\.txt");
+        // Note: Regex.Escape only escapes '[' not ']' in this context
+        result.Should().Be(@"file\[1]\.txt");
     }
 
     [Fact]
