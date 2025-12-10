@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Couchcoding.Logbert.Interfaces;
@@ -268,6 +269,24 @@ public partial class MainWindow : Window
         }
 
         var dialog = new StatisticsDialog(ViewModel.ActiveDocument.Messages);
+        await dialog.ShowDialog(this);
+    }
+
+    public async void ShowExportDialog(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel?.ActiveDocument == null || ViewModel.ActiveDocument.Messages.Count == 0)
+        {
+            return; // No active document with messages
+        }
+
+        var dialog = new ExportDialog();
+
+        // Pass all messages and filtered messages to the dialog
+        var allMessages = ViewModel.ActiveDocument.Messages.ToList();
+        var filteredMessages = ViewModel.ActiveDocument.LogViewerViewModel?.FilteredMessages?.ToList();
+
+        dialog.SetMessages(allMessages, filteredMessages);
+
         await dialog.ShowDialog(this);
     }
 }

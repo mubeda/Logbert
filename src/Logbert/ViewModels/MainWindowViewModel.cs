@@ -94,6 +94,11 @@ public partial class MainWindowViewModel : ViewModelBase
     public ICommand ShowFindCommand { get; } = null!;
 
     /// <summary>
+    /// Gets the command to export log messages.
+    /// </summary>
+    public ICommand ExportCommand { get; } = null!;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
     /// </summary>
     public MainWindowViewModel()
@@ -106,12 +111,14 @@ public partial class MainWindowViewModel : ViewModelBase
         ShowAboutCommand = new RelayCommand(OnShowAbout);
         ShowOptionsCommand = new RelayCommand(OnShowOptions);
         ShowFindCommand = new RelayCommand(OnShowFind, CanShowFind);
+        ExportCommand = new RelayCommand(OnExport, CanExport);
 
         // Listen for document changes
         Documents.CollectionChanged += (s, e) =>
         {
             ((RelayCommand)CloseDocumentCommand).NotifyCanExecuteChanged();
             ((RelayCommand)ShowFindCommand).NotifyCanExecuteChanged();
+            ((RelayCommand)ExportCommand).NotifyCanExecuteChanged();
             UpdateWelcomeScreenVisibility();
         };
 
@@ -242,6 +249,16 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     private void OnShowFind()
+    {
+        // Will be handled by MainWindow code-behind
+    }
+
+    private bool CanExport()
+    {
+        return ActiveDocument != null && ActiveDocument.Messages.Count > 0;
+    }
+
+    private void OnExport()
     {
         // Will be handled by MainWindow code-behind
     }

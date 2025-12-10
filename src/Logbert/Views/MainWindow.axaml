@@ -45,6 +45,12 @@
                 <Separator/>
                 <MenuItem Header="_Close" Command="{Binding CloseDocumentCommand}" HotKey="Ctrl+W"/>
                 <Separator/>
+                <MenuItem Header="_Export..." Click="ShowExportDialog" HotKey="Ctrl+E">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
                 <MenuItem Header="E_xit" Command="{Binding ExitCommand}" HotKey="Alt+F4"/>
             </MenuItem>
 
