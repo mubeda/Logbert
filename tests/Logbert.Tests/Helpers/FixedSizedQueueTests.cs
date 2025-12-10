@@ -68,7 +68,7 @@ public class FixedSizedQueueTests
         EnqueueItem(queue, 3);
         EnqueueItem(queue, 4); // Should remove 1
 
-        var items = await Task.FromResult(GetQueueItems(queue));
+        var items = await Task.FromResult(GetQueueItems<int>(queue));
 
         // Assert
         items.Should().NotContain(1);
@@ -85,7 +85,7 @@ public class FixedSizedQueueTests
         EnqueueItem(queue, 1);
         EnqueueItem(queue, 2);
         EnqueueItem(queue, 3);
-        var items = await Task.FromResult(GetQueueItems(queue));
+        var items = await Task.FromResult(GetQueueItems<int>(queue));
 
         // Assert
         items.Should().ContainInOrder(1, 2, 3);
@@ -101,7 +101,7 @@ public class FixedSizedQueueTests
         EnqueueItem(queue, "first");
         EnqueueItem(queue, "second");
         var count = await Task.FromResult(GetQueueCount(queue));
-        var items = await Task.FromResult(GetQueueItems(queue));
+        var items = await Task.FromResult(GetQueueItems<string>(queue));
 
         // Assert
         count.Should().Be(1);
