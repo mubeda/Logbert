@@ -66,6 +66,66 @@
                 <MenuItem Header="_Toolbar" IsChecked="True"/>
                 <MenuItem Header="_Status Bar" IsChecked="True"/>
                 <Separator/>
+                <MenuItem Header="_Panels">
+                    <MenuItem Header="_Filter Panel"
+                              IsChecked="{Binding FilterPanelVisible}"
+                              Command="{Binding ToggleFilterPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M14,12V19.88C14.04,20.18 13.94,20.5 13.71,20.71C13.32,21.1 12.69,21.1 12.3,20.71L10.29,18.7C10.06,18.47 9.96,18.16 10,17.87V12H9.97L4.21,4.62C3.87,4.19 3.95,3.56 4.38,3.22C4.57,3.08 4.78,3 5,3V3H19V3C19.22,3 19.43,3.08 19.62,3.22C20.05,3.56 20.13,4.19 19.79,4.62L14.03,12H14Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Logger Tree"
+                              IsChecked="{Binding LoggerTreeVisible}"
+                              Command="{Binding ToggleLoggerTreeCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Bookmarks"
+                              IsChecked="{Binding BookmarksPanelVisible}"
+                              Command="{Binding ToggleBookmarksPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5A2,2 0 0,0 17,3Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="_Search Panel"
+                              IsChecked="{Binding SearchPanelVisible}"
+                              Command="{Binding ToggleSearchPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Details Panel"
+                              IsChecked="{Binding DetailsPanelVisible}"
+                              Command="{Binding ToggleDetailsPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M3,4H21V8H3V4M3,10H21V14H3V10M3,16H21V20H3V16Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Color Map"
+                              IsChecked="{Binding ColorMapPanelVisible}"
+                              Command="{Binding ToggleColorMapPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M17.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,9A1.5,1.5 0 0,1 19,10.5A1.5,1.5 0 0,1 17.5,12M14.5,8A1.5,1.5 0 0,1 13,6.5A1.5,1.5 0 0,1 14.5,5A1.5,1.5 0 0,1 16,6.5A1.5,1.5 0 0,1 14.5,8M9.5,8A1.5,1.5 0 0,1 8,6.5A1.5,1.5 0 0,1 9.5,5A1.5,1.5 0 0,1 11,6.5A1.5,1.5 0 0,1 9.5,8M6.5,12A1.5,1.5 0 0,1 5,10.5A1.5,1.5 0 0,1 6.5,9A1.5,1.5 0 0,1 8,10.5A1.5,1.5 0 0,1 6.5,12M12,3A9,9 0 0,0 3,12A9,9 0 0,0 12,21A1.5,1.5 0 0,0 13.5,19.5C13.5,19.11 13.35,18.76 13.11,18.5C12.88,18.23 12.73,17.88 12.73,17.5A1.5,1.5 0 0,1 14.23,16H16A5,5 0 0,0 21,11C21,6.58 16.97,3 12,3Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="S_tatistics Panel"
+                              IsChecked="{Binding StatisticsPanelVisible}"
+                              Command="{Binding ToggleStatisticsPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M22,21H2V3H4V19H6V10H10V19H12V6H16V19H18V14H22V21Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="S_cript Panel"
+                              IsChecked="{Binding ScriptPanelVisible}"
+                              Command="{Binding ToggleScriptPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <Separator/>
                 <MenuItem Header="_Statistics..." Click="ShowStatisticsDialog">
                     <MenuItem.Icon>
                         <PathIcon Data="M3,3H21V21H3V3M5,5V19H19V5H5M7,7H9V17H7V7M11,7H13V17H11V7M15,7H17V17H15V7Z"/>
@@ -151,40 +211,79 @@
                     <ColumnDefinition Width="250" MinWidth="150"/>
                     <ColumnDefinition Width="5"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="280" MinWidth="150"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Left Panel - Tabs for Filter, Logger Tree, and Bookmarks -->
+                <!-- Left Panel - Tabs for Filter, Logger Tree, Bookmarks, Search -->
                 <TabControl Grid.Column="0" Background="#F5F5F5">
-                    <TabItem Header="Filter">
+                    <TabItem Header="Filter" IsVisible="{Binding FilterPanelVisible}">
                         <docking:FilterPanelView DataContext="{Binding FilterPanel}"/>
                     </TabItem>
-                    <TabItem Header="Logger Tree">
+                    <TabItem Header="Logger Tree" IsVisible="{Binding LoggerTreeVisible}">
                         <docking:LoggerTreeView DataContext="{Binding LoggerTree}"/>
                     </TabItem>
-                    <TabItem Header="Bookmarks">
+                    <TabItem Header="Bookmarks" IsVisible="{Binding BookmarksPanelVisible}">
                         <docking:BookmarksPanelView DataContext="{Binding BookmarksPanel}"/>
+                    </TabItem>
+                    <TabItem Header="Search" IsVisible="{Binding SearchPanelVisible}">
+                        <docking:SearchPanelView DataContext="{Binding SearchPanel}"/>
                     </TabItem>
                 </TabControl>
 
-                <!-- Splitter -->
+                <!-- Left Splitter -->
                 <GridSplitter Grid.Column="1"
                               Background="#D0D0D0"
                               ResizeDirection="Columns"/>
 
-                <!-- Center Panel - Log Documents -->
-                <TabControl Grid.Column="2"
-                            ItemsSource="{Binding Documents}"
-                            SelectedItem="{Binding ActiveDocument}">
-                    <TabControl.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Title}"/>
-                        </DataTemplate>
-                    </TabControl.ItemTemplate>
-                    <TabControl.ContentTemplate>
-                        <DataTemplate>
-                            <controls:LogViewerControl DataContext="{Binding LogViewerViewModel}"/>
-                        </DataTemplate>
-                    </TabControl.ContentTemplate>
+                <!-- Center Panel - Log Documents and Details -->
+                <Grid Grid.Column="2" RowDefinitions="*,5,Auto">
+                    <!-- Document Tabs -->
+                    <TabControl Grid.Row="0"
+                                ItemsSource="{Binding Documents}"
+                                SelectedItem="{Binding ActiveDocument}">
+                        <TabControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Title}"/>
+                            </DataTemplate>
+                        </TabControl.ItemTemplate>
+                        <TabControl.ContentTemplate>
+                            <DataTemplate>
+                                <controls:LogViewerControl DataContext="{Binding LogViewerViewModel}"/>
+                            </DataTemplate>
+                        </TabControl.ContentTemplate>
+                    </TabControl>
+
+                    <!-- Center Splitter -->
+                    <GridSplitter Grid.Row="1"
+                                  Background="#D0D0D0"
+                                  ResizeDirection="Rows"
+                                  IsVisible="{Binding DetailsPanelVisible}"/>
+
+                    <!-- Details Panel -->
+                    <Border Grid.Row="2"
+                            Height="200"
+                            IsVisible="{Binding DetailsPanelVisible}">
+                        <docking:DetailsPanelView DataContext="{Binding DetailsPanel}"/>
+                    </Border>
+                </Grid>
+
+                <!-- Right Splitter -->
+                <GridSplitter Grid.Column="3"
+                              Background="#D0D0D0"
+                              ResizeDirection="Columns"/>
+
+                <!-- Right Panel - Statistics, Color Map, Script -->
+                <TabControl Grid.Column="4" Background="#F5F5F5">
+                    <TabItem Header="Statistics" IsVisible="{Binding StatisticsPanelVisible}">
+                        <docking:StatisticsPanelView DataContext="{Binding StatisticsPanel}"/>
+                    </TabItem>
+                    <TabItem Header="Color Map" IsVisible="{Binding ColorMapPanelVisible}">
+                        <docking:ColorMapPanelView DataContext="{Binding ColorMapPanel}"/>
+                    </TabItem>
+                    <TabItem Header="Script" IsVisible="{Binding ScriptPanelVisible}">
+                        <docking:ScriptPanelView DataContext="{Binding ScriptPanel}"/>
+                    </TabItem>
                 </TabControl>
             </Grid>
         </Grid>

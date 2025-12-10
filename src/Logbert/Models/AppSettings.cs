@@ -168,4 +168,96 @@ public class AppSettings
     public List<string> RecentFiles { get; set; } = new();
 
     #endregion
+
+    #region Panel Visibility (Extended)
+
+    /// <summary>
+    /// Gets or sets whether the search panel is visible.
+    /// </summary>
+    public bool SearchPanelVisible { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets whether the statistics panel is visible.
+    /// </summary>
+    public bool StatisticsPanelVisible { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets whether the color map panel is visible.
+    /// </summary>
+    public bool ColorMapPanelVisible { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets whether the script panel is visible.
+    /// </summary>
+    public bool ScriptPanelVisible { get; set; } = false;
+
+    #endregion
+
+    #region Script Settings
+
+    /// <summary>
+    /// Gets or sets the default Lua script path.
+    /// </summary>
+    public string DefaultScriptPath { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets whether to auto-save scripts.
+    /// </summary>
+    public bool AutoSaveScripts { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets whether to run scripts on load.
+    /// </summary>
+    public bool RunScriptOnLoad { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the script editor font size.
+    /// </summary>
+    public int ScriptFontSize { get; set; } = 12;
+
+    /// <summary>
+    /// Gets or sets whether to show line numbers in script editor.
+    /// </summary>
+    public bool ScriptShowLineNumbers { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets whether to enable syntax highlighting.
+    /// </summary>
+    public bool ScriptSyntaxHighlighting { get; set; } = true;
+
+    #endregion
+
+    #region Advanced Settings
+
+    /// <summary>
+    /// Gets or sets the maximum number of log messages to display.
+    /// </summary>
+    public int MaxLogMessages { get; set; } = 100000;
+
+    /// <summary>
+    /// Gets or sets whether to enable virtualization for large logs.
+    /// </summary>
+    public bool EnableVirtualization { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the buffer size for network receivers.
+    /// </summary>
+    public int NetworkBufferSize { get; set; } = 65536;
+
+    /// <summary>
+    /// Gets or sets the file watcher polling interval in milliseconds.
+    /// </summary>
+    public int FileWatcherInterval { get; set; } = 500;
+
+    /// <summary>
+    /// Gets or sets whether to highlight search matches.
+    /// </summary>
+    public bool HighlightSearchMatches { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets whether to enable word wrap in message view.
+    /// </summary>
+    public bool EnableWordWrap { get; set; } = false;
+
+    #endregion
 }

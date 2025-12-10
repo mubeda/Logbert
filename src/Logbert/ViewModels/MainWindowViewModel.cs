@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 using Logbert.Helper;
 using Logbert.Logging;
 using Logbert.Logging.Sample;
+using Logbert.Services;
 using Logbert.ViewModels.Docking;
 
 namespace Logbert.ViewModels;
@@ -27,6 +28,8 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private LogDocumentViewModel? _activeDocument;
 
+    #region Panel ViewModels
+
     /// <summary>
     /// Gets the filter panel view model.
     /// </summary>
@@ -41,6 +44,61 @@ public partial class MainWindowViewModel : ViewModelBase
     /// Gets the bookmarks panel view model.
     /// </summary>
     public BookmarksPanelViewModel BookmarksPanel { get; } = new();
+
+    /// <summary>
+    /// Gets the search panel view model.
+    /// </summary>
+    public SearchPanelViewModel SearchPanel { get; } = new();
+
+    /// <summary>
+    /// Gets the details panel view model.
+    /// </summary>
+    public DetailsPanelViewModel DetailsPanel { get; } = new();
+
+    /// <summary>
+    /// Gets the color map panel view model.
+    /// </summary>
+    public ColorMapPanelViewModel ColorMapPanel { get; } = new();
+
+    /// <summary>
+    /// Gets the statistics panel view model.
+    /// </summary>
+    public StatisticsPanelViewModel StatisticsPanel { get; } = new();
+
+    /// <summary>
+    /// Gets the script panel view model.
+    /// </summary>
+    public ScriptPanelViewModel ScriptPanel { get; } = new();
+
+    #endregion
+
+    #region Panel Visibility
+
+    [ObservableProperty]
+    private bool _filterPanelVisible = true;
+
+    [ObservableProperty]
+    private bool _loggerTreeVisible = true;
+
+    [ObservableProperty]
+    private bool _bookmarksPanelVisible = true;
+
+    [ObservableProperty]
+    private bool _searchPanelVisible = false;
+
+    [ObservableProperty]
+    private bool _detailsPanelVisible = true;
+
+    [ObservableProperty]
+    private bool _colorMapPanelVisible = true;
+
+    [ObservableProperty]
+    private bool _statisticsPanelVisible = false;
+
+    [ObservableProperty]
+    private bool _scriptPanelVisible = false;
+
+    #endregion
 
     /// <summary>
     /// Gets or sets whether the welcome screen is visible.
@@ -98,6 +156,50 @@ public partial class MainWindowViewModel : ViewModelBase
     /// </summary>
     public ICommand ExportCommand { get; } = null!;
 
+    #region Panel Toggle Commands
+
+    /// <summary>
+    /// Gets the command to toggle the filter panel visibility.
+    /// </summary>
+    public ICommand ToggleFilterPanelCommand { get; } = null!;
+
+    /// <summary>
+    /// Gets the command to toggle the logger tree visibility.
+    /// </summary>
+    public ICommand ToggleLoggerTreeCommand { get; } = null!;
+
+    /// <summary>
+    /// Gets the command to toggle the bookmarks panel visibility.
+    /// </summary>
+    public ICommand ToggleBookmarksPanelCommand { get; } = null!;
+
+    /// <summary>
+    /// Gets the command to toggle the search panel visibility.
+    /// </summary>
+    public ICommand ToggleSearchPanelCommand { get; } = null!;
+
+    /// <summary>
+    /// Gets the command to toggle the details panel visibility.
+    /// </summary>
+    public ICommand ToggleDetailsPanelCommand { get; } = null!;
+
+    /// <summary>
+    /// Gets the command to toggle the color map panel visibility.
+    /// </summary>
+    public ICommand ToggleColorMapPanelCommand { get; } = null!;
+
+    /// <summary>
+    /// Gets the command to toggle the statistics panel visibility.
+    /// </summary>
+    public ICommand ToggleStatisticsPanelCommand { get; } = null!;
+
+    /// <summary>
+    /// Gets the command to toggle the script panel visibility.
+    /// </summary>
+    public ICommand ToggleScriptPanelCommand { get; } = null!;
+
+    #endregion
+
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
     /// </summary>
@@ -112,6 +214,19 @@ public partial class MainWindowViewModel : ViewModelBase
         ShowOptionsCommand = new RelayCommand(OnShowOptions);
         ShowFindCommand = new RelayCommand(OnShowFind, CanShowFind);
         ExportCommand = new RelayCommand(OnExport, CanExport);
+
+        // Panel toggle commands
+        ToggleFilterPanelCommand = new RelayCommand(() => FilterPanelVisible = !FilterPanelVisible);
+        ToggleLoggerTreeCommand = new RelayCommand(() => LoggerTreeVisible = !LoggerTreeVisible);
+        ToggleBookmarksPanelCommand = new RelayCommand(() => BookmarksPanelVisible = !BookmarksPanelVisible);
+        ToggleSearchPanelCommand = new RelayCommand(() => SearchPanelVisible = !SearchPanelVisible);
+        ToggleDetailsPanelCommand = new RelayCommand(() => DetailsPanelVisible = !DetailsPanelVisible);
+        ToggleColorMapPanelCommand = new RelayCommand(() => ColorMapPanelVisible = !ColorMapPanelVisible);
+        ToggleStatisticsPanelCommand = new RelayCommand(() => StatisticsPanelVisible = !StatisticsPanelVisible);
+        ToggleScriptPanelCommand = new RelayCommand(() => ScriptPanelVisible = !ScriptPanelVisible);
+
+        // Load panel visibility from settings
+        LoadPanelVisibilityFromSettings();
 
         // Listen for document changes
         Documents.CollectionChanged += (s, e) =>
@@ -141,17 +256,6 @@ public partial class MainWindowViewModel : ViewModelBase
     private void OnMruListChanged(object? sender, EventArgs e)
     {
         RefreshRecentFiles();
-    }
-
-    partial void OnActiveDocumentChanged(LogDocumentViewModel? value)
-    {
-        // Sync filter panel with active document
-        if (value != null)
-        {
-            // Update logger tree with loggers from the document
-            var loggerNames = value.Messages.Select(m => m.Logger ?? "Unknown").Distinct();
-            LoggerTree.UpdateLoggers(loggerNames);
-        }
     }
 
     private void UpdateWelcomeScreenVisibility()
@@ -262,4 +366,82 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         // Will be handled by MainWindow code-behind
     }
+
+    #region Panel Visibility Settings
+
+    private void LoadPanelVisibilityFromSettings()
+    {
+        var settings = SettingsService.Instance.Settings;
+
+        FilterPanelVisible = settings.FilterVisible;
+        LoggerTreeVisible = settings.LoggerTreeVisible;
+        BookmarksPanelVisible = settings.BookmarksVisible;
+        DetailsPanelVisible = settings.DetailsVisible;
+        SearchPanelVisible = settings.SearchPanelVisible;
+        ColorMapPanelVisible = settings.ColorMapPanelVisible;
+        StatisticsPanelVisible = settings.StatisticsPanelVisible;
+        ScriptPanelVisible = settings.ScriptPanelVisible;
+    }
+
+    /// <summary>
+    /// Saves the current panel visibility to settings.
+    /// </summary>
+    public void SavePanelVisibilityToSettings()
+    {
+        SettingsService.Instance.UpdateSettings(settings =>
+        {
+            settings.FilterVisible = FilterPanelVisible;
+            settings.LoggerTreeVisible = LoggerTreeVisible;
+            settings.BookmarksVisible = BookmarksPanelVisible;
+            settings.DetailsVisible = DetailsPanelVisible;
+            settings.SearchPanelVisible = SearchPanelVisible;
+            settings.ColorMapPanelVisible = ColorMapPanelVisible;
+            settings.StatisticsPanelVisible = StatisticsPanelVisible;
+            settings.ScriptPanelVisible = ScriptPanelVisible;
+        });
+
+        SettingsService.Instance.Save();
+    }
+
+    #endregion
+
+    #region Panel Synchronization
+
+    partial void OnActiveDocumentChanged(LogDocumentViewModel? oldValue, LogDocumentViewModel? newValue)
+    {
+        // Sync filter panel with active document
+        if (newValue != null)
+        {
+            // Update logger tree with loggers from the document
+            var loggerNames = newValue.Messages.Select(m => m.Logger ?? "Unknown").Distinct();
+            LoggerTree.UpdateLoggers(loggerNames);
+
+            // Update search panel target
+            SearchPanel.SetSearchTarget(newValue);
+
+            // Update details panel
+            if (newValue.SelectedMessage != null)
+            {
+                DetailsPanel.SetMessage(newValue.SelectedMessage);
+            }
+
+            // Update statistics and color map
+            StatisticsPanel.UpdateStatistics(newValue.Messages);
+            ColorMapPanel.UpdateMessages(newValue.Messages);
+        }
+        else
+        {
+            SearchPanel.SetSearchTarget(null);
+        }
+    }
+
+    /// <summary>
+    /// Updates the details panel with the selected message.
+    /// </summary>
+    public void UpdateSelectedMessage(LogMessage? message)
+    {
+        DetailsPanel.SetMessage(message);
+    }
+
+    #endregion
 }
