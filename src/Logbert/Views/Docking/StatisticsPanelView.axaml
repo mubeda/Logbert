@@ -1,0 +1,129 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Logbert.ViewModels.Docking"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="500"
+             x:Class="Logbert.Views.Docking.StatisticsPanelView"
+             x:DataType="vm:StatisticsPanelViewModel">
+
+    <DockPanel>
+        <!-- Header -->
+        <Border DockPanel.Dock="Top"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                Padding="10"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,0,0,1">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Grid.Column="0"
+                           Text="Statistics"
+                           FontSize="16"
+                           FontWeight="Bold"/>
+                <Button Grid.Column="1"
+                        Content="Refresh"
+                        Command="{Binding RefreshCommand}"
+                        Padding="8,4"/>
+            </Grid>
+        </Border>
+
+        <!-- Content -->
+        <ScrollViewer>
+            <StackPanel Margin="10" Spacing="15">
+                <!-- Summary Statistics -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="10"
+                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Summary" FontWeight="Bold" FontSize="14"/>
+                        <Separator/>
+
+                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="4" ColumnSpacing="10">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Total Messages:"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding TotalMessagesFormatted}" FontWeight="SemiBold"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="First Message:"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding FirstMessageTimeFormatted}"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Last Message:"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding LastMessageTimeFormatted}"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Time Range:"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding TimeRangeFormatted}"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Msgs/Second:"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding MessagesPerSecondFormatted}"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Log Level Distribution -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Log Level Distribution" FontWeight="Bold" FontSize="14"/>
+                        <Separator/>
+
+                        <ItemsControl ItemsSource="{Binding StatisticsViewModel.Statistics}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Spacing="4" Margin="0,4">
+                                        <Grid ColumnDefinitions="80,*,50">
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{Binding Level}"
+                                                       FontWeight="SemiBold"/>
+                                            <ProgressBar Grid.Column="1"
+                                                         Value="{Binding Percentage}"
+                                                         Maximum="100"
+                                                         Height="16"
+                                                         Margin="5,0"/>
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding Count, StringFormat='{}{0:N0}'}"
+                                                       HorizontalAlignment="Right"/>
+                                        </Grid>
+                                        <TextBlock Text="{Binding Percentage, StringFormat='{}{0:F1}%'}"
+                                                   FontSize="10"
+                                                   Opacity="0.7"
+                                                   HorizontalAlignment="Right"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <!-- Logger Statistics -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="10"
+                        IsVisible="{Binding HasLoggerStatistics}">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Top Loggers" FontWeight="Bold" FontSize="14"/>
+                        <Separator/>
+
+                        <ItemsControl ItemsSource="{Binding TopLoggers}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="*,Auto" Margin="0,2">
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding Key}"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   ToolTip.Tip="{Binding Key}"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding Value, StringFormat='{}{0:N0}'}"
+                                                   Margin="10,0,0,0"
+                                                   FontWeight="SemiBold"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

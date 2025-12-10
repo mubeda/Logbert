@@ -1,0 +1,178 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Logbert.ViewModels.Controls.Details"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
+             x:Class="Logbert.Views.Controls.Details.Log4NetDetailsView"
+             x:DataType="vm:Log4NetDetailsViewModel">
+
+    <ScrollViewer>
+        <StackPanel Spacing="10" Margin="10">
+            <!-- Header with Level Badge -->
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Border Grid.Column="0"
+                        Padding="8,4"
+                        CornerRadius="4"
+                        Background="{Binding LevelBackground}"
+                        Margin="0,0,10,0">
+                    <TextBlock Text="{Binding Level}"
+                               Foreground="White"
+                               FontWeight="Bold"/>
+                </Border>
+
+                <TextBlock Grid.Column="1"
+                           Text="{Binding FormattedTimestamp}"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           FontWeight="SemiBold"/>
+
+                <TextBlock Grid.Column="2"
+                           Text="{Binding IndexDisplay}"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+            </Grid>
+
+            <Separator/>
+
+            <!-- Logger and Thread Information -->
+            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="8">
+                    <Grid ColumnDefinitions="120,*">
+                        <TextBlock Grid.Column="0"
+                                   Text="Logger:"
+                                   FontWeight="Bold"/>
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding Logger}"
+                                   TextWrapping="Wrap"/>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="120,*">
+                        <TextBlock Grid.Column="0"
+                                   Text="Thread:"
+                                   FontWeight="Bold"/>
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding Thread}"
+                                   TextWrapping="Wrap"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Location Information -->
+            <Expander Header="Location Info" IsExpanded="True"
+                      IsVisible="{Binding HasLocation}">
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="10"
+                        Margin="0,8,0,0"
+                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    <StackPanel Spacing="8">
+                        <Grid ColumnDefinitions="120,*"
+                              IsVisible="{Binding FileName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                            <TextBlock Grid.Column="0"
+                                       Text="File:"
+                                       FontWeight="Bold"/>
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding FileName}"
+                                       TextWrapping="Wrap"
+                                       FontFamily="Consolas,Courier New,monospace"/>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="120,*"
+                              IsVisible="{Binding ClassName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                            <TextBlock Grid.Column="0"
+                                       Text="Class:"
+                                       FontWeight="Bold"/>
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding ClassName}"
+                                       TextWrapping="Wrap"
+                                       FontFamily="Consolas,Courier New,monospace"/>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="120,*"
+                              IsVisible="{Binding MethodName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                            <TextBlock Grid.Column="0"
+                                       Text="Method:"
+                                       FontWeight="Bold"/>
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding MethodName}"
+                                       TextWrapping="Wrap"
+                                       FontFamily="Consolas,Courier New,monospace"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Expander>
+
+            <!-- Message Content -->
+            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Message"
+                               FontWeight="Bold"
+                               FontSize="14"/>
+
+                    <TextBox Text="{Binding Message}"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap"
+                             MinHeight="80"
+                             AcceptsReturn="True"
+                             FontFamily="Consolas,Courier New,monospace"
+                             Background="Transparent"
+                             BorderThickness="0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Custom Properties -->
+            <Expander Header="Custom Properties" IsExpanded="False"
+                      IsVisible="{Binding HasCustomProperties}">
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="10"
+                        Margin="0,8,0,0">
+                    <ItemsControl ItemsSource="{Binding CustomProperties}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="150,*" Margin="0,4">
+                                    <TextBlock Grid.Column="0"
+                                               Text="{Binding Key}"
+                                               FontWeight="SemiBold"/>
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding Value}"
+                                               TextWrapping="Wrap"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+            </Expander>
+
+            <!-- Raw Data -->
+            <Expander Header="Raw XML Data" IsExpanded="False">
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="10"
+                        Margin="0,8,0,0">
+                    <TextBox Text="{Binding RawData}"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap"
+                             MinHeight="100"
+                             MaxHeight="300"
+                             AcceptsReturn="True"
+                             FontFamily="Consolas,Courier New,monospace"
+                             FontSize="10"
+                             Background="Transparent"
+                             BorderThickness="0"/>
+                </Border>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

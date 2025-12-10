@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Logbert.ViewModels.Docking"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="400"
+             x:Class="Logbert.Views.Docking.SearchPanelView"
+             x:DataType="vm:SearchPanelViewModel">
+
+    <DockPanel>
+        <!-- Header -->
+        <StackPanel DockPanel.Dock="Top" Margin="10" Spacing="5">
+            <TextBlock Text="Search" FontSize="16" FontWeight="Bold"/>
+        </StackPanel>
+
+        <!-- Search controls -->
+        <StackPanel DockPanel.Dock="Top" Margin="10,0" Spacing="10">
+            <!-- Search TextBox -->
+            <TextBox Text="{Binding SearchText}"
+                     Watermark="Enter search text..."
+                     KeyDown="OnSearchTextKeyDown"/>
+
+            <!-- Search Options -->
+            <StackPanel Spacing="5">
+                <CheckBox Content="Match case" IsChecked="{Binding MatchCase}"/>
+                <CheckBox Content="Match whole word" IsChecked="{Binding MatchWholeWord}"/>
+                <CheckBox Content="Use regular expression" IsChecked="{Binding UseRegularExpression}"/>
+            </StackPanel>
+
+            <!-- Search Buttons -->
+            <Grid ColumnDefinitions="*,*" RowSpacing="5">
+                <Button Grid.Column="0"
+                        Content="Find Previous"
+                        Command="{Binding FindPreviousCommand}"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,0,2,0"/>
+                <Button Grid.Column="1"
+                        Content="Find Next"
+                        Command="{Binding FindNextCommand}"
+                        HorizontalAlignment="Stretch"
+                        Margin="2,0,0,0"/>
+            </Grid>
+
+            <!-- Status -->
+            <Border Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                    CornerRadius="4"
+                    Padding="8"
+                    IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                <TextBlock Text="{Binding StatusMessage}"
+                           TextWrapping="Wrap"
+                           FontSize="12"/>
+            </Border>
+
+            <Separator Margin="0,10"/>
+        </StackPanel>
+
+        <!-- Search Results -->
+        <DockPanel Margin="10,0,10,10">
+            <TextBlock DockPanel.Dock="Top"
+                       Text="{Binding ResultsHeader}"
+                       FontWeight="SemiBold"
+                       Margin="0,0,0,5"/>
+
+            <ListBox ItemsSource="{Binding SearchResults}"
+                     SelectedItem="{Binding SelectedResult}"
+                     DoubleTapped="OnResultDoubleTapped">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Spacing="2" Margin="4">
+                            <TextBlock Text="{Binding Message}"
+                                       TextTrimming="CharacterEllipsis"
+                                       MaxLines="2"
+                                       FontSize="12"/>
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <TextBlock Text="{Binding Index, StringFormat='#{0}'}"
+                                           FontSize="10"
+                                           Opacity="0.7"/>
+                                <TextBlock Text="{Binding Level}"
+                                           FontSize="10"
+                                           Opacity="0.7"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+    </DockPanel>
+</UserControl>
