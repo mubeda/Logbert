@@ -3,48 +3,190 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Couchcoding.Logbert.ViewModels.Docking"
-             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="450"
+             xmlns:models="using:Couchcoding.Logbert.Models"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="700"
              x:Class="Couchcoding.Logbert.Views.Docking.FilterPanelView"
              x:DataType="vm:FilterPanelViewModel">
-    <StackPanel Spacing="10" Margin="10">
-        <TextBlock Text="Filter" FontSize="16" FontWeight="Bold"/>
 
-        <!-- Text Filter -->
-        <TextBox Text="{Binding FilterText}"
-                 Margin="0,10,0,0"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="10" Margin="10">
+            <TextBlock Text="Filter" FontSize="16" FontWeight="Bold"/>
 
-        <StackPanel Orientation="Horizontal" Spacing="10">
-            <CheckBox IsChecked="{Binding CaseSensitive}"
-                      Content="Case Sensitive"/>
-            <CheckBox IsChecked="{Binding UseRegex}"
-                      Content="Regex"/>
+            <!-- Quick Text Filter -->
+            <TextBlock Text="Quick Filter" FontWeight="SemiBold" Margin="0,5,0,0"/>
+            <TextBox Text="{Binding FilterText}"
+                     Watermark="Filter messages..."
+                     Margin="0,0,0,0"/>
+
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <CheckBox IsChecked="{Binding CaseSensitive}"
+                          Content="Case Sensitive"/>
+                <CheckBox IsChecked="{Binding UseRegex}"
+                          Content="Regex"/>
+            </StackPanel>
+
+            <!-- Log Level Filters -->
+            <TextBlock Text="Log Levels" FontWeight="SemiBold" Margin="0,10,0,5"/>
+
+            <WrapPanel Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding ShowTrace}"
+                          Content="Trace"
+                          Foreground="#808080"
+                          Margin="0,0,10,5"/>
+
+                <CheckBox IsChecked="{Binding ShowDebug}"
+                          Content="Debug"
+                          Foreground="#0000FF"
+                          Margin="0,0,10,5"/>
+
+                <CheckBox IsChecked="{Binding ShowInfo}"
+                          Content="Info"
+                          Foreground="#008000"
+                          Margin="0,0,10,5"/>
+
+                <CheckBox IsChecked="{Binding ShowWarning}"
+                          Content="Warning"
+                          Foreground="#FFA500"
+                          Margin="0,0,10,5"/>
+
+                <CheckBox IsChecked="{Binding ShowError}"
+                          Content="Error"
+                          Foreground="#FF0000"
+                          Margin="0,0,10,5"/>
+
+                <CheckBox IsChecked="{Binding ShowFatal}"
+                          Content="Fatal"
+                          Foreground="#8B0000"
+                          Margin="0,0,10,5"/>
+            </WrapPanel>
+
+            <!-- Advanced Filters Toggle -->
+            <Separator Margin="0,10,0,5"/>
+
+            <Button Content="{Binding ShowAdvancedFilters, Converter={StaticResource AdvancedToggleConverter}}"
+                    Click="OnToggleAdvancedFilters"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    Padding="5"/>
+
+            <!-- Advanced Filters Section -->
+            <StackPanel IsVisible="{Binding ShowAdvancedFilters}"
+                        Spacing="10">
+
+                <!-- Logger Filter -->
+                <StackPanel Spacing="3">
+                    <TextBlock Text="Logger:" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding LoggerFilter}"
+                             Watermark="Filter by logger name..."/>
+                </StackPanel>
+
+                <!-- Thread Filter -->
+                <StackPanel Spacing="3">
+                    <TextBlock Text="Thread:" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding ThreadFilter}"
+                             Watermark="Filter by thread ID..."/>
+                </StackPanel>
+
+                <!-- Filter Rules Section -->
+                <Separator Margin="0,5,0,0"/>
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Filter Rules" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding FilterRules.Count, StringFormat='({0})'}"
+                               Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- AND/OR Logic Toggle -->
+                <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,5,0,0">
+                    <TextBlock Text="Logic:" VerticalAlignment="Center"/>
+                    <RadioButton Content="AND"
+                                 IsChecked="{Binding UseAndLogic}"
+                                 GroupName="LogicMode"/>
+                    <RadioButton Content="OR"
+                                 IsChecked="{Binding UseAndLogic, Converter={StaticResource InverseBoolConverter}}"
+                                 GroupName="LogicMode"/>
+                </StackPanel>
+
+                <!-- Filter Rules List -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        MinHeight="100"
+                        MaxHeight="200">
+                    <ListBox ItemsSource="{Binding FilterRules}"
+                             SelectedItem="{Binding SelectedFilterRule}"
+                             SelectionMode="Single"
+                             Background="Transparent">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="models:FilterRule">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <CheckBox Grid.Column="0"
+                                              IsChecked="{Binding IsEnabled}"
+                                              Margin="0,0,8,0"/>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}"
+                                                   FontWeight="SemiBold"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding DisplayText}"
+                                                   FontSize="11"
+                                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+
+                <!-- Empty State -->
+                <TextBlock Text="No filter rules defined. Click 'Add' to create one."
+                           IsVisible="{Binding FilterRules.Count, Converter={StaticResource ZeroToBoolConverter}}"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                           FontStyle="Italic"
+                           HorizontalAlignment="Center"
+                           Margin="0,5,0,0"/>
+
+                <!-- Filter Rule Buttons -->
+                <StackPanel Orientation="Horizontal" Spacing="5" Margin="0,5,0,0">
+                    <Button Content="Add"
+                            Command="{Binding AddFilterRuleCommand}"
+                            Padding="15,5"
+                            ToolTip.Tip="Add new filter rule"/>
+                    <Button Content="Edit"
+                            Command="{Binding EditFilterRuleCommand}"
+                            Padding="15,5"
+                            ToolTip.Tip="Edit selected filter rule"/>
+                    <Button Content="Remove"
+                            Command="{Binding RemoveFilterRuleCommand}"
+                            Padding="15,5"
+                            ToolTip.Tip="Remove selected filter rule"/>
+                </StackPanel>
+
+                <!-- Import/Export Buttons -->
+                <StackPanel Orientation="Horizontal" Spacing="5" Margin="0,5,0,0">
+                    <Button Content="Import"
+                            Command="{Binding ImportFiltersCommand}"
+                            Padding="15,5"
+                            ToolTip.Tip="Import filter rules from file"/>
+                    <Button Content="Export"
+                            Command="{Binding ExportFiltersCommand}"
+                            Padding="15,5"
+                            ToolTip.Tip="Export filter rules to file"/>
+                </StackPanel>
+
+                <!-- Clear All Button -->
+                <Button Content="Clear All Filters"
+                        Command="{Binding ClearAllFiltersCommand}"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,10,0,0"
+                        Padding="10,5"/>
+            </StackPanel>
         </StackPanel>
+    </ScrollViewer>
 
-        <!-- Log Level Filters -->
-        <TextBlock Text="Log Levels" FontWeight="SemiBold" Margin="0,15,0,5"/>
-
-        <CheckBox IsChecked="{Binding ShowTrace}"
-                  Content="Trace"
-                  Foreground="#808080"/>
-
-        <CheckBox IsChecked="{Binding ShowDebug}"
-                  Content="Debug"
-                  Foreground="#0000FF"/>
-
-        <CheckBox IsChecked="{Binding ShowInfo}"
-                  Content="Info"
-                  Foreground="#008000"/>
-
-        <CheckBox IsChecked="{Binding ShowWarning}"
-                  Content="Warning"
-                  Foreground="#FFA500"/>
-
-        <CheckBox IsChecked="{Binding ShowError}"
-                  Content="Error"
-                  Foreground="#FF0000"/>
-
-        <CheckBox IsChecked="{Binding ShowFatal}"
-                  Content="Fatal"
-                  Foreground="#8B0000"/>
-    </StackPanel>
+    <UserControl.Resources>
+        <!-- Inverse Bool Converter -->
+        <x:Boolean x:Key="TrueValue">True</x:Boolean>
+        <x:Boolean x:Key="FalseValue">False</x:Boolean>
+    </UserControl.Resources>
 </UserControl>
