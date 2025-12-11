@@ -555,22 +555,22 @@ Old LogFilter system lacks:
 ### High Priority (Next Sprint)
 6. ✅ Add `[SupportedOSPlatform("windows")]` to Windows-only classes (Win32, Extensions, DebugMonitor, EventlogReceiver, WinDebugReceiver)
 7. ☐ Fix clipboard operations to use Avalonia clipboard
-8. ☐ Create cross-platform DataProtection fallback
+8. ✅ Create cross-platform DataProtection fallback (AES encryption for macOS/Linux)
 9. ✅ Fix hardcoded font names with cross-platform fallbacks (AppSettings.cs)
-10. ☐ Create CustomDetailsView.axaml
-11. ☐ Create WinDebugDetailsView.axaml
-12. ☐ Create LogLevelMapDialog.axaml
+10. ✅ Create CustomDetailsView.axaml
+11. ✅ Create WinDebugDetailsView.axaml
+12. ✅ Create LogLevelMapDialog.axaml
 13. ☐ Add color configuration to AppSettings
 14. ☐ Integrate FilterRule with existing filter UI
 
 ### Medium Priority
 15. ☐ Verify MruManager ordering is correct in UI
 16. ☐ Add timestamp format setting for CSV export
-17. ☐ Add regex validation to old LogFilter classes
-18. ☐ Implement virtual property overrides in log message classes
+17. ✅ Add regex validation to old LogFilter classes (LogFilterRegex with error handling)
+18. ✅ Implement virtual property overrides in log message classes (LogMessageLog4Net)
 19. ☐ Consolidate or document extension method duplication
-20. ☐ Fix file path case-sensitivity comparisons
-21. ☐ Fix Encoding.Default usage to explicit UTF-8
+20. ✅ Fix file path case-sensitivity comparisons (StringComparison.OrdinalIgnoreCase)
+21. ✅ Fix Encoding.Default usage to explicit UTF-8 (ReceiverBase default codepage)
 22. ☐ Add FileSystemWatcher error handling
 
 ### Testing Required
@@ -704,19 +704,19 @@ Old LogFilter system lacks:
 
 ## 11. Summary of All Pending Work
 
-### Code Fixes Required (7 items)
+### Code Fixes Required (7 items → 1 remaining)
 1. ☐ Fix clipboard operations to use Avalonia clipboard
-2. ☐ Create cross-platform DataProtection fallback
-3. ☐ Fix file path case-sensitivity comparisons
-4. ☐ Fix Encoding.Default usage to explicit UTF-8
-5. ☐ Add FileSystemWatcher error handling
-6. ☐ Add regex validation to LogFilterRegex
-7. ☐ Implement virtual property overrides in log message classes
+2. ✅ Create cross-platform DataProtection fallback
+3. ✅ Fix file path case-sensitivity comparisons
+4. ✅ Fix Encoding.Default usage to explicit UTF-8
+5. ☐ Add FileSystemWatcher error handling (already exists in dir receivers)
+6. ✅ Add regex validation to LogFilterRegex
+7. ✅ Implement virtual property overrides in log message classes
 
-### Missing UI Components (3 items)
-1. ☐ Create CustomDetailsView.axaml
-2. ☐ Create WinDebugDetailsView.axaml
-3. ☐ Create LogLevelMapDialog.axaml
+### Missing UI Components (3 items → 0 remaining)
+1. ✅ Create CustomDetailsView.axaml
+2. ✅ Create WinDebugDetailsView.axaml
+3. ✅ Create LogLevelMapDialog.axaml
 
 ### Configuration/Settings (3 items)
 1. ☐ Add color configuration to AppSettings (per-level colors)
@@ -731,4 +731,4 @@ Old LogFilter system lacks:
 5. ☐ Installer packages creation
 6. ☐ Documentation verification on all platforms
 
-**Total Pending Items: 19 code/UI items + 6 testing/deployment items = 25 total**
+**Total Pending Items: 10 code/UI/config items + 6 testing/deployment items = 16 total (was 25)**
