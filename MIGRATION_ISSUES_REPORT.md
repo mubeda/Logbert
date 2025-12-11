@@ -546,32 +546,32 @@ Old LogFilter system lacks:
 ## 6. RECOMMENDED ACTIONS
 
 ### Immediate (Before Any Release)
-1. ☐ Fix LogError.cs ForeColor assignment bug
-2. ☐ Fix NLogDirReceiver.LoadLayout() to use correct setting
-3. ☐ Fix LogMessage.ToLuaTable() to use ToUnixTimestamp()
-4. ☐ Add platform guards to hide Windows-only receivers on macOS/Linux
-5. ☐ Fix Browser.cs to use platform-specific URL opening
+1. ✅ Fix LogError.cs ForeColor assignment bug
+2. ✅ Fix NLogDirReceiver.LoadLayout() to use correct setting
+3. ✅ Fix LogMessage.ToLuaTable() to use ToUnixTimestamp()
+4. ✅ Add platform guards to hide Windows-only receivers on macOS/Linux
+5. ✅ Fix Browser.cs to use platform-specific URL opening
 
 ### High Priority (Next Sprint)
-6. Add `[SupportedOSPlatform("windows")]` to Windows-only classes
-7. Fix clipboard operations to use Avalonia clipboard
-8. Create cross-platform DataProtection fallback
-9. Fix hardcoded font names with cross-platform fallbacks
-10. Create CustomDetailsView.axaml
-11. Create WinDebugDetailsView.axaml
-12. Create LogLevelMapDialog.axaml
-13. Add color configuration to AppSettings
-14. Integrate FilterRule with existing filter UI
+6. ✅ Add `[SupportedOSPlatform("windows")]` to Windows-only classes (Win32, Extensions, DebugMonitor, EventlogReceiver, WinDebugReceiver)
+7. ☐ Fix clipboard operations to use Avalonia clipboard
+8. ☐ Create cross-platform DataProtection fallback
+9. ✅ Fix hardcoded font names with cross-platform fallbacks (AppSettings.cs)
+10. ☐ Create CustomDetailsView.axaml
+11. ☐ Create WinDebugDetailsView.axaml
+12. ☐ Create LogLevelMapDialog.axaml
+13. ☐ Add color configuration to AppSettings
+14. ☐ Integrate FilterRule with existing filter UI
 
 ### Medium Priority
-15. Verify MruManager ordering is correct in UI
-16. Add timestamp format setting for CSV export
-17. Add regex validation to old LogFilter classes
-18. Implement virtual property overrides in log message classes
-19. Consolidate or document extension method duplication
-20. Fix file path case-sensitivity comparisons
-21. Fix Encoding.Default usage to explicit UTF-8
-22. Add FileSystemWatcher error handling
+15. ☐ Verify MruManager ordering is correct in UI
+16. ☐ Add timestamp format setting for CSV export
+17. ☐ Add regex validation to old LogFilter classes
+18. ☐ Implement virtual property overrides in log message classes
+19. ☐ Consolidate or document extension method duplication
+20. ☐ Fix file path case-sensitivity comparisons
+21. ☐ Fix Encoding.Default usage to explicit UTF-8
+22. ☐ Add FileSystemWatcher error handling
 
 ### Testing Required
 - Test all receivers with their settings dialogs
@@ -650,10 +650,10 @@ Old LogFilter system lacks:
 | NLog TCP Receiver | ✅ | ✅ | ✅ | Cross-platform |
 | Syslog Receiver | ✅ | ✅ | ✅ | Cross-platform |
 | Custom Receivers | ✅ | ✅ | ✅ | Cross-platform |
-| **Event Log Receiver** | ✅ | ❌ | ❌ | Windows-only |
-| **WinDebug Receiver** | ✅ | ❌ | ❌ | Windows-only |
-| Clipboard Copy | ✅ | ❌ | ❌ | Needs fix |
-| Open URLs | ✅ | ❌ | ❌ | Needs fix |
+| **Event Log Receiver** | ✅ | ❌ | ❌ | Windows-only (hidden on other platforms) |
+| **WinDebug Receiver** | ✅ | ❌ | ❌ | Windows-only (hidden on other platforms) |
+| Clipboard Copy | ✅ | ❌ | ❌ | Needs Avalonia clipboard |
+| Open URLs | ✅ | ✅ | ✅ | ✅ Fixed - cross-platform |
 | Credential Encryption | ✅ | ❌ | ❌ | Needs fallback |
 | Settings Persistence | ✅ | ✅ | ✅ | JSON file |
 | Docking Layouts | ✅ | ✅ | ✅ | Cross-platform |
