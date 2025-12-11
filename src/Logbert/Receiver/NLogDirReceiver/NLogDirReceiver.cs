@@ -209,7 +209,7 @@ namespace Logbert.Receiver.NLogDirReceiver
           mCurrentLogFile = e.FullPath;
         }
 
-        if (e.FullPath.Equals(mCurrentLogFile))
+        if (e.FullPath.Equals(mCurrentLogFile, StringComparison.OrdinalIgnoreCase))
         {
           ReadNewLogMessagesFromFile();
         }

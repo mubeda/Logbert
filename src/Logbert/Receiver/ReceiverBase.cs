@@ -46,9 +46,9 @@ namespace Logbert.Receiver
     #region Private Consts
 
     /// <summary>
-    ///  Use the ISO-8859-1 (Western European (Windows)) as default encoding.
+    /// Use UTF-8 as default encoding for cross-platform compatibility.
     /// </summary>
-    private const int SYSTEM_DEFAULT_CODEPAGE = 1252;
+    private const int SYSTEM_DEFAULT_CODEPAGE = 65001;
 
     #endregion
 
@@ -310,8 +310,8 @@ namespace Logbert.Receiver
       {
         Logger.Warn($"Unable to restore encoding (Codepage: {codePage}): {ex.Message}");
 
-        // Using the system default encoding as fallback.
-        mEncoding = Encoding.Default;
+        // Using UTF-8 as fallback for cross-platform compatibility.
+        mEncoding = Encoding.UTF8;
       }
     }
 

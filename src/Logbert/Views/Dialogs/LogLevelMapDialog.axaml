@@ -1,0 +1,186 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Logbert.ViewModels.Dialogs"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+        x:Class="Logbert.Views.Dialogs.LogLevelMapDialog"
+        x:DataType="vm:LogLevelMapDialogViewModel"
+        Title="Log Level Mapping"
+        Width="500" Height="500"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Assets/avalonia-logo.ico">
+
+    <Design.DataContext>
+        <vm:LogLevelMapDialogViewModel/>
+    </Design.DataContext>
+
+    <DockPanel Margin="20">
+        <!-- Header -->
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,20">
+            <TextBlock Text="Log Level Mapping"
+                       FontSize="18"
+                       FontWeight="Bold"/>
+            <TextBlock Text="Configure regex patterns to identify log levels in your custom log format."
+                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                       TextWrapping="Wrap"
+                       Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <!-- Buttons -->
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="10"
+                    Margin="0,20,0,0">
+            <Button Content="Reset Defaults"
+                    Padding="20,8"
+                    Command="{Binding ResetToDefaultsCommand}"/>
+            <Button Content="OK"
+                    Padding="30,8"
+                    Command="{Binding AcceptCommand}"
+                    IsDefault="True"/>
+            <Button Content="Cancel"
+                    Padding="30,8"
+                    Command="{Binding CancelCommand}"
+                    IsCancel="True"/>
+        </StackPanel>
+
+        <!-- Level Mappings -->
+        <ScrollViewer>
+            <StackPanel Spacing="12">
+                <TextBlock Text="Enter regex patterns that match your log level strings:"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                           Margin="0,0,0,10"/>
+
+                <!-- Trace -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12">
+                    <Grid ColumnDefinitions="100,*" RowDefinitions="Auto,Auto">
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <Border Background="LightGray" CornerRadius="3" Padding="6,2">
+                                <TextBlock Text="TRACE" FontWeight="Bold" FontSize="11" Foreground="Black"/>
+                            </Border>
+                        </StackPanel>
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding TracePattern}"
+                                 FontFamily="Consolas,Courier New,monospace"
+                                 Watermark="Regex pattern for Trace level"/>
+                    </Grid>
+                </Border>
+
+                <!-- Debug -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12">
+                    <Grid ColumnDefinitions="100,*" RowDefinitions="Auto">
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <Border Background="DodgerBlue" CornerRadius="3" Padding="6,2">
+                                <TextBlock Text="DEBUG" FontWeight="Bold" FontSize="11" Foreground="White"/>
+                            </Border>
+                        </StackPanel>
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding DebugPattern}"
+                                 FontFamily="Consolas,Courier New,monospace"
+                                 Watermark="Regex pattern for Debug level"/>
+                    </Grid>
+                </Border>
+
+                <!-- Info -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12">
+                    <Grid ColumnDefinitions="100,*" RowDefinitions="Auto">
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <Border Background="Green" CornerRadius="3" Padding="6,2">
+                                <TextBlock Text="INFO" FontWeight="Bold" FontSize="11" Foreground="White"/>
+                            </Border>
+                        </StackPanel>
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding InfoPattern}"
+                                 FontFamily="Consolas,Courier New,monospace"
+                                 Watermark="Regex pattern for Info level"/>
+                    </Grid>
+                </Border>
+
+                <!-- Warning -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12">
+                    <Grid ColumnDefinitions="100,*" RowDefinitions="Auto">
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <Border Background="Orange" CornerRadius="3" Padding="6,2">
+                                <TextBlock Text="WARNING" FontWeight="Bold" FontSize="11" Foreground="White"/>
+                            </Border>
+                        </StackPanel>
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding WarningPattern}"
+                                 FontFamily="Consolas,Courier New,monospace"
+                                 Watermark="Regex pattern for Warning level"/>
+                    </Grid>
+                </Border>
+
+                <!-- Error -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12">
+                    <Grid ColumnDefinitions="100,*" RowDefinitions="Auto">
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <Border Background="Red" CornerRadius="3" Padding="6,2">
+                                <TextBlock Text="ERROR" FontWeight="Bold" FontSize="11" Foreground="White"/>
+                            </Border>
+                        </StackPanel>
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding ErrorPattern}"
+                                 FontFamily="Consolas,Courier New,monospace"
+                                 Watermark="Regex pattern for Error level"/>
+                    </Grid>
+                </Border>
+
+                <!-- Fatal -->
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12">
+                    <Grid ColumnDefinitions="100,*" RowDefinitions="Auto">
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <Border Background="DarkRed" CornerRadius="3" Padding="6,2">
+                                <TextBlock Text="FATAL" FontWeight="Bold" FontSize="11" Foreground="White"/>
+                            </Border>
+                        </StackPanel>
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding FatalPattern}"
+                                 FontFamily="Consolas,Courier New,monospace"
+                                 Watermark="Regex pattern for Fatal level"/>
+                    </Grid>
+                </Border>
+
+                <!-- Help Text -->
+                <Border Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                        CornerRadius="4"
+                        Padding="12"
+                        Margin="0,10,0,0">
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Regex Tips:" FontWeight="SemiBold"/>
+                        <TextBlock Text="• Use (?i) for case-insensitive matching"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   FontSize="12"/>
+                        <TextBlock Text="• Use | for OR conditions (e.g., WARN|WARNING)"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   FontSize="12"/>
+                        <TextBlock Text="• Leave empty to skip that level"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   FontSize="12"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

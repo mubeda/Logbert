@@ -208,6 +208,58 @@ namespace Logbert.Logging
     }
 
     /// <summary>
+    /// Gets the thread name of the <see cref="LogMessage"/> (override for base class).
+    /// </summary>
+    public override string? ThreadName => mThread;
+
+    /// <summary>
+    /// Gets the machine name of the <see cref="LogMessage"/> from custom properties.
+    /// </summary>
+    public override string? MachineName
+    {
+      get
+      {
+        if (mCustomProperties.TryGetValue("log4jmachinename", out string machineName))
+          return machineName;
+        if (mCustomProperties.TryGetValue("MachineName", out machineName))
+          return machineName;
+        return null;
+      }
+    }
+
+    /// <summary>
+    /// Gets the user name of the <see cref="LogMessage"/> from custom properties.
+    /// </summary>
+    public override string? UserName
+    {
+      get
+      {
+        if (mCustomProperties.TryGetValue("log4juser", out string userName))
+          return userName;
+        if (mCustomProperties.TryGetValue("UserName", out userName))
+          return userName;
+        if (mCustomProperties.TryGetValue("identity", out userName))
+          return userName;
+        return null;
+      }
+    }
+
+    /// <summary>
+    /// Gets the exception information of the <see cref="LogMessage"/> from custom properties.
+    /// </summary>
+    public override string? Exception
+    {
+      get
+      {
+        if (mCustomProperties.TryGetValue("ExceptionString", out string exception))
+          return exception;
+        if (mCustomProperties.TryGetValue("exception", out exception))
+          return exception;
+        return null;
+      }
+    }
+
+    /// <summary>
     /// Gets the <see cref="LocationInfo"/> of the <see cref="LogMessage"/>.
     /// </summary>
     public LocationInfo Location
