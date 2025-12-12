@@ -62,8 +62,8 @@ namespace Logbert.Helper
     {
       // Use environment-specific data to derive a user-specific key
       string userKey = Environment.UserName + Environment.MachineName + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-      using var deriveBytes = new Rfc2898DeriveBytes(userKey, Salt, 10000, HashAlgorithmName.SHA256);
-      return deriveBytes.GetBytes(32); // 256-bit key for AES
+      byte[] passwordBytes = Encoding.UTF8.GetBytes(userKey);
+      return Rfc2898DeriveBytes.Pbkdf2(passwordBytes, Salt, 10000, HashAlgorithmName.SHA256, 32); // 256-bit key for AES
     }
 
     /// <summary>

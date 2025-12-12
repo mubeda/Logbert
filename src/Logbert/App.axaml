@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vmDocking="using:Logbert.ViewModels.Docking"
              xmlns:viewsDocking="using:Logbert.Views.Docking"
+             xmlns:converters="using:Logbert.Converters"
              x:Class="Logbert.App"
              RequestedThemeVariant="Default">
 
@@ -19,7 +20,19 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <!-- Application-wide resources -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <!-- Converters -->
+                    <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+                    <converters:AdvancedToggleConverter x:Key="AdvancedToggleConverter"/>
+                    <converters:ZeroToBoolConverter x:Key="ZeroToBoolConverter"/>
+                    <converters:BoolToBackgroundConverter x:Key="BoolToBackgroundConverter"/>
+                    <converters:BoolToForegroundConverter x:Key="BoolToForegroundConverter"/>
+                    <converters:BoolToIconConverter x:Key="BoolToIconConverter"/>
+                    <converters:MatchBackgroundConverter x:Key="MatchBackgroundConverter"/>
+                    <converters:MatchStatusConverter x:Key="MatchStatusConverter"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

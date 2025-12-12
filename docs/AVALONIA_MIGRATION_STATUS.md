@@ -11,7 +11,8 @@
 
 | Metric | Status |
 |--------|--------|
-| **Build** | 0 errors, 0 warnings |
+| **Build** | ✅ 0 errors, 0 warnings |
+| **Runtime** | ✅ All startup errors fixed |
 | **Phase 5** | Complete (100%) |
 | **Phase 6** | Complete (100%) |
 | **Phase 7** | Complete (100%) - Feature Parity |
@@ -941,6 +942,59 @@ Legacy WinForms files are excluded from compilation but retained for reference:
 - Sprint 6: Low Priority Dialogs (Welcome, About enhanced, Column Reorder, Keyboard Shortcuts)
 
 **All Phase 7 features complete - 100% feature parity achieved.**
+
+---
+
+## Bug Fixes (December 2025)
+
+### Runtime Startup Errors Fixed
+
+**Issue 1: Invalid KeyGesture in MainWindow.axaml**
+- **Error:** `System.ArgumentException: Requested value '?' was not found`
+- **Location:** [MainWindow.axaml:160](../src/Logbert/Views/MainWindow.axaml#L160)
+- **Cause:** Invalid HotKey attribute `Ctrl+Shift+?` - question mark is not a valid Avalonia key identifier
+- **Fix:** Changed to `Ctrl+Shift+OemQuestion` (proper Avalonia key name)
+
+**Issue 2: Missing Static Resource Converters**
+- **Error:** `System.Collections.Generic.KeyNotFoundException: Static resource 'AdvancedToggleConverter' not found`
+- **Location:** [FilterPanelView.axaml:66](../src/Logbert/Views/Docking/FilterPanelView.axaml#L66)
+- **Cause:** Three converters referenced but not registered in App.axaml:
+  - `AdvancedToggleConverter` - Toggle button text for advanced filters
+  - `InverseBoolConverter` - Boolean inversion for radio buttons
+  - `ZeroToBoolConverter` - Zero to boolean for empty state visibility
+- **Fix:**
+  1. Created three new converter classes in [CommonConverters.cs](../src/Logbert/Converters/CommonConverters.cs)
+  2. Registered all converters globally in [App.axaml](../src/Logbert/App.axaml) resources
+  3. Added converters namespace (`xmlns:converters="using:Logbert.Converters"`)
+
+**Converters Registered:**
+- `InverseBoolConverter` - Inverts boolean values
+- `AdvancedToggleConverter` - Converts boolean to "Show/Hide Advanced Filters" text
+- `ZeroToBoolConverter` - Converts numeric value to boolean (true if zero)
+- `BoolToBackgroundConverter` - Boolean to colored background (green/red)
+- `BoolToForegroundConverter` - Boolean to colored foreground (green/red)
+- `BoolToIconConverter` - Boolean to icon geometry (checkmark/X)
+- `MatchBackgroundConverter` - Match result to background color
+- `MatchStatusConverter` - Boolean to status text ("Matched"/"No Match")
+
+**Result:** Application now starts successfully without runtime errors.
+
+**Issue 3: Obsolete Rfc2898DeriveBytes Constructor**
+- **Warning:** `SYSLIB0060: 'Rfc2898DeriveBytes.Rfc2898DeriveBytes(string, byte[], int, HashAlgorithmName)' is obsolete`
+- **Location:** [DataProtection.cs:65](../src/Logbert/Helper/DataProtection.cs#L65)
+- **Cause:** Using obsolete constructor instead of the newer static Pbkdf2 method
+- **Fix:** Replaced constructor with `Rfc2898DeriveBytes.Pbkdf2()` static method
+  ```csharp
+  // Before (obsolete):
+  using var deriveBytes = new Rfc2898DeriveBytes(userKey, Salt, 10000, HashAlgorithmName.SHA256);
+  return deriveBytes.GetBytes(32);
+
+  // After (recommended):
+  byte[] passwordBytes = Encoding.UTF8.GetBytes(userKey);
+  return Rfc2898DeriveBytes.Pbkdf2(passwordBytes, Salt, 10000, HashAlgorithmName.SHA256, 32);
+  ```
+
+**Result:** Build now completes with 0 errors and 0 warnings.
 
 ---
 
