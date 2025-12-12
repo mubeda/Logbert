@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs.Docking
+﻿namespace Logbert.Dialogs.Docking
 {
   partial class FrmLogScript
   {
@@ -28,7 +28,7 @@
             this.cmsLuaEditPaste = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsLuaEditDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsLuaEditSelectAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsCuCommands = new Couchcoding.Logbert.Gui.Controls.ToolStripEx();
+            this.tsCuCommands = new Logbert.Gui.Controls.ToolStripEx();
             this.tsbLoadScript = new System.Windows.Forms.ToolStripButton();
             this.tsbSaveScript = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -45,11 +45,11 @@
             this.tsbZoomIn = new System.Windows.Forms.ToolStripButton();
             this.tsbZoomOut = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tableLayoutPanel1 = new Couchcoding.Logbert.Gui.Controls.TableLayoutPanelEx();
-            this.tsOutput = new Couchcoding.Logbert.Gui.Controls.ToolStripEx();
+            this.tableLayoutPanel1 = new Logbert.Gui.Controls.TableLayoutPanelEx();
+            this.tsOutput = new Logbert.Gui.Controls.ToolStripEx();
             this.tsbOutputClear = new System.Windows.Forms.ToolStripButton();
             this.tsbOutputWordWrap = new System.Windows.Forms.ToolStripButton();
-            this.bgPanel = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
+            this.bgPanel = new Logbert.Gui.Controls.InfoPanel();
             this.txtOutput = new System.Windows.Forms.TextBox();
             cmsLuaEditSeperator1 = new System.Windows.Forms.ToolStripSeparator();
             cmsLuaEditSeperator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -451,7 +451,7 @@
     #endregion
 
     private ScintillaNET.Scintilla scintilla;
-    private Couchcoding.Logbert.Gui.Controls.ToolStripEx tsCuCommands;
+    private Logbert.Gui.Controls.ToolStripEx tsCuCommands;
     private System.Windows.Forms.ToolStripButton tsbLoadScript;
     private System.Windows.Forms.ToolStripButton tsbSaveScript;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
@@ -466,7 +466,7 @@
     private System.Windows.Forms.ToolStripButton tsbStop;
     private System.Windows.Forms.SplitContainer splitContainer1;
     private Gui.Controls.TableLayoutPanelEx tableLayoutPanel1;
-    private Couchcoding.Logbert.Gui.Controls.ToolStripEx tsOutput;
+    private Logbert.Gui.Controls.ToolStripEx tsOutput;
     private System.Windows.Forms.ToolStripButton tsbOutputClear;
     private System.Windows.Forms.ToolStripButton tsbOutputWordWrap;
     private Gui.Controls.InfoPanel bgPanel;

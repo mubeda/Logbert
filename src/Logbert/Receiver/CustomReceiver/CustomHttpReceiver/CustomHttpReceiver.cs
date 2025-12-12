@@ -1,4 +1,4 @@
-﻿#region Copyright © 2021 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    CustomFileReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2021 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,20 +28,20 @@
 
 #endregion
 
-using Couchcoding.Logbert.Controls;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Interfaces;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
+using Logbert.Helper;
+using Logbert.Interfaces;
 using System;
 using System.Net.Http;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
+// using System.Runtime.Remoting.Messaging; // Removed - not available in .NET 9
 using System.ComponentModel;
 using System.Net;
 using System.Linq;
-using Couchcoding.Logbert.Logging;
+using Logbert.Logging;
 using System.Threading;
 
-namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
+namespace Logbert.Receiver.CustomReceiver.CustomHttpReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the custom log http service.
@@ -120,7 +120,7 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
     /// <summary>
     /// Gets the settings <see cref="Control"/> of the <see cref="ILogProvider"/>.
     /// </summary>
-    public override ILogSettingsCtrl Settings => new CustomHttpReceiverSettings();
+    public override ILogSettingsCtrl Settings => null; // Avalonia UI handles settings dialogs differently
 
     /// <summary>
     /// Determines whether this <see cref="ILogProvider"/> supports the logger tree window.
@@ -158,7 +158,7 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
     {
       get
       {
-        return new CustomDetailsControl(mColumnizer);
+        return null; // Avalonia UI handles details display differently
       }
     }
 
@@ -381,6 +381,9 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
     /// <param name="ar"></param>
     private void HttpFileListeningCallback(IAsyncResult ar)
     {
+      // TODO: Refactor this to use async/await instead of AsyncResult (not available in .NET 9)
+      // For now, this callback is not used in the current implementation
+      /*
       StartHttpFileListeningDelegate worker =
         (StartHttpFileListeningDelegate)((AsyncResult)ar).AsyncDelegate;
 
@@ -390,9 +393,10 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
         worker.EndInvoke(ar);
       }
       catch
-      { 
-        
+      {
+
       }
+      */
     }
 
     /// <summary>
@@ -453,7 +457,7 @@ namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
     public override void SaveLayout(string layout, List<LogColumnData> columnLayout)
     {
       Properties.Settings.Default.DockLayoutCustomHttpReceiver = layout ?? string.Empty;
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

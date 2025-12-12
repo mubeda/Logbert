@@ -1,4 +1,4 @@
-﻿#region Copyright © 2019 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    ListBoxEx.cs
 // Package: GuiLibrary
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2019 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,12 +28,12 @@
 
 #endregion
 
-using Couchcoding.Logbert.Gui.Helper;
+using Logbert.Gui.Helper;
 using System.Drawing;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace Couchcoding.Logbert.Controls
+namespace Logbert.Controls
 {
   /// <summary>
   /// Implements a <see cref="DockPanel"/> that supports a background image even if it is themed.

@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Controls.OptionPanels
+﻿namespace Logbert.Controls.OptionPanels
 {
   partial class OptionPanelGeneral
   {
@@ -30,9 +30,9 @@
     {
             this.lblUpdateRate = new System.Windows.Forms.Label();
             this.nudUpdateRate = new System.Windows.Forms.NumericUpDown();
-            this.nfoPanel = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
+            this.nfoPanel = new Logbert.Gui.Controls.InfoPanel();
             this.lblTimestampFormat = new System.Windows.Forms.Label();
-            this.txtTimestampFormat = new Couchcoding.Logbert.Gui.Controls.TextBoxEx();
+            this.txtTimestampFormat = new Logbert.Gui.Controls.TextBoxEx();
             this.mnuTimestamp = new System.Windows.Forms.ContextMenu();
             this.mnuTimestampPresets = new System.Windows.Forms.MenuItem();
             this.mnuTimestampPreset1 = new System.Windows.Forms.MenuItem();
@@ -126,7 +126,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nfoPanel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.nfoPanel.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.nfoPanel.InfoIcon = global::Couchcoding.Logbert.Properties.Resources.StatusAnnotations_Information_16xLG;
+            this.nfoPanel.InfoIcon = global::Logbert.Properties.Resources.StatusAnnotations_Information_16xLG;
             this.nfoPanel.Location = new System.Drawing.Point(3, 48);
             this.nfoPanel.Name = "nfoPanel";
             this.nfoPanel.ShowInfoIcon = true;

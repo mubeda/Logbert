@@ -1,0 +1,105 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Logbert.ViewModels.Dialogs.ReceiverSettings"
+        xmlns:controls="clr-namespace:Logbert.Views.Controls"
+        x:Class="Logbert.Views.Dialogs.ReceiverSettings.CustomDirReceiverSettingsView"
+        x:DataType="vm:CustomDirReceiverSettingsViewModel"
+        Title="Custom Directory Receiver Settings"
+        Width="700" Height="700"
+        WindowStartupLocation="CenterOwner"
+        CanResize="True">
+
+  <Design.DataContext>
+    <vm:CustomDirReceiverSettingsViewModel />
+  </Design.DataContext>
+
+  <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+    <!-- Header -->
+    <TextBlock Grid.Row="0"
+               Text="Configure Custom Directory Receiver"
+               FontSize="16"
+               FontWeight="SemiBold"
+               Margin="0,0,0,15" />
+
+    <!-- Settings -->
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+      <StackPanel Spacing="15">
+
+        <!-- Directory Selection -->
+        <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4" Padding="12">
+          <StackPanel Spacing="10">
+            <TextBlock Text="Directory Settings" FontWeight="Bold" />
+
+            <StackPanel Spacing="5">
+              <TextBlock Text="Log Directory Path:" FontWeight="SemiBold" />
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBox Grid.Column="0" Text="{Binding DirectoryPath}" />
+                <Button Grid.Column="1" Content="Browse..." Click="OnBrowseClick" Margin="5,0,0,0" />
+              </Grid>
+            </StackPanel>
+
+            <StackPanel Spacing="5">
+              <TextBlock Text="Filename Pattern:" FontWeight="SemiBold" />
+              <TextBox Text="{Binding FilenamePattern}" />
+              <TextBlock Text="Use wildcards like *.log, app-*.txt, etc." FontSize="11" Foreground="Gray" />
+            </StackPanel>
+
+            <StackPanel Spacing="5">
+              <TextBlock Text="File Encoding:" FontWeight="SemiBold" />
+              <ComboBox SelectedItem="{Binding SelectedEncoding}"
+                        ItemsSource="{Binding AvailableEncodings}"
+                        HorizontalAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding DisplayName}" />
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+            </StackPanel>
+
+            <CheckBox IsChecked="{Binding StartFromBeginning}"
+                      Content="Read all files from beginning (otherwise start from end)" />
+          </StackPanel>
+        </Border>
+
+        <!-- Columnizer Configuration -->
+        <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4" Padding="12">
+          <StackPanel Spacing="10">
+            <TextBlock Text="Custom Format Configuration (Columnizer)" FontWeight="Bold" />
+
+            <controls:ColumnizerEditorControl x:Name="ColumnizerEditor" />
+          </StackPanel>
+        </Border>
+
+        <!-- Info Panel -->
+        <Border Background="#F0F0F0"
+                Padding="12"
+                CornerRadius="4">
+          <StackPanel Spacing="8">
+            <TextBlock Text="ℹ️ Custom Directory Receiver"
+                       FontWeight="SemiBold" />
+            <TextBlock TextWrapping="Wrap"
+                       Text="Monitors all files matching the pattern in a directory using custom regex patterns. All matching files will be treated as a single log stream."
+                       FontSize="12"
+                       Foreground="#606060" />
+          </StackPanel>
+        </Border>
+
+      </StackPanel>
+    </ScrollViewer>
+
+    <!-- Buttons -->
+    <StackPanel Grid.Row="2"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                Spacing="10"
+                Margin="0,15,0,0">
+      <Button Content="OK"
+              Width="80"
+              Click="OnOkClick" />
+      <Button Content="Cancel"
+              Width="80"
+              Click="OnCancelClick" />
+    </StackPanel>
+  </Grid>
+</Window>

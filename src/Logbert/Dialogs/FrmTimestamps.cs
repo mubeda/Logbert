@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-using Couchcoding.Logbert.Gui.Dialogs;
+using Logbert.Gui.Dialogs;
 
-namespace Couchcoding.Logbert.Dialogs
+namespace Logbert.Dialogs
 {
   public partial class FrmTimestamps : DialogForm
   {

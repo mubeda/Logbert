@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs
+﻿namespace Logbert.Dialogs
 {
   partial class FrmAddEditFilter
   {

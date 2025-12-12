@@ -1,9 +1,9 @@
-﻿using Couchcoding.Logbert.Helper;
+﻿using Logbert.Helper;
 using System;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace Couchcoding.Logbert.Controls
+namespace Logbert.Controls
 {
   public class DockContentEx : DockContent
   {

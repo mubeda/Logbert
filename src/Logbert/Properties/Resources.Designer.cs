@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Couchcoding.Logbert.Properties {
+namespace Logbert.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Couchcoding.Logbert.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Couchcoding.Logbert.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Logbert.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -281,7 +281,7 @@ namespace Couchcoding.Logbert.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright 2022 Couchcoding. All Right Reserved..
+        ///   Looks up a localized string similar to Copyright 2024 Logbert Contributors. All Rights Reserved..
         /// </summary>
         internal static string strAboutDlgCopyright {
             get {

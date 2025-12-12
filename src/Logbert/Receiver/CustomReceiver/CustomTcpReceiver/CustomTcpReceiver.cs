@@ -1,4 +1,4 @@
-﻿#region Copyright © 2018 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    CustomTcpReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2018 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -36,14 +36,14 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-using Couchcoding.Logbert.Interfaces;
+using Logbert.Interfaces;
 
-using Couchcoding.Logbert.Controls;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Receiver.CustomReceiver;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
+using Logbert.Helper;
+using Logbert.Logging;
+using Logbert.Receiver.CustomReceiver;
 
-namespace Couchcoding.Logbert.Receiver.NlogTcpReceiver
+namespace Logbert.Receiver.CustomReceiver.CustomTcpReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the custom TCP service.
@@ -136,7 +136,7 @@ namespace Couchcoding.Logbert.Receiver.NlogTcpReceiver
     {
       get
       {
-        return new CustomTcpReceiverSettings();
+        return null; // Avalonia UI handles settings dialogs differently
       }
     }
 
@@ -182,7 +182,7 @@ namespace Couchcoding.Logbert.Receiver.NlogTcpReceiver
     {
       get
       {
-        return new CustomDetailsControl(mColumnizer);
+        return null; // Avalonia UI handles details display differently
       }
     }
 
@@ -389,7 +389,7 @@ namespace Couchcoding.Logbert.Receiver.NlogTcpReceiver
     public override void SaveLayout(string layout, List<LogColumnData> columnLayout)
     {
       Properties.Settings.Default.DockLayoutCustomTcpReceiver = layout ?? string.Empty;
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

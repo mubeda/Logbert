@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(timeout 30 dotnet build:*)",
+      "Bash(dotnet --list-sdks:*)",
+      "Bash(dotnet restore:*)",
+      "Bash(dotnet build:*)",
+      "Bash(find:*)",
+      "Bash(echo:*)",
+      "Bash(git checkout:*)",
+      "Bash(dotnet clean:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

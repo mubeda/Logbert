@@ -1,0 +1,72 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Logbert.ViewModels.Docking"
+             xmlns:controls="using:Logbert.Views.Controls"
+             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="500"
+             x:Class="Logbert.Views.Docking.ColorMapPanelView"
+             x:DataType="vm:ColorMapPanelViewModel">
+
+    <DockPanel>
+        <!-- Header -->
+        <Border DockPanel.Dock="Top"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                Padding="10"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,0,0,1">
+            <TextBlock Text="Color Map"
+                       FontSize="14"
+                       FontWeight="Bold"/>
+        </Border>
+
+        <!-- Legend -->
+        <Border DockPanel.Dock="Bottom"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                Padding="5"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,1,0,0">
+            <StackPanel Spacing="3">
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Border Width="12" Height="12" Background="Gray" CornerRadius="2"/>
+                    <TextBlock Text="Trace" FontSize="10"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Border Width="12" Height="12" Background="DodgerBlue" CornerRadius="2"/>
+                    <TextBlock Text="Debug" FontSize="10"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Border Width="12" Height="12" Background="Green" CornerRadius="2"/>
+                    <TextBlock Text="Info" FontSize="10"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Border Width="12" Height="12" Background="Orange" CornerRadius="2"/>
+                    <TextBlock Text="Warning" FontSize="10"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Border Width="12" Height="12" Background="Red" CornerRadius="2"/>
+                    <TextBlock Text="Error" FontSize="10"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Border Width="12" Height="12" Background="DarkRed" CornerRadius="2"/>
+                    <TextBlock Text="Fatal" FontSize="10"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Statistics -->
+        <Border DockPanel.Dock="Bottom"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                Padding="5"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,1,0,0">
+            <StackPanel Spacing="2">
+                <TextBlock Text="{Binding TotalMessagesText}" FontSize="10"/>
+                <TextBlock Text="{Binding VisibleRangeText}" FontSize="10"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Color Map Control -->
+        <controls:ColorMapControl DataContext="{Binding ColorMapViewModel}"/>
+    </DockPanel>
+</UserControl>

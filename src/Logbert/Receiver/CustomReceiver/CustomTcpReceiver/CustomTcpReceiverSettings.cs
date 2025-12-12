@@ -1,4 +1,4 @@
-﻿#region Copyright © 2018 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    CustomTcpReceiverSettings.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2018 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,22 +30,22 @@
 
 using System;
 using System.Net.NetworkInformation;
-using System.Windows.Forms;
+// using System.Windows.Forms; // WinForms removed for Avalonia
 
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Properties;
+using Logbert.Interfaces;
+using Logbert.Properties;
 using System.Net.Sockets;
 
-using Couchcoding.Logbert.Helper;
+using Logbert.Helper;
 using System.Net;
 using System.Collections.Generic;
-using Couchcoding.Logbert.Receiver.CustomReceiver;
+using Logbert.Receiver.CustomReceiver;
 using System.IO;
 using System.Xml;
 using System.Text;
-using Couchcoding.Logbert.Dialogs;
+using Logbert.Dialogs;
 
-namespace Couchcoding.Logbert.Receiver.NlogTcpReceiver
+namespace Logbert.Receiver.NlogTcpReceiver
 {
   /// <summary>
   /// Implements the <see cref="ILogSettingsCtrl"/> control for the custom TCP receiver.

@@ -1,0 +1,97 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Logbert.ViewModels.Controls.Details"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
+             x:Class="Logbert.Views.Controls.Details.WinDebugDetailsView"
+             x:DataType="vm:WinDebugDetailsViewModel">
+
+    <ScrollViewer>
+        <StackPanel Spacing="10" Margin="10">
+            <!-- Header with Level Badge -->
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Border Grid.Column="0"
+                        Padding="8,4"
+                        CornerRadius="4"
+                        Background="{Binding LevelBackground}"
+                        Margin="0,0,10,0">
+                    <TextBlock Text="{Binding Level}"
+                               Foreground="White"
+                               FontWeight="Bold"/>
+                </Border>
+
+                <TextBlock Grid.Column="1"
+                           Text="{Binding FormattedTimestamp}"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           FontWeight="SemiBold"/>
+
+                <TextBlock Grid.Column="2"
+                           Text="{Binding IndexDisplay}"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+            </Grid>
+
+            <Separator/>
+
+            <!-- Process Information -->
+            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <Grid ColumnDefinitions="120,*">
+                    <TextBlock Grid.Column="0"
+                               Text="Process ID:"
+                               FontWeight="Bold"/>
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding ProcessId}"
+                               TextWrapping="Wrap"
+                               FontFamily="Consolas,Courier New,monospace"/>
+                </Grid>
+            </Border>
+
+            <!-- Message Content -->
+            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Debug Message"
+                               FontWeight="Bold"
+                               FontSize="14"/>
+
+                    <TextBox Text="{Binding MessageText}"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap"
+                             MinHeight="80"
+                             AcceptsReturn="True"
+                             FontFamily="Consolas,Courier New,monospace"
+                             Background="Transparent"
+                             BorderThickness="0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Raw Data -->
+            <Expander Header="Raw Data" IsExpanded="False">
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="10"
+                        Margin="0,8,0,0">
+                    <TextBox Text="{Binding RawData}"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap"
+                             MinHeight="100"
+                             MaxHeight="300"
+                             AcceptsReturn="True"
+                             FontFamily="Consolas,Courier New,monospace"
+                             FontSize="10"
+                             Background="Transparent"
+                             BorderThickness="0"/>
+                </Border>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

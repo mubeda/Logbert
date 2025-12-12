@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs.Docking
+﻿namespace Logbert.Dialogs.Docking
 {
   partial class FrmLogWindow
   {
@@ -17,14 +17,14 @@
     {
       this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogWindow));
-      this.dtgLogMessages = new Couchcoding.Logbert.Gui.Controls.DataGridViewEx();
+      this.dtgLogMessages = new Logbert.Gui.Controls.DataGridViewEx();
       this.imlBookmark = new System.Windows.Forms.ImageList(this.components);
       this.cmColumns = new System.Windows.Forms.ContextMenuStrip(this.components);
       this.cmLogMessage = new System.Windows.Forms.ContextMenuStrip(this.components);
       this.cmsSynchronizeTree = new System.Windows.Forms.ToolStripMenuItem();
       this.cmdcopytoclipboard = new System.Windows.Forms.ToolStripMenuItem();
       this.tableLayoutPanel1 = new Gui.Controls.TableLayoutPanelEx();
-      this.colorMap1 = new Couchcoding.Logbert.Controls.ColorMap((Interfaces.ILogPresenter)this);
+      this.colorMap1 = new Logbert.Controls.ColorMap((Interfaces.ILogPresenter)this);
       this.cmsSeperator = new System.Windows.Forms.ToolStripSeparator();
       this.cmsToggleBookmark = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.dtgLogMessages)).BeginInit();

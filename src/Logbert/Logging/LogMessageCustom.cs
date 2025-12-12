@@ -1,4 +1,4 @@
-﻿#region Copyright © 2017 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    LogMessageCustom.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2017 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -29,18 +29,17 @@
 #endregion
 
 using System;
-using Couchcoding.Logbert.Receiver.CustomReceiver;
+using Logbert.Receiver.CustomReceiver;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using Couchcoding.Logbert.Properties;
+using Logbert.Properties;
 using System.Text;
-using System.Windows.Forms;
 
-using Couchcoding.Logbert.Helper;
+using Logbert.Helper;
 using MoonSharp.Interpreter;
 
-namespace Couchcoding.Logbert.Logging
+namespace Logbert.Logging
 {
   /// <summary>
   /// Implements a <see cref="LogMessage"/> class for custom logger messages.

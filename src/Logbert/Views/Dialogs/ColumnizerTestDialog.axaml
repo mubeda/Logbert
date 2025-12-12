@@ -1,0 +1,267 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Logbert.ViewModels.Dialogs"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="700"
+        x:Class="Logbert.Views.Dialogs.ColumnizerTestDialog"
+        x:DataType="vm:ColumnizerTestDialogViewModel"
+        Title="Test Regex Pattern"
+        Width="800" Height="700"
+        MinWidth="600" MinHeight="500"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Assets/avalonia-logo.ico">
+
+    <Design.DataContext>
+        <vm:ColumnizerTestDialogViewModel/>
+    </Design.DataContext>
+
+    <DockPanel Margin="15">
+        <!-- Header -->
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,15">
+            <TextBlock Text="Test Regex Pattern"
+                       FontSize="18"
+                       FontWeight="Bold"/>
+            <TextBlock Text="Test your regex pattern against sample log lines to verify column extraction."
+                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                       Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <!-- Bottom Buttons -->
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="10"
+                    Margin="0,15,0,0">
+            <Button Content="Use Pattern"
+                    Padding="25,8"
+                    Click="OnUsePatternClick"
+                    IsEnabled="{Binding IsPatternValid}"/>
+            <Button Content="Close"
+                    Padding="25,8"
+                    Click="OnCloseClick"
+                    IsCancel="True"/>
+        </StackPanel>
+
+        <!-- Main Content -->
+        <Grid RowDefinitions="Auto,*,Auto,*">
+            <!-- Pattern Section -->
+            <Border Grid.Row="0"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10"
+                    Margin="0,0,0,10">
+                <StackPanel Spacing="8">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Text="Regex Pattern" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="5">
+                            <DropDownButton Content="Insert Template">
+                                <DropDownButton.Flyout>
+                                    <MenuFlyout>
+                                        <MenuItem Header="Simple (Level + Message)"
+                                                  Command="{Binding InsertPatternCommand}"
+                                                  CommandParameter="simple"/>
+                                        <MenuItem Header="Log4j Format"
+                                                  Command="{Binding InsertPatternCommand}"
+                                                  CommandParameter="log4j"/>
+                                        <MenuItem Header="Syslog Format"
+                                                  Command="{Binding InsertPatternCommand}"
+                                                  CommandParameter="syslog"/>
+                                        <MenuItem Header="IIS Log Format"
+                                                  Command="{Binding InsertPatternCommand}"
+                                                  CommandParameter="iis"/>
+                                        <MenuItem Header="Custom Bracketed"
+                                                  Command="{Binding InsertPatternCommand}"
+                                                  CommandParameter="custom"/>
+                                    </MenuFlyout>
+                                </DropDownButton.Flyout>
+                            </DropDownButton>
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBox Text="{Binding Pattern}"
+                             FontFamily="Consolas, Courier New, monospace"
+                             Watermark="Enter regex pattern with named capture groups, e.g., (?&lt;timestamp&gt;\d{4}-\d{2}-\d{2})..."
+                             AcceptsReturn="True"
+                             Height="60"
+                             TextWrapping="Wrap"/>
+
+                    <!-- Validation Message -->
+                    <Border IsVisible="{Binding ValidationMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                            Background="{Binding IsPatternValid, Converter={StaticResource BoolToBackgroundConverter}}"
+                            CornerRadius="3"
+                            Padding="8,5">
+                        <TextBlock Text="{Binding ValidationMessage}"
+                                   FontSize="12"
+                                   Foreground="{Binding IsPatternValid, Converter={StaticResource BoolToForegroundConverter}}"/>
+                    </Border>
+
+                    <!-- Regex Options -->
+                    <Expander Header="Regex Options" IsExpanded="{Binding ShowOptions}">
+                        <StackPanel Orientation="Horizontal" Spacing="15" Margin="5">
+                            <CheckBox Content="Ignore Case" IsChecked="{Binding IgnoreCase}"/>
+                            <CheckBox Content="Multiline" IsChecked="{Binding Multiline}"/>
+                            <CheckBox Content="Singleline" IsChecked="{Binding Singleline}"/>
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </Border>
+
+            <!-- Sample Text Section -->
+            <Border Grid.Row="1"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10"
+                    Margin="0,0,0,10">
+                <DockPanel>
+                    <Grid DockPanel.Dock="Top" ColumnDefinitions="*,Auto" Margin="0,0,0,8">
+                        <TextBlock Text="Sample Log Lines" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="5">
+                            <Button Content="Load Sample"
+                                    Command="{Binding LoadSampleCommand}"
+                                    Padding="10,4"/>
+                            <Button Content="Clear"
+                                    Command="{Binding ClearCommand}"
+                                    Padding="10,4"/>
+                            <Button Content="Test"
+                                    Command="{Binding TestPatternCommand}"
+                                    Padding="15,4"
+                                    FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBox Text="{Binding SampleText}"
+                             FontFamily="Consolas, Courier New, monospace"
+                             FontSize="12"
+                             AcceptsReturn="True"
+                             TextWrapping="NoWrap"
+                             VerticalContentAlignment="Top"/>
+                </DockPanel>
+            </Border>
+
+            <!-- Status Bar -->
+            <Border Grid.Row="2"
+                    Background="{Binding HasMatches, Converter={StaticResource BoolToBackgroundConverter}}"
+                    CornerRadius="3"
+                    Padding="10,8"
+                    Margin="0,0,0,10">
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Text="{Binding StatusMessage}"
+                               Foreground="{Binding HasMatches, Converter={StaticResource BoolToForegroundConverter}}"/>
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding MatchCount, StringFormat='Matches: {0}'}"
+                               Foreground="{Binding HasMatches, Converter={StaticResource BoolToForegroundConverter}}"
+                               FontWeight="SemiBold"/>
+                </Grid>
+            </Border>
+
+            <!-- Results Section -->
+            <Border Grid.Row="3"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top"
+                               Text="Results"
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,8"/>
+
+                    <Grid ColumnDefinitions="*,10,*">
+                        <!-- Match Results -->
+                        <DockPanel Grid.Column="0">
+                            <TextBlock DockPanel.Dock="Top"
+                                       Text="Matched Lines"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                       Margin="0,0,0,5"/>
+                            <ListBox ItemsSource="{Binding MatchResults}"
+                                     Background="Transparent">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:MatchResultViewModel">
+                                        <Border Padding="5"
+                                                Background="{Binding IsMatch, Converter={StaticResource MatchBackgroundConverter}}"
+                                                CornerRadius="3"
+                                                Margin="0,2">
+                                            <StackPanel>
+                                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                                    <TextBlock Text="{Binding LineNumber, StringFormat='Line {0}:'}"
+                                                               FontWeight="SemiBold"
+                                                               FontSize="11"/>
+                                                    <TextBlock Text="{Binding IsMatch, Converter={StaticResource MatchStatusConverter}}"
+                                                               FontSize="11"
+                                                               Foreground="{Binding IsMatch, Converter={StaticResource BoolToForegroundConverter}}"/>
+                                                </StackPanel>
+                                                <TextBlock Text="{Binding OriginalLine}"
+                                                           FontFamily="Consolas, Courier New, monospace"
+                                                           FontSize="11"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           ToolTip.Tip="{Binding OriginalLine}"/>
+                                                <ItemsControl ItemsSource="{Binding GroupValues}"
+                                                              IsVisible="{Binding IsMatch}"
+                                                              Margin="10,3,0,0">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate x:DataType="vm:GroupValueViewModel">
+                                                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                                                <TextBlock Text="{Binding GroupName, StringFormat='{}{0}:'}"
+                                                                           FontSize="10"
+                                                                           FontWeight="SemiBold"
+                                                                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                                                                <TextBlock Text="{Binding Value}"
+                                                                           FontSize="10"
+                                                                           FontFamily="Consolas, Courier New, monospace"/>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </DockPanel>
+
+                        <GridSplitter Grid.Column="1"
+                                      ResizeDirection="Columns"
+                                      Background="Transparent"/>
+
+                        <!-- Capture Groups -->
+                        <DockPanel Grid.Column="2">
+                            <TextBlock DockPanel.Dock="Top"
+                                       Text="Capture Groups"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                       Margin="0,0,0,5"/>
+                            <DataGrid ItemsSource="{Binding CaptureGroups}"
+                                      AutoGenerateColumns="False"
+                                      CanUserReorderColumns="False"
+                                      CanUserResizeColumns="True"
+                                      CanUserSortColumns="False"
+                                      GridLinesVisibility="Horizontal"
+                                      IsReadOnly="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Group Name"
+                                                        Binding="{Binding GroupName}"
+                                                        Width="*"
+                                                        IsReadOnly="True"/>
+                                    <DataGridTemplateColumn Header="Column Type" Width="Auto">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate x:DataType="vm:CaptureGroupViewModel">
+                                                <ComboBox SelectedItem="{Binding ColumnType}"
+                                                          ItemsSource="{x:Static vm:ColumnizerTestDialogViewModel.ColumnTypeValues}"
+                                                          MinWidth="100"
+                                                          Margin="2"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </Grid>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>

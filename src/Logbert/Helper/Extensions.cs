@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    Extensions.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -35,14 +35,17 @@ using System.Drawing;
 using System.IO.Pipes;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace Couchcoding.Logbert.Helper
+namespace Logbert.Helper
 {
   /// <summary>
   /// Implements some <see cref="Control"/> extensions.
+  /// This class contains WinForms extensions and is only available on Windows platforms.
   /// </summary>
+  [SupportedOSPlatform("windows")]
   public static class Extensions
   {
     #region Private Consts

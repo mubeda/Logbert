@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    FrmLogSearch.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,16 +31,16 @@
 using System;
 using System.Windows.Forms;
 
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Properties;
+using Logbert.Helper;
+using Logbert.Properties;
 using System.Text.RegularExpressions;
 
-using Couchcoding.Logbert.Interfaces;
+using Logbert.Interfaces;
 using System.Collections.Specialized;
 using System.Drawing;
 using System.ComponentModel;
 
-namespace Couchcoding.Logbert.Dialogs
+namespace Logbert.Dialogs
 {
   /// <summary>
   /// Implements a find window to search for text.

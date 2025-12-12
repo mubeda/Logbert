@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Receiver.Log4NetDirReceiver
+﻿namespace Logbert.Receiver.Log4NetDirReceiver
 {
   partial class CustomDirReceiverSettings
   {
@@ -29,9 +29,9 @@
     private void InitializeComponent()
     {
             this.lblNetworkInterface = new System.Windows.Forms.Label();
-            this.txtLogDirectory = new Couchcoding.Logbert.Gui.Controls.TextBoxEx();
+            this.txtLogDirectory = new Logbert.Gui.Controls.TextBoxEx();
             this.chkInitialReadAll = new System.Windows.Forms.CheckBox();
-            this.txtLogFilePattern = new Couchcoding.Logbert.Gui.Controls.TextBoxEx();
+            this.txtLogFilePattern = new Logbert.Gui.Controls.TextBoxEx();
             this.label1 = new System.Windows.Forms.Label();
             this.mnuFilePattern = new System.Windows.Forms.ContextMenu();
             this.mnuFilePatternPresets = new System.Windows.Forms.MenuItem();
@@ -198,7 +198,7 @@
             // btnRemoveColumnizer
             // 
             this.btnRemoveColumnizer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveColumnizer.Image = global::Couchcoding.Logbert.Properties.Resources.Remove_16xMD;
+            this.btnRemoveColumnizer.Image = global::Logbert.Properties.Resources.Remove_16xMD;
             this.btnRemoveColumnizer.Location = new System.Drawing.Point(348, 129);
             this.btnRemoveColumnizer.Name = "btnRemoveColumnizer";
             this.btnRemoveColumnizer.Size = new System.Drawing.Size(23, 22);
@@ -209,7 +209,7 @@
             // btnAddColumnizer
             // 
             this.btnAddColumnizer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddColumnizer.Image = global::Couchcoding.Logbert.Properties.Resources.action_add_16xMD;
+            this.btnAddColumnizer.Image = global::Logbert.Properties.Resources.action_add_16xMD;
             this.btnAddColumnizer.Location = new System.Drawing.Point(319, 129);
             this.btnAddColumnizer.Name = "btnAddColumnizer";
             this.btnAddColumnizer.Size = new System.Drawing.Size(23, 22);
@@ -221,7 +221,7 @@
             // 
             this.btnEditColumnizer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditColumnizer.Enabled = false;
-            this.btnEditColumnizer.Image = global::Couchcoding.Logbert.Properties.Resources.PencilAngled_16xMD_color;
+            this.btnEditColumnizer.Image = global::Logbert.Properties.Resources.PencilAngled_16xMD_color;
             this.btnEditColumnizer.Location = new System.Drawing.Point(377, 129);
             this.btnEditColumnizer.Name = "btnEditColumnizer";
             this.btnEditColumnizer.Size = new System.Drawing.Size(23, 22);

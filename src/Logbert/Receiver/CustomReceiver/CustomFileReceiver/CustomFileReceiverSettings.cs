@@ -1,4 +1,4 @@
-#region Copyright ┬® 2015 Couchcoding
+#region Copyright ┬® 2015 Logbert Contributors
 
 // File:    CustomFileReceiverSettings.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,19 +28,19 @@
 
 #endregion
 
-using System.Windows.Forms;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Properties;
+// using System.Windows.Forms; // WinForms removed for Avalonia
+using Logbert.Interfaces;
+using Logbert.Properties;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
 
-using Couchcoding.Logbert.Dialogs;
-using Couchcoding.Logbert.Helper;
+using Logbert.Dialogs;
+using Logbert.Helper;
 
-namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomFileReceiver
+namespace Logbert.Receiver.CustomReceiver.CustomFileReceiver
 {
   /// <summary>
   /// Implements the <see cref="ILogSettingsCtrl"/> control for the custom file receiver.

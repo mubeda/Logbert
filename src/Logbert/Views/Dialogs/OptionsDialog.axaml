@@ -1,0 +1,357 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Logbert.ViewModels.Dialogs"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="500"
+        x:Class="Logbert.Views.Dialogs.OptionsDialog"
+        x:DataType="vm:OptionsDialogViewModel"
+        Title="Options"
+        Width="600" Height="500"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Assets/avalonia-logo.ico">
+
+    <Design.DataContext>
+        <vm:OptionsDialogViewModel/>
+    </Design.DataContext>
+
+    <Grid Margin="20" RowDefinitions="*,Auto">
+        <!-- Options Content -->
+        <TabControl Grid.Row="0">
+            <!-- General Tab -->
+            <TabItem Header="General">
+                <ScrollViewer>
+                    <StackPanel Spacing="15" Margin="10">
+                        <TextBlock Text="General Settings"
+                                   FontSize="16"
+                                   FontWeight="Bold"/>
+
+                        <CheckBox IsChecked="{Binding AlwaysOnTop}"
+                                  Content="Always on top"/>
+
+                        <CheckBox IsChecked="{Binding MinimizeToTray}"
+                                  Content="Minimize to system tray"/>
+
+                        <CheckBox IsChecked="{Binding ShowWelcomeScreen}"
+                                  Content="Show welcome screen on startup"/>
+
+                        <Separator/>
+
+                        <TextBlock Text="Recent Files"
+                                   FontWeight="Bold"/>
+
+                        <Grid ColumnDefinitions="Auto,150,*">
+                            <TextBlock Grid.Column="0"
+                                       Text="Maximum recent files:"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <NumericUpDown Grid.Column="1"
+                                           Value="{Binding MaxRecentFiles}"
+                                           Minimum="5"
+                                           Maximum="20"
+                                           Increment="1"
+                                           FormatString="0"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Appearance Tab -->
+            <TabItem Header="Appearance">
+                <ScrollViewer>
+                    <StackPanel Spacing="15" Margin="10">
+                        <TextBlock Text="Appearance Settings"
+                                   FontSize="16"
+                                   FontWeight="Bold"/>
+
+                        <Grid ColumnDefinitions="Auto,200,*">
+                            <TextBlock Grid.Column="0"
+                                       Text="Theme:"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AvailableThemes}"
+                                      SelectedItem="{Binding SelectedTheme}"/>
+                        </Grid>
+
+                        <Separator/>
+
+                        <TextBlock Text="Font Settings"
+                                   FontWeight="Bold"/>
+
+                        <Grid ColumnDefinitions="Auto,200,*" Margin="0,0,0,10">
+                            <TextBlock Grid.Column="0"
+                                       Text="Font family:"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AvailableFonts}"
+                                      SelectedItem="{Binding DefaultFontFamily}"/>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="Auto,150,*">
+                            <TextBlock Grid.Column="0"
+                                       Text="Font size:"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <NumericUpDown Grid.Column="1"
+                                           Value="{Binding DefaultFontSize}"
+                                           Minimum="8"
+                                           Maximum="24"
+                                           Increment="1"
+                                           FormatString="0"/>
+                        </Grid>
+
+                        <TextBlock>
+                            <Run Text="Preview: "/>
+                            <Run Text="The quick brown fox jumps over the lazy dog"
+                                 FontFamily="{Binding DefaultFontFamily}"
+                                 FontSize="{Binding DefaultFontSize}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Behavior Tab -->
+            <TabItem Header="Behavior">
+                <ScrollViewer>
+                    <StackPanel Spacing="15" Margin="10">
+                        <TextBlock Text="Log Viewer Behavior"
+                                   FontSize="16"
+                                   FontWeight="Bold"/>
+
+                        <CheckBox IsChecked="{Binding AutoScroll}"
+                                  Content="Auto-scroll to latest log message"/>
+
+                        <CheckBox IsChecked="{Binding ShowTimestamps}"
+                                  Content="Show timestamps in log view"/>
+
+                        <CheckBox IsChecked="{Binding HighlightSearchMatches}"
+                                  Content="Highlight search matches"/>
+
+                        <CheckBox IsChecked="{Binding EnableWordWrap}"
+                                  Content="Enable word wrap in message view"/>
+
+                        <Separator/>
+
+                        <TextBlock Text="Timestamp Display"
+                                   FontWeight="Bold"/>
+
+                        <Grid ColumnDefinitions="Auto,250,*">
+                            <TextBlock Grid.Column="0"
+                                       Text="Timestamp format:"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding TimestampFormats}"
+                                      SelectedItem="{Binding TimestampFormat}"
+                                      IsEditable="True"/>
+                        </Grid>
+
+                        <TextBlock Text="Preview:"
+                                   Margin="0,5,0,0"/>
+                        <TextBlock Text="{Binding TimestampFormat}"
+                                   FontFamily="Consolas"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Script Tab -->
+            <TabItem Header="Script">
+                <ScrollViewer>
+                    <StackPanel Spacing="15" Margin="10">
+                        <TextBlock Text="Lua Script Settings"
+                                   FontSize="16"
+                                   FontWeight="Bold"/>
+
+                        <CheckBox IsChecked="{Binding AutoSaveScripts}"
+                                  Content="Auto-save scripts before execution"/>
+
+                        <CheckBox IsChecked="{Binding RunScriptOnLoad}"
+                                  Content="Run script automatically on log load"/>
+
+                        <Separator/>
+
+                        <TextBlock Text="Editor Settings"
+                                   FontWeight="Bold"/>
+
+                        <CheckBox IsChecked="{Binding ScriptShowLineNumbers}"
+                                  Content="Show line numbers"/>
+
+                        <CheckBox IsChecked="{Binding ScriptSyntaxHighlighting}"
+                                  Content="Enable syntax highlighting"/>
+
+                        <Grid ColumnDefinitions="Auto,150,*">
+                            <TextBlock Grid.Column="0"
+                                       Text="Font size:"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <NumericUpDown Grid.Column="1"
+                                           Value="{Binding ScriptFontSize}"
+                                           Minimum="8"
+                                           Maximum="24"
+                                           Increment="1"
+                                           FormatString="0"/>
+                        </Grid>
+
+                        <Separator/>
+
+                        <TextBlock Text="Default Script Path"
+                                   FontWeight="Bold"/>
+
+                        <TextBox Text="{Binding DefaultScriptPath}"
+                                 Watermark="Enter path or leave empty for default"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Advanced Tab -->
+            <TabItem Header="Advanced">
+                <ScrollViewer>
+                    <StackPanel Spacing="15" Margin="10">
+                        <TextBlock Text="Advanced Settings"
+                                   FontSize="16"
+                                   FontWeight="Bold"/>
+
+                        <TextBlock TextWrapping="Wrap"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}">
+                            These settings affect performance and resource usage.
+                            Change with caution.
+                        </TextBlock>
+
+                        <Separator/>
+
+                        <TextBlock Text="Performance"
+                                   FontWeight="Bold"/>
+
+                        <CheckBox IsChecked="{Binding EnableVirtualization}"
+                                  Content="Enable UI virtualization for large logs"/>
+
+                        <Grid ColumnDefinitions="Auto,150,*">
+                            <TextBlock Grid.Column="0"
+                                       Text="Max log messages:"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <NumericUpDown Grid.Column="1"
+                                           Value="{Binding MaxLogMessages}"
+                                           Minimum="10000"
+                                           Maximum="1000000"
+                                           Increment="10000"
+                                           FormatString="N0"/>
+                        </Grid>
+
+                        <Separator/>
+
+                        <TextBlock Text="Network Receivers"
+                                   FontWeight="Bold"/>
+
+                        <Grid ColumnDefinitions="Auto,150,*">
+                            <TextBlock Grid.Column="0"
+                                       Text="Buffer size (bytes):"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <NumericUpDown Grid.Column="1"
+                                           Value="{Binding NetworkBufferSize}"
+                                           Minimum="4096"
+                                           Maximum="1048576"
+                                           Increment="4096"
+                                           FormatString="N0"/>
+                        </Grid>
+
+                        <Separator/>
+
+                        <TextBlock Text="File Monitoring"
+                                   FontWeight="Bold"/>
+
+                        <Grid ColumnDefinitions="Auto,150,*">
+                            <TextBlock Grid.Column="0"
+                                       Text="Polling interval (ms):"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <NumericUpDown Grid.Column="1"
+                                           Value="{Binding FileWatcherInterval}"
+                                           Minimum="100"
+                                           Maximum="5000"
+                                           Increment="100"
+                                           FormatString="0"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Logging Tab -->
+            <TabItem Header="Logging">
+                <ScrollViewer>
+                    <StackPanel Spacing="15" Margin="10">
+                        <TextBlock Text="Application Logging"
+                                   FontSize="16"
+                                   FontWeight="Bold"/>
+
+                        <CheckBox IsChecked="{Binding EnableLogging}"
+                                  Content="Enable application logging"/>
+
+                        <TextBlock TextWrapping="Wrap"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}">
+                            Enable this option to log application events for troubleshooting purposes.
+                            Logs are stored in the application data directory.
+                        </TextBlock>
+
+                        <Grid ColumnDefinitions="Auto,150,*"
+                              IsEnabled="{Binding EnableLogging}">
+                            <TextBlock Grid.Column="0"
+                                       Text="Log retention (days):"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <NumericUpDown Grid.Column="1"
+                                           Value="{Binding LogRetentionDays}"
+                                           Minimum="1"
+                                           Maximum="30"
+                                           Increment="1"
+                                           FormatString="0"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <!-- Buttons -->
+        <Border Grid.Row="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="0,15,0,0"
+                Margin="0,15,0,0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Spacing="10">
+                <Button Content="Reset to Defaults"
+                        Command="{Binding ResetCommand}"
+                        Padding="15,8"
+                        MinWidth="120"/>
+
+                <Button Content="OK"
+                        Padding="15,8"
+                        MinWidth="80"
+                        IsDefault="True"
+                        Click="OnOkClick"/>
+
+                <Button Content="Cancel"
+                        Padding="15,8"
+                        MinWidth="80"
+                        IsCancel="True"
+                        Click="OnCancelClick"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

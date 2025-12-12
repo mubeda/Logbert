@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    Log4NetFileReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,13 +31,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Couchcoding.Logbert.Interfaces;
+using Logbert.Interfaces;
 
-using Couchcoding.Logbert.Controls;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Logging;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
+using Logbert.Helper;
+using Logbert.Logging;
 
-namespace Couchcoding.Logbert.Receiver.Log4NetFileReceiver
+namespace Logbert.Receiver.Log4NetFileReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the Log4Net file service.
@@ -143,7 +143,7 @@ namespace Couchcoding.Logbert.Receiver.Log4NetFileReceiver
     {
       get
       {
-        return new Log4NetFileReceiverSettings();
+        return null; // Settings UI handled by Log4NetFileReceiverSettingsView
       }
     }
 
@@ -197,7 +197,7 @@ namespace Couchcoding.Logbert.Receiver.Log4NetFileReceiver
     {
       get
       {
-        return new Log4NetDetailsControl();
+        return null; // WinForms control removed for Avalonia
       }
     }
 
@@ -450,7 +450,7 @@ namespace Couchcoding.Logbert.Receiver.Log4NetFileReceiver
         , columnLayout[4].Width
         , columnLayout[5].Width);
 
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

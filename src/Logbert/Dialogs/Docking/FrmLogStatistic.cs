@@ -1,4 +1,4 @@
-﻿#region Copyright © 2017 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    FrmLogStatistic.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2017 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -34,18 +34,18 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms.DataVisualization.Charting;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Theme.Palettes;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Properties;
+using Logbert.Helper;
+using Logbert.Theme.Palettes;
+using Logbert.Interfaces;
+using Logbert.Logging;
+using Logbert.Properties;
 using WeifenLuo.WinFormsUI.Docking;
-using Couchcoding.Logbert.Theme.Interfaces;
-using Couchcoding.Logbert.Theme;
-using Couchcoding.Logbert.Theme.Themes;
+using Logbert.Theme.Interfaces;
+using Logbert.Theme;
+using Logbert.Theme.Themes;
 using System.Windows.Forms;
 
-namespace Couchcoding.Logbert.Dialogs.Docking
+namespace Logbert.Dialogs.Docking
 {
   /// <summary>
   /// Implements the <see cref="DockContent"/> of the statistic window.

@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver
+﻿namespace Logbert.Receiver.CustomReceiver.CustomHttpReceiver
 {
   partial class CustomHttpReceiverSettings
   {
@@ -60,7 +60,7 @@
             // btnRemoveColumnizer
             // 
             this.btnRemoveColumnizer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveColumnizer.Image = global::Couchcoding.Logbert.Properties.Resources.Remove_16xMD;
+            this.btnRemoveColumnizer.Image = global::Logbert.Properties.Resources.Remove_16xMD;
             this.btnRemoveColumnizer.Location = new System.Drawing.Point(348, 213);
             this.btnRemoveColumnizer.Name = "btnRemoveColumnizer";
             this.btnRemoveColumnizer.Size = new System.Drawing.Size(23, 22);
@@ -71,7 +71,7 @@
             // btnAddColumnizer
             // 
             this.btnAddColumnizer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddColumnizer.Image = global::Couchcoding.Logbert.Properties.Resources.action_add_16xMD;
+            this.btnAddColumnizer.Image = global::Logbert.Properties.Resources.action_add_16xMD;
             this.btnAddColumnizer.Location = new System.Drawing.Point(319, 213);
             this.btnAddColumnizer.Name = "btnAddColumnizer";
             this.btnAddColumnizer.Size = new System.Drawing.Size(23, 22);
@@ -83,7 +83,7 @@
             // 
             this.btnEditColumnizer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditColumnizer.Enabled = false;
-            this.btnEditColumnizer.Image = global::Couchcoding.Logbert.Properties.Resources.PencilAngled_16xMD_color;
+            this.btnEditColumnizer.Image = global::Logbert.Properties.Resources.PencilAngled_16xMD_color;
             this.btnEditColumnizer.Location = new System.Drawing.Point(377, 213);
             this.btnEditColumnizer.Name = "btnEditColumnizer";
             this.btnEditColumnizer.Size = new System.Drawing.Size(23, 22);

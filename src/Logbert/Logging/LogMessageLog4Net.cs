@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    LogMessageLog4Net.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,19 +28,19 @@
 
 #endregion
 
-using Couchcoding.Logbert.Properties;
+using Logbert.Properties;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+// using System.Windows.Forms; // Removed for Avalonia migration - unused reference
 using System.Xml;
 
-using Couchcoding.Logbert.Helper;
+using Logbert.Helper;
 
 using MoonSharp.Interpreter;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Couchcoding.Logbert.Logging
+namespace Logbert.Logging
 {
   /// <summary>
   /// Implements a <see cref="LogMessage"/> class for Log4Net logger messages.
@@ -204,6 +204,58 @@ namespace Couchcoding.Logbert.Logging
       get
       {
         return mThread;
+      }
+    }
+
+    /// <summary>
+    /// Gets the thread name of the <see cref="LogMessage"/> (override for base class).
+    /// </summary>
+    public override string? ThreadName => mThread;
+
+    /// <summary>
+    /// Gets the machine name of the <see cref="LogMessage"/> from custom properties.
+    /// </summary>
+    public override string? MachineName
+    {
+      get
+      {
+        if (mCustomProperties.TryGetValue("log4jmachinename", out string machineName))
+          return machineName;
+        if (mCustomProperties.TryGetValue("MachineName", out machineName))
+          return machineName;
+        return null;
+      }
+    }
+
+    /// <summary>
+    /// Gets the user name of the <see cref="LogMessage"/> from custom properties.
+    /// </summary>
+    public override string? UserName
+    {
+      get
+      {
+        if (mCustomProperties.TryGetValue("log4juser", out string userName))
+          return userName;
+        if (mCustomProperties.TryGetValue("UserName", out userName))
+          return userName;
+        if (mCustomProperties.TryGetValue("identity", out userName))
+          return userName;
+        return null;
+      }
+    }
+
+    /// <summary>
+    /// Gets the exception information of the <see cref="LogMessage"/> from custom properties.
+    /// </summary>
+    public override string? Exception
+    {
+      get
+      {
+        if (mCustomProperties.TryGetValue("ExceptionString", out string exception))
+          return exception;
+        if (mCustomProperties.TryGetValue("exception", out exception))
+          return exception;
+        return null;
       }
     }
 

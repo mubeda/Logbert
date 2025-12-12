@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    ReceiverBase.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,11 +32,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Helper;
+using Logbert.Interfaces;
+using Logbert.Logging;
+using Logbert.Helper;
 
-namespace Couchcoding.Logbert.Receiver
+namespace Logbert.Receiver
 {
   /// <summary>
   /// Implements the base class for all <see cref="ILogProvider"/> implementations.
@@ -46,9 +46,9 @@ namespace Couchcoding.Logbert.Receiver
     #region Private Consts
 
     /// <summary>
-    ///  Use the ISO-8859-1 (Western European (Windows)) as default encoding.
+    /// Use UTF-8 as default encoding for cross-platform compatibility.
     /// </summary>
-    private const int SYSTEM_DEFAULT_CODEPAGE = 1252;
+    private const int SYSTEM_DEFAULT_CODEPAGE = 65001;
 
     #endregion
 
@@ -310,8 +310,8 @@ namespace Couchcoding.Logbert.Receiver
       {
         Logger.Warn($"Unable to restore encoding (Codepage: {codePage}): {ex.Message}");
 
-        // Using the system default encoding as fallback.
-        mEncoding = Encoding.Default;
+        // Using UTF-8 as fallback for cross-platform compatibility.
+        mEncoding = Encoding.UTF8;
       }
     }
 

@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    FrmNew.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,27 +30,27 @@
 
 using System.Windows.Forms;
 
-using Couchcoding.Logbert.Gui.Dialogs;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Properties;
-using Couchcoding.Logbert.Receiver;
-using Couchcoding.Logbert.Receiver.CustomReceiver.CustomFileReceiver;
-using Couchcoding.Logbert.Receiver.Log4NetUdpReceiver;
-using Couchcoding.Logbert.Receiver.Log4NetFileReceiver;
-using Couchcoding.Logbert.Receiver.NlogTcpReceiver;
-using Couchcoding.Logbert.Receiver.NLogUdpReceiver;
-using Couchcoding.Logbert.Receiver.NLogFileReceiver;
-using Couchcoding.Logbert.Receiver.SyslogFileReceiver;
-using Couchcoding.Logbert.Receiver.SyslogUdpReceiver;
-using Couchcoding.Logbert.Receiver.EventlogReceiver;
-using Couchcoding.Logbert.Receiver.Log4NetDirReceiver;
-using Couchcoding.Logbert.Receiver.NLogDirReceiver;
-using Couchcoding.Logbert.Receiver.WinDebugReceiver;
-using Couchcoding.Logbert.Receiver.CustomReceiver.CustomUdpReceiver;
-using Couchcoding.Logbert.Receiver.CustomReceiver.CustomHttpReceiver;
+using Logbert.Gui.Dialogs;
+using Logbert.Helper;
+using Logbert.Interfaces;
+using Logbert.Properties;
+using Logbert.Receiver;
+using Logbert.Receiver.CustomReceiver.CustomFileReceiver;
+using Logbert.Receiver.Log4NetUdpReceiver;
+using Logbert.Receiver.Log4NetFileReceiver;
+using Logbert.Receiver.NlogTcpReceiver;
+using Logbert.Receiver.NLogUdpReceiver;
+using Logbert.Receiver.NLogFileReceiver;
+using Logbert.Receiver.SyslogFileReceiver;
+using Logbert.Receiver.SyslogUdpReceiver;
+using Logbert.Receiver.EventlogReceiver;
+using Logbert.Receiver.Log4NetDirReceiver;
+using Logbert.Receiver.NLogDirReceiver;
+using Logbert.Receiver.WinDebugReceiver;
+using Logbert.Receiver.CustomReceiver.CustomUdpReceiver;
+using Logbert.Receiver.CustomReceiver.CustomHttpReceiver;
 
-namespace Couchcoding.Logbert.Dialogs
+namespace Logbert.Dialogs
 {
   /// <summary>
   /// Implements the new logger dialog.

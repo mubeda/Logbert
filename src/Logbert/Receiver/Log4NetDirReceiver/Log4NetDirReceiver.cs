@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    Log4NetFileReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,13 +32,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using Couchcoding.Logbert.Interfaces;
+using Logbert.Interfaces;
 
-using Couchcoding.Logbert.Controls;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Logging;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
+using Logbert.Helper;
+using Logbert.Logging;
 
-namespace Couchcoding.Logbert.Receiver.Log4NetDirReceiver
+namespace Logbert.Receiver.Log4NetDirReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the Log4Net file service.
@@ -142,7 +142,7 @@ namespace Couchcoding.Logbert.Receiver.Log4NetDirReceiver
     /// <summary>
     /// Gets the settings <see cref="Control"/> of the <see cref="ILogProvider"/>.
     /// </summary>
-    public override ILogSettingsCtrl Settings => new Log4NetDirReceiverSettings();
+    public override ILogSettingsCtrl Settings => null; // Settings UI handled by Log4NetDirReceiverSettingsView
 
     /// <summary>
     /// Gets the columns to display of the <see cref="ILogProvider"/>.
@@ -190,7 +190,7 @@ namespace Couchcoding.Logbert.Receiver.Log4NetDirReceiver
     /// <summary>
     /// Get the <see cref="Control"/> to display details about a selected <see cref="LogMessage"/>.
     /// </summary>
-    public override ILogPresenter DetailsControl => new Log4NetDetailsControl();
+    public override ILogPresenter DetailsControl => null; // Details control not yet implemented in Avalonia
 
     #endregion
 
@@ -209,7 +209,7 @@ namespace Couchcoding.Logbert.Receiver.Log4NetDirReceiver
           mCurrentLogFile = e.FullPath;
         }
 
-        if (e.FullPath.Equals(mCurrentLogFile))
+        if (e.FullPath.Equals(mCurrentLogFile, StringComparison.OrdinalIgnoreCase))
         {
           ReadNewLogMessagesFromFile();
         }
@@ -466,7 +466,7 @@ namespace Couchcoding.Logbert.Receiver.Log4NetDirReceiver
         , columnLayout[4].Width
         , columnLayout[5].Width);
 
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

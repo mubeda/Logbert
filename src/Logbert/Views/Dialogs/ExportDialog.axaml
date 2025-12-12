@@ -1,0 +1,129 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Logbert.ViewModels.Dialogs"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+        x:Class="Logbert.Views.Dialogs.ExportDialog"
+        x:DataType="vm:ExportDialogViewModel"
+        Title="Export Log Messages"
+        Width="500" Height="450"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Assets/avalonia-logo.ico">
+
+    <Design.DataContext>
+        <vm:ExportDialogViewModel/>
+    </Design.DataContext>
+
+    <DockPanel Margin="20">
+        <!-- Header -->
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,20">
+            <TextBlock Text="Export Log Messages"
+                       FontSize="18"
+                       FontWeight="Bold"/>
+            <TextBlock Text="Export log messages to a file for analysis or archiving."
+                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                       Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <!-- Buttons -->
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="10"
+                    Margin="0,20,0,0">
+            <Button Content="Export"
+                    Padding="30,8"
+                    Click="OnExportClick"
+                    IsEnabled="{Binding CanExport}"
+                    IsDefault="True"/>
+            <Button Content="Cancel"
+                    Padding="30,8"
+                    Click="OnCancelClick"
+                    IsCancel="True"/>
+        </StackPanel>
+
+        <!-- Progress Bar (shown during export) -->
+        <StackPanel DockPanel.Dock="Bottom"
+                    IsVisible="{Binding IsExporting}"
+                    Margin="0,10,0,0">
+            <TextBlock Text="{Binding ProgressStatus}"
+                       Margin="0,0,0,5"/>
+            <ProgressBar Value="{Binding ProgressPercentage}"
+                         Minimum="0"
+                         Maximum="100"
+                         Height="10"/>
+        </StackPanel>
+
+        <!-- Form Content -->
+        <ScrollViewer>
+            <StackPanel Spacing="15">
+                <!-- Export Scope -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Export Scope:" FontWeight="SemiBold"/>
+                    <ComboBox ItemsSource="{Binding ExportScopes}"
+                              SelectedItem="{Binding SelectedScope}"
+                              HorizontalAlignment="Stretch"/>
+                    <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,5,0,0">
+                        <TextBlock Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}">
+                            <Run Text="All: "/>
+                            <Run Text="{Binding AllMessageCount}"/>
+                            <Run Text=" messages"/>
+                        </TextBlock>
+                        <TextBlock Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}">
+                            <Run Text="Filtered: "/>
+                            <Run Text="{Binding FilteredMessageCount}"/>
+                            <Run Text=" messages"/>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Export Format -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Export Format:" FontWeight="SemiBold"/>
+                    <ComboBox ItemsSource="{Binding ExportFormats}"
+                              SelectedItem="{Binding SelectedFormat}"
+                              HorizontalAlignment="Stretch"/>
+                </StackPanel>
+
+                <!-- Encoding -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Text Encoding:" FontWeight="SemiBold"/>
+                    <ComboBox ItemsSource="{Binding Encodings}"
+                              SelectedItem="{Binding SelectedEncoding}"
+                              HorizontalAlignment="Stretch">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DisplayName}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Options -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Options:" FontWeight="SemiBold"/>
+                    <CheckBox Content="Include column headers"
+                              IsChecked="{Binding IncludeHeaders}"
+                              Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <!-- File Path -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Output File:" FontWeight="SemiBold"/>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBox Grid.Column="0"
+                                 Text="{Binding FilePath}"
+                                 Watermark="Select output file location..."
+                                 Margin="0,0,10,0"/>
+                        <Button Grid.Column="1"
+                                Content="Browse..."
+                                Click="OnBrowseClick"
+                                Padding="15,8"/>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

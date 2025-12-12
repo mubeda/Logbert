@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs.Docking
+﻿namespace Logbert.Dialogs.Docking
 {
   partial class FrmLogFilter
   {
@@ -18,7 +18,7 @@
       System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
       System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogFilter));
-      this.tsFilter = new Couchcoding.Logbert.Gui.Controls.ToolStripEx();
+      this.tsFilter = new Logbert.Gui.Controls.ToolStripEx();
       this.tsbAddFilter = new System.Windows.Forms.ToolStripButton();
       this.tsbEditFilter = new System.Windows.Forms.ToolStripButton();
       this.tsbRemoveFilter = new System.Windows.Forms.ToolStripButton();

@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Receiver.WinDebugReceiver
+﻿namespace Logbert.Receiver.WinDebugReceiver
 {
   partial class WinDebugReceiverSettings
   {
@@ -30,7 +30,7 @@
     {
             this.lblLogName = new System.Windows.Forms.Label();
             this.cmbLogNames = new System.Windows.Forms.ComboBox();
-            this.nfoPanel = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
+            this.nfoPanel = new Logbert.Gui.Controls.InfoPanel();
             this.SuspendLayout();
             // 
             // lblLogName
@@ -61,7 +61,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nfoPanel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.nfoPanel.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.nfoPanel.InfoIcon = global::Couchcoding.Logbert.Properties.Resources.StatusAnnotations_Information_16xLG;
+            this.nfoPanel.InfoIcon = global::Logbert.Properties.Resources.StatusAnnotations_Information_16xLG;
             this.nfoPanel.Location = new System.Drawing.Point(0, 43);
             this.nfoPanel.Name = "nfoPanel";
             this.nfoPanel.ShowInfoIcon = true;

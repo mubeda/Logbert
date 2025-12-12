@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    LogMessageSelectedEventArgs.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +28,10 @@
 
 #endregion
 
-using Couchcoding.Logbert.Logging;
+using Logbert.Logging;
 using System;
 
-namespace Couchcoding.Logbert.Helper
+namespace Logbert.Helper
 {
   /// <summary>
   /// Implements a custom <see cref="EventHandler"/> for <see cref="LogMessage"/> selection.

@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs
+﻿namespace Logbert.Dialogs
 {
     partial class FrmEditTimeStampFormat
     {
@@ -30,7 +30,7 @@
         {
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
-            this.txtTimestampFormat = new Couchcoding.Logbert.Gui.Controls.TextBoxEx();
+            this.txtTimestampFormat = new Logbert.Gui.Controls.TextBoxEx();
             this.lblTimestampFormat = new System.Windows.Forms.Label();
             this.mnuTimestamp = new System.Windows.Forms.ContextMenu();
             this.mnuTimestampPresets = new System.Windows.Forms.MenuItem();

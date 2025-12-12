@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    LogMessage.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -29,14 +29,11 @@
 #endregion
 
 using System;
-using System.Windows.Forms;
-
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Properties;
-
+using Logbert.Helper;
+using Logbert.Properties;
 using MoonSharp.Interpreter;
 
-namespace Couchcoding.Logbert.Logging
+namespace Logbert.Logging
 {
   /// <summary>
   /// Implements the base class for <see cref="LogMessage"/>s.
@@ -146,16 +143,48 @@ namespace Couchcoding.Logbert.Logging
       }
     }
 
+    /// <summary>
+    /// Gets the thread name of the <see cref="LogMessage"/>.
+    /// </summary>
+    public virtual string? ThreadName
+    {
+      get { return null; }
+    }
+
+    /// <summary>
+    /// Gets the machine name of the <see cref="LogMessage"/>.
+    /// </summary>
+    public virtual string? MachineName
+    {
+      get { return null; }
+    }
+
+    /// <summary>
+    /// Gets the user name of the <see cref="LogMessage"/>.
+    /// </summary>
+    public virtual string? UserName
+    {
+      get { return null; }
+    }
+
+    /// <summary>
+    /// Gets the exception information of the <see cref="LogMessage"/>.
+    /// </summary>
+    public virtual string? Exception
+    {
+      get { return null; }
+    }
+
     #endregion
 
     #region Public Methods
 
     /// <summary>
-    /// Gets the value to display within a <see cref="DataGridView"/> at the fiven <paramref name="columnIndex"/>.
+    /// Gets the value to display at the given <paramref name="columnIndex"/>.
     /// </summary>
-    /// <param name="columnIndex">The index of the column at the <see cref="DataGridView"/>.</param>
+    /// <param name="columnIndex">The index of the column.</param>
     /// <returns>The value to display at the given <paramref name="columnIndex"/>, or <c>null</c> if nothing to display.</returns>
-    public abstract object GetValueForColumn(int columnIndex);
+    public abstract object? GetValueForColumn(int columnIndex);
 
     /// <summary>
     /// Returns a string that represents the current object.
@@ -216,12 +245,13 @@ namespace Couchcoding.Logbert.Logging
     /// <returns>The <see cref="LogMessage"/> with its data as a comma seperated line.</returns>
     public virtual string GetCsvLine()
     {
+      // TODO: ToCsv extension methods and Settings removed during migration
       return string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\"{5}"
-        , Index.ToCsv()
-        , Level.ToCsv()
-        , Timestamp.ToString(Settings.Default.TimestampFormat)
-        , Logger.ToCsv()
-        , Message.ToCsv()
+        , Index
+        , Level
+        , Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff")
+        , Logger ?? ""
+        , Message ?? ""
         , Environment.NewLine);
     }
 

@@ -1,0 +1,312 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Logbert.Views.Controls"
+        xmlns:docking="using:Logbert.Views.Docking"
+        xmlns:vm="using:Logbert.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+        x:Class="Logbert.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Logbert - Log File Viewer"
+        Width="1200" Height="800">
+
+    <DockPanel>
+        <!-- Menu Bar -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Click="ShowNewLogSourceDialog" HotKey="Ctrl+N">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Open..." HotKey="Ctrl+O">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Recent Files" ItemsSource="{Binding RecentFiles}">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M13,3V9H21V3M13,21H21V11H13M3,21H11V15H3M3,13H11V3H3V13Z"/>
+                    </MenuItem.Icon>
+                    <MenuItem.ItemTemplate>
+                        <DataTemplate>
+                            <MenuItem Header="{Binding}" Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).OpenRecentFileCommand}" CommandParameter="{Binding}" />
+                        </DataTemplate>
+                    </MenuItem.ItemTemplate>
+                    <MenuItem.Styles>
+                        <Style Selector="MenuItem:empty">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Setter Property="Header" Value="(No recent files)"/>
+                        </Style>
+                    </MenuItem.Styles>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="_Close" Command="{Binding CloseDocumentCommand}" HotKey="Ctrl+W"/>
+                <Separator/>
+                <MenuItem Header="_Export..." Click="ShowExportDialog" HotKey="Ctrl+E">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="E_xit" Command="{Binding ExitCommand}" HotKey="Alt+F4"/>
+            </MenuItem>
+
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Find..." Click="ShowFindDialog" HotKey="Ctrl+F">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="_View">
+                <MenuItem Header="_Toolbar" IsChecked="True"/>
+                <MenuItem Header="_Status Bar" IsChecked="True"/>
+                <Separator/>
+                <MenuItem Header="_Panels">
+                    <MenuItem Header="_Filter Panel"
+                              IsChecked="{Binding FilterPanelVisible}"
+                              Command="{Binding ToggleFilterPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M14,12V19.88C14.04,20.18 13.94,20.5 13.71,20.71C13.32,21.1 12.69,21.1 12.3,20.71L10.29,18.7C10.06,18.47 9.96,18.16 10,17.87V12H9.97L4.21,4.62C3.87,4.19 3.95,3.56 4.38,3.22C4.57,3.08 4.78,3 5,3V3H19V3C19.22,3 19.43,3.08 19.62,3.22C20.05,3.56 20.13,4.19 19.79,4.62L14.03,12H14Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Logger Tree"
+                              IsChecked="{Binding LoggerTreeVisible}"
+                              Command="{Binding ToggleLoggerTreeCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Bookmarks"
+                              IsChecked="{Binding BookmarksPanelVisible}"
+                              Command="{Binding ToggleBookmarksPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5A2,2 0 0,0 17,3Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="_Search Panel"
+                              IsChecked="{Binding SearchPanelVisible}"
+                              Command="{Binding ToggleSearchPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Details Panel"
+                              IsChecked="{Binding DetailsPanelVisible}"
+                              Command="{Binding ToggleDetailsPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M3,4H21V8H3V4M3,10H21V14H3V10M3,16H21V20H3V16Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Color Map"
+                              IsChecked="{Binding ColorMapPanelVisible}"
+                              Command="{Binding ToggleColorMapPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M17.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,9A1.5,1.5 0 0,1 19,10.5A1.5,1.5 0 0,1 17.5,12M14.5,8A1.5,1.5 0 0,1 13,6.5A1.5,1.5 0 0,1 14.5,5A1.5,1.5 0 0,1 16,6.5A1.5,1.5 0 0,1 14.5,8M9.5,8A1.5,1.5 0 0,1 8,6.5A1.5,1.5 0 0,1 9.5,5A1.5,1.5 0 0,1 11,6.5A1.5,1.5 0 0,1 9.5,8M6.5,12A1.5,1.5 0 0,1 5,10.5A1.5,1.5 0 0,1 6.5,9A1.5,1.5 0 0,1 8,10.5A1.5,1.5 0 0,1 6.5,12M12,3A9,9 0 0,0 3,12A9,9 0 0,0 12,21A1.5,1.5 0 0,0 13.5,19.5C13.5,19.11 13.35,18.76 13.11,18.5C12.88,18.23 12.73,17.88 12.73,17.5A1.5,1.5 0 0,1 14.23,16H16A5,5 0 0,0 21,11C21,6.58 16.97,3 12,3Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="S_tatistics Panel"
+                              IsChecked="{Binding StatisticsPanelVisible}"
+                              Command="{Binding ToggleStatisticsPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M22,21H2V3H4V19H6V10H10V19H12V6H16V19H18V14H22V21Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="S_cript Panel"
+                              IsChecked="{Binding ScriptPanelVisible}"
+                              Command="{Binding ToggleScriptPanelCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="_Statistics..." Click="ShowStatisticsDialog">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M3,3H21V21H3V3M5,5V19H19V5H5M7,7H9V17H7V7M11,7H13V17H11V7M15,7H17V17H15V7Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="_Configure Columns..." Click="ShowColumnConfigDialog">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M4,5V7H21V5M4,11H21V9H4M4,19H21V17H4M4,15H21V13H4"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="_Full Screen" HotKey="F11"/>
+            </MenuItem>
+
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Script Editor..." Click="ShowScriptEditor">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="_Options..." Click="ShowOptionsDialog"/>
+            </MenuItem>
+
+            <MenuItem Header="_Help">
+                <MenuItem Header="_Welcome" Click="ShowWelcomeDialog">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M12,3L2,12H5V20H19V12H22L12,3M12,8.75A2.25,2.25 0 0,1 14.25,11A2.25,2.25 0 0,1 12,13.25A2.25,2.25 0 0,1 9.75,11A2.25,2.25 0 0,1 12,8.75M12,15C13.5,15 16.5,15.75 16.5,17.25V18H7.5V17.25C7.5,15.75 10.5,15 12,15Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Keyboard Shortcuts..." Click="ShowKeyboardShortcutsDialog" HotKey="Ctrl+Shift+?">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M19,10H17V8H19M19,13H17V11H19M16,10H14V8H16M16,13H14V11H16M16,17H8V15H16M7,10H5V8H7M7,13H5V11H7M8,11H10V13H8M8,8H10V10H8M11,11H13V13H11M11,8H13V10H11M20,5H4C2.89,5 2,5.89 2,7V17A2,2 0 0,0 4,19H20A2,2 0 0,0 22,17V7C22,5.89 21.1,5 20,5Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="_About Logbert" Click="ShowAboutDialog">
+                    <MenuItem.Icon>
+                        <PathIcon Data="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Check for _Updates..." IsEnabled="False"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Toolbar -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="5" Background="#F0F0F0">
+            <Button Click="ShowNewLogSourceDialog" ToolTip.Tip="New Log Source (Ctrl+N)" Padding="8,6">
+                <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+            </Button>
+            <Button ToolTip.Tip="Open Log File (Ctrl+O)" Padding="8,6">
+                <PathIcon Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z"/>
+            </Button>
+            <Separator/>
+            <Button ToolTip.Tip="Refresh" Padding="8,6">
+                <PathIcon Data="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
+            </Button>
+            <Button Command="{Binding CloseDocumentCommand}" ToolTip.Tip="Close Document" Padding="8,6">
+                <PathIcon Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+            </Button>
+            <Separator/>
+            <Button Click="ShowFindDialog" ToolTip.Tip="Find (Ctrl+F)" Padding="8,6">
+                <PathIcon Data="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+            </Button>
+        </StackPanel>
+
+        <!-- Status Bar -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="10" Margin="5" Background="#F0F0F0">
+            <TextBlock Text="Ready" VerticalAlignment="Center"/>
+            <Separator/>
+            <TextBlock Text="{Binding Documents.Count, StringFormat='Documents: {0}'}" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Main Content Area with Custom Docking Layout -->
+        <Grid>
+            <!-- Welcome Screen (shown when no documents open) -->
+            <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
+                    IsVisible="{Binding IsWelcomeScreenVisible}">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
+                    <TextBlock Text="Welcome to Logbert" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Cross-platform log file viewer" FontSize="16" HorizontalAlignment="Center" Opacity="0.7"/>
+                    <StackPanel Spacing="10" HorizontalAlignment="Center" Margin="0,30,0,0">
+                        <Button Click="ShowNewLogSourceDialog" HorizontalAlignment="Stretch" Padding="20,10">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" Width="20" Height="20"/>
+                                <TextBlock Text="New Log Source"/>
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Stretch" Padding="20,10">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <PathIcon Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z" Width="20" Height="20"/>
+                                <TextBlock Text="Open Log File"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Custom Docking Layout (shown when documents are open) -->
+            <Grid IsVisible="{Binding !IsWelcomeScreenVisible}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250" MinWidth="150"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="280" MinWidth="150"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Panel - Tabs for Filter, Logger Tree, Bookmarks, Search -->
+                <TabControl Grid.Column="0" Background="#F5F5F5">
+                    <TabItem Header="Filter" IsVisible="{Binding FilterPanelVisible}">
+                        <docking:FilterPanelView DataContext="{Binding FilterPanel}"/>
+                    </TabItem>
+                    <TabItem Header="Logger Tree" IsVisible="{Binding LoggerTreeVisible}">
+                        <docking:LoggerTreeView DataContext="{Binding LoggerTree}"/>
+                    </TabItem>
+                    <TabItem Header="Bookmarks" IsVisible="{Binding BookmarksPanelVisible}">
+                        <docking:BookmarksPanelView DataContext="{Binding BookmarksPanel}"/>
+                    </TabItem>
+                    <TabItem Header="Search" IsVisible="{Binding SearchPanelVisible}">
+                        <docking:SearchPanelView DataContext="{Binding SearchPanel}"/>
+                    </TabItem>
+                </TabControl>
+
+                <!-- Left Splitter -->
+                <GridSplitter Grid.Column="1"
+                              Background="#D0D0D0"
+                              ResizeDirection="Columns"/>
+
+                <!-- Center Panel - Log Documents and Details -->
+                <Grid Grid.Column="2" RowDefinitions="*,5,Auto">
+                    <!-- Document Tabs -->
+                    <TabControl Grid.Row="0"
+                                ItemsSource="{Binding Documents}"
+                                SelectedItem="{Binding ActiveDocument}">
+                        <TabControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Title}"/>
+                            </DataTemplate>
+                        </TabControl.ItemTemplate>
+                        <TabControl.ContentTemplate>
+                            <DataTemplate>
+                                <controls:LogViewerControl DataContext="{Binding LogViewerViewModel}"/>
+                            </DataTemplate>
+                        </TabControl.ContentTemplate>
+                    </TabControl>
+
+                    <!-- Center Splitter -->
+                    <GridSplitter Grid.Row="1"
+                                  Background="#D0D0D0"
+                                  ResizeDirection="Rows"
+                                  IsVisible="{Binding DetailsPanelVisible}"/>
+
+                    <!-- Details Panel -->
+                    <Border Grid.Row="2"
+                            Height="200"
+                            IsVisible="{Binding DetailsPanelVisible}">
+                        <docking:DetailsPanelView DataContext="{Binding DetailsPanel}"/>
+                    </Border>
+                </Grid>
+
+                <!-- Right Splitter -->
+                <GridSplitter Grid.Column="3"
+                              Background="#D0D0D0"
+                              ResizeDirection="Columns"/>
+
+                <!-- Right Panel - Statistics, Color Map, Script -->
+                <TabControl Grid.Column="4" Background="#F5F5F5">
+                    <TabItem Header="Statistics" IsVisible="{Binding StatisticsPanelVisible}">
+                        <docking:StatisticsPanelView DataContext="{Binding StatisticsPanel}"/>
+                    </TabItem>
+                    <TabItem Header="Color Map" IsVisible="{Binding ColorMapPanelVisible}">
+                        <docking:ColorMapPanelView DataContext="{Binding ColorMapPanel}"/>
+                    </TabItem>
+                    <TabItem Header="Script" IsVisible="{Binding ScriptPanelVisible}">
+                        <docking:ScriptPanelView DataContext="{Binding ScriptPanel}"/>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>

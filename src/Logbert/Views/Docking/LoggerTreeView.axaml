@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Logbert.ViewModels.Docking"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="450"
+             x:Class="Logbert.Views.Docking.LoggerTreeView"
+             x:DataType="vm:LoggerTreeViewModel">
+    <DockPanel>
+        <!-- Header -->
+        <TextBlock DockPanel.Dock="Top"
+                   Text="Logger Tree"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   Margin="10"/>
+
+        <!-- Tree View -->
+        <TreeView ItemsSource="{Binding Loggers}"
+                  SelectedItem="{Binding SelectedLogger}"
+                  Margin="10,0">
+            <TreeView.ItemTemplate>
+                <TreeDataTemplate ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <PathIcon Data="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"
+                                  Width="16"
+                                  Height="16"
+                                  VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Name}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TreeDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+    </DockPanel>
+</UserControl>

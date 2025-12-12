@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs.Docking
+﻿namespace Logbert.Dialogs.Docking
 {
   partial class FrmLogTree
   {
@@ -16,14 +16,14 @@
     private void InitializeComponent()
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogTree));
-            this.tsLoggerTree = new Couchcoding.Logbert.Gui.Controls.ToolStripEx();
+            this.tsLoggerTree = new Logbert.Gui.Controls.ToolStripEx();
             this.tsbZoomIn = new System.Windows.Forms.ToolStripButton();
             this.tsbZoomOut = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbFilterRecursive = new System.Windows.Forms.ToolStripButton();
             this.tblLayout = new Gui.Controls.TableLayoutPanelEx();
-            this.bgPanel = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
-            this.tvLoggerTree = new Couchcoding.Logbert.Gui.Controls.TreeViewEx();
+            this.bgPanel = new Logbert.Gui.Controls.InfoPanel();
+            this.tvLoggerTree = new Logbert.Gui.Controls.TreeViewEx();
             this.tsLoggerTree.SuspendLayout();
             this.tblLayout.SuspendLayout();
             this.bgPanel.SuspendLayout();
@@ -157,7 +157,7 @@
 
     #endregion
 
-    private Couchcoding.Logbert.Gui.Controls.ToolStripEx tsLoggerTree;
+    private Logbert.Gui.Controls.ToolStripEx tsLoggerTree;
     private System.Windows.Forms.ToolStripButton tsbFilterRecursive;
     private System.Windows.Forms.ToolStripButton tsbZoomIn;
     private System.Windows.Forms.ToolStripButton tsbZoomOut;

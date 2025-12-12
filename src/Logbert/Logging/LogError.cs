@@ -1,4 +1,4 @@
-﻿#region Copyright © 2021 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    LogError.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2021 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +28,10 @@
 
 #endregion
 
-using Couchcoding.Logbert.Properties;
+using Logbert.Properties;
 using System.Drawing;
 
-namespace Couchcoding.Logbert.Logging
+namespace Logbert.Logging
 {
   /// <summary>
   /// Implements an object to encapsulate messages to the user.
@@ -131,7 +131,7 @@ namespace Couchcoding.Logbert.Logging
       Title     = title;
       Message   = message;
       BackColor = backColor;
-      ForeColor = ForeColor;
+      ForeColor = foreColor;
     }
 
     #endregion

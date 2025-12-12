@@ -1,0 +1,196 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Logbert.ViewModels.Controls.Details"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Logbert.Views.Controls.Details.EventLogDetailsView"
+             x:DataType="vm:EventLogDetailsViewModel">
+
+    <ScrollViewer>
+        <StackPanel Spacing="10" Margin="10">
+            <!-- Header with Level Badge and Source -->
+            <Grid ColumnDefinitions="Auto,Auto,*,Auto">
+                <Border Grid.Column="0"
+                        Padding="8,4"
+                        CornerRadius="4"
+                        Background="{Binding LevelBackground}"
+                        Margin="0,0,10,0">
+                    <TextBlock Text="{Binding Level}"
+                               Foreground="White"
+                               FontWeight="Bold"/>
+                </Border>
+
+                <Border Grid.Column="1"
+                        Padding="8,4"
+                        CornerRadius="4"
+                        Background="{DynamicResource SystemControlBackgroundAccentBrush}"
+                        Margin="0,0,10,0">
+                    <TextBlock Text="{Binding Source}"
+                               Foreground="White"
+                               FontWeight="Bold"/>
+                </Border>
+
+                <TextBlock Grid.Column="2"
+                           Text="{Binding FormattedTimestamp}"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           FontWeight="SemiBold"/>
+
+                <TextBlock Grid.Column="3"
+                           Text="{Binding IndexDisplay}"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+            </Grid>
+
+            <Separator/>
+
+            <!-- Event Information -->
+            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="150,*" RowSpacing="8">
+                    <!-- Source -->
+                    <TextBlock Grid.Row="0" Grid.Column="0"
+                               Text="Source:"
+                               FontWeight="Bold"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1"
+                               Text="{Binding Source}"
+                               TextWrapping="Wrap"/>
+
+                    <!-- Instance ID -->
+                    <TextBlock Grid.Row="1" Grid.Column="0"
+                               Text="Event ID:"
+                               FontWeight="Bold"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1"
+                               Text="{Binding InstanceId}"/>
+
+                    <!-- Category -->
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+                               Text="Category:"
+                               FontWeight="Bold"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1"
+                               Text="{Binding Category}"/>
+
+                    <!-- Username -->
+                    <TextBlock Grid.Row="3" Grid.Column="0"
+                               Text="User:"
+                               FontWeight="Bold"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1"
+                               Text="{Binding Username}"/>
+
+                    <!-- Timestamp -->
+                    <TextBlock Grid.Row="4" Grid.Column="0"
+                               Text="Generated:"
+                               FontWeight="Bold"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1"
+                               Text="{Binding FormattedTimestamp}"/>
+                </Grid>
+            </Border>
+
+            <!-- Event Type Details -->
+            <Expander Header="Event Type Details" IsExpanded="True">
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="10"
+                        Margin="0,8,0,0"
+                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="150,*" RowSpacing="8">
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="Entry Type:"
+                                   FontWeight="Bold"/>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                            <Border Padding="6,2"
+                                    CornerRadius="3"
+                                    Background="{Binding LevelBackground}">
+                                <TextBlock Text="{Binding Level}"
+                                           Foreground="White"
+                                           FontSize="11"/>
+                            </Border>
+                            <TextBlock Text="{Binding LevelDescription}"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                       FontStyle="Italic"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                   Text="Log Level:"
+                                   FontWeight="Bold"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                   Text="{Binding Level}"/>
+                    </Grid>
+                </Border>
+            </Expander>
+
+            <!-- Message Content -->
+            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Message"
+                               FontWeight="Bold"
+                               FontSize="14"/>
+
+                    <TextBox Text="{Binding MessageText}"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap"
+                             MinHeight="100"
+                             AcceptsReturn="True"
+                             FontFamily="Consolas,Courier New,monospace"
+                             Background="Transparent"
+                             BorderThickness="0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Binary Data (if available) -->
+            <Expander Header="Binary Data" IsExpanded="False"
+                      IsVisible="{Binding HasBinaryData}">
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="10"
+                        Margin="0,8,0,0">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding BinaryDataSize}"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   FontSize="11"/>
+                        <TextBox Text="{Binding BinaryDataHex}"
+                                 IsReadOnly="True"
+                                 TextWrapping="Wrap"
+                                 MinHeight="60"
+                                 MaxHeight="200"
+                                 AcceptsReturn="True"
+                                 FontFamily="Consolas,Courier New,monospace"
+                                 FontSize="10"
+                                 Background="Transparent"
+                                 BorderThickness="0"/>
+                    </StackPanel>
+                </Border>
+            </Expander>
+
+            <!-- Raw Data -->
+            <Expander Header="Full Event Details" IsExpanded="False">
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="10"
+                        Margin="0,8,0,0">
+                    <TextBox Text="{Binding RawData}"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap"
+                             MinHeight="60"
+                             MaxHeight="200"
+                             AcceptsReturn="True"
+                             FontFamily="Consolas,Courier New,monospace"
+                             FontSize="10"
+                             Background="Transparent"
+                             BorderThickness="0"/>
+                </Border>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,35 @@
+--- a/Logbert.csproj
++++ b/Logbert.csproj
+@@ -51,6 +51,7 @@
+     <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.0" />
+     <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
++    <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
+     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+   </ItemGroup>
+ 
+@@ -149,6 +150,26 @@
+     <Compile Remove="Logging\LogMessageCustom.cs" />
+     <Compile Remove="Logging\LogMessageEventlog.cs" />
+     <Compile Remove="Logging\LogMessageLog4Net.cs" />
++    <Compile Remove="Receiver\CustomReceiver\CustomDirReceiver\CustomDirReceiverSettings.Designer.cs" />
++    <Compile Remove="Receiver\CustomReceiver\CustomFileReceiver\CustomFileReceiverSettings.Designer.cs" />
++    <Compile Remove="Receiver\CustomReceiver\CustomHttpReceiver\CustomHttpReceiverSettings.Designer.cs" />
++    <Compile Remove="Receiver\CustomReceiver\CustomTcpReceiver\CustomTcpReceiverSettings.Designer.cs" />
++    <Compile Remove="Receiver\CustomReceiver\CustomUdpReceiver\CustomUdpReceiverSettings.Designer.cs" />
++    <Compile Remove="Receiver\SyslogFileReceiver\SyslogFileReceiverSettings.Designer.cs" />
++    <Compile Remove="Receiver\SyslogUdpReceiver\SyslogUdpReceiverSettings.Designer.cs" />
++    <Compile Remove="Receiver\CustomReceiver\CustomDirReceiver\CustomDirReceiverSettings.cs" />
++    <Compile Remove="Receiver\CustomReceiver\CustomFileReceiver\CustomFileReceiverSettings.cs" />
++    <Compile Remove="Receiver\CustomReceiver\CustomHttpReceiver\CustomHttpReceiverSettings.cs" />
++    <Compile Remove="Receiver\CustomReceiver\CustomTcpReceiver\CustomTcpReceiverSettings.cs" />
++    <Compile Remove="Receiver\CustomReceiver\CustomUdpReceiver\CustomUdpReceiverSettings.cs" />
++    <Compile Remove="Receiver\SyslogFileReceiver\SyslogFileReceiverSettings.cs" />
++    <Compile Remove="Receiver\SyslogUdpReceiver\SyslogUdpReceiverSettings.cs" />
++    <Compile Remove="ViewModels\Controls\ColorMapViewModel.cs" />
++    <Compile Remove="Views\Controls\ColorMapControl.axaml.cs" />
++    <Compile Remove="Logging\Filter\LogFilterString.cs" />
++    <!-- CustomHttpReceiver uses System.Runtime.Remoting.Messaging which is no longer available -->
++    <Compile Remove="Receiver\CustomReceiver\CustomHttpReceiver\CustomHttpReceiver.cs" />
+   </ItemGroup>
+ 
+   <ItemGroup>

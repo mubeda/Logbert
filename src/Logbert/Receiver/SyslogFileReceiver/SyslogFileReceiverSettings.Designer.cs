@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Receiver.SyslogFileReceiver
+﻿namespace Logbert.Receiver.SyslogFileReceiver
 {
   partial class SyslogFileReceiverSettings
   {
@@ -33,8 +33,8 @@
             this.lblTimestampFormat = new System.Windows.Forms.Label();
             this.lblEncoding = new System.Windows.Forms.Label();
             this.cmbEncoding = new System.Windows.Forms.ComboBox();
-            this.txtTimestampFormat = new Couchcoding.Logbert.Gui.Controls.TextBoxEx();
-            this.txtLogFile = new Couchcoding.Logbert.Gui.Controls.TextBoxEx();
+            this.txtTimestampFormat = new Logbert.Gui.Controls.TextBoxEx();
+            this.txtLogFile = new Logbert.Gui.Controls.TextBoxEx();
             this.SuspendLayout();
             // 
             // lblNetworkInterface

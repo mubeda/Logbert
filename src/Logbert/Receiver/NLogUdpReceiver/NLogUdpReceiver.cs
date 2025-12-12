@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    NLogUdpReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -33,15 +33,15 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Windows.Forms;
+// using System.Windows.Forms; // WinForms removed for Avalonia
 
-using Couchcoding.Logbert.Interfaces;
+using Logbert.Interfaces;
 
-using Couchcoding.Logbert.Controls;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Logging;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
+using Logbert.Helper;
+using Logbert.Logging;
 
-namespace Couchcoding.Logbert.Receiver.NLogUdpReceiver
+namespace Logbert.Receiver.NLogUdpReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the NLog UDP service.
@@ -167,7 +167,8 @@ namespace Couchcoding.Logbert.Receiver.NLogUdpReceiver
     {
       get
       {
-        return new NLogUdpReceiverSettings();
+        // Settings UI handled separately in Avalonia - see NLogUdpReceiverSettingsView
+        return null;
       }
     }
 
@@ -211,7 +212,8 @@ namespace Couchcoding.Logbert.Receiver.NLogUdpReceiver
     {
       get
       {
-        return new Log4NetDetailsControl();
+        // Details control not yet implemented in Avalonia
+        return null;
       }
     }
 
@@ -418,7 +420,7 @@ namespace Couchcoding.Logbert.Receiver.NLogUdpReceiver
         , columnLayout[4].Width
         , columnLayout[5].Width);
 
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

@@ -1,0 +1,25 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vmDocking="using:Logbert.ViewModels.Docking"
+             xmlns:viewsDocking="using:Logbert.Views.Docking"
+             x:Class="Logbert.App"
+             RequestedThemeVariant="Default">
+
+    <Application.Styles>
+        <FluentTheme />
+
+        <!-- Dock.Avalonia theme temporarily disabled - docking not yet implemented -->
+        <!-- <StyleInclude Source="avares://Dock.Avalonia/Themes/DockFluentTheme.axaml" /> -->
+    </Application.Styles>
+
+    <Application.DataTemplates>
+        <!-- Docking Tool Window Templates excluded due to migration -->
+        <!-- DataTemplates will be re-implemented after Avalonia migration complete -->
+    </Application.DataTemplates>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Application-wide resources -->
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

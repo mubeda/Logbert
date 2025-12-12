@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs.Docking
+﻿namespace Logbert.Dialogs.Docking
 {
   partial class FrmLogBookmarks
   {
@@ -18,7 +18,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogBookmarks));
-            this.toolStrip1 = new Couchcoding.Logbert.Gui.Controls.ToolStripEx();
+            this.toolStrip1 = new Logbert.Gui.Controls.ToolStripEx();
             this.tsbRemoveBookmark = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbPreviousBookmark = new System.Windows.Forms.ToolStripButton();
@@ -209,7 +209,7 @@
 
     #endregion
 
-    private Couchcoding.Logbert.Gui.Controls.ToolStripEx toolStrip1;
+    private Logbert.Gui.Controls.ToolStripEx toolStrip1;
     private System.Windows.Forms.ToolStripButton tsbRemoveBookmark;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     private System.Windows.Forms.ToolStripButton tsbPreviousBookmark;

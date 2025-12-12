@@ -1,4 +1,4 @@
-﻿namespace Couchcoding.Logbert.Dialogs
+﻿namespace Logbert.Dialogs
 {
   partial class FrmColumnizerTest
   {
@@ -33,8 +33,8 @@
       this.txtLogValue = new System.Windows.Forms.TextBox();
       this.lblTestLogValue = new System.Windows.Forms.Label();
       this.lblResult = new System.Windows.Forms.Label();
-      this.pnlGrid = new Couchcoding.Logbert.Gui.Controls.InfoPanel();
-      this.dgvResult = new Couchcoding.Logbert.Gui.Controls.DataGridViewEx();
+      this.pnlGrid = new Logbert.Gui.Controls.InfoPanel();
+      this.dgvResult = new Logbert.Gui.Controls.DataGridViewEx();
       this.clmColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.clmValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.pnlGrid.SuspendLayout();

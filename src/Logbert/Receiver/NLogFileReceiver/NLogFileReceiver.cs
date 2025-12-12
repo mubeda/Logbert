@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    NLogFileReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,13 +32,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-using Couchcoding.Logbert.Interfaces;
+using Logbert.Interfaces;
 
-using Couchcoding.Logbert.Controls;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Logging;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
+using Logbert.Helper;
+using Logbert.Logging;
 
-namespace Couchcoding.Logbert.Receiver.NLogFileReceiver
+namespace Logbert.Receiver.NLogFileReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the NLog file service.
@@ -144,11 +144,9 @@ namespace Couchcoding.Logbert.Receiver.NLogFileReceiver
     {
       get
       {
-        return new NLogFileReceiverSettings();
+        return null; // Settings UI handled by NLogFileReceiverSettingsView
       }
     }
-
-    /// <summary>
     /// Gets the columns to display of the <see cref="ILogProvider"/>.
     /// </summary>
     public override Dictionary<int, LogColumnData> Columns
@@ -198,7 +196,7 @@ namespace Couchcoding.Logbert.Receiver.NLogFileReceiver
     {
       get
       {
-        return new Log4NetDetailsControl();
+        return null; // WinForms control removed for Avalonia
       }
     }
 
@@ -451,7 +449,7 @@ namespace Couchcoding.Logbert.Receiver.NLogFileReceiver
         , columnLayout[4].Width
         , columnLayout[5].Width);
 
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

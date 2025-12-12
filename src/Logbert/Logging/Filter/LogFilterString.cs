@@ -1,10 +1,10 @@
-﻿#region Copyright © 2014 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    Log4NetUdpReceiver.cs
 // Package: Logbert
 // Project: Logbert
 // 
-// Copyright (c) 2014, Couchcoding. All rights reserved.
+// Copyright (c) 2024, Logbert Contributors. All rights reserved.
 // 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -21,7 +21,7 @@
 
 #endregion
 
-namespace Com.Couchcoding.Logbert.Logging.Filter
+namespace Com.Logbert.Logging.Filter
 {
   /// <summary>
   /// Implements a simple string comparing <see cref="LogFilter"/> for <see cref="LogMessage"/>s.

@@ -1,4 +1,4 @@
-﻿#region Copyright © 2017 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    WinDebugReceiver.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2017 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,17 +30,20 @@
 
 using System;
 using System.Collections.Generic;
-using Couchcoding.Logbert.Interfaces;
+using System.Runtime.Versioning;
+using Logbert.Interfaces;
 using System.Diagnostics;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Logging;
-using Couchcoding.Logbert.Controls;
+using Logbert.Helper;
+using Logbert.Logging;
+// using Logbert.Controls; // WinForms controls removed for Avalonia
 
-namespace Couchcoding.Logbert.Receiver.WinDebugReceiver
+namespace Logbert.Receiver.WinDebugReceiver
 {
   /// <summary>
   /// Implements a <see cref="ILogProvider"/> for the windows debugger service.
+  /// This receiver is only available on Windows platforms.
   /// </summary>
+  [SupportedOSPlatform("windows")]
   public class WinDebugReceiver : ReceiverBase
   {
     #region Private Fields
@@ -123,7 +126,8 @@ namespace Couchcoding.Logbert.Receiver.WinDebugReceiver
     {
       get
       {
-        return new WinDebugReceiverSettings();
+        // Settings UI handled separately in Avalonia - see WinDebugReceiverSettingsView
+        return null;
       }
     }
 
@@ -179,7 +183,8 @@ namespace Couchcoding.Logbert.Receiver.WinDebugReceiver
     {
       get
       {
-        return new WinDebugDetailsControl();
+        // Details control not yet implemented in Avalonia
+        return null;
       }
     }
 
@@ -302,7 +307,7 @@ namespace Couchcoding.Logbert.Receiver.WinDebugReceiver
         , columnLayout[3].Width
         , columnLayout[4].Width);
 
-      Properties.Settings.Default.SaveSettings();
+      Properties.Settings.Default.Save();
     }
 
     /// <summary>

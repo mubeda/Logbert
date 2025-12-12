@@ -1,0 +1,156 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:logging="using:Logbert.Logging"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="300"
+             x:Class="Logbert.Views.Controls.EnhancedLogDetailsView"
+             x:DataType="logging:LogMessage">
+
+    <ScrollViewer>
+        <StackPanel Spacing="10" Margin="10">
+            <!-- Header with Level Badge -->
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Border Grid.Column="0"
+                        Padding="8,4"
+                        CornerRadius="4"
+                        Background="{DynamicResource SystemControlBackgroundAccentBrush}"
+                        Margin="0,0,10,0">
+                    <TextBlock Text="{Binding Level}"
+                               Foreground="White"
+                               FontWeight="Bold"/>
+                </Border>
+
+                <TextBlock Grid.Column="1"
+                           Text="{Binding Timestamp, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss.fff}'}"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           FontWeight="SemiBold"/>
+
+                <TextBlock Grid.Column="2"
+                           Text="{Binding Index, StringFormat='Message #{0}'}"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+            </Grid>
+
+            <Separator/>
+
+            <!-- Logger Information -->
+            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="8">
+                    <Grid ColumnDefinitions="120,*">
+                        <TextBlock Grid.Column="0"
+                                   Text="Logger:"
+                                   FontWeight="Bold"/>
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding Logger}"
+                                   TextWrapping="Wrap"/>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="120,*">
+                        <TextBlock Grid.Column="0"
+                                   Text="Thread:"
+                                   FontWeight="Bold"/>
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding ThreadName}"
+                                   TextWrapping="Wrap"/>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="120,*"
+                          IsVisible="{Binding MachineName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                        <TextBlock Grid.Column="0"
+                                   Text="Machine:"
+                                   FontWeight="Bold"/>
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding MachineName}"
+                                   TextWrapping="Wrap"/>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="120,*"
+                          IsVisible="{Binding UserName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                        <TextBlock Grid.Column="0"
+                                   Text="User:"
+                                   FontWeight="Bold"/>
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding UserName}"
+                                   TextWrapping="Wrap"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Message Content -->
+            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Message"
+                               FontWeight="Bold"
+                               FontSize="14"/>
+
+                    <TextBox Text="{Binding Message}"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap"
+                             MinHeight="80"
+                             AcceptsReturn="True"
+                             FontFamily="Consolas,Courier New,monospace"
+                             Background="Transparent"
+                             BorderThickness="0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Exception Information (if present) -->
+            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10"
+                    Background="#FFFFE0E0"
+                    IsVisible="{Binding Exception, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                <StackPanel Spacing="8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="M12,2L1,21H23M12,6L19.53,19H4.47M11,10V14H13V10M11,16V18H13V16"
+                                  Width="16" Height="16"
+                                  Foreground="Red"/>
+                        <TextBlock Text="Exception"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Foreground="Red"/>
+                    </StackPanel>
+
+                    <TextBox Text="{Binding Exception}"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap"
+                             MinHeight="60"
+                             AcceptsReturn="True"
+                             FontFamily="Consolas,Courier New,monospace"
+                             Background="Transparent"
+                             BorderThickness="0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Raw Data (for debugging) -->
+            <Expander Header="Raw Data" IsExpanded="False">
+                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="10"
+                        Margin="0,8,0,0">
+                    <TextBox Text="{Binding RawData}"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap"
+                             MinHeight="100"
+                             MaxHeight="300"
+                             AcceptsReturn="True"
+                             FontFamily="Consolas,Courier New,monospace"
+                             FontSize="10"
+                             Background="Transparent"
+                             BorderThickness="0"/>
+                </Border>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

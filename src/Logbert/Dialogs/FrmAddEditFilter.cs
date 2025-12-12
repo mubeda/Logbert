@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    FrmNew.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,14 +28,14 @@
 
 #endregion
 
-using Couchcoding.Logbert.Gui.Dialogs;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Logging.Filter;
-using Couchcoding.Logbert.Properties;
+using Logbert.Gui.Dialogs;
+using Logbert.Helper;
+using Logbert.Interfaces;
+using Logbert.Logging.Filter;
+using Logbert.Properties;
 using System.ComponentModel;
 
-namespace Couchcoding.Logbert.Dialogs
+namespace Logbert.Dialogs
 {
   /// <summary>
   /// Implements the add and edit filter dialog.

@@ -1,4 +1,4 @@
-#region Copyright © 2015 Couchcoding
+#region Copyright © 2015 Logbert Contributors
 
 // File:    MainForm.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -33,29 +33,29 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-using Couchcoding.Logbert.Controls.OptionPanels;
-using Couchcoding.Logbert.Dialogs;
-using Couchcoding.Logbert.Dialogs.Docking;
-using Couchcoding.Logbert.Helper;
-using Couchcoding.Logbert.Properties;
-using Couchcoding.Logbert.Receiver.Log4NetFileReceiver;
+using Logbert.Controls.OptionPanels;
+using Logbert.Dialogs;
+using Logbert.Dialogs.Docking;
+using Logbert.Helper;
+using Logbert.Properties;
+using Logbert.Receiver.Log4NetFileReceiver;
 
 using WeifenLuo.WinFormsUI.Docking;
-using Couchcoding.Logbert.Interfaces;
-using Couchcoding.Logbert.Receiver.SyslogFileReceiver;
+using Logbert.Interfaces;
+using Logbert.Receiver.SyslogFileReceiver;
 using System.IO;
 using System.IO.Pipes;
 using System.Text;
 
-using Couchcoding.Logbert.Receiver;
+using Logbert.Receiver;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Reflection;
-using Couchcoding.Logbert.Gui.Helper;
-using Couchcoding.Logbert.Theme.Palettes;
-using Couchcoding.Logbert.Theme.Interfaces;
-using Couchcoding.Logbert.Theme;
-using Couchcoding.Logbert.Theme.Themes;
+using Logbert.Gui.Helper;
+using Logbert.Theme.Palettes;
+using Logbert.Theme.Interfaces;
+using Logbert.Theme;
+using Logbert.Theme.Themes;
 
 namespace Logbert
 {

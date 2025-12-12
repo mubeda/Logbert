@@ -1,0 +1,161 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Logbert.ViewModels.Controls"
+             xmlns:avaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="Logbert.Views.Controls.ScriptEditorControl"
+             x:DataType="vm:ScriptEditorViewModel">
+
+    <Design.DataContext>
+        <vm:ScriptEditorViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*,Auto,200,Auto">
+        <!-- Toolbar -->
+        <Border Grid.Row="0"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="8">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Command="{Binding NewScriptCommand}"
+                        ToolTip.Tip="New Script">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+                                  Width="16" Height="16"/>
+                        <TextBlock Text="New"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding OpenScriptCommand}"
+                        ToolTip.Tip="Open Script">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <PathIcon Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z"
+                                  Width="16" Height="16"/>
+                        <TextBlock Text="Open"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding SaveScriptCommand}"
+                        ToolTip.Tip="Save Script">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <PathIcon Data="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z"
+                                  Width="16" Height="16"/>
+                        <TextBlock Text="Save"/>
+                    </StackPanel>
+                </Button>
+
+                <Separator/>
+
+                <Button Command="{Binding ExecuteScriptCommand}"
+                        ToolTip.Tip="Execute Script (F5)"
+                        Classes="accent">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <PathIcon Data="M8,5.14V19.14L19,12.14L8,5.14Z"
+                                  Width="16" Height="16"/>
+                        <TextBlock Text="Run"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding ClearOutputCommand}"
+                        ToolTip.Tip="Clear Output">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <PathIcon Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+                                  Width="16" Height="16"/>
+                        <TextBlock Text="Clear"/>
+                    </StackPanel>
+                </Button>
+
+                <Separator/>
+
+                <TextBlock Text="{Binding FileName}"
+                           VerticalAlignment="Center"
+                           FontWeight="SemiBold"
+                           Margin="8,0,0,0"/>
+
+                <TextBlock Text="*"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Foreground="Red"
+                           IsVisible="{Binding IsModified}"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Code Editor -->
+        <Border Grid.Row="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,0,0,1">
+            <avaloniaEdit:TextEditor Name="textEditor"
+                                     ShowLineNumbers="True"
+                                     FontFamily="Consolas,Courier New,monospace"
+                                     FontSize="12"
+                                     Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                                     Foreground="{DynamicResource TextControlForeground}">
+                <avaloniaEdit:TextEditor.Options>
+                    <avaloniaEdit:TextEditorOptions ShowSpaces="False"
+                                                    ShowTabs="False"
+                                                    ShowEndOfLine="False"
+                                                    ConvertTabsToSpaces="True"
+                                                    IndentationSize="4"
+                                                    EnableHyperlinks="True"
+                                                    EnableEmailHyperlinks="True"/>
+                </avaloniaEdit:TextEditor.Options>
+            </avaloniaEdit:TextEditor>
+        </Border>
+
+        <!-- Splitter -->
+        <GridSplitter Grid.Row="2"
+                      Height="4"
+                      HorizontalAlignment="Stretch"
+                      Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"/>
+
+        <!-- Output Panel -->
+        <Border Grid.Row="3"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <Grid RowDefinitions="Auto,*">
+                <Border Grid.Row="0"
+                        Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                        BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                        BorderThickness="0,0,0,1"
+                        Padding="8,4">
+                    <TextBlock Text="Output"
+                               FontWeight="Bold"/>
+                </Border>
+
+                <ScrollViewer Grid.Row="1">
+                    <ItemsControl ItemsSource="{Binding OutputMessages}"
+                                  Margin="8">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}"
+                                           FontFamily="Consolas,Courier New,monospace"
+                                           FontSize="11"
+                                           TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="4"
+                Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="8,4">
+            <Grid ColumnDefinitions="*,Auto,Auto">
+                <TextBlock Grid.Column="0"
+                           Text="{Binding StatusMessage}"/>
+
+                <TextBlock Grid.Column="1"
+                           Text="{Binding CursorLine, StringFormat='Ln {0}'}"
+                           Margin="0,0,16,0"/>
+
+                <TextBlock Grid.Column="2"
+                           Text="{Binding CursorColumn, StringFormat='Col {0}'}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

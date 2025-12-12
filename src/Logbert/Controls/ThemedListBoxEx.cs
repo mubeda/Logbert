@@ -1,13 +1,13 @@
-﻿using Couchcoding.Logbert.Gui.Controls;
+﻿using Logbert.Gui.Controls;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Windows.Forms;
-using Couchcoding.Logbert.Theme.Interfaces;
-using Couchcoding.Logbert.Theme;
-using Couchcoding.Logbert.Theme.Themes;
-using Couchcoding.Logbert.Theme.Helper;
+using Logbert.Theme.Interfaces;
+using Logbert.Theme;
+using Logbert.Theme.Themes;
+using Logbert.Theme.Helper;
 
-namespace Couchcoding.Logbert.Controls
+namespace Logbert.Controls
 {
   /// <summary>
   /// Implements a themable <see cref="ListBoxEx"/> control.

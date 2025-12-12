@@ -1,4 +1,4 @@
-﻿#region Copyright © 2015 Couchcoding
+﻿#region Copyright © 2024 Logbert Contributors
 
 // File:    Win32.cs
 // Package: Logbert
@@ -6,7 +6,7 @@
 // 
 // The MIT License (MIT)
 // 
-// Copyright (c) 2015 Couchcoding
+// Copyright (c) 2024 Logbert Contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,12 +30,15 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 
-namespace Couchcoding.Logbert.Helper
+namespace Logbert.Helper
 {
   /// <summary>
   /// Implements several Win32 API method calls.
+  /// This class is only available on Windows platforms.
   /// </summary>
+  [SupportedOSPlatform("windows")]
   public static class Win32
   {
     #region Public Consts

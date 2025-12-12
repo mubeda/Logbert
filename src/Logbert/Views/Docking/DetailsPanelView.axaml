@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Logbert.ViewModels.Docking"
+             xmlns:controls="using:Logbert.Views.Controls"
+             xmlns:details="using:Logbert.Views.Controls.Details"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
+             x:Class="Logbert.Views.Docking.DetailsPanelView"
+             x:DataType="vm:DetailsPanelViewModel">
+
+    <DockPanel>
+        <!-- Header -->
+        <Border DockPanel.Dock="Top"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                Padding="10"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                BorderThickness="0,0,0,1">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Grid.Column="0"
+                           Text="Log Details"
+                           FontSize="16"
+                           FontWeight="Bold"/>
+                <ComboBox Grid.Column="1"
+                          ItemsSource="{Binding ViewModes}"
+                          SelectedItem="{Binding SelectedViewMode}"
+                          MinWidth="120"/>
+            </Grid>
+        </Border>
+
+        <!-- Content -->
+        <ContentControl Content="{Binding CurrentView}">
+            <ContentControl.Styles>
+                <Style Selector="ContentControl">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ContentControl.Styles>
+        </ContentControl>
+    </DockPanel>
+</UserControl>

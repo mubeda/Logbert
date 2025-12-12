@@ -1,0 +1,129 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Logbert.ViewModels.Controls"
+             xmlns:logging="using:Logbert.Logging"
+             xmlns:controls="using:Logbert.Views.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Logbert.Views.Controls.LogViewerControl"
+             x:DataType="vm:LogViewerViewModel">
+
+    <Design.DataContext>
+        <vm:LogViewerViewModel/>
+    </Design.DataContext>
+
+    <UserControl.Resources>
+        <!-- Color brushes for log levels -->
+        <SolidColorBrush x:Key="TraceColor" Color="#808080"/>
+        <SolidColorBrush x:Key="DebugColor" Color="#0000FF"/>
+        <SolidColorBrush x:Key="InfoColor" Color="#008000"/>
+        <SolidColorBrush x:Key="WarningColor" Color="#FFA500"/>
+        <SolidColorBrush x:Key="ErrorColor" Color="#FF0000"/>
+        <SolidColorBrush x:Key="FatalColor" Color="#8B0000"/>
+    </UserControl.Resources>
+
+    <Grid ColumnDefinitions="*,Auto">
+        <DataGrid Grid.Column="0"
+                  ItemsSource="{Binding FilteredMessages}"
+                  SelectedItem="{Binding SelectedMessage}"
+                  IsReadOnly="True"
+                  GridLinesVisibility="None"
+                  HeadersVisibility="Column"
+                  SelectionMode="Single"
+                  CanUserReorderColumns="True"
+                  CanUserResizeColumns="True"
+                  CanUserSortColumns="True"
+                  AutoGenerateColumns="False"
+                  FontSize="{Binding FontSize}">
+
+            <DataGrid.Columns>
+                <!-- Index Column -->
+                <DataGridTextColumn Header="#"
+                                    Binding="{Binding Index}"
+                                    Width="60"
+                                    IsReadOnly="True"/>
+
+                <!-- Timestamp Column -->
+                <DataGridTextColumn Header="Timestamp"
+                                    Binding="{Binding Timestamp, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss.fff}'}"
+                                    Width="180"
+                                    IsReadOnly="True"/>
+
+                <!-- Log Level Column with Color -->
+                <DataGridTemplateColumn Header="Level" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="logging:LogMessage">
+                            <TextBlock Text="{Binding Level}"
+                                      VerticalAlignment="Center"
+                                      Margin="4,0">
+                                <TextBlock.Foreground>
+                                    <MultiBinding>
+                                        <Binding Path="Level"/>
+                                    </MultiBinding>
+                                </TextBlock.Foreground>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Logger Column -->
+                <DataGridTextColumn Header="Logger"
+                                    Binding="{Binding Logger}"
+                                    Width="200"
+                                    IsReadOnly="True"/>
+
+                <!-- Message Column -->
+                <DataGridTextColumn Header="Message"
+                                    Binding="{Binding Message}"
+                                    Width="*"
+                                    IsReadOnly="True"/>
+            </DataGrid.Columns>
+
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Copy Message" Command="{Binding CopyMessageCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Zoom In" Command="{Binding ZoomInCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Zoom Out" Command="{Binding ZoomOutCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M7,9H12V10H7V9Z"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
+            <!-- Row styling based on log level -->
+            <DataGrid.Styles>
+                <Style Selector="DataGridRow">
+                    <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}"/>
+                </Style>
+                <Style Selector="DataGridRow[IsSelected=True]">
+                    <Setter Property="Background" Value="{DynamicResource SystemAccentColor}"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+            </DataGrid.Styles>
+        </DataGrid>
+
+        <!-- Empty state message -->
+        <TextBlock Grid.Column="0"
+                   Text="No log messages to display"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="16"
+                   Opacity="0.5"
+                   IsVisible="{Binding !FilteredMessages.Count}"/>
+
+        <!-- ColorMap Control - Currently excluded from compilation -->
+        <!-- TODO: Re-implement as Avalonia control after migration -->
+
+    </Grid>
+</UserControl>
