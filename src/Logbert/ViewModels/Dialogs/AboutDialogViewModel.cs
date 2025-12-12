@@ -2,6 +2,9 @@ using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -138,10 +141,17 @@ THE SOFTWARE.";
 
         try
         {
-            var clipboard = Avalonia.Application.Current?.Clipboard;
-            if (clipboard != null)
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                await clipboard.SetTextAsync(info);
+                var mainWindow = desktop.MainWindow;
+                if (mainWindow != null)
+                {
+                    var clipboard = mainWindow.Clipboard;
+                    if (clipboard != null)
+                    {
+                        await clipboard.SetTextAsync(info);
+                    }
+                }
             }
         }
         catch
