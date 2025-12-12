@@ -4,3 +4,5 @@ src/.vs/Logbert/CopilotIndices/17.14.1290.42047/CodeChunks.db
 src/.vs/
 src/Couchcoding.Logbert.Gui/obj/
 src/Couchcoding.Logbert.Theme/obj/
+packages/
+publish/
