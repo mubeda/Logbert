@@ -23,8 +23,49 @@
         <SolidColorBrush x:Key="FatalColor" Color="#8B0000"/>
     </UserControl.Resources>
 
-    <Grid ColumnDefinitions="*,Auto">
-        <DataGrid Grid.Column="0"
+    <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,Auto">
+        <!-- Error/Warning Panel (non-blocking notification banner) -->
+        <Border Grid.Row="0" Grid.ColumnSpan="2"
+                IsVisible="{Binding ErrorPanelVisible}"
+                Background="{Binding ErrorPanelBackgroundBrush}"
+                Padding="10,8"
+                CornerRadius="0">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <!-- Warning Icon -->
+                <PathIcon Grid.Column="0"
+                          Data="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"
+                          Width="20" Height="20"
+                          Margin="0,0,10,0"
+                          Foreground="{Binding ErrorPanelForegroundBrush}"/>
+
+                <!-- Error Message -->
+                <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding ErrorPanelTitle}"
+                               FontWeight="Bold"
+                               FontSize="12"
+                               Foreground="{Binding ErrorPanelForegroundBrush}"/>
+                    <TextBlock Text="{Binding ErrorPanelMessage}"
+                               TextWrapping="Wrap"
+                               FontSize="12"
+                               Foreground="{Binding ErrorPanelForegroundBrush}"/>
+                </StackPanel>
+
+                <!-- Close Button -->
+                <Button Grid.Column="2"
+                        Command="{Binding DismissErrorPanelCommand}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Padding="5"
+                        VerticalAlignment="Top"
+                        ToolTip.Tip="Close">
+                    <PathIcon Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+                              Width="14" Height="14"
+                              Foreground="{Binding ErrorPanelForegroundBrush}"/>
+                </Button>
+            </Grid>
+        </Border>
+
+        <DataGrid Grid.Row="1" Grid.Column="0"
                   ItemsSource="{Binding FilteredMessages}"
                   SelectedItem="{Binding SelectedMessage}"
                   IsReadOnly="True"
@@ -114,7 +155,7 @@
         </DataGrid>
 
         <!-- Empty state message -->
-        <TextBlock Grid.Column="0"
+        <TextBlock Grid.Row="1" Grid.Column="0"
                    Text="No log messages to display"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"

@@ -6,3 +6,4 @@ src/Couchcoding.Logbert.Gui/obj/
 src/Couchcoding.Logbert.Theme/obj/
 packages/
 publish/
+.claude/

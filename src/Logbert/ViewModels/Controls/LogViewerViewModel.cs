@@ -6,6 +6,7 @@ using Logbert.Logging;
 using Logbert.Interfaces;
 using Logbert.Services;
 using Avalonia.Threading;
+using Avalonia.Media;
 
 namespace Logbert.ViewModels.Controls;
 
@@ -42,6 +43,46 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     private bool _showFatal = true;
 
     /// <summary>
+    /// Gets or sets whether the error panel is visible.
+    /// </summary>
+    [ObservableProperty]
+    private bool _errorPanelVisible;
+
+    /// <summary>
+    /// Gets or sets the error panel title.
+    /// </summary>
+    [ObservableProperty]
+    private string _errorPanelTitle = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the error panel message.
+    /// </summary>
+    [ObservableProperty]
+    private string _errorPanelMessage = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the error panel background brush.
+    /// </summary>
+    [ObservableProperty]
+    private IBrush _errorPanelBackgroundBrush = new SolidColorBrush(Color.FromRgb(255, 165, 0));
+
+    /// <summary>
+    /// Gets or sets the error panel foreground brush.
+    /// </summary>
+    [ObservableProperty]
+    private IBrush _errorPanelForegroundBrush = new SolidColorBrush(Colors.Black);
+
+    /// <summary>
+    /// Tracks the count of suppressed errors for the same message.
+    /// </summary>
+    private int _errorCount;
+
+    /// <summary>
+    /// Tracks the last error message for deduplication.
+    /// </summary>
+    private string _lastErrorMessage = string.Empty;
+
+    /// <summary>
     /// Gets the filtered messages based on log level visibility.
     /// </summary>
     public ObservableCollection<LogMessage> FilteredMessages { get; } = new();
@@ -62,6 +103,11 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     public IRelayCommand CopyMessageCommand { get; } = null!;
 
     /// <summary>
+    /// Gets the command to dismiss the error panel.
+    /// </summary>
+    public IRelayCommand DismissErrorPanelCommand { get; } = null!;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="LogViewerViewModel"/> class.
     /// </summary>
     public LogViewerViewModel()
@@ -69,6 +115,7 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
         ZoomInCommand = new RelayCommand(OnZoomIn, CanZoomIn);
         ZoomOutCommand = new RelayCommand(OnZoomOut, CanZoomOut);
         CopyMessageCommand = new RelayCommand(OnCopyMessage, CanCopyMessage);
+        DismissErrorPanelCommand = new RelayCommand(OnDismissErrorPanel);
 
         // Listen for changes to log level filters
         PropertyChanged += (s, e) =>
@@ -78,6 +125,16 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
                 UpdateFilteredMessages();
             }
         };
+    }
+
+    /// <summary>
+    /// Dismisses the error panel.
+    /// </summary>
+    private void OnDismissErrorPanel()
+    {
+        ErrorPanelVisible = false;
+        _errorCount = 0;
+        _lastErrorMessage = string.Empty;
     }
 
     /// <summary>
@@ -96,7 +153,7 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     {
         FilteredMessages.Clear();
 
-        foreach (var message in Messages)
+        foreach (LogMessage message in Messages)
         {
             if (ShouldShowMessage(message))
             {
@@ -172,7 +229,7 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     {
         Dispatcher.UIThread.Post(() =>
         {
-            foreach (var msg in logMsgs)
+            foreach (LogMessage msg in logMsgs)
             {
                 Messages.Add(msg);
 
@@ -185,18 +242,40 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     }
 
     /// <summary>
-    /// Handles an error from the receiver.
+    /// Handles an error from the receiver by showing a non-blocking error panel.
     /// </summary>
     public void HandleError(LogError error)
     {
-        Dispatcher.UIThread.Post(async () =>
+        Dispatcher.UIThread.Post(() =>
         {
             System.Diagnostics.Debug.WriteLine($"Log receiver error: {error.Message}");
 
-            // Show error notification to user
-            await NotificationService.Instance.ShowErrorAsync(
-                $"Log receiver error: {error.Message}",
-                "Receiver Error");
+            // Check if this is the same error message (for deduplication)
+            if (error.Message == _lastErrorMessage)
+            {
+                _errorCount++;
+                // Update message with count if there are repeated errors
+                ErrorPanelMessage = _errorCount > 0
+                    ? $"{error.Message}{(error.Message.EndsWith(".") ? string.Empty : ".")} (+{_errorCount} similar)"
+                    : $"{error.Message}{(error.Message.EndsWith(".") ? string.Empty : ".")}";
+            }
+            else
+            {
+                // New error message
+                _lastErrorMessage = error.Message;
+                _errorCount = 0;
+                ErrorPanelMessage = $"{error.Message}{(error.Message.EndsWith(".") ? string.Empty : ".")}";
+            }
+
+            // Set panel properties based on error type
+            ErrorPanelTitle = error.Title;
+
+            // Convert System.Drawing.Color to Avalonia brushes
+            ErrorPanelBackgroundBrush = new SolidColorBrush(Color.FromRgb(error.BackColor.R, error.BackColor.G, error.BackColor.B));
+            ErrorPanelForegroundBrush = new SolidColorBrush(Color.FromRgb(error.ForeColor.R, error.ForeColor.G, error.ForeColor.B));
+
+            // Show the panel (non-blocking)
+            ErrorPanelVisible = true;
         });
     }
 

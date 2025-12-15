@@ -223,14 +223,15 @@ Created full export functionality with dialog UI and async export service:
 
 **Implementation Summary:**
 
-Created centralized notification service with error dialogs and validation feedback:
+Created centralized notification service with error dialogs and validation feedback. Additionally, implemented non-blocking error panel for receiver parse errors to prevent UI freezing:
 
 **Files Created/Updated:**
 
 | File | Status | Description |
 |------|--------|-------------|
 | `Services/NotificationService.cs` | ✅ Created | Singleton service for Info/Warning/Error/Confirmation dialogs |
-| `LogViewerViewModel.cs` | ✅ Updated | Uses NotificationService for receiver errors |
+| `LogViewerViewModel.cs` | ✅ Updated | Non-blocking error panel for receiver parse errors |
+| `LogViewerControl.axaml` | ✅ Updated | Added dismissible error/warning banner panel |
 | `CustomFileReceiverSettingsView.axaml.cs` | ✅ Updated | Validation error dialogs |
 | `CustomDirReceiverSettingsView.axaml.cs` | ✅ Updated | Validation error dialogs |
 | `CustomUdpReceiverSettingsView.axaml.cs` | ✅ Updated | Validation error dialogs |
@@ -245,6 +246,13 @@ Created centralized notification service with error dialogs and validation feedb
 - ✅ Validation error dialogs for receiver settings
 - ✅ Confirmation dialogs with Yes/No buttons
 - ✅ All TODO error comments replaced
+
+**Non-blocking Error Panel (December 2025):**
+- ✅ Receiver parse errors displayed in dismissible banner (like legacy WinForms)
+- ✅ Prevents OS freezing when multiple log lines fail to parse
+- ✅ Error deduplication with count display (e.g., "+42 similar")
+- ✅ Dynamic background/foreground colors based on error severity
+- ✅ Close button to dismiss panel
 
 ---
 
