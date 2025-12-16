@@ -62,6 +62,14 @@ public partial class WinDebugReceiverSettingsViewModel : ViewModelBase, ILogSett
         }
     }
 
+    /// <summary>
+    /// Gets a display string for the receiver configuration.
+    /// </summary>
+    public string GetDisplayInfo()
+    {
+        return CaptureAllProcesses ? "All Processes" : $"PID {ProcessId}";
+    }
+
     public void Dispose()
     {
         // No resources to dispose

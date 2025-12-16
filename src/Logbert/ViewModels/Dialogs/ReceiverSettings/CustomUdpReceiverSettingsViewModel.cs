@@ -88,6 +88,14 @@ public partial class CustomUdpReceiverSettingsViewModel : ViewModelBase, ILogSet
         return new CustomUdpReceiver(multicast, listenEndPoint, Columnizer!, codepage);
     }
 
+    /// <summary>
+    /// Gets a display string for the receiver configuration.
+    /// </summary>
+    public string GetDisplayInfo()
+    {
+        return $"Port {Port}";
+    }
+
     public void Dispose()
     {
         // No resources to dispose

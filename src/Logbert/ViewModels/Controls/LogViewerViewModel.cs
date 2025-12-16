@@ -1,4 +1,6 @@
+using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -15,6 +17,11 @@ namespace Logbert.ViewModels.Controls;
 /// </summary>
 public partial class LogViewerViewModel : ViewModelBase, ILogHandler
 {
+    /// <summary>
+    /// Event raised when messages are added to or removed from the viewer.
+    /// </summary>
+    public event EventHandler<NotifyCollectionChangedEventArgs>? MessagesUpdated;
+
     [ObservableProperty]
     private ObservableCollection<LogMessage> _messages = new();
 
@@ -219,6 +226,9 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
             {
                 FilteredMessages.Add(logMsg);
             }
+
+            // Notify subscribers that messages were updated
+            MessagesUpdated?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, logMsg));
         });
     }
 
@@ -238,6 +248,9 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
                     FilteredMessages.Add(msg);
                 }
             }
+
+            // Notify subscribers that messages were updated
+            MessagesUpdated?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, logMsgs));
         });
     }
 

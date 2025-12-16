@@ -52,6 +52,12 @@ namespace Logbert.Interfaces
     /// <returns>A fully configured <see cref="ILogProvider"/> instance.</returns>
     ILogProvider GetConfiguredInstance();
 
+    /// <summary>
+    /// Gets a display string for the receiver configuration (e.g., "Port 878", "file.log").
+    /// </summary>
+    /// <returns>A display string describing the configuration.</returns>
+    string GetDisplayInfo();
+
     #endregion
   }
 }

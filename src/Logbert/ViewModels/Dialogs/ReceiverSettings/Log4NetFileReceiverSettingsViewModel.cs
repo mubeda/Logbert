@@ -79,6 +79,14 @@ namespace Logbert.ViewModels.Dialogs.ReceiverSettings
                 codepage);
         }
 
+        /// <summary>
+        /// Gets a display string for the receiver configuration.
+        /// </summary>
+        public string GetDisplayInfo()
+        {
+            return string.IsNullOrEmpty(FilePath) ? "New" : System.IO.Path.GetFileName(FilePath);
+        }
+
         public void Dispose()
         {
             // Nothing to dispose

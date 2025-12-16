@@ -1,4 +1,6 @@
+using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Logbert.Logging;
 using Logbert.ViewModels.Controls;
@@ -11,6 +13,11 @@ namespace Logbert.ViewModels;
 /// </summary>
 public partial class LogDocumentViewModel : ViewModelBase
 {
+    /// <summary>
+    /// Event raised when messages are added to or removed from the document.
+    /// </summary>
+    public event EventHandler<NotifyCollectionChangedEventArgs>? MessagesUpdated;
+
     [ObservableProperty]
     private string _title = "Untitled";
 
@@ -88,10 +95,20 @@ public partial class LogDocumentViewModel : ViewModelBase
     {
         LogViewerViewModel = new LogViewerViewModel();
 
-        // Sync messages to viewer
+        // Sync messages to viewer and notify subscribers
         Messages.CollectionChanged += (s, e) =>
         {
             LogViewerViewModel.UpdateMessages(Messages);
+
+            // Raise event for any subscribers (e.g., MainWindowViewModel)
+            MessagesUpdated?.Invoke(this, e);
+        };
+
+        // Relay MessagesUpdated events from LogViewerViewModel (for messages added by receiver)
+        LogViewerViewModel.MessagesUpdated += (s, e) =>
+        {
+            // Raise event for any subscribers (e.g., MainWindowViewModel)
+            MessagesUpdated?.Invoke(this, e);
         };
 
         // Sync selected message

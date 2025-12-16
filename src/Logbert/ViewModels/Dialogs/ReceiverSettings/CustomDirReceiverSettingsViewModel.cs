@@ -81,6 +81,14 @@ public partial class CustomDirReceiverSettingsViewModel : ViewModelBase, ILogSet
         return new CustomDirReceiver(DirectoryPath, FilenamePattern, StartFromBeginning, Columnizer!, codepage);
     }
 
+    /// <summary>
+    /// Gets a display string for the receiver configuration.
+    /// </summary>
+    public string GetDisplayInfo()
+    {
+        return string.IsNullOrEmpty(DirectoryPath) ? "New" : System.IO.Path.GetFileName(DirectoryPath);
+    }
+
     public void Dispose()
     {
         // No resources to dispose

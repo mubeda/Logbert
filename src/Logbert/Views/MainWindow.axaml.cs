@@ -218,12 +218,14 @@ public partial class MainWindow : Window
         {
             try
             {
+                // Get display info before creating the receiver instance
+                string displayInfo = receiverSettings.GetDisplayInfo();
                 var receiver = receiverSettings.GetConfiguredInstance();
 
                 // Create a new document for this receiver
                 var newDoc = new LogDocumentViewModel
                 {
-                    Title = $"{selectedReceiver.Name} - {System.IO.Path.GetFileName(receiver.Settings?.ToString() ?? "New")}"
+                    Title = $"{selectedReceiver.Name} - {displayInfo}"
                 };
 
                 // Set up the receiver to feed messages to the document

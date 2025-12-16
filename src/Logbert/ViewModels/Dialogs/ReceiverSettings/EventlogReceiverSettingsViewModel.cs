@@ -51,6 +51,14 @@ public partial class EventlogReceiverSettingsViewModel : ViewModelBase, ILogSett
             string.IsNullOrWhiteSpace(SourceName) ? string.Empty : SourceName.Trim());
     }
 
+    /// <summary>
+    /// Gets a display string for the receiver configuration.
+    /// </summary>
+    public string GetDisplayInfo()
+    {
+        return LogName;
+    }
+
     public void Dispose()
     {
         // No resources to dispose

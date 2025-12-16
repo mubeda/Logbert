@@ -71,6 +71,14 @@ namespace Logbert.ViewModels.Dialogs.ReceiverSettings
             return new NlogTcpReceiver(Port, listenEndPoint, codepage);
         }
 
+        /// <summary>
+        /// Gets a display string for the receiver configuration.
+        /// </summary>
+        public string GetDisplayInfo()
+        {
+            return $"Port {Port}";
+        }
+
         public void Dispose()
         {
             // Nothing to dispose

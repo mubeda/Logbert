@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -409,11 +410,23 @@ public partial class MainWindowViewModel : ViewModelBase
 
     partial void OnActiveDocumentChanged(LogDocumentViewModel? oldValue, LogDocumentViewModel? newValue)
     {
+        // Unsubscribe from old document's MessagesUpdated event
+        if (oldValue != null)
+        {
+            oldValue.MessagesUpdated -= OnActiveDocumentMessagesUpdated;
+        }
+
         // Sync filter panel with active document
         if (newValue != null)
         {
+            // Subscribe to new document's MessagesUpdated event
+            newValue.MessagesUpdated += OnActiveDocumentMessagesUpdated;
+
+            // Use LogViewerViewModel.Messages since that's where the receiver adds messages
+            ObservableCollection<LogMessage> messages = newValue.LogViewerViewModel.Messages;
+
             // Update logger tree with loggers from the document
-            var loggerNames = newValue.Messages.Select(m => m.Logger ?? "Unknown").Distinct();
+            System.Collections.Generic.IEnumerable<string> loggerNames = messages.Select(m => m.Logger ?? "Unknown").Distinct();
             LoggerTree.UpdateLoggers(loggerNames);
 
             // Update search panel target
@@ -426,13 +439,85 @@ public partial class MainWindowViewModel : ViewModelBase
             }
 
             // Update statistics and color map
-            StatisticsPanel.UpdateStatistics(newValue.Messages);
-            ColorMapPanel.UpdateMessages(newValue.Messages);
+            StatisticsPanel.UpdateStatistics(messages);
+            ColorMapPanel.UpdateMessages(messages);
         }
         else
         {
             SearchPanel.SetSearchTarget(null);
         }
+    }
+
+    /// <summary>
+    /// Throttle timer for panel updates to avoid excessive refreshes.
+    /// </summary>
+    private System.Threading.Timer? _panelUpdateThrottleTimer;
+
+    /// <summary>
+    /// Tracks if a panel update is pending.
+    /// </summary>
+    private bool _panelUpdatePending;
+
+    /// <summary>
+    /// Handles messages being added to or removed from the active document.
+    /// </summary>
+    private void OnActiveDocumentMessagesUpdated(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (ActiveDocument == null)
+        {
+            return;
+        }
+
+        // Throttle panel updates to avoid excessive refreshes (max once per 500ms)
+        if (_panelUpdateThrottleTimer == null)
+        {
+            _panelUpdateThrottleTimer = new System.Threading.Timer(OnPanelUpdateTimerTick, null, 500, System.Threading.Timeout.Infinite);
+            _panelUpdatePending = true;
+        }
+        else
+        {
+            _panelUpdatePending = true;
+        }
+    }
+
+    /// <summary>
+    /// Timer callback for throttled panel updates.
+    /// </summary>
+    private void OnPanelUpdateTimerTick(object? state)
+    {
+        if (!_panelUpdatePending || ActiveDocument == null)
+        {
+            // Reset timer for next update
+            _panelUpdateThrottleTimer?.Change(500, System.Threading.Timeout.Infinite);
+            return;
+        }
+
+        _panelUpdatePending = false;
+
+        // Marshal to UI thread
+        Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+        {
+            if (ActiveDocument == null)
+            {
+                return;
+            }
+
+            // Use LogViewerViewModel.Messages since that's where the receiver adds messages
+            ObservableCollection<LogMessage> messages = ActiveDocument.LogViewerViewModel.Messages;
+
+            // Update statistics with all messages
+            StatisticsPanel.UpdateStatistics(messages);
+
+            // Update logger tree with distinct loggers
+            System.Collections.Generic.IEnumerable<string> loggerNames = messages.Select(m => m.Logger ?? "Unknown").Distinct();
+            LoggerTree.UpdateLoggers(loggerNames);
+
+            // Update color map
+            ColorMapPanel.UpdateMessages(messages);
+        });
+
+        // Reset timer for next update
+        _panelUpdateThrottleTimer?.Change(500, System.Threading.Timeout.Infinite);
     }
 
     /// <summary>

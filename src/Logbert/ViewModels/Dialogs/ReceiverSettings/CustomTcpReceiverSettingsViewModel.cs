@@ -76,6 +76,14 @@ public partial class CustomTcpReceiverSettingsViewModel : ViewModelBase, ILogSet
         return new CustomTcpReceiver(Port, listenEndPoint, Columnizer!, codepage);
     }
 
+    /// <summary>
+    /// Gets a display string for the receiver configuration.
+    /// </summary>
+    public string GetDisplayInfo()
+    {
+        return $"Port {Port}";
+    }
+
     public void Dispose()
     {
         // No resources to dispose

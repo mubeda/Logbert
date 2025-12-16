@@ -73,6 +73,14 @@ public partial class CustomFileReceiverSettingsViewModel : ViewModelBase, ILogSe
         return new CustomFileReceiver(FilePath, StartFromBeginning, Columnizer!, codepage);
     }
 
+    /// <summary>
+    /// Gets a display string for the receiver configuration.
+    /// </summary>
+    public string GetDisplayInfo()
+    {
+        return string.IsNullOrEmpty(FilePath) ? "New" : System.IO.Path.GetFileName(FilePath);
+    }
+
     public void Dispose()
     {
         // No resources to dispose

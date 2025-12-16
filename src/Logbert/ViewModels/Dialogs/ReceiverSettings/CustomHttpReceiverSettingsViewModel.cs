@@ -106,6 +106,24 @@ public partial class CustomHttpReceiverSettingsViewModel : ViewModelBase, ILogSe
         return new CustomHttpReceiver(Url, authentication!, PollIntervalSeconds, Columnizer!, codepage);
     }
 
+    /// <summary>
+    /// Gets a display string for the receiver configuration.
+    /// </summary>
+    public string GetDisplayInfo()
+    {
+        if (string.IsNullOrEmpty(Url))
+        {
+            return "New";
+        }
+
+        if (Uri.TryCreate(Url, UriKind.Absolute, out Uri? uri))
+        {
+            return uri.Host;
+        }
+
+        return Url;
+    }
+
     public void Dispose()
     {
         // No resources to dispose
