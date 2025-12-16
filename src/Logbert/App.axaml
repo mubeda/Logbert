@@ -9,6 +9,9 @@
     <Application.Styles>
         <FluentTheme />
 
+        <!-- DataGrid theme - REQUIRED for DataGrid to render properly -->
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+
         <!-- Dock.Avalonia theme temporarily disabled - docking not yet implemented -->
         <!-- <StyleInclude Source="avares://Dock.Avalonia/Themes/DockFluentTheme.axaml" /> -->
     </Application.Styles>

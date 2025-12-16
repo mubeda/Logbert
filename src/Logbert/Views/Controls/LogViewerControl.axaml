@@ -66,17 +66,26 @@
         </Border>
 
         <DataGrid Grid.Row="1" Grid.Column="0"
+                  x:Name="LogDataGrid"
                   ItemsSource="{Binding FilteredMessages}"
                   SelectedItem="{Binding SelectedMessage}"
                   IsReadOnly="True"
-                  GridLinesVisibility="None"
+                  GridLinesVisibility="Horizontal"
                   HeadersVisibility="Column"
                   SelectionMode="Single"
                   CanUserReorderColumns="True"
                   CanUserResizeColumns="True"
                   CanUserSortColumns="True"
                   AutoGenerateColumns="False"
-                  FontSize="{Binding FontSize}">
+                  FontSize="{Binding FontSize}"
+                  Background="White"
+                  Foreground="Black"
+                  BorderBrush="#CCCCCC"
+                  BorderThickness="1"
+                  MinHeight="200"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  RowHeight="24">
 
             <DataGrid.Columns>
                 <!-- Index Column -->
@@ -91,22 +100,11 @@
                                     Width="180"
                                     IsReadOnly="True"/>
 
-                <!-- Log Level Column with Color -->
-                <DataGridTemplateColumn Header="Level" Width="80">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="logging:LogMessage">
-                            <TextBlock Text="{Binding Level}"
-                                      VerticalAlignment="Center"
-                                      Margin="4,0">
-                                <TextBlock.Foreground>
-                                    <MultiBinding>
-                                        <Binding Path="Level"/>
-                                    </MultiBinding>
-                                </TextBlock.Foreground>
-                            </TextBlock>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <!-- Log Level Column -->
+                <DataGridTextColumn Header="Level"
+                                    Binding="{Binding Level}"
+                                    Width="80"
+                                    IsReadOnly="True"/>
 
                 <!-- Logger Column -->
                 <DataGridTextColumn Header="Logger"
@@ -145,11 +143,25 @@
             <!-- Row styling based on log level -->
             <DataGrid.Styles>
                 <Style Selector="DataGridRow">
-                    <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="White"/>
                 </Style>
-                <Style Selector="DataGridRow[IsSelected=True]">
-                    <Setter Property="Background" Value="{DynamicResource SystemAccentColor}"/>
+                <Style Selector="DataGridRow:nth-child(even)">
+                    <Setter Property="Background" Value="#F8F8F8"/>
+                </Style>
+                <Style Selector="DataGridRow:pointerover">
+                    <Setter Property="Background" Value="#E8E8E8"/>
+                </Style>
+                <Style Selector="DataGridRow:selected">
+                    <Setter Property="Background" Value="#0078D4"/>
                     <Setter Property="Foreground" Value="White"/>
+                </Style>
+                <Style Selector="DataGridCell">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+                <Style Selector="DataGridColumnHeader">
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="#F0F0F0"/>
                 </Style>
             </DataGrid.Styles>
         </DataGrid>

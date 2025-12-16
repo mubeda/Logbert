@@ -271,19 +271,33 @@ namespace Logbert.Receiver.NLogUdpReceiver
 
       if (receiveBytes != null)
       {
+        string rawData = mEncoding.GetString(receiveBytes);
+        
+        // Debug: Log the first 500 chars of received data to see what format it's in
+        System.Diagnostics.Debug.WriteLine($"[NLogUdpReceiver] Received {receiveBytes.Length} bytes: {rawData.Substring(0, Math.Min(500, rawData.Length))}");
+        
         try
         {
           LogMessage newLogMsg = new LogMessageLog4Net(
-              mEncoding.GetString(receiveBytes)
+              rawData
             , ++mLogNumber);
 
           if (mLogHandler != null)
           {
+            System.Diagnostics.Debug.WriteLine($"[NLogUdpReceiver] Calling mLogHandler.HandleMessage. Handler type: {mLogHandler.GetType().Name}");
             mLogHandler.HandleMessage(newLogMsg);
+            System.Diagnostics.Debug.WriteLine($"[NLogUdpReceiver] HandleMessage returned");
+          }
+          else
+          {
+            System.Diagnostics.Debug.WriteLine($"[NLogUdpReceiver] WARNING: mLogHandler is NULL!");
           }
         }
         catch (Exception ex)
         {
+          // Include a snippet of the raw data in the error for debugging
+          string dataPreview = rawData.Length > 100 ? rawData.Substring(0, 100) + "..." : rawData;
+          System.Diagnostics.Debug.WriteLine($"[NLogUdpReceiver] Parse error. Raw data: {dataPreview}");
           mLogHandler.HandleError(LogError.Warn(ex.Message));
         }
       }

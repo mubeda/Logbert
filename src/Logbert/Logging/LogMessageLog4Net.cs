@@ -294,77 +294,92 @@ namespace Logbert.Logging
     {
       if (!string.IsNullOrEmpty(data))
       {
-        using (XmlReader reader = new XmlTextReader(data, XmlNodeType.Element, mParserContext))
+        // Debug: Log what we're trying to parse
+        System.Diagnostics.Debug.WriteLine($"[LogMessageLog4Net] Attempting to parse: {data.Substring(0, Math.Min(200, data.Length))}...");
+        
+        try
         {
-          if ((reader.MoveToContent() != XmlNodeType.Element) || (reader.Name != "log4j:event"))
+          using (XmlReader reader = new XmlTextReader(data, XmlNodeType.Element, mParserContext))
           {
-            return false;
-          }
-
-          long timestamp;
-          mTimestamp = long.TryParse(reader.GetAttribute("timestamp"), out timestamp)
-            ? mUtcStartDate.AddMilliseconds(timestamp)
-            : DateTime.Now;
-
-          mLevel  = MapLevelType(reader.GetAttribute("level"));
-          mLogger = reader.GetAttribute("logger");
-          mThread = reader.GetAttribute("thread");
-
-          int eventDepth = reader.Depth;
-          reader.Read();
-
-          while (reader.Depth > eventDepth)
-          {
-            if (reader.MoveToContent() == XmlNodeType.Element)
+            XmlNodeType nodeType = reader.MoveToContent();
+            System.Diagnostics.Debug.WriteLine($"[LogMessageLog4Net] NodeType: {nodeType}, Name: '{reader.Name}'");
+            
+            if ((nodeType != XmlNodeType.Element) || (reader.Name != "log4j:event"))
             {
-              switch (reader.Name)
-              {
-                case "log4j:message":
-                  mMessage = reader.ReadString();
-                  break;
-
-                case "log4j:throwable":
-                  mMessage += Environment.NewLine + reader.ReadString();
-                  break;
-
-                case "log4j:locationInfo":
-                  mLocation = new LocationInfo(
-                      reader.GetAttribute("file")   ?? string.Empty
-                    , reader.GetAttribute("class")  ?? string.Empty
-                    , reader.GetAttribute("method") ?? string.Empty);
-                  break;
-
-                case "log4j:properties":
-                  reader.Read();
-                  while (reader.MoveToContent() == XmlNodeType.Element && reader.Name == "log4j:data")
-                  {
-                    string name  = reader.GetAttribute("name");
-                    string value = reader.GetAttribute("value");
-
-                    if (name != null)
-                    {
-                      switch (name.ToLower())
-                      {
-                        case "exceptions":
-                          mCustomProperties["ExceptionString"] = value;
-                          break;
-                        default:
-                          mCustomProperties[name] = value;
-                          break;
-                      }
-                    }
-
-                    reader.Read();
-                  }
-
-                  break;
-              }
+              System.Diagnostics.Debug.WriteLine($"[LogMessageLog4Net] FAILED: Expected 'log4j:event' but got '{reader.Name}'");
+              return false;
             }
 
-            reader.Read();
-          }
+            long timestamp;
+            mTimestamp = long.TryParse(reader.GetAttribute("timestamp"), out timestamp)
+              ? mUtcStartDate.AddMilliseconds(timestamp)
+              : DateTime.Now;
 
-          return true;
+            mLevel  = MapLevelType(reader.GetAttribute("level"));
+            mLogger = reader.GetAttribute("logger");
+            mThread = reader.GetAttribute("thread");
+
+            int eventDepth = reader.Depth;
+            reader.Read();
+
+            while (reader.Depth > eventDepth)
+            {
+              if (reader.MoveToContent() == XmlNodeType.Element)
+              {
+                switch (reader.Name)
+                {
+                  case "log4j:message":
+                    mMessage = reader.ReadString();
+                    break;
+
+                  case "log4j:throwable":
+                    mMessage += Environment.NewLine + reader.ReadString();
+                    break;
+
+                  case "log4j:locationInfo":
+                    mLocation = new LocationInfo(
+                        reader.GetAttribute("file")   ?? string.Empty
+                      , reader.GetAttribute("class")  ?? string.Empty
+                      , reader.GetAttribute("method") ?? string.Empty);
+                    break;
+
+                  case "log4j:properties":
+                    reader.Read();
+                    while (reader.MoveToContent() == XmlNodeType.Element && reader.Name == "log4j:data")
+                    {
+                      string name  = reader.GetAttribute("name");
+                      string value = reader.GetAttribute("value");
+
+                      if (name != null)
+                      {
+                        switch (name.ToLower())
+                        {
+                          case "exceptions":
+                            mCustomProperties["ExceptionString"] = value;
+                            break;
+                          default:
+                            mCustomProperties[name] = value;
+                            break;
+                        }
+                      }
+
+                      reader.Read();
+                    }
+
+                    break;
+                }
+              }
+
+              reader.Read();
+            }
+
+            return true;
+          }
+        }
+        catch (Exception ex)
+        {
+          System.Diagnostics.Debug.WriteLine($"[LogMessageLog4Net] XML Parse Exception: {ex.Message}");
+          throw;
         }
       }
 

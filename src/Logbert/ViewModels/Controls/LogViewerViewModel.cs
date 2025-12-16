@@ -248,7 +248,6 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     {
         Dispatcher.UIThread.Post(() =>
         {
-            System.Diagnostics.Debug.WriteLine($"Log receiver error: {error.Message}");
 
             // Check if this is the same error message (for deduplication)
             if (error.Message == _lastErrorMessage)

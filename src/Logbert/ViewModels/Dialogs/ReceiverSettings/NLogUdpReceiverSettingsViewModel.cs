@@ -16,7 +16,7 @@ namespace Logbert.ViewModels.Dialogs.ReceiverSettings
     public partial class NLogUdpReceiverSettingsViewModel : ObservableObject, ILogSettingsCtrl
     {
         [ObservableProperty]
-        private int _port = 9999;
+        private int _port = 878;
 
         [ObservableProperty]
         private string _listenInterfaceIp = "0.0.0.0";
