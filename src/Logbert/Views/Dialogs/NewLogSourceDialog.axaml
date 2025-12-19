@@ -3,59 +3,77 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="using:Logbert.ViewModels.Dialogs"
-        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="500"
+        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="500"
         x:Class="Logbert.Views.Dialogs.NewLogSourceDialog"
         x:DataType="vm:NewLogSourceDialogViewModel"
-        Title="New Log Source"
-        Width="600" Height="500"
+        Title="New Logger"
+        Width="700" Height="500"
         WindowStartupLocation="CenterOwner"
         CanResize="False">
 
-    <DockPanel Margin="10">
+    <DockPanel>
+        <!-- Header -->
+        <Border DockPanel.Dock="Top" Background="White" Padding="15,12" BorderBrush="#D0D0D0" BorderThickness="0,0,0,1">
+            <StackPanel>
+                <TextBlock Text="New Logger" FontSize="14" FontWeight="SemiBold" Foreground="#0066CC"/>
+                <TextBlock Text="Select and setup the logger type to create." FontSize="11" Foreground="#666666" Margin="0,2,0,0"/>
+            </StackPanel>
+        </Border>
+
         <!-- Buttons at bottom -->
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,10,0,0">
-            <Button Content="OK" Click="OnOkClick" Width="80" IsDefault="True" IsEnabled="{Binding SelectedReceiver, Converter={x:Static ObjectConverters.IsNotNull}}"/>
-            <Button Content="Cancel" Click="OnCancelClick" Width="80" IsCancel="True"/>
-        </StackPanel>
+        <Border DockPanel.Dock="Bottom" Background="#F0F0F0" Padding="10" BorderBrush="#D0D0D0" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                <Button Content="OK" Click="OnOkClick" Width="75" IsDefault="True" IsEnabled="{Binding SelectedReceiver, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                <Button Content="Cancel" Click="OnCancelClick" Width="75" IsCancel="True"/>
+            </StackPanel>
+        </Border>
 
-        <!-- Main content -->
+        <!-- Main content - split view -->
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <!-- Title -->
-            <TextBlock Grid.Row="0" Text="Select a log source type:" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,10"/>
-
-            <!-- Receiver list grouped by category -->
-            <ListBox Grid.Row="1"
+            <!-- Left: Receiver list -->
+            <ListBox Grid.Column="0"
                      ItemsSource="{Binding AvailableReceivers}"
                      SelectedItem="{Binding SelectedReceiver}"
-                     Background="#FAFAFA">
-
+                     Background="White"
+                     BorderThickness="0,0,1,0"
+                     BorderBrush="#D0D0D0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="5">
-                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="13"/>
-                            <TextBlock Text="{Binding Category}" FontSize="11" Opacity="0.7"/>
-                        </StackPanel>
+                        <TextBlock Text="{Binding Name}" FontSize="12" Padding="8,4"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <!-- Description -->
-            <Border Grid.Row="2"
-                    Background="#F0F0F0"
-                    BorderBrush="#D0D0D0"
-                    BorderThickness="1"
-                    Padding="10"
-                    Margin="0,10,0,0"
-                    MinHeight="60">
-                <TextBlock Text="{Binding Description}"
-                           TextWrapping="Wrap"
-                           VerticalAlignment="Center"/>
+            <!-- Right: Settings panel -->
+            <Border Grid.Column="1" Background="White" Padding="15">
+                <DockPanel>
+                    <!-- Settings header -->
+                    <Border DockPanel.Dock="Top" Margin="0,0,0,15">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <PathIcon Data="M22.7,19L13.6,9.9C14.5,7.6 14,4.9 12.1,3C10.1,1 7.1,0.6 4.7,1.7L9,6L6,9L1.6,4.7C0.4,7.1 0.9,10.1 2.9,12.1C4.8,14 7.5,14.5 9.8,13.6L18.9,22.7C19.3,23.1 19.9,23.1 20.3,22.7L22.6,20.4C23.1,20 23.1,19.3 22.7,19Z"
+                                      Width="16" Height="16" Foreground="#666666"/>
+                            <TextBlock Text="{Binding SelectedReceiver.Name, StringFormat='{}{0} Settings', FallbackValue='Receiver Settings'}"
+                                       FontSize="12" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Settings content (placeholder - actual settings would be receiver-specific) -->
+                    <ScrollViewer>
+                        <StackPanel Spacing="12">
+                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="11" Foreground="#666666"
+                                       IsVisible="{Binding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+                            <TextBlock Text="Configuration options will appear here after selecting a receiver type."
+                                       FontSize="11" Foreground="#999999" FontStyle="Italic"
+                                       IsVisible="{Binding SelectedReceiver, Converter={x:Static ObjectConverters.IsNull}}"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
             </Border>
         </Grid>
     </DockPanel>

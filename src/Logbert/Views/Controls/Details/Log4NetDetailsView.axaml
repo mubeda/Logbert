@@ -7,172 +7,91 @@
              x:Class="Logbert.Views.Controls.Details.Log4NetDetailsView"
              x:DataType="vm:Log4NetDetailsViewModel">
 
-    <ScrollViewer>
-        <StackPanel Spacing="10" Margin="10">
-            <!-- Header with Level Badge -->
-            <Grid ColumnDefinitions="Auto,*,Auto">
-                <Border Grid.Column="0"
-                        Padding="8,4"
-                        CornerRadius="4"
-                        Background="{Binding LevelBackground}"
-                        Margin="0,0,10,0">
-                    <TextBlock Text="{Binding Level}"
-                               Foreground="White"
-                               FontWeight="Bold"/>
-                </Border>
-
-                <TextBlock Grid.Column="1"
-                           Text="{Binding FormattedTimestamp}"
-                           VerticalAlignment="Center"
-                           FontSize="14"
-                           FontWeight="SemiBold"/>
-
-                <TextBlock Grid.Column="2"
-                           Text="{Binding IndexDisplay}"
-                           VerticalAlignment="Center"
-                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+    <!-- Simple table-like layout matching old WinForms Message Details style -->
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="4">
+            <!-- Logger Row -->
+            <Grid ColumnDefinitions="100,*,Auto" Background="White">
+                <TextBlock Grid.Column="0" Text="Logger" FontWeight="Bold" Padding="8,6" Background="#F5F5F5" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding Logger}" Padding="8,6" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                <Button Grid.Column="2" Padding="4,2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Copy">
+                    <PathIcon Data="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" Width="12" Height="12"/>
+                </Button>
             </Grid>
+            <Separator Height="1" Background="#E0E0E0"/>
 
-            <Separator/>
+            <!-- Level Row -->
+            <Grid ColumnDefinitions="100,*,Auto" Background="White">
+                <TextBlock Grid.Column="0" Text="Level" FontWeight="Bold" Padding="8,6" Background="#F5F5F5" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding Level}" Padding="8,6" VerticalAlignment="Center" Foreground="{Binding LevelBackground}"/>
+                <Button Grid.Column="2" Padding="4,2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Copy">
+                    <PathIcon Data="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" Width="12" Height="12"/>
+                </Button>
+            </Grid>
+            <Separator Height="1" Background="#E0E0E0"/>
 
-            <!-- Logger and Thread Information -->
-            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                    BorderThickness="1"
-                    CornerRadius="4"
-                    Padding="10"
-                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
-                <StackPanel Spacing="8">
-                    <Grid ColumnDefinitions="120,*">
-                        <TextBlock Grid.Column="0"
-                                   Text="Logger:"
-                                   FontWeight="Bold"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding Logger}"
-                                   TextWrapping="Wrap"/>
-                    </Grid>
+            <!-- Date and Time Row -->
+            <Grid ColumnDefinitions="100,*,Auto" Background="White">
+                <TextBlock Grid.Column="0" Text="Date and Time" FontWeight="Bold" Padding="8,6" Background="#F5F5F5" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding FormattedTimestamp}" Padding="8,6" VerticalAlignment="Center"/>
+                <Button Grid.Column="2" Padding="4,2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Copy">
+                    <PathIcon Data="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" Width="12" Height="12"/>
+                </Button>
+            </Grid>
+            <Separator Height="1" Background="#E0E0E0"/>
 
-                    <Grid ColumnDefinitions="120,*">
-                        <TextBlock Grid.Column="0"
-                                   Text="Thread:"
-                                   FontWeight="Bold"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding Thread}"
-                                   TextWrapping="Wrap"/>
-                    </Grid>
+            <!-- Thread Row -->
+            <Grid ColumnDefinitions="100,*,Auto" Background="White">
+                <TextBlock Grid.Column="0" Text="Thread" FontWeight="Bold" Padding="8,6" Background="#F5F5F5" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding Thread}" Padding="8,6" VerticalAlignment="Center"/>
+                <Button Grid.Column="2" Padding="4,2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Copy">
+                    <PathIcon Data="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" Width="12" Height="12"/>
+                </Button>
+            </Grid>
+            <Separator Height="1" Background="#E0E0E0"/>
+
+            <!-- Message Row -->
+            <Grid ColumnDefinitions="100,*,Auto" Background="White">
+                <TextBlock Grid.Column="0" Text="Message" FontWeight="Bold" Padding="8,6" Background="#F5F5F5" VerticalAlignment="Top"/>
+                <TextBlock Grid.Column="1" Text="{Binding Message}" Padding="8,6" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <Button Grid.Column="2" Padding="4,2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Copy" VerticalAlignment="Top">
+                    <PathIcon Data="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" Width="12" Height="12"/>
+                </Button>
+            </Grid>
+            <Separator Height="1" Background="#E0E0E0"/>
+
+            <!-- Location Row -->
+            <Grid ColumnDefinitions="100,*,Auto" Background="White" IsVisible="{Binding HasLocation}">
+                <TextBlock Grid.Column="0" Text="Location" FontWeight="Bold" Padding="8,6" Background="#F5F5F5" VerticalAlignment="Top"/>
+                <StackPanel Grid.Column="1" Margin="8,6">
+                    <TextBlock Text="{Binding ClassName}" TextWrapping="Wrap" IsVisible="{Binding ClassName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                    <TextBlock Text="{Binding MethodName}" TextWrapping="Wrap" IsVisible="{Binding MethodName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                    <TextBlock Text="{Binding FileName}" TextWrapping="Wrap" Foreground="#666666" IsVisible="{Binding FileName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                 </StackPanel>
-            </Border>
+                <Button Grid.Column="2" Padding="4,2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Copy" VerticalAlignment="Top">
+                    <PathIcon Data="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" Width="12" Height="12"/>
+                </Button>
+            </Grid>
+            <Separator Height="1" Background="#E0E0E0" IsVisible="{Binding HasLocation}"/>
 
-            <!-- Location Information -->
-            <Expander Header="Location Info" IsExpanded="True"
-                      IsVisible="{Binding HasLocation}">
-                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4"
-                        Padding="10"
-                        Margin="0,8,0,0"
-                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
-                    <StackPanel Spacing="8">
-                        <Grid ColumnDefinitions="120,*"
-                              IsVisible="{Binding FileName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-                            <TextBlock Grid.Column="0"
-                                       Text="File:"
-                                       FontWeight="Bold"/>
-                            <TextBlock Grid.Column="1"
-                                       Text="{Binding FileName}"
-                                       TextWrapping="Wrap"
-                                       FontFamily="Consolas,Courier New,monospace"/>
-                        </Grid>
-
-                        <Grid ColumnDefinitions="120,*"
-                              IsVisible="{Binding ClassName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-                            <TextBlock Grid.Column="0"
-                                       Text="Class:"
-                                       FontWeight="Bold"/>
-                            <TextBlock Grid.Column="1"
-                                       Text="{Binding ClassName}"
-                                       TextWrapping="Wrap"
-                                       FontFamily="Consolas,Courier New,monospace"/>
-                        </Grid>
-
-                        <Grid ColumnDefinitions="120,*"
-                              IsVisible="{Binding MethodName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-                            <TextBlock Grid.Column="0"
-                                       Text="Method:"
-                                       FontWeight="Bold"/>
-                            <TextBlock Grid.Column="1"
-                                       Text="{Binding MethodName}"
-                                       TextWrapping="Wrap"
-                                       FontFamily="Consolas,Courier New,monospace"/>
-                        </Grid>
-                    </StackPanel>
-                </Border>
-            </Expander>
-
-            <!-- Message Content -->
-            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                    BorderThickness="1"
-                    CornerRadius="4"
-                    Padding="10">
-                <StackPanel Spacing="8">
-                    <TextBlock Text="Message"
-                               FontWeight="Bold"
-                               FontSize="14"/>
-
-                    <TextBox Text="{Binding Message}"
-                             IsReadOnly="True"
-                             TextWrapping="Wrap"
-                             MinHeight="80"
-                             AcceptsReturn="True"
-                             FontFamily="Consolas,Courier New,monospace"
-                             Background="Transparent"
-                             BorderThickness="0"/>
-                </StackPanel>
-            </Border>
-
-            <!-- Custom Properties -->
-            <Expander Header="Custom Properties" IsExpanded="False"
-                      IsVisible="{Binding HasCustomProperties}">
-                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4"
-                        Padding="10"
-                        Margin="0,8,0,0">
-                    <ItemsControl ItemsSource="{Binding CustomProperties}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid ColumnDefinitions="150,*" Margin="0,4">
-                                    <TextBlock Grid.Column="0"
-                                               Text="{Binding Key}"
-                                               FontWeight="SemiBold"/>
-                                    <TextBlock Grid.Column="1"
-                                               Text="{Binding Value}"
-                                               TextWrapping="Wrap"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Border>
-            </Expander>
-
-            <!-- Raw Data -->
-            <Expander Header="Raw XML Data" IsExpanded="False">
-                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4"
-                        Padding="10"
-                        Margin="0,8,0,0">
-                    <TextBox Text="{Binding RawData}"
-                             IsReadOnly="True"
-                             TextWrapping="Wrap"
-                             MinHeight="100"
-                             MaxHeight="300"
-                             AcceptsReturn="True"
-                             FontFamily="Consolas,Courier New,monospace"
-                             FontSize="10"
-                             Background="Transparent"
-                             BorderThickness="0"/>
-                </Border>
-            </Expander>
+            <!-- Properties Row -->
+            <Grid ColumnDefinitions="100,*,Auto" Background="White" IsVisible="{Binding HasCustomProperties}">
+                <TextBlock Grid.Column="0" Text="Properties" FontWeight="Bold" Padding="8,6" Background="#F5F5F5" VerticalAlignment="Top"/>
+                <ItemsControl Grid.Column="1" ItemsSource="{Binding CustomProperties}" Margin="8,6">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding Key}" FontWeight="SemiBold"/>
+                                <Run Text=": "/>
+                                <Run Text="{Binding Value}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Button Grid.Column="2" Padding="4,2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Copy" VerticalAlignment="Top">
+                    <PathIcon Data="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" Width="12" Height="12"/>
+                </Button>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
