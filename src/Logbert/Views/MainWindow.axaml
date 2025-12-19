@@ -11,7 +11,37 @@
         x:Name="MainWindowRoot"
         Icon="/Assets/avalonia-logo.ico"
         Title="Logbert - Log File Viewer"
-        Width="1200" Height="800">
+        Width="1200" Height="800"
+        FontSize="11">
+
+    <!-- Global styles to reduce font sizes -->
+    <Window.Styles>
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Padding" Value="8,4"/>
+        </Style>
+        <Style Selector="Menu">
+            <Setter Property="FontSize" Value="11"/>
+        </Style>
+        <Style Selector="MenuItem">
+            <Setter Property="FontSize" Value="11"/>
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="FontSize" Value="11"/>
+        </Style>
+        <Style Selector="TextBlock">
+            <Setter Property="FontSize" Value="11"/>
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="FontSize" Value="11"/>
+        </Style>
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="FontSize" Value="11"/>
+        </Style>
+        <Style Selector="DataGridCell">
+            <Setter Property="FontSize" Value="11"/>
+        </Style>
+    </Window.Styles>
 
     <DockPanel>
         <!-- Menu Bar -->
@@ -292,8 +322,8 @@
                                 <PathIcon Data="M3,3H11V11H3V3M3,13H11V21H3V13M13,3H21V11H13V3M13,13H21V21H13V13Z"
                                           Width="80" Height="80" Foreground="#808080"/>
                             </Border>
-                            <TextBlock Text="Logbert" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#404040"/>
-                            <TextBlock Text="Log File Viewer" FontSize="12" HorizontalAlignment="Center" Foreground="#808080"/>
+                            <TextBlock Text="Logbert" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#404040"/>
+                            <TextBlock Text="Log File Viewer" FontSize="10" HorizontalAlignment="Center" Foreground="#808080"/>
                         </StackPanel>
                     </Border>
 
@@ -323,7 +353,7 @@
                                     </Style>
                                 </StackPanel.Styles>
 
-                                <TextBlock Text="New Logger" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" Foreground="#333333"/>
+                                <TextBlock Text="New Logger" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,10" Foreground="#333333"/>
 
                                 <!-- Log4Net receivers -->
                                 <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="Log4Net UDP Receiver"/></Button>
@@ -375,7 +405,7 @@
                                 </StackPanel.Styles>
 
                                 <!-- Recent Files -->
-                                <TextBlock Text="Recent Files" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" Foreground="#333333"/>
+                                <TextBlock Text="Recent Files" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,10" Foreground="#333333"/>
                                 <ItemsControl ItemsSource="{Binding RecentFiles}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
@@ -391,7 +421,7 @@
                                            IsVisible="{Binding !RecentFiles.Count}" Margin="0,3"/>
 
                                 <!-- Online Resources -->
-                                <TextBlock Text="Online Resources" FontSize="18" FontWeight="SemiBold" Margin="0,30,0,15" Foreground="#333333"/>
+                                <TextBlock Text="Online Resources" FontSize="13" FontWeight="SemiBold" Margin="0,20,0,10" Foreground="#333333"/>
                                 <Button Classes="link"><TextBlock Text="Logbert Homepage"/></Button>
                                 <Button Classes="link"><TextBlock Text="Apache log4net™ Config Examples"/></Button>
                                 <Button Classes="link"><TextBlock Text="NLog Config Examples"/></Button>
