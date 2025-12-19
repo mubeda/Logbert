@@ -7,7 +7,8 @@
              xmlns:controls="using:Logbert.Views.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Logbert.Views.Controls.LogViewerControl"
-             x:DataType="vm:LogViewerViewModel">
+             x:DataType="vm:LogViewerViewModel"
+             x:Name="LogViewerRoot">
 
     <Design.DataContext>
         <vm:LogViewerViewModel/>
@@ -23,9 +24,85 @@
         <SolidColorBrush x:Key="FatalColor" Color="#8B0000"/>
     </UserControl.Resources>
 
-    <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,Auto">
-        <!-- Error/Warning Panel (non-blocking notification banner) -->
+    <Grid RowDefinitions="Auto,Auto,*" ColumnDefinitions="*,Auto">
+        <!-- Group By Panel -->
         <Border Grid.Row="0" Grid.ColumnSpan="2"
+                Background="#F5F5F5"
+                BorderBrush="#D0D0D0"
+                BorderThickness="0,0,0,1"
+                Padding="6,4"
+                MinHeight="32">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <!-- Group By Label and Dropdown -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <TextBlock Text="Group by:" FontSize="11" VerticalAlignment="Center" Foreground="#666666"/>
+                    <ComboBox ItemsSource="{Binding GroupableColumns}"
+                              SelectedItem="{Binding SelectedGroupingColumn}"
+                              MinWidth="100"
+                              FontSize="11"
+                              Padding="6,4">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Content="Add"
+                            Command="{Binding AddGroupingColumnCommand}"
+                            CommandParameter="{Binding SelectedGroupingColumn}"
+                            Padding="8,3"
+                            FontSize="11"/>
+                </StackPanel>
+
+                <!-- Active Grouping Columns (Tags) -->
+                <ItemsControl Grid.Column="1"
+                              ItemsSource="{Binding ActiveGroupingColumns}"
+                              Margin="12,0,0,0"
+                              VerticalAlignment="Center">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="6"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#0078D4"
+                                    CornerRadius="3"
+                                    Padding="8,3">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Text="{Binding Name}"
+                                               Foreground="White"
+                                               FontSize="11"
+                                               VerticalAlignment="Center"/>
+                                    <Button Background="Transparent"
+                                            BorderThickness="0"
+                                            Padding="0"
+                                            Cursor="Hand"
+                                            Command="{Binding #LogViewerRoot.DataContext.RemoveGroupingColumnCommand}"
+                                            CommandParameter="{Binding}">
+                                        <PathIcon Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+                                                  Width="10" Height="10"
+                                                  Foreground="White"/>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Clear Grouping Button -->
+                <Button Grid.Column="2"
+                        Content="Clear All"
+                        Command="{Binding ClearGroupingCommand}"
+                        IsVisible="{Binding IsGroupingEnabled}"
+                        Padding="8,3"
+                        FontSize="11"
+                        Background="Transparent"
+                        Foreground="#666666"/>
+            </Grid>
+        </Border>
+        <!-- Error/Warning Panel (non-blocking notification banner) -->
+        <Border Grid.Row="1" Grid.ColumnSpan="2"
                 IsVisible="{Binding ErrorPanelVisible}"
                 Background="{Binding ErrorPanelBackgroundBrush}"
                 Padding="10,8"
@@ -65,7 +142,9 @@
             </Grid>
         </Border>
 
-        <DataGrid Grid.Row="1" Grid.Column="0"
+        <!-- Standard DataGrid View (when not grouped) -->
+        <DataGrid Grid.Row="2" Grid.Column="0"
+                  IsVisible="{Binding !IsGroupingEnabled}"
                   x:Name="LogDataGrid"
                   ItemsSource="{Binding FilteredMessages}"
                   SelectedItem="{Binding SelectedMessage}"
@@ -166,8 +245,114 @@
             </DataGrid.Styles>
         </DataGrid>
 
+        <!-- Grouped View (when grouping is enabled) -->
+        <ScrollViewer Grid.Row="2" Grid.Column="0"
+                      IsVisible="{Binding IsGroupingEnabled}"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding GroupedMessages}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#D0D0D0" BorderThickness="0,0,0,1" Margin="0,0,0,2">
+                            <!-- Group Header -->
+                            <Expander IsExpanded="{Binding IsExpanded}" Padding="0">
+                                <Expander.Header>
+                                    <Border Background="#E8E8E8" Padding="8,6" MinWidth="600">
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <TextBlock Text="{Binding ColumnName}"
+                                                       FontWeight="SemiBold"
+                                                       FontSize="11"
+                                                       Foreground="#666666"/>
+                                            <TextBlock Text=":"
+                                                       FontSize="11"
+                                                       Foreground="#666666"/>
+                                            <TextBlock Text="{Binding GroupKey}"
+                                                       FontWeight="Bold"
+                                                       FontSize="11"/>
+                                            <TextBlock Text="("
+                                                       FontSize="11"
+                                                       Foreground="#666666"
+                                                       Margin="8,0,0,0"/>
+                                            <TextBlock Text="{Binding Count}"
+                                                       FontSize="11"
+                                                       Foreground="#666666"/>
+                                            <TextBlock Text="items)"
+                                                       FontSize="11"
+                                                       Foreground="#666666"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Expander.Header>
+                                <Expander.Content>
+                                    <!-- Grouped Messages DataGrid -->
+                                    <DataGrid ItemsSource="{Binding Messages}"
+                                              IsReadOnly="True"
+                                              GridLinesVisibility="Horizontal"
+                                              HeadersVisibility="Column"
+                                              SelectionMode="Single"
+                                              CanUserReorderColumns="True"
+                                              CanUserResizeColumns="True"
+                                              CanUserSortColumns="True"
+                                              AutoGenerateColumns="False"
+                                              FontSize="11"
+                                              Background="White"
+                                              Foreground="Black"
+                                              BorderThickness="0"
+                                              MinHeight="50"
+                                              MaxHeight="300"
+                                              RowHeight="24">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="#"
+                                                                Binding="{Binding Index}"
+                                                                Width="60"
+                                                                IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Timestamp"
+                                                                Binding="{Binding Timestamp, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss.fff}'}"
+                                                                Width="180"
+                                                                IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Level"
+                                                                Binding="{Binding Level}"
+                                                                Width="80"
+                                                                IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Logger"
+                                                                Binding="{Binding Logger}"
+                                                                Width="200"
+                                                                IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Message"
+                                                                Binding="{Binding Message}"
+                                                                Width="*"
+                                                                IsReadOnly="True"/>
+                                        </DataGrid.Columns>
+                                        <DataGrid.Styles>
+                                            <Style Selector="DataGridRow">
+                                                <Setter Property="Foreground" Value="Black"/>
+                                                <Setter Property="Background" Value="White"/>
+                                            </Style>
+                                            <Style Selector="DataGridRow:nth-child(even)">
+                                                <Setter Property="Background" Value="#F8F8F8"/>
+                                            </Style>
+                                            <Style Selector="DataGridRow:pointerover">
+                                                <Setter Property="Background" Value="#E8E8E8"/>
+                                            </Style>
+                                            <Style Selector="DataGridRow:selected">
+                                                <Setter Property="Background" Value="#0078D4"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Style>
+                                            <Style Selector="DataGridColumnHeader">
+                                                <Setter Property="Foreground" Value="Black"/>
+                                                <Setter Property="Background" Value="#F0F0F0"/>
+                                            </Style>
+                                        </DataGrid.Styles>
+                                    </DataGrid>
+                                </Expander.Content>
+                            </Expander>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
         <!-- Empty state message -->
-        <TextBlock Grid.Row="1" Grid.Column="0"
+        <TextBlock Grid.Row="2" Grid.Column="0"
                    Text="No log messages to display"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"

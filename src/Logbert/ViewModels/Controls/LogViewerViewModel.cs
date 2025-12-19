@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -94,6 +95,62 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     /// </summary>
     public ObservableCollection<LogMessage> FilteredMessages { get; } = new();
 
+    #region Column Grouping
+
+    /// <summary>
+    /// Gets or sets whether grouping is enabled.
+    /// </summary>
+    [ObservableProperty]
+    private bool _isGroupingEnabled;
+
+    /// <summary>
+    /// Gets or sets the currently selected grouping column.
+    /// </summary>
+    [ObservableProperty]
+    private GroupableColumn? _selectedGroupingColumn;
+
+    /// <summary>
+    /// Gets the list of columns that can be grouped.
+    /// </summary>
+    public ObservableCollection<GroupableColumn> GroupableColumns { get; } = new()
+    {
+        new GroupableColumn { Name = "Level", PropertyName = "Level" },
+        new GroupableColumn { Name = "Logger", PropertyName = "Logger" },
+        new GroupableColumn { Name = "Thread", PropertyName = "Thread" }
+    };
+
+    /// <summary>
+    /// Gets the columns currently being used for grouping.
+    /// </summary>
+    public ObservableCollection<GroupableColumn> ActiveGroupingColumns { get; } = new();
+
+    /// <summary>
+    /// Gets the grouped messages when grouping is enabled.
+    /// </summary>
+    public ObservableCollection<LogMessageGroup> GroupedMessages { get; } = new();
+
+    /// <summary>
+    /// Gets the command to add a grouping column.
+    /// </summary>
+    public IRelayCommand<GroupableColumn> AddGroupingColumnCommand { get; } = null!;
+
+    /// <summary>
+    /// Gets the command to remove a grouping column.
+    /// </summary>
+    public IRelayCommand<GroupableColumn> RemoveGroupingColumnCommand { get; } = null!;
+
+    /// <summary>
+    /// Gets the command to clear all grouping.
+    /// </summary>
+    public IRelayCommand ClearGroupingCommand { get; } = null!;
+
+    /// <summary>
+    /// Gets the command to toggle a group's expanded state.
+    /// </summary>
+    public IRelayCommand<LogMessageGroup> ToggleGroupExpandedCommand { get; } = null!;
+
+    #endregion
+
     /// <summary>
     /// Gets the command to zoom in.
     /// </summary>
@@ -123,6 +180,12 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
         ZoomOutCommand = new RelayCommand(OnZoomOut, CanZoomOut);
         CopyMessageCommand = new RelayCommand(OnCopyMessage, CanCopyMessage);
         DismissErrorPanelCommand = new RelayCommand(OnDismissErrorPanel);
+
+        // Column grouping commands
+        AddGroupingColumnCommand = new RelayCommand<GroupableColumn>(OnAddGroupingColumn);
+        RemoveGroupingColumnCommand = new RelayCommand<GroupableColumn>(OnRemoveGroupingColumn);
+        ClearGroupingCommand = new RelayCommand(OnClearGrouping);
+        ToggleGroupExpandedCommand = new RelayCommand<LogMessageGroup>(OnToggleGroupExpanded);
 
         // Listen for changes to log level filters
         PropertyChanged += (s, e) =>
@@ -166,6 +229,12 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
             {
                 FilteredMessages.Add(message);
             }
+        }
+
+        // Update grouped messages if grouping is enabled
+        if (IsGroupingEnabled)
+        {
+            UpdateGroupedMessages();
         }
     }
 
@@ -303,4 +372,126 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     {
         ColumnConfigurationChanged?.Invoke(this, System.EventArgs.Empty);
     }
+
+    #region Column Grouping Methods
+
+    /// <summary>
+    /// Adds a column to the grouping.
+    /// </summary>
+    private void OnAddGroupingColumn(GroupableColumn? column)
+    {
+        if (column == null || ActiveGroupingColumns.Contains(column))
+        {
+            return;
+        }
+
+        column.IsGrouped = true;
+        ActiveGroupingColumns.Add(column);
+        IsGroupingEnabled = ActiveGroupingColumns.Count > 0;
+        UpdateGroupedMessages();
+    }
+
+    /// <summary>
+    /// Removes a column from the grouping.
+    /// </summary>
+    private void OnRemoveGroupingColumn(GroupableColumn? column)
+    {
+        if (column == null || !ActiveGroupingColumns.Contains(column))
+        {
+            return;
+        }
+
+        column.IsGrouped = false;
+        ActiveGroupingColumns.Remove(column);
+        IsGroupingEnabled = ActiveGroupingColumns.Count > 0;
+        UpdateGroupedMessages();
+    }
+
+    /// <summary>
+    /// Clears all grouping.
+    /// </summary>
+    private void OnClearGrouping()
+    {
+        foreach (var column in ActiveGroupingColumns)
+        {
+            column.IsGrouped = false;
+        }
+
+        ActiveGroupingColumns.Clear();
+        GroupedMessages.Clear();
+        IsGroupingEnabled = false;
+    }
+
+    /// <summary>
+    /// Toggles a group's expanded state.
+    /// </summary>
+    private void OnToggleGroupExpanded(LogMessageGroup? group)
+    {
+        if (group != null)
+        {
+            group.IsExpanded = !group.IsExpanded;
+        }
+    }
+
+    /// <summary>
+    /// Updates the grouped messages based on active grouping columns.
+    /// </summary>
+    private void UpdateGroupedMessages()
+    {
+        GroupedMessages.Clear();
+
+        if (!IsGroupingEnabled || ActiveGroupingColumns.Count == 0)
+        {
+            return;
+        }
+
+        // Get the first grouping column
+        var groupingColumn = ActiveGroupingColumns[0];
+
+        // Group the filtered messages by the selected column
+        var groups = FilteredMessages
+            .GroupBy(msg => GetPropertyValue(msg, groupingColumn.PropertyName))
+            .OrderBy(g => g.Key);
+
+        foreach (var group in groups)
+        {
+            var messageGroup = new LogMessageGroup(
+                groupingColumn.Name,
+                group.Key ?? "Unknown",
+                group);
+            GroupedMessages.Add(messageGroup);
+        }
+    }
+
+    /// <summary>
+    /// Gets the value of a property from a log message.
+    /// </summary>
+    private static string? GetPropertyValue(LogMessage message, string propertyName)
+    {
+        return propertyName switch
+        {
+            "Level" => message.Level.ToString(),
+            "Logger" => message.Logger,
+            "Thread" => message.Thread,
+            "Message" => message.Message,
+            _ => null
+        };
+    }
+
+    /// <summary>
+    /// Called when IsGroupingEnabled changes.
+    /// </summary>
+    partial void OnIsGroupingEnabledChanged(bool value)
+    {
+        if (!value)
+        {
+            GroupedMessages.Clear();
+        }
+        else
+        {
+            UpdateGroupedMessages();
+        }
+    }
+
+    #endregion
 }
