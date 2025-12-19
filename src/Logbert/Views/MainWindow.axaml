@@ -8,6 +8,7 @@
         mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
         x:Class="Logbert.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
+        x:Name="MainWindowRoot"
         Icon="/Assets/avalonia-logo.ico"
         Title="Logbert - Log File Viewer"
         Width="1200" Height="800">
@@ -32,7 +33,7 @@
                     </MenuItem.Icon>
                     <MenuItem.ItemTemplate>
                         <DataTemplate>
-                            <MenuItem Header="{Binding}" Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).OpenRecentFileCommand}" CommandParameter="{Binding}" />
+                            <MenuItem Header="{Binding}" Command="{Binding #MainWindowRoot.DataContext.OpenRecentFileCommand}" CommandParameter="{Binding}" />
                         </DataTemplate>
                     </MenuItem.ItemTemplate>
                     <MenuItem.Styles>
@@ -379,7 +380,7 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Button Classes="link"
-                                                    Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).OpenRecentFileCommand}"
+                                                    Command="{Binding #MainWindowRoot.DataContext.OpenRecentFileCommand}"
                                                     CommandParameter="{Binding}">
                                                 <TextBlock Text="{Binding}"/>
                                             </Button>
@@ -431,7 +432,7 @@
                                             <TextBlock Text="{Binding Title}"/>
                                             <Button Content="×" Padding="2,0" FontSize="10"
                                                     Background="Transparent" BorderThickness="0"
-                                                    Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).CloseDocumentCommand}"
+                                                    Command="{Binding #MainWindowRoot.DataContext.CloseDocumentCommand}"
                                                     ToolTip.Tip="Close"/>
                                         </StackPanel>
                                     </DataTemplate>
@@ -446,7 +447,7 @@
                                                                            VerticalAlignment="Stretch"/>
                                             </TabItem>
                                             <TabItem Header="Script">
-                                                <docking:ScriptPanelView DataContext="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ScriptPanel}"/>
+                                                <docking:ScriptPanelView DataContext="{Binding #MainWindowRoot.DataContext.ScriptPanel}"/>
                                             </TabItem>
                                         </TabControl>
                                     </DataTemplate>
