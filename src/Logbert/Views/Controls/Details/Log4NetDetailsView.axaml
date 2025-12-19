@@ -63,7 +63,7 @@
             <!-- Location Row -->
             <Grid ColumnDefinitions="100,*,Auto" Background="White" IsVisible="{Binding HasLocation}">
                 <TextBlock Grid.Column="0" Text="Location" FontWeight="Bold" Padding="8,6" Background="#F5F5F5" VerticalAlignment="Top"/>
-                <StackPanel Grid.Column="1" Padding="8,6">
+                <StackPanel Grid.Column="1" Margin="8,6">
                     <TextBlock Text="{Binding ClassName}" TextWrapping="Wrap" IsVisible="{Binding ClassName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                     <TextBlock Text="{Binding MethodName}" TextWrapping="Wrap" IsVisible="{Binding MethodName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                     <TextBlock Text="{Binding FileName}" TextWrapping="Wrap" Foreground="#666666" IsVisible="{Binding FileName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
@@ -77,7 +77,7 @@
             <!-- Properties Row -->
             <Grid ColumnDefinitions="100,*,Auto" Background="White" IsVisible="{Binding HasCustomProperties}">
                 <TextBlock Grid.Column="0" Text="Properties" FontWeight="Bold" Padding="8,6" Background="#F5F5F5" VerticalAlignment="Top"/>
-                <ItemsControl Grid.Column="1" ItemsSource="{Binding CustomProperties}" Padding="8,6">
+                <ItemsControl Grid.Column="1" ItemsSource="{Binding CustomProperties}" Margin="8,6">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>

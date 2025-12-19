@@ -306,64 +306,83 @@
 
                             <!-- New Logger Section -->
                             <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                                <StackPanel.Styles>
+                                    <Style Selector="Button.link">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Padding" Value="0,3"/>
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                    </Style>
+                                    <Style Selector="Button.link TextBlock">
+                                        <Setter Property="Foreground" Value="#0066CC"/>
+                                    </Style>
+                                    <Style Selector="Button.link:pointerover TextBlock">
+                                        <Setter Property="TextDecorations" Value="Underline"/>
+                                    </Style>
+                                </StackPanel.Styles>
+
                                 <TextBlock Text="New Logger" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" Foreground="#333333"/>
 
                                 <!-- Log4Net receivers -->
-                                <TextBlock Text="Log4Net UDP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="Log4NetUdp"/>
-                                <TextBlock Text="Log4Net File Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="Log4NetFile"/>
-                                <TextBlock Text="Log4Net Dir Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="Log4NetDir"/>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="Log4Net UDP Receiver"/></Button>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="Log4Net File Receiver"/></Button>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="Log4Net Dir Receiver"/></Button>
                                 <Separator Margin="0,8"/>
 
                                 <!-- NLog receivers -->
-                                <TextBlock Text="NLog TCP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="NLogTcp"/>
-                                <TextBlock Text="NLog UDP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="NLogUdp"/>
-                                <TextBlock Text="NLog File Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="NLogFile"/>
-                                <TextBlock Text="NLog Dir Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="NLogDir"/>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="NLog TCP Receiver"/></Button>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="NLog UDP Receiver"/></Button>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="NLog File Receiver"/></Button>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="NLog Dir Receiver"/></Button>
                                 <Separator Margin="0,8"/>
 
                                 <!-- Syslog receivers -->
-                                <TextBlock Text="Syslog UDP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="SyslogUdp"/>
-                                <TextBlock Text="Syslog File Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="SyslogFile"/>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="Syslog UDP Receiver"/></Button>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="Syslog File Receiver"/></Button>
                                 <Separator Margin="0,8"/>
 
                                 <!-- Other receivers -->
-                                <TextBlock Text="EventLog Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="EventLog"/>
-                                <TextBlock Text="Windows Debug Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="WinDebug"/>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="EventLog Receiver"/></Button>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="Windows Debug Receiver"/></Button>
                                 <Separator Margin="0,8"/>
 
                                 <!-- Custom receivers -->
-                                <TextBlock Text="Custom UDP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="CustomUdp"/>
-                                <TextBlock Text="Custom TCP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="CustomTcp"/>
-                                <TextBlock Text="Custom HTTP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="CustomHttp"/>
-                                <TextBlock Text="Custom File Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="CustomFile"/>
-                                <TextBlock Text="Custom Dir Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnNewLoggerClick" Tag="CustomDir"/>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="Custom UDP Receiver"/></Button>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="Custom TCP Receiver"/></Button>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="Custom HTTP Receiver"/></Button>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="Custom File Receiver"/></Button>
+                                <Button Classes="link" Click="ShowNewLogSourceDialog"><TextBlock Text="Custom Dir Receiver"/></Button>
                             </StackPanel>
 
                             <!-- Recent Files and Online Resources -->
                             <StackPanel Grid.Column="1">
+                                <StackPanel.Styles>
+                                    <Style Selector="Button.link">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Padding" Value="0,3"/>
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                    </Style>
+                                    <Style Selector="Button.link TextBlock">
+                                        <Setter Property="Foreground" Value="#0066CC"/>
+                                    </Style>
+                                    <Style Selector="Button.link:pointerover TextBlock">
+                                        <Setter Property="TextDecorations" Value="Underline"/>
+                                    </Style>
+                                </StackPanel.Styles>
+
                                 <!-- Recent Files -->
                                 <TextBlock Text="Recent Files" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" Foreground="#333333"/>
                                 <ItemsControl ItemsSource="{Binding RecentFiles}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding}" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                                       PointerPressed="OnRecentFileClick"/>
+                                            <Button Classes="link"
+                                                    Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).OpenRecentFileCommand}"
+                                                    CommandParameter="{Binding}">
+                                                <TextBlock Text="{Binding}"/>
+                                            </Button>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
@@ -372,12 +391,9 @@
 
                                 <!-- Online Resources -->
                                 <TextBlock Text="Online Resources" FontSize="18" FontWeight="SemiBold" Margin="0,30,0,15" Foreground="#333333"/>
-                                <TextBlock Text="Logbert Homepage" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnOnlineResourceClick" Tag="https://github.com/couchcoding/Logbert"/>
-                                <TextBlock Text="Apache log4net™ Config Examples" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnOnlineResourceClick" Tag="https://logging.apache.org/log4net/release/config-examples.html"/>
-                                <TextBlock Text="NLog Config Examples" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
-                                           PointerPressed="OnOnlineResourceClick" Tag="https://github.com/nlog/nlog/wiki/Configuration-file"/>
+                                <Button Classes="link"><TextBlock Text="Logbert Homepage"/></Button>
+                                <Button Classes="link"><TextBlock Text="Apache log4net™ Config Examples"/></Button>
+                                <Button Classes="link"><TextBlock Text="NLog Config Examples"/></Button>
                             </StackPanel>
                         </Grid>
                     </ScrollViewer>
