@@ -275,27 +275,113 @@
 
         <!-- Main Content Area with Custom Docking Layout -->
         <Grid>
-            <!-- Welcome Screen (shown when no documents open) -->
-            <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
-                    IsVisible="{Binding IsWelcomeScreenVisible}">
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
-                    <TextBlock Text="Welcome to Logbert" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Cross-platform log file viewer" FontSize="16" HorizontalAlignment="Center" Opacity="0.7"/>
-                    <StackPanel Spacing="10" HorizontalAlignment="Center" Margin="0,30,0,0">
-                        <Button Click="ShowNewLogSourceDialog" HorizontalAlignment="Stretch" Padding="20,10">
-                            <StackPanel Orientation="Horizontal" Spacing="10">
-                                <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" Width="20" Height="20"/>
-                                <TextBlock Text="New Log Source"/>
+            <!-- Welcome Screen (matches old WinForms style) -->
+            <Border Background="White" IsVisible="{Binding IsWelcomeScreenVisible}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Left side - Logbert Logo -->
+                    <Border Grid.Column="0" Background="#F8F8F8" Padding="20">
+                        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <!-- Large Logbert icon/logo -->
+                            <Border Width="150" Height="150" Background="#E0E0E0" CornerRadius="8" Margin="0,40,0,20">
+                                <PathIcon Data="M3,3H11V11H3V3M3,13H11V21H3V13M13,3H21V11H13V3M13,13H21V21H13V13Z"
+                                          Width="80" Height="80" Foreground="#808080"/>
+                            </Border>
+                            <TextBlock Text="Logbert" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#404040"/>
+                            <TextBlock Text="Log File Viewer" FontSize="12" HorizontalAlignment="Center" Foreground="#808080"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Right side - New Logger, Recent Files, Online Resources -->
+                    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Padding="30,20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- New Logger Section -->
+                            <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                                <TextBlock Text="New Logger" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" Foreground="#333333"/>
+
+                                <!-- Log4Net receivers -->
+                                <TextBlock Text="Log4Net UDP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="Log4NetUdp"/>
+                                <TextBlock Text="Log4Net File Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="Log4NetFile"/>
+                                <TextBlock Text="Log4Net Dir Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="Log4NetDir"/>
+                                <Separator Margin="0,8"/>
+
+                                <!-- NLog receivers -->
+                                <TextBlock Text="NLog TCP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="NLogTcp"/>
+                                <TextBlock Text="NLog UDP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="NLogUdp"/>
+                                <TextBlock Text="NLog File Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="NLogFile"/>
+                                <TextBlock Text="NLog Dir Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="NLogDir"/>
+                                <Separator Margin="0,8"/>
+
+                                <!-- Syslog receivers -->
+                                <TextBlock Text="Syslog UDP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="SyslogUdp"/>
+                                <TextBlock Text="Syslog File Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="SyslogFile"/>
+                                <Separator Margin="0,8"/>
+
+                                <!-- Other receivers -->
+                                <TextBlock Text="EventLog Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="EventLog"/>
+                                <TextBlock Text="Windows Debug Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="WinDebug"/>
+                                <Separator Margin="0,8"/>
+
+                                <!-- Custom receivers -->
+                                <TextBlock Text="Custom UDP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="CustomUdp"/>
+                                <TextBlock Text="Custom TCP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="CustomTcp"/>
+                                <TextBlock Text="Custom HTTP Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="CustomHttp"/>
+                                <TextBlock Text="Custom File Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="CustomFile"/>
+                                <TextBlock Text="Custom Dir Receiver" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnNewLoggerClick" Tag="CustomDir"/>
                             </StackPanel>
-                        </Button>
-                        <Button HorizontalAlignment="Stretch" Padding="20,10">
-                            <StackPanel Orientation="Horizontal" Spacing="10">
-                                <PathIcon Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z" Width="20" Height="20"/>
-                                <TextBlock Text="Open Log File"/>
+
+                            <!-- Recent Files and Online Resources -->
+                            <StackPanel Grid.Column="1">
+                                <!-- Recent Files -->
+                                <TextBlock Text="Recent Files" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" Foreground="#333333"/>
+                                <ItemsControl ItemsSource="{Binding RecentFiles}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                                       PointerPressed="OnRecentFileClick"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <TextBlock Text="(No recent files)" Foreground="#999999" FontStyle="Italic"
+                                           IsVisible="{Binding !RecentFiles.Count}" Margin="0,3"/>
+
+                                <!-- Online Resources -->
+                                <TextBlock Text="Online Resources" FontSize="18" FontWeight="SemiBold" Margin="0,30,0,15" Foreground="#333333"/>
+                                <TextBlock Text="Logbert Homepage" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnOnlineResourceClick" Tag="https://github.com/couchcoding/Logbert"/>
+                                <TextBlock Text="Apache log4net™ Config Examples" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnOnlineResourceClick" Tag="https://logging.apache.org/log4net/release/config-examples.html"/>
+                                <TextBlock Text="NLog Config Examples" Cursor="Hand" Foreground="#0066CC" Margin="0,3"
+                                           PointerPressed="OnOnlineResourceClick" Tag="https://github.com/nlog/nlog/wiki/Configuration-file"/>
                             </StackPanel>
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
             </Border>
 
             <!-- Custom Docking Layout (matches old WinForms style) -->
@@ -303,35 +389,86 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="5"/>
-                    <RowDefinition Height="220" MinHeight="100"/>
+                    <RowDefinition Height="200" MinHeight="100"/>
                 </Grid.RowDefinitions>
 
-                <!-- Top Section: Left Logger Tree + Center Documents + Right Script -->
+                <!-- Top Section: Center Documents (with Messages|Script tabs) + Right Logger Tree -->
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200" MinWidth="120"/>
-                        <ColumnDefinition Width="5"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="5"/>
-                        <ColumnDefinition Width="280" MinWidth="150"/>
+                        <ColumnDefinition Width="200" MinWidth="120"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Left Panel - Logger Tree (like old WinForms) -->
-                    <Border Grid.Column="0" Background="#F5F5F5" BorderBrush="#D0D0D0" BorderThickness="1">
+                    <!-- Center Panel - Document Tabs with Messages/Script content tabs -->
+                    <Border Grid.Column="0" BorderBrush="#D0D0D0" BorderThickness="1">
                         <DockPanel>
-                            <Border DockPanel.Dock="Top" Background="#E8E8E8" Padding="8,4" BorderBrush="#D0D0D0" BorderThickness="0,0,0,1">
+                            <!-- Document tabs row -->
+                            <TabControl DockPanel.Dock="Top"
+                                        ItemsSource="{Binding Documents}"
+                                        SelectedItem="{Binding ActiveDocument}"
+                                        Background="#F0F0F0"
+                                        Padding="0">
+                                <TabControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
+                                            <TextBlock Text="{Binding Title}"/>
+                                            <Button Content="×" Padding="2,0" FontSize="10"
+                                                    Background="Transparent" BorderThickness="0"
+                                                    Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).CloseDocumentCommand}"
+                                                    ToolTip.Tip="Close"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </TabControl.ItemTemplate>
+                                <TabControl.ContentTemplate>
+                                    <DataTemplate x:DataType="vm:LogDocumentViewModel">
+                                        <!-- Inner content tabs: Messages | Script -->
+                                        <TabControl Background="White">
+                                            <TabItem Header="Messages" IsSelected="True">
+                                                <controls:LogViewerControl DataContext="{Binding LogViewerViewModel}"
+                                                                           HorizontalAlignment="Stretch"
+                                                                           VerticalAlignment="Stretch"/>
+                                            </TabItem>
+                                            <TabItem Header="Script">
+                                                <docking:ScriptPanelView DataContext="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ScriptPanel}"/>
+                                            </TabItem>
+                                        </TabControl>
+                                    </DataTemplate>
+                                </TabControl.ContentTemplate>
+                            </TabControl>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Right Splitter -->
+                    <GridSplitter Grid.Column="1" Background="#D0D0D0" ResizeDirection="Columns"/>
+
+                    <!-- Right Panel - Logger Tree (like old WinForms - on RIGHT side) -->
+                    <Border Grid.Column="2" Background="#F5F5F5" BorderBrush="#D0D0D0" BorderThickness="1"
+                            IsVisible="{Binding LoggerTreeVisible}">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Top" Background="#E8E8E8" Padding="4,4" BorderBrush="#D0D0D0" BorderThickness="0,0,0,1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Logger Tree" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="2">
+                                    <!-- Collapse button -->
+                                    <Button Grid.Column="0" Padding="2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Collapse"
+                                            Command="{Binding ToggleLoggerTreeCommand}">
+                                        <PathIcon Data="M15.41,16.59L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.59Z" Width="10" Height="10"/>
+                                    </Button>
+                                    <TextBlock Grid.Column="1" Text="Logger Tree" FontWeight="SemiBold" VerticalAlignment="Center" Margin="4,0"/>
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="2">
                                         <Button Padding="2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Search">
                                             <PathIcon Data="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" Width="12" Height="12"/>
                                         </Button>
                                         <Button Padding="2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Filter">
                                             <PathIcon Data="M14,12V19.88C14.04,20.18 13.94,20.5 13.71,20.71C13.32,21.1 12.69,21.1 12.3,20.71L10.29,18.7C10.06,18.47 9.96,18.16 10,17.87V12H9.97L4.21,4.62C3.87,4.19 3.95,3.56 4.38,3.22C4.57,3.08 4.78,3 5,3H19C19.22,3 19.43,3.08 19.62,3.22C20.05,3.56 20.13,4.19 19.79,4.62L14.03,12H14Z" Width="12" Height="12"/>
+                                        </Button>
+                                        <Button Padding="2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Close"
+                                                Command="{Binding ToggleLoggerTreeCommand}">
+                                            <PathIcon Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" Width="10" Height="10"/>
                                         </Button>
                                     </StackPanel>
                                 </Grid>
@@ -339,68 +476,14 @@
                             <docking:LoggerTreeView DataContext="{Binding LoggerTree}"/>
                         </DockPanel>
                     </Border>
-
-                    <!-- Left Splitter -->
-                    <GridSplitter Grid.Column="1" Background="#D0D0D0" ResizeDirection="Columns"/>
-
-                    <!-- Center Panel - Document Tabs with Messages and Script tabs -->
-                    <Border Grid.Column="2" BorderBrush="#D0D0D0" BorderThickness="1">
-                        <TabControl ItemsSource="{Binding Documents}"
-                                    SelectedItem="{Binding ActiveDocument}"
-                                    Background="White">
-                            <TabControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Spacing="5">
-                                        <TextBlock Text="{Binding Title}"/>
-                                        <Button Content="×" Padding="2,0" FontSize="10"
-                                                Background="Transparent" BorderThickness="0"
-                                                Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).CloseDocumentCommand}"
-                                                ToolTip.Tip="Close"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </TabControl.ItemTemplate>
-                            <TabControl.ContentTemplate>
-                                <DataTemplate x:DataType="vm:LogDocumentViewModel">
-                                    <controls:LogViewerControl DataContext="{Binding LogViewerViewModel}"
-                                                               HorizontalAlignment="Stretch"
-                                                               VerticalAlignment="Stretch"/>
-                                </DataTemplate>
-                            </TabControl.ContentTemplate>
-                        </TabControl>
-                    </Border>
-
-                    <!-- Right Splitter -->
-                    <GridSplitter Grid.Column="3" Background="#D0D0D0" ResizeDirection="Columns"/>
-
-                    <!-- Right Panel - Script Editor (like old WinForms) -->
-                    <Border Grid.Column="4" Background="#F5F5F5" BorderBrush="#D0D0D0" BorderThickness="1"
-                            IsVisible="{Binding ScriptPanelVisible}">
-                        <DockPanel>
-                            <Border DockPanel.Dock="Top" Background="#E8E8E8" Padding="8,4" BorderBrush="#D0D0D0" BorderThickness="0,0,0,1">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Script" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                                    <Button Grid.Column="1" Content="×" Padding="4,0" Background="Transparent" BorderThickness="0"
-                                            Command="{Binding ToggleScriptPanelCommand}" ToolTip.Tip="Close"/>
-                                </Grid>
-                            </Border>
-                            <docking:ScriptPanelView DataContext="{Binding ScriptPanel}"/>
-                        </DockPanel>
-                    </Border>
                 </Grid>
 
                 <!-- Horizontal Splitter -->
                 <GridSplitter Grid.Row="1" Background="#D0D0D0" ResizeDirection="Rows"/>
 
-                <!-- Bottom Panel - Tabbed (Statistics, Message Details, Bookmarks, Filter - like old WinForms) -->
+                <!-- Bottom Panel - Tabbed with tabs at bottom (Message Details, Bookmarks, Filter, Statistic) -->
                 <Border Grid.Row="2" Background="#F5F5F5" BorderBrush="#D0D0D0" BorderThickness="1">
                     <TabControl TabStripPlacement="Bottom" Background="White">
-                        <TabItem Header="Statistic">
-                            <docking:StatisticsPanelView DataContext="{Binding StatisticsPanel}"/>
-                        </TabItem>
                         <TabItem Header="Message Details" IsSelected="True">
                             <docking:DetailsPanelView DataContext="{Binding DetailsPanel}"/>
                         </TabItem>
@@ -409,6 +492,9 @@
                         </TabItem>
                         <TabItem Header="Filter">
                             <docking:FilterPanelView DataContext="{Binding FilterPanel}"/>
+                        </TabItem>
+                        <TabItem Header="Statistic">
+                            <docking:StatisticsPanelView DataContext="{Binding StatisticsPanel}"/>
                         </TabItem>
                     </TabControl>
                 </Border>
