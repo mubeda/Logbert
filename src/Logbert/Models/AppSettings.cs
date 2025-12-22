@@ -99,7 +99,9 @@ public class AppSettings
         { "Level", true },
         { "Timestamp", true },
         { "Logger", true },
-        { "Thread", true },
+        { "Thread", false },
+        { "Machine", false },
+        { "Process", true },
         { "Message", true },
         { "Exception", false },
         { "Class", false },
@@ -125,6 +127,11 @@ public class AppSettings
         { "File", 9 },
         { "Line", 10 }
     };
+
+    /// <summary>
+    /// Gets or sets the active grouping column names.
+    /// </summary>
+    public List<string> ActiveGroupingColumns { get; set; } = new();
 
     #endregion
 
