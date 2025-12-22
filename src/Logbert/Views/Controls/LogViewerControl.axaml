@@ -191,6 +191,24 @@
                                     Width="200"
                                     IsReadOnly="True"/>
 
+                <!-- Thread Column -->
+                <DataGridTextColumn Header="Thread"
+                                    Binding="{Binding ThreadName}"
+                                    Width="80"
+                                    IsReadOnly="True"/>
+
+                <!-- Machine Column -->
+                <DataGridTextColumn Header="Machine"
+                                    Binding="{Binding MachineName}"
+                                    Width="100"
+                                    IsReadOnly="True"/>
+
+                <!-- Process Column -->
+                <DataGridTextColumn Header="Process"
+                                    Binding="{Binding ProcessName}"
+                                    Width="100"
+                                    IsReadOnly="True"/>
+
                 <!-- Message Column -->
                 <DataGridTextColumn Header="Message"
                                     Binding="{Binding Message}"
@@ -316,6 +334,18 @@
                                             <DataGridTextColumn Header="Logger"
                                                                 Binding="{Binding Logger}"
                                                                 Width="200"
+                                                                IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Thread"
+                                                                Binding="{Binding ThreadName}"
+                                                                Width="80"
+                                                                IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Machine"
+                                                                Binding="{Binding MachineName}"
+                                                                Width="100"
+                                                                IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Process"
+                                                                Binding="{Binding ProcessName}"
+                                                                Width="100"
                                                                 IsReadOnly="True"/>
                                             <DataGridTextColumn Header="Message"
                                                                 Binding="{Binding Message}"

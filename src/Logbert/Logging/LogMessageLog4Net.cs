@@ -260,6 +260,25 @@ namespace Logbert.Logging
     }
 
     /// <summary>
+    /// Gets the process name of the <see cref="LogMessage"/> from custom properties.
+    /// </summary>
+    public override string? ProcessName
+    {
+      get
+      {
+        if (mCustomProperties.TryGetValue("log4japp", out string processName))
+          return processName;
+        if (mCustomProperties.TryGetValue("ProcessName", out processName))
+          return processName;
+        if (mCustomProperties.TryGetValue("processname", out processName))
+          return processName;
+        if (mCustomProperties.TryGetValue("application", out processName))
+          return processName;
+        return null;
+      }
+    }
+
+    /// <summary>
     /// Gets the <see cref="LocationInfo"/> of the <see cref="LogMessage"/>.
     /// </summary>
     public LocationInfo Location

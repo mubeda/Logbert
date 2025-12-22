@@ -115,7 +115,10 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     public ObservableCollection<GroupableColumn> GroupableColumns { get; } = new()
     {
         new GroupableColumn { Name = "Level", PropertyName = "Level" },
-        new GroupableColumn { Name = "Logger", PropertyName = "Logger" }
+        new GroupableColumn { Name = "Logger", PropertyName = "Logger" },
+        new GroupableColumn { Name = "Thread", PropertyName = "ThreadName" },
+        new GroupableColumn { Name = "Machine", PropertyName = "MachineName" },
+        new GroupableColumn { Name = "Process", PropertyName = "ProcessName" }
     };
 
     /// <summary>
@@ -472,6 +475,9 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
             "Level" => message.Level.ToString(),
             "Logger" => message.Logger,
             "Message" => message.Message,
+            "ThreadName" => message.ThreadName ?? "(none)",
+            "MachineName" => message.MachineName ?? "(none)",
+            "ProcessName" => message.ProcessName ?? "(none)",
             _ => null
         };
     }

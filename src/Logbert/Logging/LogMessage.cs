@@ -175,6 +175,14 @@ namespace Logbert.Logging
       get { return null; }
     }
 
+    /// <summary>
+    /// Gets the process name or ID of the <see cref="LogMessage"/>.
+    /// </summary>
+    public virtual string? ProcessName
+    {
+      get { return null; }
+    }
+
     #endregion
 
     #region Public Methods
