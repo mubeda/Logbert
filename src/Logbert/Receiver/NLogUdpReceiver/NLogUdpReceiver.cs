@@ -272,10 +272,10 @@ namespace Logbert.Receiver.NLogUdpReceiver
       if (receiveBytes != null)
       {
         string rawData = mEncoding.GetString(receiveBytes);
-        
+
         // Debug: Log the first 500 chars of received data to see what format it's in
         System.Diagnostics.Debug.WriteLine($"[NLogUdpReceiver] Received {receiveBytes.Length} bytes: {rawData.Substring(0, Math.Min(500, rawData.Length))}");
-        
+
         try
         {
           LogMessage newLogMsg = new LogMessageLog4Net(
@@ -298,11 +298,25 @@ namespace Logbert.Receiver.NLogUdpReceiver
           // Include a snippet of the raw data in the error for debugging
           string dataPreview = rawData.Length > 100 ? rawData.Substring(0, 100) + "..." : rawData;
           System.Diagnostics.Debug.WriteLine($"[NLogUdpReceiver] Parse error. Raw data: {dataPreview}");
-          mLogHandler.HandleError(LogError.Warn(ex.Message));
+          mLogHandler?.HandleError(LogError.Warn(ex.Message));
         }
       }
 
-      client.BeginReceive(ReceiveUdpMessage, ar.AsyncState);
+      // Check if receiver is still active before continuing to receive
+      if (!mIsActive || mUdpClient == null)
+      {
+        return;
+      }
+
+      try
+      {
+        client.BeginReceive(ReceiveUdpMessage, ar.AsyncState);
+      }
+      catch (ObjectDisposedException)
+      {
+        // The socket was disposed (paused/stopped) while we were processing
+        return;
+      }
     }
 
     #endregion
