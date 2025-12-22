@@ -53,7 +53,7 @@
             <!-- Message Row -->
             <Grid ColumnDefinitions="100,*,Auto" Background="White">
                 <TextBlock Grid.Column="0" Text="Message" FontWeight="Bold" Padding="8,6" Background="#F5F5F5" VerticalAlignment="Top"/>
-                <TextBlock Grid.Column="1" Text="{Binding Message}" Padding="8,6" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <TextBlock Grid.Column="1" Text="{Binding MessageText}" Padding="8,6" TextWrapping="Wrap" VerticalAlignment="Top"/>
                 <Button Grid.Column="2" Padding="4,2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Copy" VerticalAlignment="Top">
                     <PathIcon Data="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" Width="12" Height="12"/>
                 </Button>
