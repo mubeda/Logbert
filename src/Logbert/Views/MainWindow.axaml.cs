@@ -237,6 +237,9 @@ public partial class MainWindow : Window
                 // Initialize automatically starts the receiver
                 receiver.Initialize(newDoc.LogViewerViewModel);
 
+                // Register the provider for pause control
+                newDoc.LogViewerViewModel.SetLogProvider(receiver);
+
                 // Add document to main window
                 ViewModel.Documents.Add(newDoc);
                 ViewModel.ActiveDocument = newDoc;
@@ -310,6 +313,9 @@ public partial class MainWindow : Window
 
             // Initialize the receiver with the document's log handler
             receiver.Initialize(newDoc.LogViewerViewModel);
+
+            // Register the provider for pause control
+            newDoc.LogViewerViewModel.SetLogProvider(receiver);
 
             // Add document to main window
             ViewModel.Documents.Add(newDoc);

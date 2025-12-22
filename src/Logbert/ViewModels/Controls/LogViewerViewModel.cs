@@ -93,6 +93,17 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     private string _lastErrorMessage = string.Empty;
 
     /// <summary>
+    /// Reference to the log provider/receiver for pause control.
+    /// </summary>
+    private ILogProvider? _logProvider;
+
+    /// <summary>
+    /// Gets or sets whether log receiving is paused.
+    /// </summary>
+    [ObservableProperty]
+    private bool _isPaused;
+
+    /// <summary>
     /// Gets the filtered messages based on log level visibility.
     /// </summary>
     public ObservableCollection<LogMessage> FilteredMessages { get; } = new();
@@ -195,6 +206,11 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     public IRelayCommand ClearMessagesCommand { get; } = null!;
 
     /// <summary>
+    /// Gets the command to toggle pause/resume log receiving.
+    /// </summary>
+    public IRelayCommand TogglePauseCommand { get; } = null!;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="LogViewerViewModel"/> class.
     /// </summary>
     public LogViewerViewModel()
@@ -204,6 +220,7 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
         CopyMessageCommand = new RelayCommand(OnCopyMessage, CanCopyMessage);
         DismissErrorPanelCommand = new RelayCommand(OnDismissErrorPanel);
         ClearMessagesCommand = new RelayCommand(OnClearMessages, CanClearMessages);
+        TogglePauseCommand = new RelayCommand(OnTogglePause, CanTogglePause);
 
         // Column grouping commands
         AddGroupingColumnCommand = new RelayCommand<GroupableColumn>(OnAddGroupingColumn);
@@ -260,6 +277,33 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
 
         // Update command state
         ((RelayCommand)ClearMessagesCommand).NotifyCanExecuteChanged();
+    }
+
+    /// <summary>
+    /// Returns whether the toggle pause command can execute.
+    /// </summary>
+    private bool CanTogglePause() => _logProvider != null;
+
+    /// <summary>
+    /// Toggles pause/resume for log receiving.
+    /// </summary>
+    private void OnTogglePause()
+    {
+        if (_logProvider != null)
+        {
+            IsPaused = !IsPaused;
+            _logProvider.IsActive = !IsPaused;
+        }
+    }
+
+    /// <summary>
+    /// Sets the log provider for pause control.
+    /// </summary>
+    public void SetLogProvider(ILogProvider provider)
+    {
+        _logProvider = provider;
+        IsPaused = !provider.IsActive;
+        ((RelayCommand)TogglePauseCommand).NotifyCanExecuteChanged();
     }
 
     /// <summary>

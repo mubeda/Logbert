@@ -265,6 +265,30 @@
                 </Button>
                 <Separator Width="1" Background="#C0C0C0" Margin="6,2"/>
 
+                <!-- Pause/Resume -->
+                <Button Command="{Binding ActiveDocument.LogViewerViewModel.TogglePauseCommand}" Padding="6,4">
+                    <Button.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="ToolTip.Tip" Value="Pause"/>
+                        </Style>
+                        <Style Selector="Button[Tag=True]">
+                            <Setter Property="ToolTip.Tip" Value="Resume"/>
+                        </Style>
+                    </Button.Styles>
+                    <Panel>
+                        <!-- Pause icon (shown when not paused) -->
+                        <PathIcon Data="M14,19H18V5H14M6,19H10V5H6V19Z" Width="16" Height="16"
+                                  IsVisible="{Binding ActiveDocument.LogViewerViewModel.IsPaused, Converter={x:Static BoolConverters.Not}, FallbackValue=True}"/>
+                        <!-- Play icon (shown when paused) -->
+                        <PathIcon Data="M8,5.14V19.14L19,12.14L8,5.14Z" Width="16" Height="16"
+                                  IsVisible="{Binding ActiveDocument.LogViewerViewModel.IsPaused, FallbackValue=False}"/>
+                    </Panel>
+                    <Button.Tag>
+                        <Binding Path="ActiveDocument.LogViewerViewModel.IsPaused" FallbackValue="False"/>
+                    </Button.Tag>
+                </Button>
+                <Separator Width="1" Background="#C0C0C0" Margin="6,2"/>
+
                 <!-- Bookmark -->
                 <Button ToolTip.Tip="Toggle Bookmark" Padding="6,4">
                     <PathIcon Data="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5A2,2 0 0,0 17,3Z" Width="16" Height="16"/>

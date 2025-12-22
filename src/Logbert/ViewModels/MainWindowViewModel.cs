@@ -410,6 +410,11 @@ public partial class MainWindowViewModel : ViewModelBase
 
     partial void OnActiveDocumentChanged(LogDocumentViewModel? oldValue, LogDocumentViewModel? newValue)
     {
+        // Update command states based on active document
+        ((RelayCommand)CloseDocumentCommand).NotifyCanExecuteChanged();
+        ((RelayCommand)ShowFindCommand).NotifyCanExecuteChanged();
+        ((RelayCommand)ExportCommand).NotifyCanExecuteChanged();
+
         // Unsubscribe from old document's MessagesUpdated event
         if (oldValue != null)
         {
