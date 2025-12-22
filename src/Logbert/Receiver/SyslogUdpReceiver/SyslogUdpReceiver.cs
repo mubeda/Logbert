@@ -306,11 +306,25 @@ namespace Logbert.Receiver.SyslogUdpReceiver
         }
         catch (Exception ex)
         {
-          mLogHandler.HandleError(LogError.Warn(ex.Message));
+          mLogHandler?.HandleError(LogError.Warn(ex.Message));
         }
       }
 
-      client.BeginReceive(ReceiveUdpMessage, ar.AsyncState);
+      // Check if receiver is still active before continuing to receive
+      if (!mIsActive || mUdpClient == null)
+      {
+        return;
+      }
+
+      try
+      {
+        client.BeginReceive(ReceiveUdpMessage, ar.AsyncState);
+      }
+      catch (ObjectDisposedException)
+      {
+        // The socket was disposed (paused/stopped) while we were processing
+        return;
+      }
     }
 
     #endregion

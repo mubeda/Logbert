@@ -467,7 +467,11 @@ namespace Logbert.Dialogs.Docking
       ((ILogPresenter)mBookmarks).ClearAll();
       ((ILogPresenter)mFilter).ClearAll();
       ((ILogPresenter)mLogScript).ClearAll();
-      ((ILogPresenter)mLogStatistic).ClearAll();
+
+      if (mLogStatistic != null)
+      {
+        ((ILogPresenter)mLogStatistic).ClearAll();
+      }
 
       // Force an update of the UI.
       TmrUpdateTick(this, EventArgs.Empty);

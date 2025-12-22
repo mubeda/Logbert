@@ -1,11 +1,16 @@
 using System;
+using System.IO;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Platform.Storage;
+using Logbert.Helper;
 using Logbert.Interfaces;
+using Logbert.Receiver.Log4NetFileReceiver;
 using Logbert.Services;
 using Logbert.ViewModels;
 using Logbert.ViewModels.Dialogs;
+using Logbert.ViewModels.Docking;
 using Logbert.Views.Dialogs;
 using Logbert.Views.Dialogs.ReceiverSettings;
 
@@ -232,6 +237,9 @@ public partial class MainWindow : Window
                 // Initialize automatically starts the receiver
                 receiver.Initialize(newDoc.LogViewerViewModel);
 
+                // Register the provider for pause control
+                newDoc.LogViewerViewModel.SetLogProvider(receiver);
+
                 // Add document to main window
                 ViewModel.Documents.Add(newDoc);
                 ViewModel.ActiveDocument = newDoc;
@@ -261,6 +269,85 @@ public partial class MainWindow : Window
                 };
                 await errorDialog.ShowDialog(this);
             }
+        }
+    }
+
+    public async void ShowOpenFileDialog(object? sender, RoutedEventArgs e)
+    {
+        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "Open Log File",
+            AllowMultiple = false,
+            FileTypeFilter = new[]
+            {
+                new FilePickerFileType("Log Files")
+                {
+                    Patterns = new[] { "*.log", "*.txt", "*.xml" }
+                },
+                new FilePickerFileType("All Files")
+                {
+                    Patterns = new[] { "*.*" }
+                }
+            }
+        });
+
+        if (files.Count == 0 || ViewModel == null)
+        {
+            return;
+        }
+
+        var filePath = files[0].Path.LocalPath;
+        var fileName = Path.GetFileName(filePath);
+
+        try
+        {
+            // Create a Log4Net file receiver for the selected file
+            // Use UTF-8 encoding (65001) and start from beginning
+            var receiver = new Log4NetFileReceiver(filePath, true, 65001);
+
+            // Create a new document for this receiver
+            var newDoc = new LogDocumentViewModel
+            {
+                Title = fileName
+            };
+
+            // Initialize the receiver with the document's log handler
+            receiver.Initialize(newDoc.LogViewerViewModel);
+
+            // Register the provider for pause control
+            newDoc.LogViewerViewModel.SetLogProvider(receiver);
+
+            // Add document to main window
+            ViewModel.Documents.Add(newDoc);
+            ViewModel.ActiveDocument = newDoc;
+
+            // Add to recent files
+            MruManager.AddFile(filePath);
+        }
+        catch (Exception ex)
+        {
+            // Show error dialog
+            var errorDialog = new Window
+            {
+                Title = "Error Opening File",
+                Width = 400,
+                Height = 150,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Content = new StackPanel
+                {
+                    Margin = new Avalonia.Thickness(20),
+                    Spacing = 15,
+                    Children =
+                    {
+                        new TextBlock
+                        {
+                            Text = $"Failed to open file: {ex.Message}",
+                            TextWrapping = Avalonia.Media.TextWrapping.Wrap
+                        }
+                    }
+                }
+            };
+            await errorDialog.ShowDialog(this);
         }
     }
 

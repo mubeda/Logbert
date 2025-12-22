@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -10,6 +11,21 @@ namespace Logbert.ViewModels.Controls;
 /// </summary>
 public partial class ScriptEditorViewModel : ViewModelBase
 {
+    /// <summary>
+    /// Event raised when the open script dialog should be shown.
+    /// </summary>
+    public event EventHandler? OpenScriptRequested;
+
+    /// <summary>
+    /// Event raised when the save script dialog should be shown.
+    /// </summary>
+    public event EventHandler? SaveScriptRequested;
+
+    /// <summary>
+    /// The current file path (if any).
+    /// </summary>
+    private string? _currentFilePath;
+
     [ObservableProperty]
     private string _scriptText = string.Empty;
 
@@ -130,8 +146,7 @@ print('Script loaded successfully')
 
     private void OnOpenScript()
     {
-        // TODO: Show file open dialog
-        StatusMessage = "Open script not yet implemented";
+        OpenScriptRequested?.Invoke(this, EventArgs.Empty);
     }
 
     private bool CanSaveScript()
@@ -141,9 +156,53 @@ print('Script loaded successfully')
 
     private void OnSaveScript()
     {
-        // TODO: Show file save dialog
-        StatusMessage = "Save script not yet implemented";
+        SaveScriptRequested?.Invoke(this, EventArgs.Empty);
     }
+
+    /// <summary>
+    /// Loads a script from the specified file path.
+    /// </summary>
+    /// <param name="filePath">The path to the script file.</param>
+    public void LoadFromFile(string filePath)
+    {
+        try
+        {
+            ScriptText = File.ReadAllText(filePath);
+            _currentFilePath = filePath;
+            FileName = Path.GetFileName(filePath);
+            IsModified = false;
+            StatusMessage = $"Loaded: {FileName}";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Error loading file: {ex.Message}";
+        }
+    }
+
+    /// <summary>
+    /// Saves the current script to the specified file path.
+    /// </summary>
+    /// <param name="filePath">The path to save the script to.</param>
+    public void SaveToFile(string filePath)
+    {
+        try
+        {
+            File.WriteAllText(filePath, ScriptText);
+            _currentFilePath = filePath;
+            FileName = Path.GetFileName(filePath);
+            IsModified = false;
+            StatusMessage = $"Saved: {FileName}";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Error saving file: {ex.Message}";
+        }
+    }
+
+    /// <summary>
+    /// Gets the current file path, if any.
+    /// </summary>
+    public string? CurrentFilePath => _currentFilePath;
 
     public void AppendOutput(string message)
     {
