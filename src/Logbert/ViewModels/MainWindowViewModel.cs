@@ -243,6 +243,38 @@ public partial class MainWindowViewModel : ViewModelBase
 
         // Listen for MRU list changes
         MruManager.MruListChanged += OnMruListChanged;
+
+        // Listen for logger tree filter changes
+        LoggerTree.LoggerFilterChanged += OnLoggerFilterChanged;
+
+        // Listen for sync to message request
+        LoggerTree.SyncToMessageRequested += OnSyncToMessageRequested;
+    }
+
+    /// <summary>
+    /// Handles sync to message request from the Logger Tree panel.
+    /// </summary>
+    private void OnSyncToMessageRequested(object? sender, EventArgs e)
+    {
+        if (ActiveDocument?.SelectedMessage != null)
+        {
+            LoggerTree.SynchronizeToMessage(ActiveDocument.SelectedMessage);
+        }
+    }
+
+    /// <summary>
+    /// Handles logger filter changes from the Logger Tree panel.
+    /// </summary>
+    private void OnLoggerFilterChanged(object? sender, LoggerFilterChangedEventArgs e)
+    {
+        if (ActiveDocument == null)
+        {
+            return;
+        }
+
+        // Apply the logger filter to the active document
+        ActiveDocument.LogViewerViewModel.LoggerFilterPath = e.LoggerPath;
+        ActiveDocument.LogViewerViewModel.LoggerFilterRecursive = e.IsRecursive;
     }
 
     private void RefreshRecentFiles()

@@ -7,17 +7,49 @@
              x:Class="Logbert.Views.Docking.LoggerTreeView"
              x:DataType="vm:LoggerTreeViewModel">
     <DockPanel>
-        <!-- Header -->
-        <TextBlock DockPanel.Dock="Top"
-                   Text="Logger Tree"
-                   FontSize="16"
-                   FontWeight="Bold"
-                   Margin="10"/>
+        <!-- Header with toolbar -->
+        <Border DockPanel.Dock="Top" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="4">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="Logger Tree"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4">
+                    <!-- Sync to selected message button -->
+                    <Button Command="{Binding SyncToMessageCommand}"
+                            ToolTip.Tip="Sync to selected message"
+                            Padding="4"
+                            Background="Transparent"
+                            BorderThickness="0">
+                        <PathIcon Data="M12,18A6,6 0 0,1 6,12C6,11 6.25,10.03 6.7,9.2L5.24,7.74C4.46,8.97 4,10.43 4,12A8,8 0 0,0 12,20V23L16,19L12,15V18M12,4V1L8,5L12,9V6A6,6 0 0,1 18,12C18,13 17.75,13.97 17.3,14.8L18.76,16.26C19.54,15.03 20,13.57 20,12A8,8 0 0,0 12,4Z"
+                                  Width="16" Height="16"/>
+                    </Button>
+                    <!-- Recursive filter toggle -->
+                    <ToggleButton IsChecked="{Binding IsRecursive}"
+                                  ToolTip.Tip="Filter recursively (include child loggers)"
+                                  Padding="4"
+                                  Background="Transparent"
+                                  BorderThickness="0">
+                        <PathIcon Data="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z"
+                                  Width="16" Height="16"/>
+                    </ToggleButton>
+                    <!-- Clear filter button -->
+                    <Button Command="{Binding ClearFilterCommand}"
+                            ToolTip.Tip="Clear logger filter (show all)"
+                            Padding="4"
+                            Background="Transparent"
+                            BorderThickness="0">
+                        <PathIcon Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+                                  Width="16" Height="16"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
 
         <!-- Tree View -->
         <TreeView ItemsSource="{Binding Loggers}"
                   SelectedItem="{Binding SelectedLogger}"
-                  Margin="10,0">
+                  Margin="4">
             <TreeView.ItemTemplate>
                 <TreeDataTemplate ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal" Spacing="5">
