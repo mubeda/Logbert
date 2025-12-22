@@ -140,10 +140,24 @@ The **Logger Tree** shows a hierarchical view of all loggers:
     ► OrderController
 ```
 
-**Usage:**
-- Click a logger to filter messages to that logger and its children
-- Check/uncheck to show/hide specific loggers
-- Hierarchy is determined by logger names (e.g., `MyApp.Services.DatabaseService`)
+**Filtering by Logger:**
+- Click a logger node to filter messages to only that logger
+- By default, filtering is **recursive** - shows the selected logger and all its children
+- Use the **recursive toggle button** (tree icon) in the toolbar to switch between:
+  - Recursive mode: Shows `MyApp.Services` and all children like `MyApp.Services.DatabaseService`
+  - Exact mode: Shows only messages with exactly `MyApp.Services` as the logger
+
+**Toolbar Buttons:**
+| Button | Icon | Function |
+|--------|------|----------|
+| Sync to Message | ↻ | Highlights the logger tree node matching the currently selected log message |
+| Recursive Toggle | ⊞ | Toggles between recursive and exact logger matching |
+| Clear Filter | ✕ | Clears the logger filter to show all messages |
+
+**Tips:**
+- Hierarchy is determined by logger names using dot notation (e.g., `MyApp.Services.DatabaseService`)
+- The root node shows all messages (no filter applied)
+- Logger tree is automatically populated as new messages arrive
 
 ### Color Map
 

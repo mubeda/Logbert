@@ -54,6 +54,18 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     private bool _showFatal = true;
 
     /// <summary>
+    /// Gets or sets the logger filter path. Null or empty means no filter.
+    /// </summary>
+    [ObservableProperty]
+    private string? _loggerFilterPath;
+
+    /// <summary>
+    /// Gets or sets whether the logger filter is recursive (includes child loggers).
+    /// </summary>
+    [ObservableProperty]
+    private bool _loggerFilterRecursive = true;
+
+    /// <summary>
     /// Gets or sets whether the error panel is visible.
     /// </summary>
     [ObservableProperty]
@@ -263,10 +275,12 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
         // Load saved grouping settings
         LoadGroupingSettings();
 
-        // Listen for changes to log level filters
+        // Listen for changes to log level filters and logger filters
         PropertyChanged += (s, e) =>
         {
-            if (e.PropertyName?.StartsWith("Show") == true)
+            if (e.PropertyName?.StartsWith("Show") == true ||
+                e.PropertyName == nameof(LoggerFilterPath) ||
+                e.PropertyName == nameof(LoggerFilterRecursive))
             {
                 UpdateFilteredMessages();
             }
@@ -382,7 +396,8 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     /// </summary>
     private bool ShouldShowMessage(LogMessage message)
     {
-        return message.Level switch
+        // Check log level filter first
+        bool levelMatch = message.Level switch
         {
             LogLevel.Trace => ShowTrace,
             LogLevel.Debug => ShowDebug,
@@ -392,6 +407,35 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
             LogLevel.Fatal => ShowFatal,
             _ => true
         };
+
+        if (!levelMatch)
+        {
+            return false;
+        }
+
+        // Check logger filter
+        if (!string.IsNullOrEmpty(LoggerFilterPath))
+        {
+            var messageLogger = message.Logger ?? string.Empty;
+            if (LoggerFilterRecursive)
+            {
+                // Recursive: logger must start with the filter path
+                if (!messageLogger.StartsWith(LoggerFilterPath, StringComparison.Ordinal))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                // Exact match: logger must equal the filter path
+                if (!messageLogger.Equals(LoggerFilterPath, StringComparison.Ordinal))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private bool CanZoomIn() => FontSize < 60;

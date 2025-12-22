@@ -74,7 +74,7 @@ Phase 7: Feature Parity             [####################] 100%
 - Search with regex, case-sensitive, whole word options
 - Statistics dialog with visual analytics
 - ColorMap log level visualization
-- Logger tree with hierarchical view
+- Logger tree with hierarchical view, click-to-filter, recursive toggle, and sync to message
 - Bookmarks panel
 - Filter panel (log levels)
 - Lua scripting (MoonSharp)
@@ -677,7 +677,7 @@ ViewModels/Controls/Details/EventLogDetailsViewModel.cs
 
 **Legacy Panels (9):**
 1. FrmLogWindow - Main log display ✅ (exists as LogViewerControl)
-2. FrmLogTree - Logger hierarchy ✅ (exists as LoggerTreePanelView)
+2. FrmLogTree - Logger hierarchy ✅ (fully implemented with filtering, recursive toggle, sync to message)
 3. FrmBookmarks - Bookmark list ✅ (exists as BookmarksPanelView)
 4. FrmLogFilter - Filter controls ✅ (exists as FilterPanelView - simplified)
 5. FrmLogScript - Lua script editor ⚠️ (exists but needs integration)
@@ -1023,6 +1023,28 @@ Successfully created Windows deployment packages using automated build and packa
 4. No dependencies required - fully self-contained applications
 
 **Package Location:** `X:\Logbert\packages\`
+
+### Logger Tree Filtering Implementation
+
+**Date:** December 2025
+
+Implemented full Logger Tree filtering functionality to match legacy WinForms behavior:
+
+**Features Added:**
+- **Click to filter** - Selecting a logger node filters the log view to show only messages from that logger
+- **Recursive toggle** - Toggle button to switch between recursive filtering (includes child loggers) and exact matching
+- **Clear filter** - Button to clear the logger filter and show all messages
+- **Sync to message** - Button to highlight the logger tree node matching the currently selected log message
+
+**Files Modified:**
+| File | Changes |
+|------|---------|
+| `LoggerTreeViewModel.cs` | Added `IsRecursive`, `LoggerFilterChanged` event, `SyncToMessageRequested` event, commands, and `SynchronizeToMessage()` method |
+| `LogViewerViewModel.cs` | Added `LoggerFilterPath` and `LoggerFilterRecursive` properties, updated `ShouldShowMessage()` to check logger filter |
+| `MainWindowViewModel.cs` | Wired up events to apply logger filters and sync tree selection |
+| `LoggerTreeView.axaml` | Added toolbar with sync, recursive toggle, and clear filter buttons |
+
+**Note:** This implementation connects the previously orphaned `LogFilterLogger` pattern to the new Avalonia UI through the MVVM architecture.
 
 ---
 

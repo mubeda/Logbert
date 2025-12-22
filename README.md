@@ -37,7 +37,7 @@ Logbert is an advanced log message viewer supporting multiple logging frameworks
 - **Fluent theme** - Dark/Light modes following system preferences
 
 ### Filtering & Search
-- **Logger tree** - Hierarchical view of log sources
+- **Logger tree** - Hierarchical view of log sources with click-to-filter, recursive/exact matching toggle, and sync-to-message
 - **Level filtering** - Show/hide Trace, Debug, Info, Warning, Error, Fatal
 - **Advanced search** - Case-sensitive, whole word, and regular expression support
 - **Search history** - Quick access to recent searches
