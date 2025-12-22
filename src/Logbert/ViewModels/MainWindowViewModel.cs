@@ -415,17 +415,19 @@ public partial class MainWindowViewModel : ViewModelBase
         ((RelayCommand)ShowFindCommand).NotifyCanExecuteChanged();
         ((RelayCommand)ExportCommand).NotifyCanExecuteChanged();
 
-        // Unsubscribe from old document's MessagesUpdated event
+        // Unsubscribe from old document's events
         if (oldValue != null)
         {
             oldValue.MessagesUpdated -= OnActiveDocumentMessagesUpdated;
+            oldValue.PropertyChanged -= OnActiveDocumentPropertyChanged;
         }
 
         // Sync filter panel with active document
         if (newValue != null)
         {
-            // Subscribe to new document's MessagesUpdated event
+            // Subscribe to new document's events
             newValue.MessagesUpdated += OnActiveDocumentMessagesUpdated;
+            newValue.PropertyChanged += OnActiveDocumentPropertyChanged;
 
             // Use LogViewerViewModel.Messages since that's where the receiver adds messages
             ObservableCollection<LogMessage> messages = newValue.LogViewerViewModel.Messages;
@@ -437,11 +439,8 @@ public partial class MainWindowViewModel : ViewModelBase
             // Update search panel target
             SearchPanel.SetSearchTarget(newValue);
 
-            // Update details panel
-            if (newValue.SelectedMessage != null)
-            {
-                DetailsPanel.SetMessage(newValue.SelectedMessage);
-            }
+            // Update details panel with currently selected message
+            DetailsPanel.SetMessage(newValue.SelectedMessage);
 
             // Update statistics and color map
             StatisticsPanel.UpdateStatistics(messages);
@@ -450,6 +449,19 @@ public partial class MainWindowViewModel : ViewModelBase
         else
         {
             SearchPanel.SetSearchTarget(null);
+            DetailsPanel.SetMessage(null);
+        }
+    }
+
+    /// <summary>
+    /// Handles property changes on the active document (e.g., SelectedMessage).
+    /// </summary>
+    private void OnActiveDocumentPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(LogDocumentViewModel.SelectedMessage) && sender is LogDocumentViewModel doc)
+        {
+            // Update details panel when selected message changes
+            DetailsPanel.SetMessage(doc.SelectedMessage);
         }
     }
 
