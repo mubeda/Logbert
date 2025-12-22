@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Logbert.Logging;
@@ -302,9 +304,25 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
 
     private bool CanCopyMessage() => SelectedMessage != null;
 
-    private void OnCopyMessage()
+    private async void OnCopyMessage()
     {
-        // TODO: Implement clipboard copy
+        if (SelectedMessage == null) return;
+
+        try
+        {
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                var mainWindow = desktop.MainWindow;
+                if (mainWindow?.Clipboard != null)
+                {
+                    await mainWindow.Clipboard.SetTextAsync(SelectedMessage.Message);
+                }
+            }
+        }
+        catch
+        {
+            // Ignore clipboard errors
+        }
     }
 
     /// <summary>
