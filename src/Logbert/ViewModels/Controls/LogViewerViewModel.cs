@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -96,6 +97,31 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     /// Reference to the log provider/receiver for pause control.
     /// </summary>
     private ILogProvider? _logProvider;
+
+    /// <summary>
+    /// Queue for batching incoming log messages.
+    /// </summary>
+    private readonly ConcurrentQueue<LogMessage> _messageQueue = new();
+
+    /// <summary>
+    /// Timer for processing batched messages.
+    /// </summary>
+    private DispatcherTimer? _batchTimer;
+
+    /// <summary>
+    /// Flag to track if a batch process is pending.
+    /// </summary>
+    private bool _batchProcessPending;
+
+    /// <summary>
+    /// Maximum number of messages to process in one batch.
+    /// </summary>
+    private const int MaxBatchSize = 100;
+
+    /// <summary>
+    /// Interval for batch processing in milliseconds.
+    /// </summary>
+    private const int BatchIntervalMs = 50;
 
     /// <summary>
     /// Gets or sets whether log receiving is paused.
@@ -245,6 +271,13 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
                 UpdateFilteredMessages();
             }
         };
+
+        // Initialize batch processing timer
+        _batchTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromMilliseconds(BatchIntervalMs)
+        };
+        _batchTimer.Tick += (s, e) => ProcessMessageBatch();
     }
 
     /// <summary>
@@ -267,6 +300,13 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     /// </summary>
     private void OnClearMessages()
     {
+        // Clear the message queue first
+        while (_messageQueue.TryDequeue(out _)) { }
+
+        // Stop batch processing
+        _batchTimer?.Stop();
+        _batchProcessPending = false;
+
         Messages.Clear();
         FilteredMessages.Clear();
         GroupedMessages.Clear();
@@ -399,49 +439,92 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
 
     /// <summary>
     /// Handles a single log message from the receiver.
+    /// Uses batching to prevent UI thread flooding.
     /// </summary>
     public void HandleMessage(LogMessage logMsg)
     {
-        Dispatcher.UIThread.Post(() =>
+        // Queue the message for batch processing
+        _messageQueue.Enqueue(logMsg);
+
+        // Start the batch timer if not already running
+        if (!_batchProcessPending)
         {
-            Messages.Add(logMsg);
-
-            if (ShouldShowMessage(logMsg))
-            {
-                FilteredMessages.Add(logMsg);
-            }
-
-            // Notify subscribers that messages were updated
-            MessagesUpdated?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, logMsg));
-
-            // Update command state
-            ((RelayCommand)ClearMessagesCommand).NotifyCanExecuteChanged();
-        });
+            _batchProcessPending = true;
+            Dispatcher.UIThread.Post(StartBatchTimer, DispatcherPriority.Background);
+        }
     }
 
     /// <summary>
     /// Handles multiple log messages from the receiver.
+    /// Uses batching to prevent UI thread flooding.
     /// </summary>
     public void HandleMessage(LogMessage[] logMsgs)
     {
-        Dispatcher.UIThread.Post(() =>
+        // Queue all messages for batch processing
+        foreach (var msg in logMsgs)
         {
-            foreach (LogMessage msg in logMsgs)
-            {
-                Messages.Add(msg);
+            _messageQueue.Enqueue(msg);
+        }
 
-                if (ShouldShowMessage(msg))
-                {
-                    FilteredMessages.Add(msg);
-                }
+        // Start the batch timer if not already running
+        if (!_batchProcessPending)
+        {
+            _batchProcessPending = true;
+            Dispatcher.UIThread.Post(StartBatchTimer, DispatcherPriority.Background);
+        }
+    }
+
+    /// <summary>
+    /// Starts the batch processing timer on the UI thread.
+    /// </summary>
+    private void StartBatchTimer()
+    {
+        if (_batchTimer != null && !_batchTimer.IsEnabled)
+        {
+            _batchTimer.Start();
+        }
+    }
+
+    /// <summary>
+    /// Processes a batch of queued messages.
+    /// </summary>
+    private void ProcessMessageBatch()
+    {
+        var processedMessages = new List<LogMessage>();
+        int count = 0;
+
+        // Dequeue up to MaxBatchSize messages
+        while (count < MaxBatchSize && _messageQueue.TryDequeue(out var msg))
+        {
+            Messages.Add(msg);
+
+            if (ShouldShowMessage(msg))
+            {
+                FilteredMessages.Add(msg);
             }
 
-            // Notify subscribers that messages were updated
-            MessagesUpdated?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, logMsgs));
+            processedMessages.Add(msg);
+            count++;
+        }
 
-            // Update command state
+        // If we processed any messages, notify once
+        if (processedMessages.Count > 0)
+        {
+            // Notify subscribers that messages were updated (single notification for batch)
+            MessagesUpdated?.Invoke(this, new NotifyCollectionChangedEventArgs(
+                NotifyCollectionChangedAction.Add,
+                processedMessages));
+
+            // Update command state once per batch
             ((RelayCommand)ClearMessagesCommand).NotifyCanExecuteChanged();
-        });
+        }
+
+        // Stop timer if queue is empty
+        if (_messageQueue.IsEmpty)
+        {
+            _batchTimer?.Stop();
+            _batchProcessPending = false;
+        }
     }
 
     /// <summary>
