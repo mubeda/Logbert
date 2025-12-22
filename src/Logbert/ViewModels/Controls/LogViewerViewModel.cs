@@ -153,6 +153,20 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
 
     #endregion
 
+    #region Column Visibility
+
+    /// <summary>
+    /// Gets the column configurations for visibility control.
+    /// </summary>
+    public ObservableCollection<ColumnConfig> ColumnConfigs { get; } = new();
+
+    /// <summary>
+    /// Gets the command to toggle a column's visibility.
+    /// </summary>
+    public IRelayCommand<ColumnConfig> ToggleColumnVisibilityCommand { get; } = null!;
+
+    #endregion
+
     /// <summary>
     /// Gets the command to zoom in.
     /// </summary>
@@ -188,6 +202,15 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
         RemoveGroupingColumnCommand = new RelayCommand<GroupableColumn>(OnRemoveGroupingColumn);
         ClearGroupingCommand = new RelayCommand(OnClearGrouping);
         ToggleGroupExpandedCommand = new RelayCommand<LogMessageGroup>(OnToggleGroupExpanded);
+
+        // Column visibility command
+        ToggleColumnVisibilityCommand = new RelayCommand<ColumnConfig>(OnToggleColumnVisibility);
+
+        // Initialize column configurations
+        InitializeColumnConfigs();
+
+        // Load saved grouping settings
+        LoadGroupingSettings();
 
         // Listen for changes to log level filters
         PropertyChanged += (s, e) =>
@@ -391,6 +414,7 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
         ActiveGroupingColumns.Add(column);
         IsGroupingEnabled = ActiveGroupingColumns.Count > 0;
         UpdateGroupedMessages();
+        SaveGroupingSettings();
     }
 
     /// <summary>
@@ -407,6 +431,7 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
         ActiveGroupingColumns.Remove(column);
         IsGroupingEnabled = ActiveGroupingColumns.Count > 0;
         UpdateGroupedMessages();
+        SaveGroupingSettings();
     }
 
     /// <summary>
@@ -422,6 +447,7 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
         ActiveGroupingColumns.Clear();
         GroupedMessages.Clear();
         IsGroupingEnabled = false;
+        SaveGroupingSettings();
     }
 
     /// <summary>
@@ -495,6 +521,119 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
         {
             UpdateGroupedMessages();
         }
+    }
+
+    #endregion
+
+    #region Column Visibility Methods
+
+    /// <summary>
+    /// Initializes column configurations from settings.
+    /// </summary>
+    private void InitializeColumnConfigs()
+    {
+        var settings = SettingsService.Instance.Settings;
+        var columns = new[]
+        {
+            new { Name = "Number", Header = "#", Binding = "Index", DefaultWidth = 60.0 },
+            new { Name = "Timestamp", Header = "Timestamp", Binding = "Timestamp", DefaultWidth = 180.0 },
+            new { Name = "Level", Header = "Level", Binding = "Level", DefaultWidth = 80.0 },
+            new { Name = "Logger", Header = "Logger", Binding = "Logger", DefaultWidth = 200.0 },
+            new { Name = "Thread", Header = "Thread", Binding = "ThreadName", DefaultWidth = 80.0 },
+            new { Name = "Machine", Header = "Machine", Binding = "MachineName", DefaultWidth = 100.0 },
+            new { Name = "Process", Header = "Process", Binding = "ProcessName", DefaultWidth = 100.0 },
+            new { Name = "Message", Header = "Message", Binding = "Message", DefaultWidth = 400.0 }
+        };
+
+        for (int i = 0; i < columns.Length; i++)
+        {
+            var col = columns[i];
+            var isVisible = settings.ColumnVisibility.TryGetValue(col.Name, out var visible) ? visible : true;
+            var width = settings.ColumnWidths.TryGetValue(col.Name, out var w) ? w : col.DefaultWidth;
+            var order = settings.ColumnOrder.TryGetValue(col.Name, out var o) ? o : i;
+
+            var config = new ColumnConfig
+            {
+                Name = col.Name,
+                Header = col.Header,
+                BindingProperty = col.Binding,
+                IsVisible = isVisible,
+                Width = width,
+                DisplayOrder = order
+            };
+
+            // Subscribe to visibility changes
+            config.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(ColumnConfig.IsVisible))
+                {
+                    SaveColumnVisibilitySettings();
+                }
+            };
+
+            ColumnConfigs.Add(config);
+        }
+    }
+
+    /// <summary>
+    /// Toggles a column's visibility.
+    /// </summary>
+    private void OnToggleColumnVisibility(ColumnConfig? column)
+    {
+        if (column != null)
+        {
+            column.IsVisible = !column.IsVisible;
+        }
+    }
+
+    /// <summary>
+    /// Saves column visibility settings.
+    /// </summary>
+    private void SaveColumnVisibilitySettings()
+    {
+        SettingsService.Instance.UpdateSettings(settings =>
+        {
+            foreach (var col in ColumnConfigs)
+            {
+                settings.ColumnVisibility[col.Name] = col.IsVisible;
+            }
+        });
+        SettingsService.Instance.SaveIfDirty();
+    }
+
+    /// <summary>
+    /// Loads grouping settings from storage.
+    /// </summary>
+    private void LoadGroupingSettings()
+    {
+        var settings = SettingsService.Instance.Settings;
+        if (settings.ActiveGroupingColumns.Count > 0)
+        {
+            foreach (var columnName in settings.ActiveGroupingColumns)
+            {
+                var column = GroupableColumns.FirstOrDefault(c => c.Name == columnName);
+                if (column != null)
+                {
+                    OnAddGroupingColumn(column);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Saves grouping settings to storage.
+    /// </summary>
+    private void SaveGroupingSettings()
+    {
+        SettingsService.Instance.UpdateSettings(settings =>
+        {
+            settings.ActiveGroupingColumns.Clear();
+            foreach (var col in ActiveGroupingColumns)
+            {
+                settings.ActiveGroupingColumns.Add(col.Name);
+            }
+        });
+        SettingsService.Instance.SaveIfDirty();
     }
 
     #endregion

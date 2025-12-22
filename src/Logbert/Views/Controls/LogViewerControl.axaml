@@ -171,49 +171,57 @@
                 <DataGridTextColumn Header="#"
                                     Binding="{Binding Index}"
                                     Width="60"
-                                    IsReadOnly="True"/>
+                                    IsReadOnly="True"
+                                    IsVisible="{Binding #LogViewerRoot.DataContext.ColumnConfigs[0].IsVisible}"/>
 
                 <!-- Timestamp Column -->
                 <DataGridTextColumn Header="Timestamp"
                                     Binding="{Binding Timestamp, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss.fff}'}"
                                     Width="180"
-                                    IsReadOnly="True"/>
+                                    IsReadOnly="True"
+                                    IsVisible="{Binding #LogViewerRoot.DataContext.ColumnConfigs[1].IsVisible}"/>
 
                 <!-- Log Level Column -->
                 <DataGridTextColumn Header="Level"
                                     Binding="{Binding Level}"
                                     Width="80"
-                                    IsReadOnly="True"/>
+                                    IsReadOnly="True"
+                                    IsVisible="{Binding #LogViewerRoot.DataContext.ColumnConfigs[2].IsVisible}"/>
 
                 <!-- Logger Column -->
                 <DataGridTextColumn Header="Logger"
                                     Binding="{Binding Logger}"
                                     Width="200"
-                                    IsReadOnly="True"/>
+                                    IsReadOnly="True"
+                                    IsVisible="{Binding #LogViewerRoot.DataContext.ColumnConfigs[3].IsVisible}"/>
 
                 <!-- Thread Column -->
                 <DataGridTextColumn Header="Thread"
                                     Binding="{Binding ThreadName}"
                                     Width="80"
-                                    IsReadOnly="True"/>
+                                    IsReadOnly="True"
+                                    IsVisible="{Binding #LogViewerRoot.DataContext.ColumnConfigs[4].IsVisible}"/>
 
                 <!-- Machine Column -->
                 <DataGridTextColumn Header="Machine"
                                     Binding="{Binding MachineName}"
                                     Width="100"
-                                    IsReadOnly="True"/>
+                                    IsReadOnly="True"
+                                    IsVisible="{Binding #LogViewerRoot.DataContext.ColumnConfigs[5].IsVisible}"/>
 
                 <!-- Process Column -->
                 <DataGridTextColumn Header="Process"
                                     Binding="{Binding ProcessName}"
                                     Width="100"
-                                    IsReadOnly="True"/>
+                                    IsReadOnly="True"
+                                    IsVisible="{Binding #LogViewerRoot.DataContext.ColumnConfigs[6].IsVisible}"/>
 
                 <!-- Message Column -->
                 <DataGridTextColumn Header="Message"
                                     Binding="{Binding Message}"
                                     Width="*"
-                                    IsReadOnly="True"/>
+                                    IsReadOnly="True"
+                                    IsVisible="{Binding #LogViewerRoot.DataContext.ColumnConfigs[7].IsVisible}"/>
             </DataGrid.Columns>
 
             <DataGrid.ContextMenu>
@@ -222,6 +230,68 @@
                         <MenuItem.Icon>
                             <PathIcon Data="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/>
                         </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Columns">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M4,2H20A2,2 0 0,1 22,4V20A2,2 0 0,1 20,22H4A2,2 0 0,1 2,20V4A2,2 0 0,1 4,2M4,4V20H8V4H4M10,4V20H14V4H10M16,4V20H20V4H16Z"/>
+                        </MenuItem.Icon>
+                        <MenuItem Header="# (Index)"
+                                  Command="{Binding ToggleColumnVisibilityCommand}"
+                                  CommandParameter="{Binding ColumnConfigs[0]}">
+                            <MenuItem.Icon>
+                                <CheckBox IsChecked="{Binding ColumnConfigs[0].IsVisible}" IsHitTestVisible="False"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Timestamp"
+                                  Command="{Binding ToggleColumnVisibilityCommand}"
+                                  CommandParameter="{Binding ColumnConfigs[1]}">
+                            <MenuItem.Icon>
+                                <CheckBox IsChecked="{Binding ColumnConfigs[1].IsVisible}" IsHitTestVisible="False"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Level"
+                                  Command="{Binding ToggleColumnVisibilityCommand}"
+                                  CommandParameter="{Binding ColumnConfigs[2]}">
+                            <MenuItem.Icon>
+                                <CheckBox IsChecked="{Binding ColumnConfigs[2].IsVisible}" IsHitTestVisible="False"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Logger"
+                                  Command="{Binding ToggleColumnVisibilityCommand}"
+                                  CommandParameter="{Binding ColumnConfigs[3]}">
+                            <MenuItem.Icon>
+                                <CheckBox IsChecked="{Binding ColumnConfigs[3].IsVisible}" IsHitTestVisible="False"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Thread"
+                                  Command="{Binding ToggleColumnVisibilityCommand}"
+                                  CommandParameter="{Binding ColumnConfigs[4]}">
+                            <MenuItem.Icon>
+                                <CheckBox IsChecked="{Binding ColumnConfigs[4].IsVisible}" IsHitTestVisible="False"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Machine"
+                                  Command="{Binding ToggleColumnVisibilityCommand}"
+                                  CommandParameter="{Binding ColumnConfigs[5]}">
+                            <MenuItem.Icon>
+                                <CheckBox IsChecked="{Binding ColumnConfigs[5].IsVisible}" IsHitTestVisible="False"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Process"
+                                  Command="{Binding ToggleColumnVisibilityCommand}"
+                                  CommandParameter="{Binding ColumnConfigs[6]}">
+                            <MenuItem.Icon>
+                                <CheckBox IsChecked="{Binding ColumnConfigs[6].IsVisible}" IsHitTestVisible="False"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Message"
+                                  Command="{Binding ToggleColumnVisibilityCommand}"
+                                  CommandParameter="{Binding ColumnConfigs[7]}">
+                            <MenuItem.Icon>
+                                <CheckBox IsChecked="{Binding ColumnConfigs[7].IsVisible}" IsHitTestVisible="False"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </MenuItem>
                     <Separator/>
                     <MenuItem Header="Zoom In" Command="{Binding ZoomInCommand}">

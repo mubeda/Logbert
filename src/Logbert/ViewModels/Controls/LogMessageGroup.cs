@@ -90,3 +90,44 @@ public class GroupableColumn
 
     public override string ToString() => Name;
 }
+
+/// <summary>
+/// Represents a column configuration for visibility and display.
+/// </summary>
+public partial class ColumnConfig : ObservableObject
+{
+    /// <summary>
+    /// Gets or sets the column name (used as key).
+    /// </summary>
+    [ObservableProperty]
+    private string _name = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the display header text.
+    /// </summary>
+    [ObservableProperty]
+    private string _header = string.Empty;
+
+    /// <summary>
+    /// Gets or sets whether the column is visible.
+    /// </summary>
+    [ObservableProperty]
+    private bool _isVisible = true;
+
+    /// <summary>
+    /// Gets or sets the column width.
+    /// </summary>
+    [ObservableProperty]
+    private double _width = 100;
+
+    /// <summary>
+    /// Gets or sets the display order.
+    /// </summary>
+    [ObservableProperty]
+    private int _displayOrder;
+
+    /// <summary>
+    /// Gets or sets the binding property name.
+    /// </summary>
+    public string BindingProperty { get; set; } = string.Empty;
+}
