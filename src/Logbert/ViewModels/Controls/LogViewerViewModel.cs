@@ -190,6 +190,11 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
     public IRelayCommand DismissErrorPanelCommand { get; } = null!;
 
     /// <summary>
+    /// Gets the command to clear all messages.
+    /// </summary>
+    public IRelayCommand ClearMessagesCommand { get; } = null!;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="LogViewerViewModel"/> class.
     /// </summary>
     public LogViewerViewModel()
@@ -198,6 +203,7 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
         ZoomOutCommand = new RelayCommand(OnZoomOut, CanZoomOut);
         CopyMessageCommand = new RelayCommand(OnCopyMessage, CanCopyMessage);
         DismissErrorPanelCommand = new RelayCommand(OnDismissErrorPanel);
+        ClearMessagesCommand = new RelayCommand(OnClearMessages, CanClearMessages);
 
         // Column grouping commands
         AddGroupingColumnCommand = new RelayCommand<GroupableColumn>(OnAddGroupingColumn);
@@ -232,6 +238,28 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
         ErrorPanelVisible = false;
         _errorCount = 0;
         _lastErrorMessage = string.Empty;
+    }
+
+    /// <summary>
+    /// Returns whether the clear messages command can execute.
+    /// </summary>
+    private bool CanClearMessages() => Messages.Count > 0;
+
+    /// <summary>
+    /// Clears all messages from the log viewer.
+    /// </summary>
+    private void OnClearMessages()
+    {
+        Messages.Clear();
+        FilteredMessages.Clear();
+        GroupedMessages.Clear();
+        SelectedMessage = null;
+        ErrorPanelVisible = false;
+        _errorCount = 0;
+        _lastErrorMessage = string.Empty;
+
+        // Update command state
+        ((RelayCommand)ClearMessagesCommand).NotifyCanExecuteChanged();
     }
 
     /// <summary>
@@ -341,6 +369,9 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
 
             // Notify subscribers that messages were updated
             MessagesUpdated?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, logMsg));
+
+            // Update command state
+            ((RelayCommand)ClearMessagesCommand).NotifyCanExecuteChanged();
         });
     }
 
@@ -363,6 +394,9 @@ public partial class LogViewerViewModel : ViewModelBase, ILogHandler
 
             // Notify subscribers that messages were updated
             MessagesUpdated?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, logMsgs));
+
+            // Update command state
+            ((RelayCommand)ClearMessagesCommand).NotifyCanExecuteChanged();
         });
     }
 
