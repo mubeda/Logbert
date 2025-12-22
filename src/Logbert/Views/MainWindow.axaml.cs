@@ -300,10 +300,7 @@ public partial class MainWindow : Window
         {
             // Create a Log4Net file receiver for the selected file
             // Use UTF-8 encoding (65001) and start from beginning
-            var receiver = new Log4NetFileReceiver(filePath, true, 65001)
-            {
-                Columnizer = new Log4NetColumnizer()
-            };
+            var receiver = new Log4NetFileReceiver(filePath, true, 65001);
 
             // Create a new document for this receiver
             var newDoc = new LogDocumentViewModel
